@@ -43,9 +43,9 @@ before_install:
 - echo -e "\n33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > "$ANDROID_HOME/licenses/google-gdk-license"
 - cd android/
 - chmod +x gradlew
-- "./gradlew dependencies || true"
+- ./gradlew dependencies || true
 script:
-- "./gradlew clean bundle -PdisablePreDex --stacktrace"
+- ./gradlew clean bundle -PdisablePreDex --stacktrace
 before_deploy:
 - APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
