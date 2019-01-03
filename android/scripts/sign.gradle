@@ -1,10 +1,17 @@
+def appName = "GiddyApp"
+def releaseName = "AppleJack"
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "${appName}-${variant.versionName}.apk"
+    }
+}
 android.defaultConfig {
-    def appName = "GiddyApp"
     setProperty("archivesBaseName", "${appName}-${versionName}")
 }
 
 ext.branchName = { ->
-    return "AppleJack"
+    return releaseName
 }
 
 ext.generateVersionCode = { ->
@@ -39,6 +46,6 @@ ext.generateVersionName = { ->
 
 task showBundleName {
     doLast {
-        println "GiddyApp-${android.defaultConfig.versionName}.aab"
+        println "${appName}-${android.defaultConfig.versionName}.aab"
     }
 }
