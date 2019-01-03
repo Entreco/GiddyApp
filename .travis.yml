@@ -10,13 +10,14 @@ cache:
   directories:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
-  - $HOME/.gradle/native      #Cache library downloaded from the gradle dependency
+  - $HOME/.gradle/native
 env:
   global:
   - ANDROID_API=28
   - ANDROID_BUILD_TOOLS=28.0.2
   - ADB_INSTALL_TIMEOUT=5
-
+  - secure: 0BBFIUjO9X5q4BOpoM9SBv+qLBUIwccJdyRFSVeh+aD4JTRqBdKoswDACWR5YXwXuV2ZL/FaD4WwwiD3IaP3ZwwieQfHCXDclksU2pDTsuxja4FB9k9vvshMPet+LzvQXvWeIJ2aExko7P96IsUPu6coflIOjFv67IQCwdEw3jnRoCEFTUXoRJgiLpUKclny1VjWlOObqwin8/BipuyWoFhEyA6QYt0Gh4dWL7pqDeRuah4feqAwHiwzQPODZlkFHSPrqTl9Z7sJGIKnvCmxduoGI7EexXYdel+YLOji/DNKkEYe6BM5Vns8AazuHcDw1U7ebShKY5AwduqCGg3ulbqCQfeU44nheTgIIW6jKOGkGCt+f7bD/l516E+Nli5OUOGY72FTkF8AD/kSVvDnZeNoW1XY6t6hHnHNWlrO8zeljATob/VShHHXNSCS3mmZmuKp7ho9TvszUzR1crnDH56arY0h9zndmmp+4Cu9FU4Dkyp8z9Xnt1OBhJf1XQnXG2HsCa351zNoAobTGcFOKI0sf8l3A6I1o1cyAq70ghi8rNbKer7yTfd3ROKtuFRhQ5UAwJedUshmTO+j9XkqUtnhMNFVabZj+iE6A7gobgXRNFgf956KGWuTAThWhAy2VvgwlK6MisC0gxy1CK9vfd5i78cKXwLI+4+M8/wUiAs=
+  - secure: nzyALl+CAw04ly/rByo1ijYsDXIEEs8HvEqQlRAGr0fe0uPEDVNUOqduTej5d/4MKinZJMnosY5WNngSd0C20kOYA3XYmCVzP/5QjiIVKT+tFowOQke4BPHxTKjh4sAizPytRtDBqgSo2urE/DB8LQBgjGiFjIMXmLF+jS9o5tH7nUJE9t1npiLzhUtbr7oyWsVscnAQ3iHfNP58WmXx7mGxzxuLU2fpAkxun0HMnLHJOm6jxDxPPJQE7z7bpMLb8Vc/jpm5cM34SfOT/MTqH9u3fSKZBW/Kl7kbWJYKdwQJbSL+7av85ch0DtgUs5taEpDpP+thz3fIa0PRDGX20FPfopgzsqOiiwXKaTh+OgrltfuqjLdpaxvrr1nQAxur/vzxHZ6Vjud5ar2NkRGUm67FsjlPNz6NsaX2U5KzdWwdOO6B3eIuS3keQ/hfLGdbcY00gO00hw2h6FlACzII+mQfmns252jOvnSx5ANjo25NRnlqbmAufJ5oRGEZ5TZ4uKCUtw3MbjTr6iKApjlrrHUOelvtmBHhMByRKoA2HWIYbtGdtgmmTHrTFZjredTrKzCJxKSYKynv3gBVYeJDQAm8Qvu3+wpoGB4IXMGpsIGg+44aSFUBRryCpluVETC4Sy/A3zufArkk8cYcVWlTDIpK8XfADxndJ5i2XnCEt3I=
 android:
   components:
   - tools
@@ -32,8 +33,9 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
+- openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv
+  -in giddy_keystore.enc -out giddy_keystore -d
 - yes | sdkmanager "platform-tools" "platforms;android-28"
-  
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -45,14 +47,14 @@ before_install:
 script:
 - ./gradlew clean bundle -PdisablePreDex --stacktrace
 before_deploy:
-- APP_NAME=$(./gradlew -q showBundleName | tail -n 1) 
+- APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
 - cd app/build/outputs/bundle/release
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_NAME Entreco
-
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore
+  -storepass $storepass -keypass $keypass $APP_NAME Entreco
 deploy:
   provider: releases
-  file: 
+  file:
   - $APP_NAME
   - $TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt
   api_key: $apikey
