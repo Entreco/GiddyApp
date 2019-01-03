@@ -8,16 +8,16 @@ git:
   depth: false
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.gradle/native
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.gradle/native"
 env:
   global:
   - ANDROID_API=28
   - ANDROID_BUILD_TOOLS=28.0.2
   - ADB_INSTALL_TIMEOUT=5
-  - secure: 0BBFIUjO9X5q4BOpoM9SBv+qLBUIwccJdyRFSVeh+aD4JTRqBdKoswDACWR5YXwXuV2ZL/FaD4WwwiD3IaP3ZwwieQfHCXDclksU2pDTsuxja4FB9k9vvshMPet+LzvQXvWeIJ2aExko7P96IsUPu6coflIOjFv67IQCwdEw3jnRoCEFTUXoRJgiLpUKclny1VjWlOObqwin8/BipuyWoFhEyA6QYt0Gh4dWL7pqDeRuah4feqAwHiwzQPODZlkFHSPrqTl9Z7sJGIKnvCmxduoGI7EexXYdel+YLOji/DNKkEYe6BM5Vns8AazuHcDw1U7ebShKY5AwduqCGg3ulbqCQfeU44nheTgIIW6jKOGkGCt+f7bD/l516E+Nli5OUOGY72FTkF8AD/kSVvDnZeNoW1XY6t6hHnHNWlrO8zeljATob/VShHHXNSCS3mmZmuKp7ho9TvszUzR1crnDH56arY0h9zndmmp+4Cu9FU4Dkyp8z9Xnt1OBhJf1XQnXG2HsCa351zNoAobTGcFOKI0sf8l3A6I1o1cyAq70ghi8rNbKer7yTfd3ROKtuFRhQ5UAwJedUshmTO+j9XkqUtnhMNFVabZj+iE6A7gobgXRNFgf956KGWuTAThWhAy2VvgwlK6MisC0gxy1CK9vfd5i78cKXwLI+4+M8/wUiAs=
-  - secure: nzyALl+CAw04ly/rByo1ijYsDXIEEs8HvEqQlRAGr0fe0uPEDVNUOqduTej5d/4MKinZJMnosY5WNngSd0C20kOYA3XYmCVzP/5QjiIVKT+tFowOQke4BPHxTKjh4sAizPytRtDBqgSo2urE/DB8LQBgjGiFjIMXmLF+jS9o5tH7nUJE9t1npiLzhUtbr7oyWsVscnAQ3iHfNP58WmXx7mGxzxuLU2fpAkxun0HMnLHJOm6jxDxPPJQE7z7bpMLb8Vc/jpm5cM34SfOT/MTqH9u3fSKZBW/Kl7kbWJYKdwQJbSL+7av85ch0DtgUs5taEpDpP+thz3fIa0PRDGX20FPfopgzsqOiiwXKaTh+OgrltfuqjLdpaxvrr1nQAxur/vzxHZ6Vjud5ar2NkRGUm67FsjlPNz6NsaX2U5KzdWwdOO6B3eIuS3keQ/hfLGdbcY00gO00hw2h6FlACzII+mQfmns252jOvnSx5ANjo25NRnlqbmAufJ5oRGEZ5TZ4uKCUtw3MbjTr6iKApjlrrHUOelvtmBHhMByRKoA2HWIYbtGdtgmmTHrTFZjredTrKzCJxKSYKynv3gBVYeJDQAm8Qvu3+wpoGB4IXMGpsIGg+44aSFUBRryCpluVETC4Sy/A3zufArkk8cYcVWlTDIpK8XfADxndJ5i2XnCEt3I=
+  - secure: jcHVHqHxaBN4+DlTQBhUfWyT7BuKPKSXLD5qM0vG2s9DqBUINrunET808+bADR49yHCUmou05MdumDVA3Agt0lM5VC5T5G7cs6JrMNAtl6Pb4+rXfVfRcEJkx9UWp1WGvafwapb2gKOZDRoDVCqwObEs284PfKMWe1iXY5L5h6bhhWUbBoujZKaphvyOq3uO7gdUl0i0A6xg0fSgWP3ObCBG1BpXYrr/bFT+X+4RsxSwr40CApB2WZ6Tud/xpbHqcpl+6FdaJv7ZotCFxB+MgNiduHfs598slttK7lWuOIOQ6EhOpWLuap+VD9pucbVaCelPRHDcGMPjg0hu0lfmv01wWJUm/hRNDs74Uw4Suv7Y4gC93v/F3WhmXC9v2P9IeUeq9NR3RXgMXskxwaSdoK+A3zGoEsxiyhEgcy1KwmZmWJ/yVa+NmN+ZRFNRwiX79rOpEZTuY3yzcTAh6RAWoibfmgpVl2fKzkEmkVhzK4igtZEd50l8FTABda+6BjT5sUI8t8SgprPbv1oTihZ6OmG/KsF9+0YJxddtDb4i2A+cDoi1+LzdLQZAP3mCdfBLJfGfuMH9G1DUq14Cx3CikP79ASUmFU0QVPY4gAqCkz7ps9BfcG1EBWuwsySqdS1td8YYiEmU1DfEuewbknpWVa4+0bPt5WfoOcDpw6nIMmw=
+  - secure: 4aof0Q2K4wNcW1cqBUGu7MdVF8kzTyDAm7L2S92ArTwy17Y8PA0bpP/XIrkao6r2DYSh5MdBgzxn2iPBhWPX9Wa+RbrCIQFx3C0b0NiTfr6XLKEqBJT0aLbEuwOEH6RGtLFjPEyzYx2572ewIBphDDE7m70xzBxqEZCTPWCHSdZWBMA0uGA0thscpaUXRsvQphy1uA4mOBdEkeCBGvt1CxbIPvtRqpRI2+2WdIuASY6N1fEb41gmH0PinpbwUR7s0bhXx0x0kRflFpBF4tRIUSQsX7rXNvP4RfkDyozBoTIqZ8U4bC1EQP9pE8A0qK4ZpON/uvQw4Fwx/K3gEZ5dU0V4css5XdKiKj7rJ9vERcqfulmX2rDQC7xk+pgK5rcnypxCUe0Lv9pQzFeBK4uMhOuoSVWcHKQfZ03owLEaTXT1UaTxoaJH0Tvipm/Y/UNt4xlAqjOS847wKigaEPBy96qfrS2mPvOndT8lPV8dGTc0odzaylvk3A23LL6p5ebagjh0Ypj+6Xtq8kTkJ3Fhdv/fZGYd63vqTnmeNdVCS0BsBVf5F00jZy6RyWOw6iaK4BerYwHDhQAIackr7WnR+v1o1TJUyfbUIWR2/wObXkT2SfuqCLnNw0F+o/WrkPsz+QNlMHfB0zF2JVyyIkyJU7qfzt+dY2ZZbkWT7xeIJ1s=
 android:
   components:
   - tools
@@ -34,10 +34,8 @@ android:
   - google-gdk-license-.+
 before_install:
 - yes | sdkmanager "platform-tools" "platforms;android-28"
-
 - openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv
   -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d
-
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -45,9 +43,9 @@ before_install:
 - echo -e "\n33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > "$ANDROID_HOME/licenses/google-gdk-license"
 - cd android/
 - chmod +x gradlew
-- ./gradlew dependencies || true
+- "./gradlew dependencies || true"
 script:
-- ./gradlew clean bundle -PdisablePreDex --stacktrace
+- "./gradlew clean bundle -PdisablePreDex --stacktrace"
 before_deploy:
 - APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
@@ -57,9 +55,9 @@ before_deploy:
 deploy:
   provider: releases
   file:
-  - $APP_NAME
-  - $TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt
-  api_key: $apikey
+  - "$APP_NAME"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt"
+  api_key: "$apikey"
   skip_cleanup: true
   overwrite: true
   on:
