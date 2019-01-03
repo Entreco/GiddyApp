@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../scripts/versions.gradle'
+apply from: '../scripts/sign.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -9,8 +9,8 @@ android {
         applicationId "nl.entreco.giddyapp"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
