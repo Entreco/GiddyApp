@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../scripts/sign.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -11,13 +10,20 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
+        setProperty("archivesBaseName", "${appName}-${versionName}")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "${appName}-${variant.versionName}.apk"
     }
 }
 
