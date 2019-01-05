@@ -49,9 +49,3 @@ ext.gitCommit = { ->
 ext.generateVersionName = { ->
     return "${gitTag()}-${branchName()}-${gitCommit()}"
 }
-
-task showBundleName {
-    doLast {
-        println "${appName}-${android.defaultConfig.versionName}.aab"
-    }
-}

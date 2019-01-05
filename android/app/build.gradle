@@ -34,3 +34,9 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
     testImplementation "junit:junit:$junit"
 }
+
+task showBundleName {
+    doLast {
+        println "${appName}-${android.defaultConfig.versionName}.aab"
+    }
+}
