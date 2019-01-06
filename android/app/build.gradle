@@ -28,10 +28,11 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "com.google.android.material:material:$material"
     implementation "androidx.appcompat:appcompat:$xAppcompat"
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
+
     testImplementation "junit:junit:$junit"
 }
 

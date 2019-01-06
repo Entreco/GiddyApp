@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/almost_black"/>
+        </shape>
+    </item>
+    <item>
+        <bitmap
+                android:src="@drawable/bg_art"
+                android:gravity="fill_vertical"
+                android:alpha="0.1"
+                android:antialias="true"/>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                    android:startColor="#AA525252"
+                    android:endColor="#000000"
+                    android:angle="-90"/>
+        </shape>
+    </item>
+    <item
+            android:drawable="@drawable/ic_launcher_foreground"
+            android:gravity="center"
+            android:bottom="100dp"/>
+</layer-list>

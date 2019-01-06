@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="almost_black">#190E20</color>
+    <color name="gradient_gray">#525252</color>
+
+    <color name="ic_launcher_background">@color/almost_black</color>
 </resources>
