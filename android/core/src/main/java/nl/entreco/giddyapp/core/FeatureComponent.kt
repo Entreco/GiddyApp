@@ -1,3 +1,8 @@
 package nl.entreco.giddyapp.core
 
-interface FeatureComponent
+import dagger.Component
+
+@Component(modules = [FeatureModule::class])
+interface FeatureComponent {
+    fun plus(module: ApiModule): ApiComponent
+}

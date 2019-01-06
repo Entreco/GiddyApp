@@ -1,17 +1,18 @@
 package nl.entreco.giddyapp.viewer
 
-import nl.entreco.giddyapp.core.FeatureModule
+import android.content.Context
+import android.content.res.Resources
+import dagger.Module
+import dagger.Provides
 
-class ViewerModule(private val url: String?) : FeatureModule<ViewerComponent> {
-    private fun provideUrl(): String? {
-        return url
-    }
+@Module
+class ViewerModule(private val url: String?) {
 
-    override fun create(): ViewerComponent {
-        return object : ViewerComponent {
-            override fun viewModel(): ViewerViewModel {
-                return ViewerViewModel(provideUrl())
-            }
-        }
+    @Provides
+    fun provideUrl(): String = url ?: "nope"
+
+    @Provides
+    fun provideResources(context: Context): Resources {
+        return context.resources
     }
 }

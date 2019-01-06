@@ -2,8 +2,9 @@ package nl.entreco.giddyapp.viewer
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import kotlin.random.Random
+import nl.entreco.giddyapp.core.Api
+import javax.inject.Inject
 
-class ViewerViewModel(url: String?) : ViewModel() {
-    val url = ObservableField<String>((url ?: "missing url") + " rand: ${Random.nextInt(10)}")
+class ViewerViewModel @Inject constructor(api: Api, uri: String) : ViewModel() {
+    val url = ObservableField<String>(uri + " rand: ${api.fetch()}")
 }

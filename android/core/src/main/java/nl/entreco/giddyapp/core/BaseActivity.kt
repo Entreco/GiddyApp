@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.core
 
-import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -11,10 +10,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     inline fun <reified T : FeatureComponent> componentProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
-        crossinline provider: () -> FeatureModule<T>
+        crossinline provider: () -> T
     ) = lazy(mode) {
-
-        BaseComponent("some id").plus(provider())
+        provider()
     }
 
     inline fun <reified VM : ViewModel> viewModelProvider(

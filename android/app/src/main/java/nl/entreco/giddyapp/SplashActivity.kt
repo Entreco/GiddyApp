@@ -1,13 +1,19 @@
 package nl.entreco.giddyapp
 
+import android.graphics.PixelFormat
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import nl.entreco.giddyapp.core.BaseActivity
 import nl.entreco.giddyapp.core.LaunchHelper
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LaunchHelper.launchViewer(this, null)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        window.setFormat(PixelFormat.RGBX_8888)
     }
 }
