@@ -11,6 +11,7 @@ ext {
 
     dependencies = [
             material = '1.0.0',
+            lifecycle = '1.0.0',
             xAppcompat = '1.1.0-alpha01',
             xConstraintLayout = '2.0.0-alpha3',
             junit = '4.12'

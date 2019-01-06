@@ -6,9 +6,13 @@ import nl.entreco.giddyapp.core.BaseActivity
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 
 class ViewerActivity : BaseActivity() {
+
+    private val component by componentProvider { ViewerModule(intent.data?.path) }
+    private val viewModel by viewModelProvider { component.viewModel() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityViewerBinding>(this, R.layout.activity_viewer)
-        binding.viewModel = ViewerViewModel(intent.data?.path, intent.data?.encodedQuery)
+        binding.viewModel = viewModel
     }
 }

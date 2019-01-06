@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode generateVersionCode()
-        versionName generateVersionName()
     }
 
     dataBinding {
