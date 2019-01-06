@@ -1,0 +1,33 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:dist="http://schemas.android.com/apk/distribution"
+          package="nl.entreco.giddyapp.viewer">
+
+    <dist:module
+            dist:onDemand="false"
+            dist:title="@string/title_viewer">
+        <dist:fusing dist:include="true"/>
+    </dist:module>
+
+    <application>
+        <activity android:name=".ViewerActivity">
+
+            <intent-filter android:autoVerify="true">
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="giddy.entreco.nl"/>
+                <data android:pathPrefix="/viewer"/>
+                <data android:pathPattern="*"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="default-url"
+                    android:value="https://giddy.entreco.nl/viewer"/>
+        </activity>
+    </application>
+</manifest>
+

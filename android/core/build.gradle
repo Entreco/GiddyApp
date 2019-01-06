@@ -1,50 +1,27 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
-        applicationId "nl.entreco.giddyapp"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
-        setProperty("archivesBaseName", "${appName}-${versionName}")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    dataBinding {
-        enabled = true
-    }
-
-    dynamicFeatures = [":viewer"]
-}
-
-android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-        outputFileName = "${appName}-${variant.versionName}.apk"
-    }
 }
 
 dependencies {
-    implementation project(':core')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "com.google.android.material:material:$material"
     implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
-
     testImplementation "junit:junit:$junit"
-}
-
-task showBundleName {
-    doLast {
-        println "${appName}-${android.defaultConfig.versionName}.aab"
-    }
 }
