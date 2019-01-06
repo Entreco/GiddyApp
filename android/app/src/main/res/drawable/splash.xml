@@ -6,13 +6,6 @@
         </shape>
     </item>
     <item>
-        <bitmap
-                android:src="@drawable/bg_art"
-                android:gravity="fill_vertical"
-                android:alpha="0.1"
-                android:antialias="true"/>
-    </item>
-    <item>
         <shape>
             <gradient
                     android:startColor="#AA525252"
