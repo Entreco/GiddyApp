@@ -4,6 +4,7 @@ ext {
 
     kotlinVersion = '1.3.11'
     gradleVersion = '3.2.1'
+    gmsVersion = '4.0.1'
 
     compileSdkVersion = 28
     minSdkVersion = 23
@@ -15,6 +16,10 @@ ext {
             lifecycle = '1.0.0',
             xAppcompat = '1.1.0-alpha01',
             xConstraintLayout = '2.0.0-alpha3',
+            fbCore = '16.0.6',
+            fbCommon = '16.0.4',
+            fbFireStore = '17.1.5',
+            fbStorage = '16.0.5',
             junit = '4.12'
     ]
 }

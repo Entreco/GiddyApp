@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="viewModel"
-                type="nl.entreco.giddyapp.viewer.ViewerViewModel" />
+                type="nl.entreco.giddyapp.viewer.ViewerViewModel"/>
     </data>
 
     <LinearLayout
@@ -17,6 +19,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.url}"/>
+
+        <ImageView
+                android:contentDescription="@{viewModel.horse}"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@{viewModel.background}"
+                android:scaleType="centerCrop"
+                android:src="@{viewModel.src}"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.horse}"/>
 
     </LinearLayout>
 </layout>

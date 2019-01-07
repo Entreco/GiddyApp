@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.gms:google-services:$gmsVersion"
     }
 }
 
@@ -23,6 +24,16 @@ allprojects {
 configurations.all {
     resolutionStrategy {
         force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+        force "com.google.firebase:firebase-common:$fbCommon"
+    }
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+            force "com.google.firebase:firebase-common:$fbCommon"
+        }
     }
 }
 

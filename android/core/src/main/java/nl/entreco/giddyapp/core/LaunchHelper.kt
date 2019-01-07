@@ -11,7 +11,7 @@ object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
     private const val URL_SIGNIN = "$URL_BASE/signin"
-    private const val URL_VIEWER = "$URL_BASE/viewer/12345"
+    private const val URL_VIEWER = "$URL_BASE/viewer/MN3XJRk5anrEbAWWyEXY"
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null) {
         val viewer = viewerIntent(activity)

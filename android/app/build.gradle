@@ -44,6 +44,7 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$xAppcompat"
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
+    implementation "com.google.firebase:firebase-core:$fbCore"
 
     testImplementation "junit:junit:$junit"
 }
@@ -53,3 +54,5 @@ task showBundleName {
         println "${appName}-${android.defaultConfig.versionName}.aab"
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
