@@ -27,7 +27,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "android.arch.lifecycle:extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
     implementation "com.google.firebase:firebase-firestore:$fbFireStore"
     implementation "com.google.firebase:firebase-storage:$fbStorage"
     
