@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        >
 
     <data>
 
@@ -9,29 +9,15 @@
                 type="nl.entreco.giddyapp.viewer.ViewerViewModel"/>
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="match_parent">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.url}"/>
-
-        <ImageView
-                android:contentDescription="@{viewModel.horse}"
+        <FrameLayout
+                android:id="@+id/swipeFragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:background="@{viewModel.background}"
-                android:scaleType="centerCrop"
-                android:src="@{viewModel.src}"/>
+                android:layout_height="wrap_content"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.horse}"/>
-
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

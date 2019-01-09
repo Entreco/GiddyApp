@@ -17,11 +17,13 @@ class ApiModule {
 
     @Provides
     fun provideFireStore(): FirebaseFirestore {
+        Log.i("DAGGER", "provideFireStore")
         return FirebaseFirestore.getInstance()
     }
 
     @Provides
     fun provideFireStorage(): FirebaseStorage {
+        Log.i("DAGGER", "provideFireStorage")
         return FirebaseStorage.getInstance()
     }
 }

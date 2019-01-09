@@ -8,8 +8,8 @@ internal object ViewerInjector {
 
     inline fun ViewerActivity.fromModule(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
-        crossinline provider: ()-> ViewerModule
-    ) : Lazy<ViewerComponent> = lazy(mode) {
+        crossinline provider: () -> ViewerModule
+    ): Lazy<ViewerComponent> = lazy(mode) {
         val featureComponent = (applicationContext as GiddyApp).get()
         val apiComponent = featureComponent.plus(ApiModule())
         DaggerViewerComponent.builder()

@@ -4,7 +4,5 @@ import android.content.Context
 import kotlin.random.Random
 
 class Api constructor(context: Context) {
-    fun fetch(): Int {
-        return Random.nextInt(5, 50)
-    }
+
 }
