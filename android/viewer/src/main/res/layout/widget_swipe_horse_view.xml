@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -24,9 +25,14 @@
                 android:scaleType="centerCrop"/>
 
         <TextView
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:padding="@dimen/def"
+                android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{model.name}"
+                android:layout_gravity="bottom"
                 tools:text="@string/app_name"/>
 
     </merge>

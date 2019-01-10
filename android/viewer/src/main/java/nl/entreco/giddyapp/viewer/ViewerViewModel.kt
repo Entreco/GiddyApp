@@ -32,7 +32,7 @@ class ViewerViewModel @Inject constructor(
 
     fun onNext() {
         current.postValue(next.value)
-        next.postValue(Horse("Random", random(), random(), "no image"))
+        next.postValue(Horse("Random ${Random.nextInt(10000)}", random(), random(), "no image"))
     }
 
     private fun random() : String {
