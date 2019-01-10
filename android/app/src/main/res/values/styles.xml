@@ -16,9 +16,8 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
-
     <style name="ViewerTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@drawable/viewer</item>
     </style>
 
 </resources>

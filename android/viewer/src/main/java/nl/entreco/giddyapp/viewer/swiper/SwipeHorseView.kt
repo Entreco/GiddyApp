@@ -2,8 +2,8 @@ package nl.entreco.giddyapp.viewer.swiper
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
@@ -24,10 +24,18 @@ class SwipeHorseView @JvmOverloads constructor(
         binding = WidgetSwipeHorseViewBinding.inflate(inflater, this, true)
     }
 
-    private var swipeProgess = 0F
+    private val piAsFloat = PI.toFloat()
+    private var progressChangedListener: OnProgressChangedListener? = null
+    private var swipedListener: OnSwipedListener? = null
+
     private var screenWidth = 0
     private var viewOffsetFactor = 0
-    private val piAsFloat = PI.toFloat()
+    private var swipeProgess = 0F
+        set(value) {
+            progressChangedListener?.onChanged(this, value)
+            field = value
+        }
+
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -40,7 +48,6 @@ class SwipeHorseView @JvmOverloads constructor(
             springX.setStartValue(x)
             springY.setStartValue(y)
             swipeProgess = (x + viewOffsetFactor) / screenWidth
-            Log.d("DRAG", "progress: $swipeProgess")
             someRandomDepthTransformation(swipeProgess)
         }
     }
@@ -53,30 +60,57 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     private val onReleased: (Float, Float) -> Unit = { startX, startY ->
-        Log.d("DRAG", "released: $startX, $startY")
-
-        // TODO: Check 3 cases:
-        // - User liked Horse -> dismiss and load next
-        // - User Disliked Horse -> dismiss and load next
-        // - User Cancelled ->
         when {
-            swipeProgess < -.5 -> {
-            }
-            swipeProgess > .5 -> {
-            }
-            else -> {
-            }
+            swipeProgess < -.5 -> onDisliked(startX, startY)
+            swipeProgess > .5 -> onLiked(startX, startY)
+            else -> onUserCancelled(startX, startY)
         }
+    }
 
-        onUserCancelled(startX, startY)
-        swipeProgess = 0F
+    private fun onDisliked(x: Float, y: Float) {
+        springX.apply {
+            addUpdateListener { _, value, _ ->
+                swipeProgess = (value + viewOffsetFactor) / screenWidth
+            }
+            addEndListener { _, _, _, _ ->
+                swipedListener?.onNext()
+            }
+            animateToFinalPosition(x - screenWidth)
+        }
+        springY.apply {
+            animateToFinalPosition(y)
+        }
+    }
+
+    private fun onLiked(x: Float, y: Float) {
+        springX.apply {
+            addUpdateListener { _, value, _ ->
+                swipeProgess = (value + viewOffsetFactor) / screenWidth
+            }
+            addEndListener { _, _, _, _ ->
+                swipedListener?.onNext()
+            }
+            animateToFinalPosition(x + screenWidth)
+        }
+        springY.apply {
+            animateToFinalPosition(y)
+        }
     }
 
     private fun onUserCancelled(x: Float, y: Float) {
         // Reset all properties changed by 'someRandomDepthTransformation'
-        animate().scaleY(1F).scaleX(1F).rotationY(0F).translationZ(2F).setDuration(100).start()
+        animate().scaleY(1F)
+            .scaleX(1f)
+            .rotationY(0F)
+            .translationZ(2F)
+            .setDuration(100)
+            .start()
+
         // Release the Springs
         springX.apply {
+            addUpdateListener { _, value, _ ->
+                swipeProgess = (value + viewOffsetFactor) / screenWidth
+            }
             animateToFinalPosition(x)
         }
         springY.apply {
@@ -93,5 +127,17 @@ class SwipeHorseView @JvmOverloads constructor(
             true -> setOnTouchListener(SwipeHandler(onDragged, onReleased))
             else -> setOnTouchListener(null)
         }
+    }
+
+    fun setOnSwipedListener(listener: OnSwipedListener?) {
+        swipedListener = listener
+    }
+
+    fun setOnProgressChangedListener(listener: OnProgressChangedListener?) {
+        progressChangedListener = listener
+    }
+
+    interface OnProgressChangedListener {
+        fun onChanged(view: View, progress: Float)
     }
 }

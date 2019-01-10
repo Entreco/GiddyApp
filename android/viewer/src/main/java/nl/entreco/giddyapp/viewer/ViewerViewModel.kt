@@ -1,24 +1,12 @@
 package nl.entreco.giddyapp.viewer
 
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.net.Uri
-import android.util.Log
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.core.onBg
-import nl.entreco.giddyapp.core.onUi
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseUsecase
-import java.net.URL
 import javax.inject.Inject
-
+import kotlin.random.Random
 
 class ViewerViewModel @Inject constructor(
     fetchHorseUsecase: FetchHorseUsecase
@@ -34,25 +22,23 @@ class ViewerViewModel @Inject constructor(
         }
     }
 
-    fun current() : LiveData<Horse>{
+    fun current(): LiveData<Horse> {
         return current
     }
 
-    fun next() : LiveData<Horse>{
+    fun next(): LiveData<Horse> {
         return next
     }
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("android:src")
-        fun setImageUri(view: ImageView, imageUri: Uri?) {
-            Log.i("WOW", "uri:$imageUri")
-            onBg {
-                val bmp = BitmapFactory.decodeStream(URL(imageUri.toString()).openConnection().getInputStream())
-                onUi {
-                    view.setImageBitmap(bmp)
-                }
-            }
-        }
+    fun onNext() {
+        current.postValue(next.value)
+        next.postValue(Horse("Random", random(), random(), "no image"))
+    }
+
+    private fun random() : String {
+        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+        val nextInt = Random.nextInt(0xffffff + 1)
+        // format it as hexadecimal string (with hashtag and leading zeros)
+        return String.format("#%06x", nextInt)
     }
 }

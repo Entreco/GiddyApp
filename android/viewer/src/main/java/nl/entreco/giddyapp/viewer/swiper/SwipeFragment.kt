@@ -20,6 +20,7 @@ class SwipeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSwipeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.listener = activity as? OnSwipedListener
         return binding.root
     }
 

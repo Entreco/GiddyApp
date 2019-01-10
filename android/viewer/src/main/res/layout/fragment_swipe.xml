@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
     <data>
 
         <variable
                 name="viewModel"
                 type="nl.entreco.giddyapp.viewer.swiper.SwipeViewModel"/>
+
+        <variable
+                name="listener"
+                type="nl.entreco.giddyapp.viewer.swiper.OnSwipedListener"/>
 
         <variable
                 name="current"
@@ -28,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_dislike"
+                app:ga_animateDislike="@{viewModel.nextProgress}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -38,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_like"
+                app:ga_animateLike="@{viewModel.nextProgress}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -49,20 +56,24 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintWidth_percent="0.8"
                 app:layout_constraintDimensionRatio="1:1"
-                android:clipChildren="false"
+                app:ga_animateNext="@{viewModel.nextProgress}"
+                app:ga_randomRotation="@{true}"
                 app:model="@{viewModel.next}"/>
 
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/bg_spiral"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.8"
                 app:layout_constraintDimensionRatio="1:1"
+                app:onProgressChangedListener="@{(view, progress) -> viewModel.trackProgress(view, progress)}"
+                app:onSwipedListener="@{listener}"
                 app:model="@{viewModel.current}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
