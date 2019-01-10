@@ -26,6 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <Space
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1"/>
 
         <ImageView
                 android:layout_margin="@dimen/def"
@@ -35,7 +43,7 @@
                 android:src="@drawable/ic_dislike"
                 app:ga_animateDislike="@{viewModel.nextProgress}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
@@ -46,13 +54,15 @@
                 android:src="@drawable/ic_like"
                 app:ga_animateLike="@{viewModel.nextProgress}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/polaroid"
+                android:elevation="@dimen/def"
+                app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +75,9 @@
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/bg_spiral"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/polaroid"
+                android:elevation="@dimen/def"
+                app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

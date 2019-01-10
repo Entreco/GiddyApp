@@ -121,7 +121,7 @@ class SwipeHorseView @JvmOverloads constructor(
     fun setModel(model: SwipeHorseModel?) {
         binding.model = model
         binding.executePendingBindings()
-        background = model?.gradient
+        binding.image.background = model?.gradient
 
         when (model?.draggable) {
             true -> setOnTouchListener(SwipeHandler(onDragged, onReleased))
