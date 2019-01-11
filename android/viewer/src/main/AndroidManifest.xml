@@ -17,7 +17,7 @@
                     android:name="default-url"
                     android:value="https://giddy.entreco.nl/viewer"/>
 
-            <intent-filter android:order="2">
+            <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
