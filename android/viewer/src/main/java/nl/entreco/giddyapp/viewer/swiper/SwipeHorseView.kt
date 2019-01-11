@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
-import kotlin.math.PI
-import kotlin.math.abs
 
 class SwipeHorseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -21,14 +19,14 @@ class SwipeHorseView @JvmOverloads constructor(
         binding = WidgetSwipeHorseViewBinding.inflate(inflater, this, true)
     }
 
-    private val piAsFloat = PI.toFloat()
     private var progressChangedListener: OnProgressChangedListener? = null
 
+    private var touched = false
     private var screenWidth = 0
     private var viewOffsetFactor = 0
     private var swipeProgress = 0F
         set(value) {
-            progressChangedListener?.onChanged(this, value)
+            progressChangedListener?.onChanged(this, value, touched)
             field = value
         }
 
@@ -41,20 +39,15 @@ class SwipeHorseView @JvmOverloads constructor(
 
     private val onDragged: (Float, Float) -> Unit = { x, y ->
         if (viewOffsetFactor != 0 && screenWidth != 0) {
+            touched = true
             animator.setStartValues(x, y)
             swipeProgress = (x + viewOffsetFactor) / screenWidth
-            someRandomDepthTransformation(swipeProgress)
+            animator.animateDrag(swipeProgress)
         }
     }
 
-    private fun someRandomDepthTransformation(progress: Float) {
-        scaleX = 1 - (abs(progress) / 6F)
-        scaleY = 1 - (abs(progress) / 6F)
-        translationZ = abs(progress) * 8 + 2F
-        rotationY = progress * piAsFloat
-    }
-
     private val onReleased: (Float, Float) -> Unit = { startX, startY ->
+        touched = false
         when {
             swipeProgress < -.5 -> onDisliked(startX, startY)
             swipeProgress > .5 -> onLiked(startX, startY)
@@ -75,7 +68,7 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     private fun onUserCancelled(x: Float, y: Float) {
-        animator.cancel(x, y){
+        animator.cancel(x, y) {
             updateSwipeProgress(it)
         }
     }
@@ -104,6 +97,6 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     interface OnProgressChangedListener {
-        fun onChanged(view: View, progress: Float)
+        fun onChanged(view: View, progress: Float, touched: Boolean)
     }
 }

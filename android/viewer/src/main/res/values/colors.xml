@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ring">#ffffff</color>
+    <color name="fill_selected">#32cb09</color>
+    <color name="fill_normal">#ffffff</color>
+</resources>

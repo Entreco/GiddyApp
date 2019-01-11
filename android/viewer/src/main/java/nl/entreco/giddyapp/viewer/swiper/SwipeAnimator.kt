@@ -2,9 +2,14 @@ package nl.entreco.giddyapp.viewer.swiper
 
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
+import kotlin.math.PI
+import kotlin.math.abs
 
 internal class SwipeAnimator(private val view: SwipeHorseView) {
+
     internal var swipeListener: OnSwipedListener? = null
+
+    private val piAsFloat = PI.toFloat()
     private val springX by lazy { SpringAnimation(view, DynamicAnimation.X) }
     private val springY by lazy { SpringAnimation(view, DynamicAnimation.Y) }
 
@@ -35,7 +40,7 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
             .scaleX(1f)
             .rotationY(0F)
             .translationZ(2F)
-            .setDuration(100)
+            .setDuration(300)
             .start()
 
         // Release the Springs
@@ -50,5 +55,12 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
             cancel()
             animateToFinalPosition(y)
         }
+    }
+
+    fun animateDrag(progress: Float) {
+        view.scaleX = 1 - (abs(progress) / 6F)
+        view.scaleY = 1 - (abs(progress) / 6F)
+        view.translationZ = abs(progress) * 8 + 2F
+        view.rotationY = progress * piAsFloat
     }
 }

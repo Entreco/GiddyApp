@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.8"
                 app:layout_constraintDimensionRatio="1:1"
-                app:onProgressChangedListener="@{(view, progress) -> viewModel.trackProgress(view, progress)}"
+                app:onProgressChangedListener="@{(view, progress, touched) -> viewModel.trackProgress(progress, touched)}"
                 app:onSwipedListener="@{listener}"
                 app:model="@{viewModel.current}"/>
 
@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_dislike"
+                android:translationZ="20dp"
                 app:ga_animateDislike="@{viewModel.nextProgress}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/space"
@@ -82,7 +83,9 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_like"
+                android:translationZ="20dp"
                 app:ga_animateLike="@{viewModel.nextProgress}"
+                app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"/>
