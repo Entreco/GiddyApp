@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer.data
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import nl.entreco.giddyapp.viewer.Horse
@@ -15,21 +16,23 @@ internal class FbHorseService @Inject constructor(
     private val collection = db.collection("horses")
     private val mapper by lazy { HorseMapper() }
 
-    override fun fetch(id: String, done: (Horse?) -> Unit) {
-        val docRef = collection.document(id)
-        docRef.get().addOnSuccessListener { documentSnapshot ->
-            val fbHorse = documentSnapshot.toObject(FbHorse::class.java)
-            if (fbHorse != null) {
-                done(mapper.map(fbHorse, "${documentSnapshot.id}.jpg"))
-            } else done(null)
+    override fun fetch(ids: List<String?>, done: (List<Horse>) -> Unit) {
+        val docRef = collection.document(ids[0] ?: "")
+        docRef.get().addOnSuccessListener { querySnapshot ->
+            querySnapshot.toObject(FbHorse::class.java)?.let { horse ->
+                done(listOf(mapper.map(horse, querySnapshot.id), Horse("Remco", "#ff6600", "#ffff00", "nopez")))
+            }
         }.addOnFailureListener { exception ->
-            done(null)
+            done(emptyList())
         }
     }
 
     override fun image(ref: String, done: (Uri) -> Unit) {
-        storage.getReference(ref).downloadUrl.addOnSuccessListener {
+        val reference = storage.reference.child(ref)
+        reference.downloadUrl.addOnSuccessListener {
             done(it)
+        }.addOnFailureListener {
+            Log.i("NOOOOOOH", "e: $it")
         }
     }
 }

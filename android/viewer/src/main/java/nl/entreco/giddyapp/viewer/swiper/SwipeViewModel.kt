@@ -1,53 +1,41 @@
 package nl.entreco.giddyapp.viewer.swiper
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
-import androidx.databinding.BindingAdapter
+import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.ViewModel
+import nl.entreco.giddyapp.viewer.fetch.FetchImageRequest
+import nl.entreco.giddyapp.viewer.fetch.FetchImageUsecase
+import java.net.URL
 import javax.inject.Inject
-import kotlin.math.abs
-import kotlin.random.Random
 
-class SwipeViewModel @Inject constructor() : ViewModel() {
-    val current = ObservableField<SwipeHorseModel>()
-    val next = ObservableField<SwipeHorseModel>()
+class SwipeViewModel @Inject constructor(
+    private val fetchImageUsecase: FetchImageUsecase
+) : ViewModel() {
+
     val nextProgress = ObservableFloat(0F)
+    val next = ObservableField<SwipeHorseModel>()
+    val current = ObservableField<SwipeHorseModel>().apply {
+        addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                val ref = sender as? ObservableField<SwipeHorseModel>
+                ref?.get()?.horse?.imageRef?.let {
+                    refreshCurrentImage(it)
+                }
+            }
+        })
+    }
 
     fun trackProgress(view: View, progress: Float) {
         nextProgress.set(progress)
     }
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("ga_animateNext")
-        fun animateNextView(view: View, progress: Float) {
-            val scale = 0.5F + abs(progress)/2.0F
-            val rotation = 1 - abs(progress)
-            if(view.scaleX != scale) view.animate().scaleX(scale).scaleY(scale).rotation(rotation).setDuration(0).start()
-        }
-
-        @JvmStatic
-        @BindingAdapter("ga_randomRotation")
-        fun applyRandomRotation(view: View, apply: Boolean) {
-            if(apply){
-                val random = Random.nextInt(-20, 20).toFloat()
-                view.animate().rotation(random).setDuration(0).start()
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter("ga_animateDislike")
-        fun animateDislikeView(view: View, progress: Float) {
-            val select = progress < -.5
-            if(view.isSelected != select) view.isSelected = select
-        }
-
-        @JvmStatic
-        @BindingAdapter("ga_animateLike")
-        fun animateLikeView(view: View, progress: Float) {
-            val select = progress > .5
-            if(view.isSelected != select) view.isSelected = select
+    private fun refreshCurrentImage(imageRef: String) {
+        fetchImageUsecase.go(FetchImageRequest("$imageRef.jpg")) { response ->
+            current.get()?.image?.set(BitmapDrawable(response.image))
         }
     }
 }

@@ -9,4 +9,6 @@ import nl.entreco.giddyapp.viewer.ViewerViewModel
 @FeatureScope
 interface ViewerComponent {
     fun viewModel(): ViewerViewModel
+
+    fun plus(module: SwipeModule) : SwipeComponent
 }

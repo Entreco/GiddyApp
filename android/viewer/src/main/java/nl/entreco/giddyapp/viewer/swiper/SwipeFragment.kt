@@ -11,11 +11,14 @@ import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.viewer.Horse
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.databinding.FragmentSwipeBinding
+import nl.entreco.giddyapp.viewer.di.SwipeModule
+import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromActivity
 
 class SwipeFragment : Fragment() {
 
     private val parentViewModel by parentViewModelProvider { ViewerViewModel::class.java }
-    private val viewModel by viewModelProvider { SwipeViewModel() }
+    private val component by fromActivity { SwipeModule() }
+    private val viewModel by viewModelProvider { component.viewModel() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSwipeBinding.inflate(inflater, container, false)

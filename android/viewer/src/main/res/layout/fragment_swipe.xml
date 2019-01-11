@@ -35,28 +35,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintDimensionRatio="1:1"/>
 
-        <ImageView
-                android:layout_margin="@dimen/def"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_dislike"
-                app:ga_animateDislike="@{viewModel.nextProgress}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageView
-                android:layout_margin="@dimen/def"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_like"
-                app:ga_animateLike="@{viewModel.nextProgress}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -86,6 +64,28 @@
                 app:onProgressChangedListener="@{(view, progress) -> viewModel.trackProgress(view, progress)}"
                 app:onSwipedListener="@{listener}"
                 app:model="@{viewModel.current}"/>
+
+        <ImageView
+                android:layout_margin="@dimen/def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_dislike"
+                app:ga_animateDislike="@{viewModel.nextProgress}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+                android:layout_margin="@dimen/def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_like"
+                app:ga_animateLike="@{viewModel.nextProgress}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

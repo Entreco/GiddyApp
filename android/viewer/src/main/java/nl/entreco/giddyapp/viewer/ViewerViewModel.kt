@@ -5,20 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseUsecase
+import nl.entreco.giddyapp.viewer.fetch.FetchImageUsecase
 import javax.inject.Inject
 import kotlin.random.Random
 
 class ViewerViewModel @Inject constructor(
+    horseId: String,
     fetchHorseUsecase: FetchHorseUsecase
 ) : ViewModel() {
 
+    private var horses = mutableListOf<Horse>()
     private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()
 
     init {
-        fetchHorseUsecase.go(FetchHorseRequest()) { response ->
-            current.postValue(response.current)
-            next.postValue(response.next)
+        fetchHorseUsecase.go(FetchHorseRequest(horseId)) { response ->
+            horses.addAll(response.horses)
+            current.postValue(response.horses[0])
+            next.postValue(response.horses[1])
         }
     }
 

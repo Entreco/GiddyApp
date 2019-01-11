@@ -3,15 +3,17 @@ package nl.entreco.giddyapp.viewer
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import nl.entreco.giddyapp.core.ComponentProvider
 import nl.entreco.giddyapp.core.base.BaseActivity
 import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
+import nl.entreco.giddyapp.viewer.di.ViewerComponent
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromModule
 import nl.entreco.giddyapp.viewer.di.ViewerModule
 import nl.entreco.giddyapp.viewer.swiper.OnSwipedListener
 import nl.entreco.giddyapp.viewer.swiper.SwipeFragment
 
-class ViewerActivity : BaseActivity(), OnSwipedListener {
+class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwipedListener {
 
     private val component by fromModule { ViewerModule(intent.data?.lastPathSegment) }
     private val viewModel by viewModelProvider { component.viewModel() }
@@ -26,6 +28,10 @@ class ViewerActivity : BaseActivity(), OnSwipedListener {
                 .add(R.id.swipeFragmentContainer, SwipeFragment(), "swipe")
                 .commitAllowingStateLoss()
         }
+    }
+
+    override fun get(): ViewerComponent {
+        return component
     }
 
     override fun onNext() {
