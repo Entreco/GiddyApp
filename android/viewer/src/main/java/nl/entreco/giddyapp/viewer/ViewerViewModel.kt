@@ -1,28 +1,33 @@
 package nl.entreco.giddyapp.viewer
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseRequest
+import nl.entreco.giddyapp.viewer.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseUsecase
-import nl.entreco.giddyapp.viewer.fetch.FetchImageUsecase
 import javax.inject.Inject
-import kotlin.random.Random
 
 class ViewerViewModel @Inject constructor(
     horseId: String,
-    fetchHorseUsecase: FetchHorseUsecase
-) : ViewModel() {
+    fetchHorseUsecase: FetchHorseUsecase,
+    private val horseProvider: HorseProvider
+) : ViewModel(), HorseProvider.Listener {
 
-    private var horses = mutableListOf<Horse>()
     private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()
 
     init {
-        fetchHorseUsecase.go(FetchHorseRequest(horseId)) { response ->
-            horses.addAll(response.horses)
-            current.postValue(response.horses[0])
-            next.postValue(response.horses[1])
+        horseProvider.imageReadyListener = this
+        fetchHorseUsecase.go(FetchHorseRequest(horseId), done())
+    }
+
+    private fun done(): (FetchHorseResponse) -> Unit {
+        return { response ->
+            horseProvider.addAll(response.horses)
+            current.postValue(horseProvider.pop())
+            next.postValue(horseProvider.peek())
         }
     }
 
@@ -35,14 +40,12 @@ class ViewerViewModel @Inject constructor(
     }
 
     fun onNext() {
-        current.postValue(next.value)
-        next.postValue(Horse("Random ${Random.nextInt(10000)}", random(), random(), "no image"))
+        current.postValue(horseProvider.pop())
+        next.postValue(horseProvider.peek())
     }
 
-    private fun random() : String {
-        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-        val nextInt = Random.nextInt(0xffffff + 1)
-        // format it as hexadecimal string (with hashtag and leading zeros)
-        return String.format("#%06x", nextInt)
+    override fun onImageReady(horse: Horse) {
+        if (current.value?.imageRef == horse.imageRef) current.postValue(horse)
+        else if (next.value?.imageRef == horse.imageRef) next.postValue(horse)
     }
 }

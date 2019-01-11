@@ -8,6 +8,7 @@ import dagger.Subcomponent
 @Subcomponent(modules = [ApiModule::class])
 interface ApiComponent{
     fun api() : Api
+    fun cache() : ImageCache
     fun firestore() : FirebaseFirestore
     fun firestorage() : FirebaseStorage
 }

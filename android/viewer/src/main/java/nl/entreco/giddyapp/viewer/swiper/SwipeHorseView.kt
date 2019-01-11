@@ -5,8 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.dynamicanimation.animation.DynamicAnimation
-import androidx.dynamicanimation.animation.SpringAnimation
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 import kotlin.math.PI
 import kotlin.math.abs
@@ -17,8 +15,7 @@ class SwipeHorseView @JvmOverloads constructor(
 
     private val binding: WidgetSwipeHorseViewBinding
     private val inflater by lazy { LayoutInflater.from(context) }
-    private val springX by lazy { SpringAnimation(this, DynamicAnimation.X) }
-    private val springY by lazy { SpringAnimation(this, DynamicAnimation.Y) }
+    private val animator by lazy { SwipeAnimator(this) }
 
     init {
         binding = WidgetSwipeHorseViewBinding.inflate(inflater, this, true)
@@ -26,11 +23,10 @@ class SwipeHorseView @JvmOverloads constructor(
 
     private val piAsFloat = PI.toFloat()
     private var progressChangedListener: OnProgressChangedListener? = null
-    private var swipedListener: OnSwipedListener? = null
 
     private var screenWidth = 0
     private var viewOffsetFactor = 0
-    private var swipeProgess = 0F
+    private var swipeProgress = 0F
         set(value) {
             progressChangedListener?.onChanged(this, value)
             field = value
@@ -45,10 +41,9 @@ class SwipeHorseView @JvmOverloads constructor(
 
     private val onDragged: (Float, Float) -> Unit = { x, y ->
         if (viewOffsetFactor != 0 && screenWidth != 0) {
-            springX.setStartValue(x)
-            springY.setStartValue(y)
-            swipeProgess = (x + viewOffsetFactor) / screenWidth
-            someRandomDepthTransformation(swipeProgess)
+            animator.setStartValues(x, y)
+            swipeProgress = (x + viewOffsetFactor) / screenWidth
+            someRandomDepthTransformation(swipeProgress)
         }
     }
 
@@ -61,61 +56,32 @@ class SwipeHorseView @JvmOverloads constructor(
 
     private val onReleased: (Float, Float) -> Unit = { startX, startY ->
         when {
-            swipeProgess < -.5 -> onDisliked(startX, startY)
-            swipeProgess > .5 -> onLiked(startX, startY)
+            swipeProgress < -.5 -> onDisliked(startX, startY)
+            swipeProgress > .5 -> onLiked(startX, startY)
             else -> onUserCancelled(startX, startY)
         }
     }
 
     private fun onDisliked(x: Float, y: Float) {
-        springX.apply {
-            addUpdateListener { _, value, _ ->
-                swipeProgess = (value + viewOffsetFactor) / screenWidth
-            }
-            addEndListener { _, _, _, _ ->
-                swipedListener?.onNext()
-            }
-            animateToFinalPosition(x - screenWidth)
-        }
-        springY.apply {
-            animateToFinalPosition(y)
+        animator.releaseTo(x - screenWidth, y) {
+            updateSwipeProgress(it)
         }
     }
 
     private fun onLiked(x: Float, y: Float) {
-        springX.apply {
-            addUpdateListener { _, value, _ ->
-                swipeProgess = (value + viewOffsetFactor) / screenWidth
-            }
-            addEndListener { _, _, _, _ ->
-                swipedListener?.onNext()
-            }
-            animateToFinalPosition(x + screenWidth)
-        }
-        springY.apply {
-            animateToFinalPosition(y)
+        animator.releaseTo(x + screenWidth, y) {
+            updateSwipeProgress(it)
         }
     }
 
     private fun onUserCancelled(x: Float, y: Float) {
-        // Reset all properties changed by 'someRandomDepthTransformation'
-        animate().scaleY(1F)
-            .scaleX(1f)
-            .rotationY(0F)
-            .translationZ(2F)
-            .setDuration(100)
-            .start()
+        animator.cancel(x, y){
+            updateSwipeProgress(it)
+        }
+    }
 
-        // Release the Springs
-        springX.apply {
-            addUpdateListener { _, value, _ ->
-                swipeProgess = (value + viewOffsetFactor) / screenWidth
-            }
-            animateToFinalPosition(x)
-        }
-        springY.apply {
-            animateToFinalPosition(y)
-        }
+    private fun updateSwipeProgress(value: Float) {
+        swipeProgress = (value + viewOffsetFactor) / screenWidth
     }
 
     fun setModel(model: SwipeHorseModel?) {
@@ -130,7 +96,7 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     fun setOnSwipedListener(listener: OnSwipedListener?) {
-        swipedListener = listener
+        animator.swipeListener = listener
     }
 
     fun setOnProgressChangedListener(listener: OnProgressChangedListener?) {

@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer.swiper
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,10 +35,12 @@ class SwipeFragment : Fragment() {
     }
 
     private val currentObserver = Observer<Horse> { horse ->
+        Log.i("CYCLING", "current: $horse $this")
         viewModel.current.set(SwipeHorseModel(horse, true))
     }
 
     private val nextObserver = Observer<Horse> { horse ->
+        Log.i("CYCLING", "next: $horse $this")
         viewModel.next.set(SwipeHorseModel(horse))
     }
 }
