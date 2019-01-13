@@ -11,6 +11,12 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
     }
 
+    buildTypes {
+        release {
+            proguardFiles 'proguard-rules-dynamic-features.pro'
+        }
+    }
+
     dataBinding {
         enabled = true
     }
