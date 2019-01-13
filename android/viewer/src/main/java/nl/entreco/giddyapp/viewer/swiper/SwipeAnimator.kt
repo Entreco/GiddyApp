@@ -62,5 +62,11 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
         view.scaleY = 1 - (abs(progress) / 6F)
         view.translationZ = abs(progress) * 8 + 2F
         view.rotationY = progress * piAsFloat
+        view.isSelected = progress > threshold
+        view.isActivated = progress < -threshold
+    }
+
+    companion object {
+        const val threshold = 0.4F
     }
 }

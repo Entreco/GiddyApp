@@ -29,10 +29,15 @@ object SwipeBindings {
     }
 
     @JvmStatic
-    @BindingAdapter("ga_animateDislike")
-    fun animateDislikeView(view: View, progress: Float) {
-        val select = progress < -.5
-        if (view.isSelected != select) view.isSelected = select
+    @BindingAdapter("ga_animateDislike", "ga_animateTouch", requireAll = true)
+    fun animateDislikeView(view: View, progress: Float, touched: Boolean) {
+        if (progress > 0) return
+
+        val select = progress < -SwipeAnimator.threshold && touched
+        if (view.isActivated != select) view.isActivated = select
+
+        val scale = if (touched) 0.5F + abs(progress) else max(0.5F, abs(progress) - 0.5F)
+        if (view.scaleX != scale) view.animate().scaleX(scale).scaleY(scale).setDuration(0).start()
     }
 
     @JvmStatic
@@ -40,7 +45,7 @@ object SwipeBindings {
     fun animateLikeView(view: View, progress: Float, touched: Boolean) {
         if (progress < 0) return
 
-        val select = progress > .5 && touched
+        val select = progress > SwipeAnimator.threshold && touched
         if (view.isSelected != select) view.isSelected = select
 
         val scale = if (touched) 0.5F + abs(progress) else max(0.5F, abs(progress) - 0.5F)

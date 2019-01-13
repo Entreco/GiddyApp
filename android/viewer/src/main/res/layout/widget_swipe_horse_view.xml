@@ -27,6 +27,7 @@
                 android:gravity="center"
                 android:fontFamily="sans-serif"
                 android:padding="@dimen/def"
+                android:layout_margin="@dimen/def"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

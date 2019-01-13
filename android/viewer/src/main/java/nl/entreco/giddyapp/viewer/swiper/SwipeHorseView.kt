@@ -49,8 +49,8 @@ class SwipeHorseView @JvmOverloads constructor(
     private val onReleased: (Float, Float) -> Unit = { startX, startY ->
         touched = false
         when {
-            swipeProgress < -.5 -> onDisliked(startX, startY)
-            swipeProgress > .5 -> onLiked(startX, startY)
+            swipeProgress < -SwipeAnimator.threshold -> onDisliked(startX, startY)
+            swipeProgress > SwipeAnimator.threshold -> onLiked(startX, startY)
             else -> onUserCancelled(startX, startY)
         }
     }

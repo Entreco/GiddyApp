@@ -13,6 +13,7 @@ ext {
     dependencies = [
             dagger = "2.19",
             material = '1.0.0',
+            playCore = '1.3.6',
             xLifecycle = '2.0.0',
             xAppcompat = '1.1.0-alpha01',
             xConstraintLayout = '2.0.0-alpha3',

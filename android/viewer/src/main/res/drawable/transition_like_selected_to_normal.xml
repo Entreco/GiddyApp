@@ -36,22 +36,22 @@
                         android:propertyName="rotation"
                         android:startOffset="100"
                         android:duration="111"
-                        android:valueFrom="45"
-                        android:valueTo="0"
+                        android:valueFrom="82"
+                        android:valueTo="45"
                         android:valueType="floatType"
                         android:interpolator="@android:anim/accelerate_interpolator"/>
                 <objectAnimator
                         android:propertyName="rotation"
                         android:startOffset="211"
                         android:duration="89"
-                        android:valueFrom="0"
+                        android:valueFrom="45"
                         android:valueTo="45"
                         android:valueType="floatType"
                         android:interpolator="@android:anim/decelerate_interpolator"/>
                 <objectAnimator
                         android:propertyName="rotation"
                         android:duration="100"
-                        android:valueFrom="0"
+                        android:valueFrom="45"
                         android:valueTo="0"
                         android:valueType="floatType"
                         android:interpolator="@android:interpolator/fast_out_slow_in"/>

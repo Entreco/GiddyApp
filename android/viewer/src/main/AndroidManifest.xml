@@ -3,7 +3,8 @@
           package="nl.entreco.giddyapp.viewer">
 
     <dist:module
-            dist:onDemand="false"
+            dist:instant="true"
+            dist:onDemand="true"
             dist:title="@string/title_viewer">
         <dist:fusing dist:include="true"/>
     </dist:module>
@@ -15,7 +16,7 @@
 
             <meta-data
                     android:name="default-url"
-                    android:value="https://giddy.entreco.nl/viewer"/>
+                    android:value="https://giddy.entreco.nl"/>
 
             <intent-filter android:order="1" android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW"/>

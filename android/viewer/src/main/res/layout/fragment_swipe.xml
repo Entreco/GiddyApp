@@ -73,6 +73,7 @@
                 android:src="@drawable/ic_dislike"
                 android:translationZ="20dp"
                 app:ga_animateDislike="@{viewModel.nextProgress}"
+                app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="parent"/>

@@ -12,12 +12,17 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         setProperty("archivesBaseName", "${appName}-${versionName}")
+        resConfigs "en", "nl"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
+            debuggable true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
 
