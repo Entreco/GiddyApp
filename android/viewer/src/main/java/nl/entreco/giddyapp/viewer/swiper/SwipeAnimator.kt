@@ -67,6 +67,6 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
     }
 
     companion object {
-        const val threshold = 0.4F
+        const val threshold = 0.3F
     }
 }

@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    api "com.google.android.play:core:$playCore"
+    implementation "com.google.android.play:core:$playCore"
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"

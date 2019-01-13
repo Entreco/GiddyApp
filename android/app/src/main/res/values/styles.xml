@@ -17,7 +17,7 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
     <style name="ViewerTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/viewer</item>
+        <item name="android:windowBackground">@drawable/pattern</item>
     </style>
 
 </resources>
