@@ -1,6 +1,6 @@
 package nl.entreco.giddyapp.viewer.fetch
 
-import nl.entreco.giddyapp.core.ImageCache
+import nl.entreco.giddyapp.core.images.ImageCache
 import nl.entreco.giddyapp.core.onBg
 import nl.entreco.giddyapp.core.onUi
 import nl.entreco.giddyapp.viewer.HorseService

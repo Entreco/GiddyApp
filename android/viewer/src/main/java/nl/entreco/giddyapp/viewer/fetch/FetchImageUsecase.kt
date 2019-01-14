@@ -1,17 +1,16 @@
 package nl.entreco.giddyapp.viewer.fetch
 
-import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.annotation.WorkerThread
-import nl.entreco.giddyapp.core.ImageCache
+import nl.entreco.giddyapp.core.images.ImageCache
+import nl.entreco.giddyapp.core.images.ImageLoader
 import nl.entreco.giddyapp.core.onBg
 import nl.entreco.giddyapp.core.onUi
 import nl.entreco.giddyapp.viewer.HorseService
-import java.net.URL
 import javax.inject.Inject
 
 class FetchImageUsecase @Inject constructor(
     private val cache: ImageCache,
+    private val imageLoader: ImageLoader,
     private val service: HorseService
 ) {
 
@@ -24,10 +23,7 @@ class FetchImageUsecase @Inject constructor(
 
             service.image("${request.ref}.jpg") { uri ->
                 onBg {
-
-                    val url = URL(uri.toString())
-                    val bitmap = BitmapFactory.decodeStream(url.openStream())
-
+                    val bitmap = imageLoader.get(uri)
                     cache.put(request.ref, bitmap)
                     onUi { done(FetchImageResponse(request.ref, bitmap)) }
                 }

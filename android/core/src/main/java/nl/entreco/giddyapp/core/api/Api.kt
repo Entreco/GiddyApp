@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp.core.api
 
 import android.content.Context
 import kotlin.random.Random

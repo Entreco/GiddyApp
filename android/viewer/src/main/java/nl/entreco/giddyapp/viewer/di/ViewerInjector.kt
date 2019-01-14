@@ -2,8 +2,9 @@ package nl.entreco.giddyapp.viewer.di
 
 import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.GiddyApp
-import nl.entreco.giddyapp.core.ApiModule
+import nl.entreco.giddyapp.core.api.ApiModule
 import nl.entreco.giddyapp.core.ComponentProvider
+import nl.entreco.giddyapp.core.images.ImageModule
 import nl.entreco.giddyapp.viewer.ViewerActivity
 
 internal object ViewerInjector {
@@ -14,8 +15,10 @@ internal object ViewerInjector {
     ): Lazy<ViewerComponent> = lazy(mode) {
         val featureComponent = (applicationContext as GiddyApp).get()
         val apiComponent = featureComponent.plus(ApiModule())
+        val imageComponent = featureComponent.plus(ImageModule())
         DaggerViewerComponent.builder()
             .apiComponent(apiComponent)
+            .imageComponent(imageComponent)
             .viewerModule(provider())
             .build()
     }

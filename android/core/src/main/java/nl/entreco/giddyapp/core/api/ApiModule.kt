@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp.core.api
 
 import android.content.Context
 import android.util.Log
@@ -13,21 +13,12 @@ import dagger.Provides
 class ApiModule {
 
     @Provides
-    @ApiScope
-    fun provideImageCache(): ImageCache {
-        Log.i("DAGGER", "provideImageCache")
-        return ImageCache()
-    }
-
-    @Provides
-    @ApiScope
     fun provideApi(context: Context): Api {
         Log.i("DAGGER", "provideApi")
         return Api(context)
     }
 
     @Provides
-    @ApiScope
     fun provideFireStore(): FirebaseFirestore {
         Log.i("DAGGER", "provideFireStore")
         val fireStore = FirebaseFirestore.getInstance()
@@ -39,7 +30,6 @@ class ApiModule {
     }
 
     @Provides
-    @ApiScope
     fun provideFireStorage(): FirebaseStorage {
         Log.i("DAGGER", "provideFireStorage")
         return FirebaseStorage.getInstance()

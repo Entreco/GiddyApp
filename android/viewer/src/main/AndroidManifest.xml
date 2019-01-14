@@ -9,7 +9,7 @@
         <dist:fusing dist:include="true"/>
     </dist:module>
 
-    <application>
+    <application android:name="nl.entreco.giddyapp.GiddyApp">
         <activity
                 android:name=".ViewerActivity"
                 android:theme="@style/ViewerTheme">

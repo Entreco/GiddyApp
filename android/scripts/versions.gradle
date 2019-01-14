@@ -22,6 +22,7 @@ ext {
             fbCommon = '16.0.4',
             fbFireStore = '17.1.5',
             fbStorage = '16.0.5',
+            glide = '4.8.0',
             junit = '4.12'
     ]
 }

@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp.core.images
 
 import android.graphics.Bitmap
 import javax.inject.Inject

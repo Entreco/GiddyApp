@@ -1,16 +1,14 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp.core.api
 
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Subcomponent
 
-@ApiScope
 @Subcomponent(modules = [ApiModule::class])
-interface ApiComponent{
+interface ApiComponent {
     fun context(): Context
-    fun api() : Api
-    fun cache() : ImageCache
-    fun firestore() : FirebaseFirestore
-    fun firestorage() : FirebaseStorage
+    fun api(): Api
+    fun firestore(): FirebaseFirestore
+    fun firestorage(): FirebaseStorage
 }
