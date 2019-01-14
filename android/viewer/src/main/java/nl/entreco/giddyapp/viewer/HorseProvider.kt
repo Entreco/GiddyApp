@@ -43,10 +43,10 @@ class HorseProvider @Inject constructor(
     }
 
     private fun preloadImages(collection: List<Horse>) {
-        collection.filter { it.bitmap == null }.forEach { horse ->
+        collection.filter { it.imageUri == null }.forEach { horse ->
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 val index = horses.indexOfFirst { it.imageRef == response.imageRef }
-                val updated = horses[index].copy(bitmap = response.image)
+                val updated = horses[index].copy(imageUri = response.image)
                 horses[index] = updated
                 imageReadyListener?.onImageReady(updated)
             }

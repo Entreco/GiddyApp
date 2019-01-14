@@ -1,10 +1,14 @@
 package nl.entreco.giddyapp.viewer.swiper
 
 import android.content.Context
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import nl.entreco.giddyapp.core.images.ImageLoader
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
 class SwipeHorseView @JvmOverloads constructor(
@@ -88,6 +92,11 @@ class SwipeHorseView @JvmOverloads constructor(
         }
     }
 
+    fun setLoader(loader: ImageLoader) {
+        binding.loader = loader
+        binding.executePendingBindings()
+    }
+
     fun setOnSwipedListener(listener: OnSwipedListener?) {
         animator.swipeListener = listener
     }
@@ -98,5 +107,13 @@ class SwipeHorseView @JvmOverloads constructor(
 
     interface OnProgressChangedListener {
         fun onChanged(view: View, progress: Float, touched: Boolean)
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("ga_loader", "ga_image", requireAll = true)
+        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?){
+            loader?.get(view, uri)
+        }
     }
 }

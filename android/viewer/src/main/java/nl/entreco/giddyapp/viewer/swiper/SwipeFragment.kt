@@ -20,11 +20,13 @@ class SwipeFragment : Fragment() {
     private val parentViewModel by parentViewModelProvider { ViewerViewModel::class.java }
     private val component by fromActivity { SwipeModule() }
     private val viewModel by viewModelProvider { component.viewModel() }
+    private val loader by lazy { component.loader() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSwipeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.listener = activity as? OnSwipedListener
+        binding.loader = loader
         return binding.root
     }
 

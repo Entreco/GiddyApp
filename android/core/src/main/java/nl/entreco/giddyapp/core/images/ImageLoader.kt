@@ -1,8 +1,8 @@
 package nl.entreco.giddyapp.core.images
 
-import android.graphics.Bitmap
 import android.net.Uri
+import android.widget.ImageView
 
 interface ImageLoader {
-    fun get(uri: Uri) : Bitmap
+    fun get(view: ImageView, uri: Uri?)
 }

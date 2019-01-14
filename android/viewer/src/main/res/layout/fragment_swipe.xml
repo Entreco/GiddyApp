@@ -14,6 +14,10 @@
                 type="nl.entreco.giddyapp.viewer.swiper.OnSwipedListener"/>
 
         <variable
+                name="loader"
+                type="nl.entreco.giddyapp.core.images.ImageLoader"/>
+
+        <variable
                 name="current"
                 type="nl.entreco.giddyapp.viewer.Horse"/>
 
@@ -48,6 +52,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:ga_animateNext="@{viewModel.nextProgress}"
                 app:ga_randomRotation="@{true}"
+                app:loader="@{loader}"
                 app:model="@{viewModel.next}"/>
 
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
@@ -63,6 +68,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:onProgressChangedListener="@{(view, progress, touched) -> viewModel.trackProgress(progress, touched)}"
                 app:onSwipedListener="@{listener}"
+                app:loader="@{loader}"
                 app:model="@{viewModel.current}"/>
 
         <ImageView
