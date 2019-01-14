@@ -31,13 +31,14 @@
 
         <TextView
                 android:gravity="center"
-                android:fontFamily="sans-serif"
+                android:fontFamily="sans-serif-thin"
                 android:padding="@dimen/def"
                 android:layout_margin="@dimen/def"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{model.name}"
+                android:textColor="@color/almost_black"
                 android:layout_gravity="bottom"
                 tools:text="@string/app_name"/>
 

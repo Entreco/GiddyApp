@@ -2,6 +2,6 @@
 <resources>
     <style name="ViewerDetail">
         <item name="android:padding">@dimen/large</item>
-        <item name="android:textColor">@color/pink</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 </resources>

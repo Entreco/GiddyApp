@@ -31,6 +31,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:$xAppcompat"
+    implementation "com.google.android.material:material:$material"
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
     implementation "androidx.dynamicanimation:dynamicanimation:$xDynamicAnimation"
 
