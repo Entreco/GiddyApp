@@ -1,0 +1,19 @@
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/selected"
+            android:state_selected="true"
+            android:drawable="@drawable/ic_like_selected"/>
+    <item
+            android:id="@+id/normal"
+            android:drawable="@drawable/ic_like_normal"/>
+
+    <transition
+            android:fromId="@id/normal"
+            android:toId="@id/selected"
+            android:drawable="@drawable/transition_like_normal_to_selected"/>
+
+    <transition
+            android:fromId="@id/selected"
+            android:toId="@id/normal"
+            android:drawable="@drawable/transition_like_selected_to_normal"/>
+</animated-selector>

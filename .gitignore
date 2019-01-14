@@ -71,3 +71,7 @@ android/\.idea/
 android/scripts/giddy_keystore
 
 android/app/release/release/
+
+releases/
+
+design/

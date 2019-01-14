@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="nl.entreco.giddyapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:name=".GiddyApp"
             android:allowBackup="true"
@@ -12,7 +14,9 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".SplashActivity"
-                android:theme="@style/SplashTheme">
+                android:theme="@style/SplashTheme"
+                android:noHistory="true"
+                android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.viewer.swiper.SwipeViewModel"/>
+
+        <variable
+                name="listener"
+                type="nl.entreco.giddyapp.viewer.swiper.OnSwipedListener"/>
+
+        <variable
+                name="current"
+                type="nl.entreco.giddyapp.viewer.Horse"/>
+
+        <variable
+                name="next"
+                type="nl.entreco.giddyapp.viewer.Horse"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Space
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1"/>
+
+        <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/polaroid"
+                android:elevation="@dimen/def"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.8"
+                app:layout_constraintDimensionRatio="1:1"
+                app:ga_animateNext="@{viewModel.nextProgress}"
+                app:ga_randomRotation="@{true}"
+                app:model="@{viewModel.next}"/>
+
+        <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/polaroid"
+                android:elevation="@dimen/def"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.8"
+                app:layout_constraintDimensionRatio="1:1"
+                app:onProgressChangedListener="@{(view, progress, touched) -> viewModel.trackProgress(progress, touched)}"
+                app:onSwipedListener="@{listener}"
+                app:model="@{viewModel.current}"/>
+
+        <ImageView
+                android:layout_margin="@dimen/def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_dislike"
+                android:translationZ="20dp"
+                app:ga_animateDislike="@{viewModel.nextProgress}"
+                app:ga_animateTouch="@{viewModel.nextTouched}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+                android:layout_margin="@dimen/def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_like"
+                android:translationZ="20dp"
+                app:ga_animateLike="@{viewModel.nextProgress}"
+                app:ga_animateTouch="@{viewModel.nextTouched}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -11,14 +12,24 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         setProperty("archivesBaseName", "${appName}-${versionName}")
+        resConfigs "en", "nl"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
+            // The temporary workaround is to disable shrinking
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    dynamicFeatures = [":viewer"]
 }
 
 android.applicationVariants.all { variant ->
@@ -28,10 +39,16 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
+    implementation project(':core')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "com.google.android.material:material:$material"
+
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
     implementation "androidx.appcompat:appcompat:$xAppcompat"
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
+    implementation "com.google.firebase:firebase-core:$fbCore"
 
     testImplementation "junit:junit:$junit"
 }
@@ -41,3 +58,5 @@ task showBundleName {
         println "${appName}-${android.defaultConfig.versionName}.aab"
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

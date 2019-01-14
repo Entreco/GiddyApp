@@ -1,0 +1,19 @@
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/activated"
+            android:state_activated="true"
+            android:drawable="@drawable/ic_dislike_activated"/>
+    <item
+            android:id="@+id/normal"
+            android:drawable="@drawable/ic_dislike_normal"/>
+
+    <transition
+            android:fromId="@id/normal"
+            android:toId="@id/activated"
+            android:drawable="@drawable/transition_dislike_normal_to_activated"/>
+
+    <transition
+            android:fromId="@id/activated"
+            android:toId="@id/normal"
+            android:drawable="@drawable/transition_dislike_activated_to_normal"/>
+</animated-selector>
