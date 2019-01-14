@@ -30,11 +30,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:padding="@dimen/large"
+                android:gravity="center"
+                android:text="0 EUR - 1.000 EUR"/>
+
         <Space
                 android:id="@+id/space"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintDimensionRatio="1:1"/>
@@ -45,7 +54,7 @@
                 android:background="@drawable/polaroid"
                 android:elevation="@dimen/def"
                 app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.8"
@@ -61,7 +70,7 @@
                 android:background="@drawable/polaroid"
                 android:elevation="@dimen/def"
                 app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.8"
@@ -82,7 +91,7 @@
                 app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="@id/space"/>
 
         <ImageView
                 android:layout_margin="@dimen/def"
@@ -95,7 +104,60 @@
                 app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/space"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="@id/space"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintTop_toBottomOf="@id/space"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Leeftijd: 6"/>
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Geslacht: Merrie | Ruin | Hengst"/>
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Discipline: Springen | Dressuur | Eventing | Recreatie | Overige"/>
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nivo: ZM | B | C | M | Z | ZZ"/>
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vader: Totilas"/>
+
+                <TextView
+                        style="@style/ViewerDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="StampBoek: -"/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

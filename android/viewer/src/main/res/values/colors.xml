@@ -4,4 +4,6 @@
     <color name="fill_activated">#BF3428</color>
     <color name="fill_selected">#32cb09</color>
     <color name="fill_normal">#ffffff</color>
+
+    <color name="pink">#ff00ff</color>
 </resources>
