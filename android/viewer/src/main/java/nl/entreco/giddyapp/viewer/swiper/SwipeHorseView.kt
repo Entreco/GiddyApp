@@ -42,7 +42,7 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     private val onDragged: (Float, Float) -> Unit = { x, y ->
-        if (viewOffsetFactor != 0 && screenWidth != 0) {
+        if (viewOffsetFactor >= 0 && screenWidth != 0) {
             touched = true
             animator.setStartValues(x, y)
             swipeProgress = (x + viewOffsetFactor) / screenWidth

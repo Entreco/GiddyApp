@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.viewer.swiper
 
+import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
@@ -12,11 +13,20 @@ class SwipeViewModel @Inject constructor(
     private val playSoundUsecase: PlaySoundUsecase
 ) : ViewModel() {
 
+    private val onCurrentChanged = object : Observable.OnPropertyChangedCallback(){
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            updatePrice()
+        }
+    }
+
     val playing = ObservableBoolean(false)
+    val price = ObservableField<String>()
     val nextTouched = ObservableBoolean(false)
     val nextProgress = ObservableFloat(0F)
     val next = ObservableField<SwipeHorseModel>()
-    val current = ObservableField<SwipeHorseModel>()
+    val current = ObservableField<SwipeHorseModel>().apply {
+        addOnPropertyChangedCallback(onCurrentChanged)
+    }
 
     fun trackProgress(progress: Float, touched: Boolean) {
         nextTouched.set(touched)
@@ -34,5 +44,9 @@ class SwipeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun updatePrice() {
+        price.set(current.get()?.price)
     }
 }

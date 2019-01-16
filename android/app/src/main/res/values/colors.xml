@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#BE253E</color>
     <color name="colorAccent">#0E92EA</color>
     <color name="almost_black">#190E20</color>
+    <color name="white">#FFFFFF</color>
     <color name="gradient_gray">#525252</color>
 
     <color name="ic_launcher_background">@color/almost_black</color>

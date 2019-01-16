@@ -4,7 +4,6 @@ import android.view.View
 import androidx.databinding.BindingAdapter
 import kotlin.math.abs
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.random.Random
 
 object SwipeBindings {
@@ -14,7 +13,8 @@ object SwipeBindings {
         val scale = 0.5F + abs(progress) / 2.0F
         if (view.scaleX != scale) {
             val rotation = (1 - (abs(progress))) * (view.tag as? Float ?: 0F)
-            view.animate().scaleX(scale).scaleY(scale).rotation(rotation).setDuration(0).start()
+            val alpha = 0.5F + abs(progress) / 2.0F
+            view.animate().alpha(alpha).scaleX(scale).scaleY(scale).rotation(rotation).setDuration(0).start()
         }
     }
 

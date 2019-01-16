@@ -8,6 +8,7 @@ import nl.entreco.giddyapp.viewer.Horse
 
 data class SwipeHorseModel(private val horse: Horse?, val draggable: Boolean = false) {
 
+    val price = horse?.price
     val name = ObservableField<String>(horse?.name)
     val image = ObservableField<Uri>(horse?.imageUri)
     val gradient = GradientDrawable(
