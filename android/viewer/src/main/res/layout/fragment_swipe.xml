@@ -7,23 +7,15 @@
 
         <variable
                 name="viewModel"
-                type="nl.entreco.giddyapp.viewer.swiper.SwipeViewModel"/>
+                type="nl.entreco.giddyapp.viewer.ui.swiper.SwipeViewModel"/>
 
         <variable
                 name="listener"
-                type="nl.entreco.giddyapp.viewer.swiper.OnSwipedListener"/>
+                type="nl.entreco.giddyapp.viewer.ui.swiper.OnSwipedListener"/>
 
         <variable
                 name="loader"
                 type="nl.entreco.giddyapp.core.images.ImageLoader"/>
-
-        <variable
-                name="current"
-                type="nl.entreco.giddyapp.viewer.Horse"/>
-
-        <variable
-                name="next"
-                type="nl.entreco.giddyapp.viewer.Horse"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,13 +39,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/guide"/>
 
-        <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
-                android:id="@+id/next"
+        <nl.entreco.giddyapp.viewer.ui.swiper.SwipeHorseView
+                android:id="@+id/nextView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:elevation="@dimen/def"
                 android:clipChildren="false"
                 android:clipToPadding="false"
+                android:transitionGroup="true"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="@id/space"
@@ -63,11 +56,12 @@
                 app:loader="@{loader}"
                 app:model="@{viewModel.next}"/>
 
-        <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
-                android:id="@+id/current"
+        <nl.entreco.giddyapp.viewer.ui.swiper.SwipeHorseView
+                android:id="@+id/currentView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:elevation="@dimen/def"
+                android:transitionGroup="true"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="@id/space"
@@ -78,13 +72,14 @@
                 app:model="@{viewModel.current}"/>
 
         <ImageView
+                style="@style/SwipeButton"
                 android:layout_marginTop="@dimen/def"
                 android:layout_marginBottom="@dimen/def"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_dislike"
-                android:translationZ="20dp"
+                android:onClick="@{() -> viewModel.onDisliked(currentView)}"
                 app:ga_animateDislike="@{viewModel.nextProgress}"
                 app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,12 +87,13 @@
                 app:layout_constraintBottom_toBottomOf="@id/space"/>
 
         <ImageView
+                style="@style/SwipeButton"
                 android:layout_margin="@dimen/def"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_like"
-                android:translationZ="20dp"
+                android:onClick="@{() -> viewModel.onLiked(currentView)}"
                 app:ga_animateLike="@{viewModel.nextProgress}"
                 app:ga_animateTouch="@{viewModel.nextTouched}"
                 app:layout_constraintEnd_toEndOf="parent"

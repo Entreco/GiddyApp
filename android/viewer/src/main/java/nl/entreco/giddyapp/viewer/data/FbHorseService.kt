@@ -5,8 +5,8 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
-import nl.entreco.giddyapp.viewer.Horse
-import nl.entreco.giddyapp.viewer.HorseService
+import nl.entreco.giddyapp.viewer.domain.Horse
+import nl.entreco.giddyapp.viewer.domain.HorseService
 import javax.inject.Inject
 import kotlin.random.Random
 

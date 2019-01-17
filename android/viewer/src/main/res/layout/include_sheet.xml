@@ -2,7 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data></data>
+    <data>
+
+        <variable
+                name="model"
+                type="nl.entreco.giddyapp.viewer.ui.details.DetailModel"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sheet"
@@ -38,7 +43,7 @@
                     android:gravity="start"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    android:text="@string/stat_1"/>
+                    android:text="@{@string/detail_1(model.likes)}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -47,7 +52,7 @@
                     android:gravity="center"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    android:text="@string/stat_2"/>
+                    android:text="@{@string/detail_2(model.category)}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -56,7 +61,7 @@
                     android:gravity="end"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    android:text="@string/stat_3"/>
+                    android:text="@{@string/detail_3(model.price)}"/>
         </LinearLayout>
 
         <LinearLayout
@@ -79,14 +84,14 @@
                     android:gravity="start"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/almost_black"
-                    android:text="Name of the Horse"/>
+                    android:text="@{model.name}"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/almost_black"
-                    android:text="Single line description"/>
+                    android:text="@{model.desc}"/>
 
             <View
                     android:layout_width="match_parent"
@@ -95,15 +100,8 @@
                     android:background="@color/almost_black"
                     android:layout_marginTop="@dimen/def"
                     android:layout_marginBottom="@dimen/def"
-                    android:padding="@dimen/def" />
+                    android:padding="@dimen/def"/>
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:textColor="@color/almost_black"
-                    android:lineSpacingExtra="@dimen/xlarge"
-                    android:text="Multi line description\nthat\ncan become\nvery long\nquickly"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,10 @@
         <item name="android:padding">@dimen/large</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="SwipeButton">
+        <item name="android:translationZ">20dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
 </resources>

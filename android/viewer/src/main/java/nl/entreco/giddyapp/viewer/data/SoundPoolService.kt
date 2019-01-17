@@ -1,9 +1,11 @@
-package nl.entreco.giddyapp.viewer
+package nl.entreco.giddyapp.viewer.data
 
 import android.content.Context
 import android.media.SoundPool
 import nl.entreco.giddyapp.core.onBg
 import nl.entreco.giddyapp.core.onUi
+import nl.entreco.giddyapp.viewer.R
+import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SoundPoolService(
@@ -18,8 +20,10 @@ class SoundPoolService(
     init {
 
         onBg {
-            map[R.raw.like] = soundPool.load(context, R.raw.like, prio)
-            map[R.raw.dislike] = soundPool.load(context, R.raw.dislike, prio)
+            map[R.raw.like] = soundPool.load(context,
+                R.raw.like, prio)
+            map[R.raw.dislike] = soundPool.load(context,
+                R.raw.dislike, prio)
             onUi { prepared.set(true) }
         }
     }

@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.swiper
+package nl.entreco.giddyapp.viewer.ui.swiper
 
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation

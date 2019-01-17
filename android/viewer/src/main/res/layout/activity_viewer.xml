@@ -20,7 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        <include layout="@layout/include_sheet" android:id="@+id/include_sheet"/>
+        <include
+                layout="@layout/include_sheet"
+                android:id="@+id/include_sheet"
+                app:model="@{viewModel.details}"/>
 
         <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bar"

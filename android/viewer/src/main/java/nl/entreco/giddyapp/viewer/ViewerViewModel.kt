@@ -1,32 +1,48 @@
 package nl.entreco.giddyapp.viewer
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.viewer.fetch.FetchHorseRequest
-import nl.entreco.giddyapp.viewer.fetch.FetchHorseResponse
-import nl.entreco.giddyapp.viewer.fetch.FetchHorseUsecase
+import nl.entreco.giddyapp.viewer.domain.Horse
+import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseRequest
+import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseResponse
+import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseUsecase
+import nl.entreco.giddyapp.viewer.domain.swap.SwapHorseUsecase
+import nl.entreco.giddyapp.viewer.ui.details.DetailModel
+import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
     horseId: String,
     fetchHorseUsecase: FetchHorseUsecase,
-    private val horseProvider: HorseProvider
-) : ViewModel(), HorseProvider.Listener, SheetToggler.Listener {
-    private val current = MutableLiveData<Horse>()
+    private val swapHorseUsecase: SwapHorseUsecase
+) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
+    val details = ObservableField<DetailModel>()
+
+    private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()
     private val slider = MutableLiveData<Float>()
+
     init {
-        horseProvider.imageReadyListener = this
-        fetchHorseUsecase.go(FetchHorseRequest(horseId), done())
+        swapHorseUsecase.onPreloadListener = this
+        fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
     }
 
-    private fun done(): (FetchHorseResponse) -> Unit {
+    private fun onHorsesFetched(): (FetchHorseResponse) -> Unit {
         return { response ->
-            horseProvider.addAll(response.horses)
-            current.postValue(horseProvider.pop())
-            next.postValue(horseProvider.peek())
+            swapHorseUsecase.initWith(response.horses)
+            swap()
+        }
+    }
+
+    private fun swap() {
+        swapHorseUsecase.go { popped, peeked ->
+            current.postValue(popped)
+            next.postValue(peeked)
+
+            details.set(DetailModel(popped.details))
         }
     }
 
@@ -43,8 +59,7 @@ class ViewerViewModel @Inject constructor(
     }
 
     fun onNext() {
-        current.postValue(horseProvider.pop())
-        next.postValue(horseProvider.peek())
+        swap()
     }
 
     override fun onSlide(offset: Float) {

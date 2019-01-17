@@ -1,8 +1,7 @@
-package nl.entreco.giddyapp.viewer.sound
+package nl.entreco.giddyapp.viewer.domain.sound
 
 import androidx.annotation.RawRes
 import nl.entreco.giddyapp.core.onBg
-import nl.entreco.giddyapp.viewer.SoundService
 import javax.inject.Inject
 
 class PlaySoundUsecase @Inject constructor(

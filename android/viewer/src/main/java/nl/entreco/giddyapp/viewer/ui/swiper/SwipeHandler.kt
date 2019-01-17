@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.swiper
+package nl.entreco.giddyapp.viewer.ui.swiper
 
 import android.view.MotionEvent
 import android.view.View

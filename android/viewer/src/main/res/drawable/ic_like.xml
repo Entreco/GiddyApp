@@ -3,6 +3,7 @@
             android:id="@+id/selected"
             android:state_selected="true"
             android:drawable="@drawable/ic_like_selected"/>
+
     <item
             android:id="@+id/normal"
             android:drawable="@drawable/ic_like_normal"/>

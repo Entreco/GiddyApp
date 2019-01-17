@@ -7,9 +7,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
-import nl.entreco.giddyapp.viewer.HorseService
-import nl.entreco.giddyapp.viewer.SoundPoolService
-import nl.entreco.giddyapp.viewer.SoundService
+import nl.entreco.giddyapp.viewer.domain.HorseService
+import nl.entreco.giddyapp.viewer.data.SoundPoolService
+import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 import nl.entreco.giddyapp.viewer.data.FbHorseService
 
 @Module

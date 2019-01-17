@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.swiper
+package nl.entreco.giddyapp.viewer.ui.swiper
 
 import android.content.Context
 import android.net.Uri
@@ -59,6 +59,18 @@ class SwipeHorseView @JvmOverloads constructor(
         }
     }
 
+    fun skipToLike() {
+        touched = true
+        onLiked(x, y)
+        postOnAnimationDelayed({ touched = false}, 100)
+    }
+
+    fun skipToDislike() {
+        touched = true
+        onDisliked(x, y)
+        postOnAnimationDelayed({ touched = false}, 100)
+    }
+
     private fun onDisliked(x: Float, y: Float) {
         animator.releaseTo(x - screenWidth, y) {
             updateSwipeProgress(it)
@@ -83,8 +95,10 @@ class SwipeHorseView @JvmOverloads constructor(
 
     fun setModel(model: SwipeHorseModel?) {
         binding.model = model
-        binding.executePendingBindings()
-        binding.image.background = model?.gradient
+
+        if(binding.image.drawable == null) {
+            binding.image.background = model?.gradient
+        }
 
         when (model?.draggable) {
             true -> setOnTouchListener(SwipeHandler(onDragged, onReleased))
@@ -93,8 +107,9 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     fun setLoader(loader: ImageLoader) {
-        binding.loader = loader
-        binding.executePendingBindings()
+        if(binding.loader == null) {
+            binding.loader = loader
+        }
     }
 
     fun setOnSwipedListener(listener: OnSwipedListener?) {
@@ -113,7 +128,9 @@ class SwipeHorseView @JvmOverloads constructor(
         @JvmStatic
         @BindingAdapter("ga_loader", "ga_image", requireAll = true)
         fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?) {
-            loader?.get(view, uri)
+            if(view.drawable == null) {
+                loader?.get(view, uri)
+            }
         }
     }
 }

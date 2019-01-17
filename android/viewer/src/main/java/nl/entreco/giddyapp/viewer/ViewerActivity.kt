@@ -9,22 +9,23 @@ import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.di.ViewerComponent
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromModule
 import nl.entreco.giddyapp.viewer.di.ViewerModule
-import nl.entreco.giddyapp.viewer.swiper.OnSwipedListener
-import nl.entreco.giddyapp.viewer.swiper.SwipeFragment
+import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
+import nl.entreco.giddyapp.viewer.ui.swiper.OnSwipedListener
+import nl.entreco.giddyapp.viewer.ui.swiper.SwipeFragment
 
-class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwipedListener{
+class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwipedListener {
 
     private val component by fromModule { ViewerModule(intent.data?.lastPathSegment) }
     private val viewModel by viewModelProvider { component.viewModel() }
-    private lateinit var toggler : SheetToggler
+    private lateinit var toggler: DetailSheet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityViewerBinding>(this, R.layout.activity_viewer)
         binding.viewModel = viewModel
 
-        toggler = SheetToggler(binding.includeSheet.sheet)
-        toggler.listener = viewModel
+        toggler = DetailSheet(binding.includeSheet.sheet)
+        toggler.slideListener = viewModel
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

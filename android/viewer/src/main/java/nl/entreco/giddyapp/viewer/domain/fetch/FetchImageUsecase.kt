@@ -1,9 +1,9 @@
-package nl.entreco.giddyapp.viewer.fetch
+package nl.entreco.giddyapp.viewer.domain.fetch
 
 import androidx.annotation.WorkerThread
 import nl.entreco.giddyapp.core.onBg
 import nl.entreco.giddyapp.core.onUi
-import nl.entreco.giddyapp.viewer.HorseService
+import nl.entreco.giddyapp.viewer.domain.HorseService
 import javax.inject.Inject
 
 class FetchImageUsecase @Inject constructor(

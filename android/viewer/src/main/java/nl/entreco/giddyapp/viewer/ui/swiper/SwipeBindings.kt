@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.swiper
+package nl.entreco.giddyapp.viewer.ui.swiper
 
 import android.view.View
 import androidx.constraintlayout.widget.Guideline
@@ -37,8 +37,8 @@ object SwipeBindings {
         val start = view.context.resources.getDimension(R.dimen.sheet_peek_height)
         val end = view.context.resources.getDimension(R.dimen.sheet_height)
         val difference = end - start
-        val yolo = (start + (offset * difference) - header).toInt()
-        view.setGuidelineEnd(yolo)
+        val guidelineEnd = (start + (offset * difference) - header).toInt()
+        view.setGuidelineEnd(guidelineEnd)
     }
 
     @JvmStatic

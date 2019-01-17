@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_1"><b>%1$s</b>\nlikes</string>
+    <string name="detail_2"><b>%s</b>\ncategory</string>
+    <string name="detail_3"><b>%s</b>\nEUR</string>
+</resources>

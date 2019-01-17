@@ -1,11 +1,11 @@
-package nl.entreco.giddyapp.viewer.swiper
+package nl.entreco.giddyapp.viewer.ui.swiper
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.viewer.R
-import nl.entreco.giddyapp.viewer.sound.PlaySoundUsecase
+import nl.entreco.giddyapp.viewer.domain.sound.PlaySoundUsecase
 import javax.inject.Inject
 
 class SwipeViewModel @Inject constructor(
@@ -36,5 +36,13 @@ class SwipeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onDisliked(view: SwipeHorseView){
+        view.skipToDislike()
+    }
+
+    fun onLiked(view: SwipeHorseView){
+        view.skipToLike()
     }
 }
