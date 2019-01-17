@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.viewer
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.ComponentProvider
 import nl.entreco.giddyapp.core.base.BaseActivity
 import nl.entreco.giddyapp.core.base.viewModelProvider
@@ -43,9 +42,5 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
         supportFragmentManager.beginTransaction()
             .replace(R.id.swipeFragmentContainer, SwipeFragment(), "Swipe")
             .commitAllowingStateLoss()
-
-        viewModel.state().observe(this, Observer {state ->
-            toggler.state = state
-        })
     }
 }

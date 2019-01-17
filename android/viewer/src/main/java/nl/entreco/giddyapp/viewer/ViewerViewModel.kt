@@ -3,7 +3,6 @@ package nl.entreco.giddyapp.viewer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.viewer.fetch.FetchHorseUsecase
@@ -17,7 +16,6 @@ class ViewerViewModel @Inject constructor(
     private val current = MutableLiveData<Horse>()
 
     private val next = MutableLiveData<Horse>()
-    private val sheetState = MutableLiveData<Int>()
     private val slider = MutableLiveData<Float>()
     init {
         horseProvider.imageReadyListener = this
@@ -42,14 +40,6 @@ class ViewerViewModel @Inject constructor(
 
     fun toggler(): LiveData<Float>{
         return slider
-    }
-
-    fun state(): LiveData<Int>{
-        return sheetState
-    }
-
-    fun onCollapse(){
-        sheetState.postValue(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
     fun onNext() {

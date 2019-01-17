@@ -6,29 +6,17 @@ import javax.inject.Inject
 
 class SheetToggler @Inject constructor(view: View) {
 
-    var listener : Listener? = null
-
-    private val callback = object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onSlide(p0: View, p1: Float) {
-            listener?.onSlide(p1)
-        }
-
-        override fun onStateChanged(p0: View, p1: Int) {
-            when(p1){
-                BottomSheetBehavior.STATE_COLLAPSED -> listener?.onSlide(0F)
-                BottomSheetBehavior.STATE_EXPANDED -> listener?.onSlide(1F)
+    init {
+        BottomSheetBehavior.from(view).setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(p0: View, p1: Float) {
+                listener?.onSlide(p1)
             }
-        }
+
+            override fun onStateChanged(p0: View, p1: Int) {}
+        })
     }
 
-    private val behavior = BottomSheetBehavior.from(view).apply {
-        setBottomSheetCallback(callback)
-    }
-    internal var state: Int = BottomSheetBehavior.STATE_COLLAPSED
-        set(value) {
-            behavior.state = value
-        }
-
+    var listener : Listener? = null
     interface Listener {
         fun onSlide(offset: Float)
     }

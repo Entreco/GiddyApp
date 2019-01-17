@@ -44,7 +44,6 @@ class SwipeFragment : Fragment() {
     }
 
     private val currentObserver = Observer<Horse> { horse ->
-        parentViewModel.onCollapse()
         viewModel.current.set(SwipeHorseModel(horse, true))
     }
 
