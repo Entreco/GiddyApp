@@ -1,8 +1,10 @@
 package nl.entreco.giddyapp.viewer.data
 
+import androidx.annotation.Keep
 import com.google.firebase.firestore.PropertyName
 import java.util.*
 
+@Keep
 internal data class FbHorse(
     @PropertyName("name") val name: String = "",
     @PropertyName("description") val description: String = "",
