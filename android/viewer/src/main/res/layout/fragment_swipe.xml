@@ -34,8 +34,9 @@
                 android:id="@+id/guide"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintGuide_end="400dp"
                 android:orientation="horizontal"/>
+
+        <!--app:layout_constraintGuide_end="200dp"-->
 
         <Space
                 android:id="@+id/space"
@@ -47,6 +48,7 @@
                 app:layout_constraintBottom_toTopOf="@id/guide"/>
 
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
+                android:id="@+id/next"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:elevation="@dimen/def"
@@ -62,6 +64,7 @@
                 app:model="@{viewModel.next}"/>
 
         <nl.entreco.giddyapp.viewer.swiper.SwipeHorseView
+                android:id="@+id/current"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:elevation="@dimen/def"

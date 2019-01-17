@@ -7,11 +7,11 @@
     <LinearLayout
             android:id="@+id/sheet"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="@dimen/sheet_height_expanded"
             android:orientation="vertical"
             android:background="@drawable/gradient"
             app:behavior_hideable="false"
-            app:behavior_peekHeight="200dp"
+            app:behavior_peekHeight="@dimen/sheet_height_peek"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout

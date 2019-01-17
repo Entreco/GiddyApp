@@ -13,7 +13,7 @@ class FetchImageUsecase @Inject constructor(
     fun go(request: FetchImageRequest, @WorkerThread done: (FetchImageResponse) -> Unit) {
         onBg {
 
-            service.image("${request.ref}.jpg") { uri ->
+            service.image("${request.ref}.${request.ext}") { uri ->
                 onBg {
                     onUi { done(FetchImageResponse(request.ref, uri)) }
                 }

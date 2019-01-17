@@ -40,10 +40,6 @@ class ViewerViewModel @Inject constructor(
         return next
     }
 
-    override fun onSlide(offset: Float) {
-        slider.postValue(offset)
-    }
-
     fun toggler(): LiveData<Float>{
         return slider
     }
@@ -59,6 +55,10 @@ class ViewerViewModel @Inject constructor(
     fun onNext() {
         current.postValue(horseProvider.pop())
         next.postValue(horseProvider.peek())
+    }
+
+    override fun onSlide(offset: Float) {
+        slider.postValue(offset)
     }
 
     override fun onImageReady(horse: Horse) {

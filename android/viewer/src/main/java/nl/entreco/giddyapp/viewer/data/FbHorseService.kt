@@ -34,10 +34,11 @@ internal class FbHorseService @Inject constructor(
         to: Int,
         query: QuerySnapshot
     ): List<Horse> {
-        return (0 until to).mapNotNull { index ->
-
-            if (index < query.size()) {
-                val doc = query.documents[index]
+        val random = Random.nextInt(query.size())
+        return (random until random + to).mapNotNull { index ->
+            val idx = index % query.size()
+            if (idx < query.size()) {
+                val doc = query.documents[idx]
                 val fbHorse = doc.toObject(FbHorse::class.java)
                 if (fbHorse != null) {
                     mapper.map(fbHorse, doc.id)

@@ -14,7 +14,6 @@ class SwipeHandler(
     private var startY: Float = 0F
 
     override fun onTouch(view: View, event: MotionEvent): Boolean {
-
         return when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 startX = view.x
@@ -31,6 +30,7 @@ class SwipeHandler(
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_OUTSIDE -> {
                 release(startX, startY)
+                view.performClick()
                 true
             }
             else -> false

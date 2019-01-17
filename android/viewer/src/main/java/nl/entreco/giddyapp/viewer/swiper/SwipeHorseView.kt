@@ -3,11 +3,13 @@ package nl.entreco.giddyapp.viewer.swiper
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import kotlinx.android.synthetic.main.widget_swipe_horse_view.view.*
 import nl.entreco.giddyapp.core.images.ImageLoader
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
@@ -113,6 +115,7 @@ class SwipeHorseView @JvmOverloads constructor(
         @JvmStatic
         @BindingAdapter("ga_loader", "ga_image", requireAll = true)
         fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?){
+            Log.i("WOAH", "getting image: ${view.image} uri: $uri")
             loader?.get(view, uri)
         }
     }

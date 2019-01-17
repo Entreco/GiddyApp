@@ -1,13 +1,11 @@
 package nl.entreco.giddyapp.viewer
 
 import android.view.View
-import androidx.databinding.ObservableInt
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
 class SheetToggler @Inject constructor(view: View) {
 
-    val end = ObservableInt(1000)
     var listener : Listener? = null
 
     private val callback = object : BottomSheetBehavior.BottomSheetCallback() {
@@ -16,7 +14,10 @@ class SheetToggler @Inject constructor(view: View) {
         }
 
         override fun onStateChanged(p0: View, p1: Int) {
-
+            when(p1){
+                BottomSheetBehavior.STATE_COLLAPSED -> listener?.onSlide(0F)
+                BottomSheetBehavior.STATE_EXPANDED -> listener?.onSlide(1F)
+            }
         }
     }
 

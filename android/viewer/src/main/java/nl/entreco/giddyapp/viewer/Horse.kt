@@ -8,16 +8,18 @@ data class Horse(
     val start: String,
     val end: String,
     val imageRef: String,
-    val imageUri: Uri? = null,
-    val price: String = randomPrice()
+    val imageExt: String,
+    val posted: Long,
+    val price: String = randomPrice(),
+    val imageUri: Uri? = null
 ) {
     companion object {
         fun none(): Horse {
-            return Horse("Empty", "#fff000", "#000fff", "none")
+            return Horse("Empty", "#fff000", "#000fff", "none", "-", 0L)
         }
 
         fun error(): Horse {
-            return Horse("Error", "#ff0000", "#ff1100","error")
+            return Horse("Error", "#ff0000", "#ff1100","error", "-", 0L)
         }
     }
 
