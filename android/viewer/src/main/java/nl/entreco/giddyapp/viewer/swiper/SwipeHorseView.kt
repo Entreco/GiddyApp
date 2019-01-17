@@ -5,8 +5,8 @@ import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.core.images.ImageLoader
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
@@ -14,7 +14,7 @@ import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
 class SwipeHorseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding: WidgetSwipeHorseViewBinding
     private val inflater by lazy { LayoutInflater.from(context) }
