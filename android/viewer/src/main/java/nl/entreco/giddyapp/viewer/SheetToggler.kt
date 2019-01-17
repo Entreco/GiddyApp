@@ -32,18 +32,4 @@ class SheetToggler @Inject constructor(view: View) {
     interface Listener {
         fun onSlide(offset: Float)
     }
-
-
-//    val behaviour = BottomSheetBehavior.from(binding.sheet)
-//    behaviour.setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback(){
-//        override fun onSlide(p0: View, p1: Float) {
-//            Log.i("WOAH", "offset: ${binding.details!!.height * p1}")
-//            binding.guide?.setGuidelineEnd((binding.details!!.height * p1).toInt())
-//        }
-//
-//        override fun onStateChanged(p0: View, p1: Int) {
-//
-//        }
-//    })
-//    behaviour.state = BottomSheetBehavior.STATE_COLLAPSED
 }

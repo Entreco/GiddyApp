@@ -34,9 +34,8 @@
                 android:id="@+id/guide"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                app:ga_constraintEnd="@{viewModel.constraint}"
                 android:orientation="horizontal"/>
-
-        <!--app:layout_constraintGuide_end="200dp"-->
 
         <Space
                 android:id="@+id/space"

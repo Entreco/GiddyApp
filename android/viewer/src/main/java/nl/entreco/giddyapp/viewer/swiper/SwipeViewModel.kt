@@ -12,6 +12,7 @@ class SwipeViewModel @Inject constructor(
     private val playSoundUsecase: PlaySoundUsecase
 ) : ViewModel() {
 
+    val constraint = ObservableFloat(0F)
     val playing = ObservableBoolean(false)
     val price = ObservableField<String>()
     val nextTouched = ObservableBoolean(false)

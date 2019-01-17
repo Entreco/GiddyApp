@@ -3,15 +3,14 @@ package nl.entreco.giddyapp.viewer.swiper
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import kotlinx.android.synthetic.main.widget_swipe_horse_view.view.*
 import nl.entreco.giddyapp.core.images.ImageLoader
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
+
 
 class SwipeHorseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -35,7 +34,6 @@ class SwipeHorseView @JvmOverloads constructor(
             progressChangedListener?.onChanged(this, value, touched)
             field = value
         }
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -114,8 +112,7 @@ class SwipeHorseView @JvmOverloads constructor(
     companion object {
         @JvmStatic
         @BindingAdapter("ga_loader", "ga_image", requireAll = true)
-        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?){
-            Log.i("WOAH", "getting image: ${view.image} uri: $uri")
+        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?) {
             loader?.get(view, uri)
         }
     }
