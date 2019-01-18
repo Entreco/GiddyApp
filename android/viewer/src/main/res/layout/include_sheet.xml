@@ -83,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:singleLine="true"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/almost_black"
                     android:text="@{model.name}"/>

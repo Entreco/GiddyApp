@@ -4,7 +4,7 @@ import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
-internal class DetailSheet @Inject constructor(view: View) {
+class DetailSheet @Inject constructor(view: View) {
 
     init {
         BottomSheetBehavior.from(view).setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {

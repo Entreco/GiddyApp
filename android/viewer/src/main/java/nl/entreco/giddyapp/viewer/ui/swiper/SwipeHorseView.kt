@@ -62,13 +62,13 @@ class SwipeHorseView @JvmOverloads constructor(
     fun skipToLike() {
         touched = true
         onLiked(x, y)
-        postOnAnimationDelayed({ touched = false}, 100)
+        postOnAnimationDelayed({ touched = false }, 100)
     }
 
     fun skipToDislike() {
         touched = true
         onDisliked(x, y)
-        postOnAnimationDelayed({ touched = false}, 100)
+        postOnAnimationDelayed({ touched = false }, 100)
     }
 
     private fun onDisliked(x: Float, y: Float) {
@@ -95,11 +95,11 @@ class SwipeHorseView @JvmOverloads constructor(
 
     fun setModel(model: SwipeHorseModel?) {
         binding.model = model
+        binding.executePendingBindings()
+        addTouchHandler(model)
+    }
 
-        if(binding.image.drawable == null) {
-            binding.image.background = model?.gradient
-        }
-
+    private fun addTouchHandler(model: SwipeHorseModel?) {
         when (model?.draggable) {
             true -> setOnTouchListener(SwipeHandler(onDragged, onReleased))
             else -> setOnTouchListener(null)
@@ -107,7 +107,7 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     fun setLoader(loader: ImageLoader) {
-        if(binding.loader == null) {
+        if (binding.loader == null) {
             binding.loader = loader
         }
     }
@@ -128,7 +128,7 @@ class SwipeHorseView @JvmOverloads constructor(
         @JvmStatic
         @BindingAdapter("ga_loader", "ga_image", requireAll = true)
         fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?) {
-            if(view.drawable == null) {
+            if (view.drawable == null) {
                 loader?.get(view, uri)
             }
         }
