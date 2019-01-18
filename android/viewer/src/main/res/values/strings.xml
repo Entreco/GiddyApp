@@ -3,4 +3,7 @@
     <string name="detail_1"><b>%1$s</b>\nlikes</string>
     <string name="detail_2"><b>%s</b>\ncategory</string>
     <string name="detail_3"><b>%s</b>\nEUR</string>
+    <string name="cd_like">Yes, love this horse</string>
+    <string name="cd_dislike">Meh</string>
+    <string name="cd_fab">Options</string>
 </resources>
