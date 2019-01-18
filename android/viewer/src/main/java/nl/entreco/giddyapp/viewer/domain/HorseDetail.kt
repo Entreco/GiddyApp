@@ -16,7 +16,5 @@ private fun randomLikes(): Int {
 
 private fun randomPrice(): String {
     val random = Random.nextInt(11)
-    val from = "%.0f".format(random * 1000F)
-    val to = "%.0f".format((random + 1) * 1000F)
-    return "$from - $to"
+    return "${random}K - ${random + 1}K"
 }
