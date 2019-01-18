@@ -20,7 +20,7 @@ class ViewerModule(private val url: String?, private val sheet: View) {
     fun provideUrl(): String = url ?: "nope"
 
     @Provides
-    fun provideSheet() : View {
+    fun provideSheet(): View {
         return sheet
     }
 

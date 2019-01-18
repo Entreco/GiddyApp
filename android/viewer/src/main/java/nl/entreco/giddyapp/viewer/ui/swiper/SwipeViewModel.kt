@@ -38,11 +38,11 @@ class SwipeViewModel @Inject constructor(
         }
     }
 
-    fun onDisliked(view: SwipeHorseView){
+    fun onDisliked(view: SwipeHorseView) {
         view.skipToDislike()
     }
 
-    fun onLiked(view: SwipeHorseView){
+    fun onLiked(view: SwipeHorseView) {
         view.skipToLike()
     }
 }

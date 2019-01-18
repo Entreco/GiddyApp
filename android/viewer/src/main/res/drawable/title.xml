@@ -13,8 +13,8 @@
                     android:startColor="#FDE703"
                     android:endColor="#A7B100"/>
             <!--<gradient-->
-                    <!--android:startColor="#76FF79"-->
-                    <!--android:endColor="#76FF00"/>-->
+            <!--android:startColor="#76FF79"-->
+            <!--android:endColor="#76FF00"/>-->
         </shape>
     </item>
     <item

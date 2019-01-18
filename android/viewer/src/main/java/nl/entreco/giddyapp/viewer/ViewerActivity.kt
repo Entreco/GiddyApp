@@ -14,7 +14,7 @@ import nl.entreco.giddyapp.viewer.ui.swiper.SwipeFragment
 
 class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwipedListener {
 
-    private lateinit var binding : ActivityViewerBinding
+    private lateinit var binding: ActivityViewerBinding
     private val component by fromModule { ViewerModule(intent.data?.lastPathSegment, binding.includeSheet.sheet) }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val sheet by lazy { component.sheet() }

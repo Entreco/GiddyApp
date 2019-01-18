@@ -20,16 +20,20 @@ class SoundPoolService(
     init {
 
         onBg {
-            map[R.raw.like] = soundPool.load(context,
-                R.raw.like, prio)
-            map[R.raw.dislike] = soundPool.load(context,
-                R.raw.dislike, prio)
+            map[R.raw.like] = soundPool.load(
+                context,
+                R.raw.like, prio
+            )
+            map[R.raw.dislike] = soundPool.load(
+                context,
+                R.raw.dislike, prio
+            )
             onUi { prepared.set(true) }
         }
     }
 
     override fun play(sound: Int) {
-        if(prepared.get()) {
+        if (prepared.get()) {
             soundPool.play(map[sound] ?: 0, 1F, 1F, prio, 0, 1F)
         }
     }

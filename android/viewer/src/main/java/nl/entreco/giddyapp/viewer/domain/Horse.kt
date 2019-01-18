@@ -13,11 +13,11 @@ data class Horse(
 ) {
     companion object {
         fun none(): Horse {
-            return Horse( "#fff000", "#000fff", "none", "-", 0L, HorseDetail("Empty", ""))
+            return Horse("#fff000", "#000fff", "none", "-", 0L, HorseDetail("Empty", ""))
         }
 
         fun error(): Horse {
-            return Horse( "#ff0000", "#ff1100", "error", "-", 0L, HorseDetail("Error", "--"))
+            return Horse("#ff0000", "#ff1100", "error", "-", 0L, HorseDetail("Error", "--"))
         }
     }
 

@@ -3,4 +3,4 @@
         android:src="@drawable/stripe_pattern"
         android:tint="#FF3C3C"
         android:alpha="0.3"
-        android:tileMode="repeat" />
+        android:tileMode="repeat"/>

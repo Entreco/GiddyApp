@@ -21,7 +21,7 @@ class SwapHorseUsecase @Inject constructor(
         preloadImages(atLeastOne)
     }
 
-    fun go(done: (Horse, Horse) -> Unit){
+    fun go(done: (Horse, Horse) -> Unit) {
         done(pop(), peek())
     }
 

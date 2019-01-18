@@ -24,7 +24,7 @@ internal object ViewerInjector {
             .build()
     }
 
-    fun ViewerActivity.screen() : DisplayMetrics{
+    fun ViewerActivity.screen(): DisplayMetrics {
         return DisplayMetrics().also {
             windowManager.defaultDisplay.getMetrics(it)
         }
@@ -34,7 +34,8 @@ internal object ViewerInjector {
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> SwipeModule
     ): Lazy<SwipeComponent> = lazy(mode) {
-        val componentProvider = activity as? ComponentProvider<ViewerComponent> ?: throw IllegalStateException("activity($activity) must implement ComponentProvider<ViewerComponent>")
+        val componentProvider = activity as? ComponentProvider<ViewerComponent>
+            ?: throw IllegalStateException("activity($activity) must implement ComponentProvider<ViewerComponent>")
         val component = componentProvider.get()
         component.plus(provider())
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="ViewerDetail">
         <item name="android:padding">@dimen/large</item>
         <item name="android:textColor">@color/colorPrimary</item>

@@ -54,7 +54,7 @@ class ViewerViewModel @Inject constructor(
         return next
     }
 
-    fun toggler(): LiveData<Float>{
+    fun toggler(): LiveData<Float> {
         return slider
     }
 
