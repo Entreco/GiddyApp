@@ -14,8 +14,8 @@ object LaunchHelper {
     private const val URL_VIEWER = "$URL_BASE/viewer/MN3XJRk5anrEbAWWyEXY"
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null) {
-//        val viewer = viewerIntent(activity)
-        val viewer = Intent().setClassName(activity.packageName, "nl.entreco.giddyapp.viewer.ViewerActivity")
+        val viewer = viewerIntent(activity)
+//        val viewer = Intent().setClassName(activity.packageName, "nl.entreco.giddyapp.viewer.ViewerActivity")
         if (options == null) {
             activity.startActivity(viewer)
         } else {
