@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -44,7 +45,7 @@
                     android:gravity="start"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/detail_1(model.likes)}"/>
+                    app:ga_fadeIn="@{@string/detail_1(model.level)}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -53,7 +54,7 @@
                     android:gravity="center"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/detail_2(model.category)}"/>
+                    app:ga_fadeIn="@{@string/detail_2(model.price)}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -62,16 +63,15 @@
                     android:gravity="end"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/detail_3(model.price)}"/>
+                    app:ga_fadeIn="@{@string/detail_3(model.category)}"/>
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/details"
                 android:background="@drawable/sheet"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:paddingStart="@dimen/medium"
                 android:paddingEnd="@dimen/medium"
                 android:paddingTop="@dimen/medium"
@@ -83,19 +83,58 @@
 
             <TextView
                     android:id="@+id/horseName"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:singleLine="true"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/almost_black"
-                    app:ga_fadeIn="@{model.name}"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/horseGenderIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:ga_fadeIn="@{model.name}"
+                    tools:text="@string/detail_1"/>
+
+            <ImageView
+                    android:importantForAccessibility="no"
+                    android:contentDescription="@null"
+                    android:id="@+id/horseGenderIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    app:layout_constraintStart_toEndOf="@id/horseName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_male"
+                    android:scaleType="fitEnd"
+                    android:adjustViewBounds="true"
+                    app:ga_fadeIn="@{model.genderIcon}"
+                    android:tint="@color/almost_black"
+                    android:alpha="0.1"/>
+
+            <!--<TextView-->
+            <!--android:id="@+id/horseGender"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:fontFamily="sans-serif-thin"-->
+            <!--android:singleLine="true"-->
+            <!--android:gravity="end"-->
+            <!--android:textColor="@color/almost_black"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toEndOf="@id/horseName"-->
+            <!--app:layout_constraintBottom_toBottomOf="@id/horseDesc"-->
+            <!--tools:text="@string/detail_2"-->
+            <!--app:ga_fadeIn="@{model.gender}"/>-->
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/horseDesc"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
                     android:singleLine="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/horseGenderIcon"
+                    app:layout_constraintTop_toBottomOf="@id/horseName"
                     android:textColor="@color/almost_black"
                     app:ga_fadeIn="@{model.desc}"/>
 
@@ -107,7 +146,7 @@
                     android:importantForAccessibility="no"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_launcher_foreground"/>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

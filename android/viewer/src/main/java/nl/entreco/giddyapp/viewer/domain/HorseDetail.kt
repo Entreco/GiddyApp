@@ -5,13 +5,27 @@ import kotlin.random.Random
 data class HorseDetail(
     val name: String,
     val desc: String,
-    val likes: Int = randomLikes(),
-    val cat: String = randomLikes().toString(),
+    val gender: HorseGender = HorseGender.Unknown,
+    val type: String = randomLevel(),
+    val category: String = randomCategory(),
     val price: String = randomPrice()
 )
 
-private fun randomLikes(): Int {
-    return Random.nextInt(1000)
+sealed class HorseGender(val number: Number) {
+    object Unknown : HorseGender(-1)
+    object Male : HorseGender(0)
+    object Female : HorseGender(1)
+    object Gelding : HorseGender(2)
+}
+
+private val categories = listOf("Springen", "Dressuur", "Eventing", "Recreatie", "Overige")
+private fun randomCategory(): String {
+    return categories[Random.nextInt(until = categories.size)]
+}
+
+private val levels = listOf("Zadelmak", "B", "C", "M", "Z", "ZZ")
+private fun randomLevel(): String {
+    return levels[Random.nextInt(until = levels.size)]
 }
 
 private fun randomPrice(): String {

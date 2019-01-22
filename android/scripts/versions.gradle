@@ -7,7 +7,7 @@ ext {
     gmsVersion = '4.0.1'
 
     compileSdkVersion = 28
-    minSdkVersion = 23
+    minSdkVersion = 24
     targetSdkVersion = 28
 
     dependencies = [

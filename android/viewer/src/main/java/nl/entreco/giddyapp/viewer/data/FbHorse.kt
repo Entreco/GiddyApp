@@ -11,5 +11,6 @@ internal data class FbHorse(
     @PropertyName("startColor") val startColor: String = "#ffffff",
     @PropertyName("endColor") val endColor: String = "#000000",
     @PropertyName("posted") val posted: Date = Date(0L),
-    @PropertyName("ext") val ext: String = "jpg"
+    @PropertyName("ext") val ext: String = "jpg",
+    @PropertyName("g") val g: Int = -1
 )
