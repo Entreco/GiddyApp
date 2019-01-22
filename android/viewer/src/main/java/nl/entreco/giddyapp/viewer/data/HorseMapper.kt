@@ -20,7 +20,7 @@ internal class HorseMapper {
         return HorseDetail(
             fbHorse.name,
             mapDescription(fbHorse),
-            mapGender(fbHorse.g)
+            mapGender(fbHorse.gender)
         )
     }
 
