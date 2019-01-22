@@ -108,23 +108,9 @@
                     tools:src="@drawable/ic_male"
                     android:scaleType="fitEnd"
                     android:adjustViewBounds="true"
-                    app:ga_fadeIn="@{model.genderIcon}"
+                    app:ga_fadeIn="@{safeUnbox(model.genderIcon)}"
                     android:tint="@color/almost_black"
                     android:alpha="0.1"/>
-
-            <!--<TextView-->
-            <!--android:id="@+id/horseGender"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:fontFamily="sans-serif-thin"-->
-            <!--android:singleLine="true"-->
-            <!--android:gravity="end"-->
-            <!--android:textColor="@color/almost_black"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toEndOf="@id/horseName"-->
-            <!--app:layout_constraintBottom_toBottomOf="@id/horseDesc"-->
-            <!--tools:text="@string/detail_2"-->
-            <!--app:ga_fadeIn="@{model.gender}"/>-->
 
             <TextView
                     android:id="@+id/horseDesc"

@@ -11,11 +11,10 @@ import java.util.concurrent.Future
 private val crashLogger = { throwable: Throwable -> throwable.printStackTrace() }
 
 internal object BackgroundExecutor {
-    var executor: ExecutorService =
+    private var executor: ExecutorService =
         Executors.newScheduledThreadPool(2 * Runtime.getRuntime().availableProcessors())
 
     fun <T> submit(task: () -> T): Future<T> = executor.submit(task)
-
 }
 
 private object ContextHelper {
