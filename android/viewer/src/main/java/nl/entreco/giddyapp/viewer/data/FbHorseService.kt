@@ -18,11 +18,11 @@ internal class FbHorseService @Inject constructor(
     private val collection = db.collection("horses")
     private val mapper by lazy { HorseMapper() }
 
-    override fun fetch(ids: List<String?>, done: (List<Horse>) -> Unit) {
+    override fun fetch(ids: List<String>, done: (List<Horse>) -> Unit) {
         collection.get().addOnSuccessListener { query ->
             val horses = when {
                 query.isEmpty -> emptyList()
-                else -> mapResults(ids.size, query)
+                else -> mapResults(ids, query)
             }
             done(horses)
         }.addOnFailureListener {
@@ -31,22 +31,39 @@ internal class FbHorseService @Inject constructor(
     }
 
     private fun mapResults(
-        to: Int,
+        ids: List<String>,
         query: QuerySnapshot
     ): List<Horse> {
-        val random = Random.nextInt(query.size())
-        return (random until random + to).mapNotNull { index ->
-            val idx = index % query.size()
-            if (idx < query.size()) {
-                val doc = query.documents[idx]
-                val fbHorse = doc.toObject(FbHorse::class.java)
-                if (fbHorse != null) {
-                    mapper.map(fbHorse, doc.id)
-                } else {
-                    Horse.error()
-                }
+        val nonNull = ids.filter { it.isNotBlank() }.fetchOrNotFound(query)
+        val randomRange = ids.size - nonNull.size
+        val randomStart = Random.nextInt(randomRange)
+        val random = (randomStart until randomStart + randomRange).map { index ->
+            index % query.size()
+        }.fetchOrError(query)
+
+        return (nonNull + random).distinct()
+    }
+
+    private fun Iterable<String>.fetchOrNotFound(query: QuerySnapshot): List<Horse> {
+        return map { id ->
+            val doc = query.documents.firstOrNull { it.id == id }
+            val fbHorse = doc?.toObject(FbHorse::class.java)
+            if (fbHorse != null) {
+                mapper.map(fbHorse, doc.id)
             } else {
-                Horse.none()
+                Horse.notFound(id)
+            }
+        }
+    }
+
+    private fun Iterable<Int>.fetchOrError(query: QuerySnapshot): List<Horse> {
+        return map { idx ->
+            val doc = query.documents[idx]
+            val fbHorse = doc?.toObject(FbHorse::class.java)
+            if (fbHorse != null) {
+                mapper.map(fbHorse, doc.id)
+            } else {
+                Horse.error()
             }
         }
     }

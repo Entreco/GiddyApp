@@ -16,6 +16,10 @@ data class Horse(
             return Horse("#fff000", "#000fff", "none", "-", 0L, HorseDetail("Empty", ""))
         }
 
+        fun notFound(id: String): Horse {
+            return Horse("#fff000", "#000fff", "notFound", "-", 0L, HorseDetail("Horse with $id found", ""))
+        }
+
         fun error(): Horse {
             return Horse("#ff0000", "#ff1100", "error", "-", 0L, HorseDetail("Error", "--"))
         }

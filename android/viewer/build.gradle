@@ -39,4 +39,5 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$fbStorage"
 
     testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
 }

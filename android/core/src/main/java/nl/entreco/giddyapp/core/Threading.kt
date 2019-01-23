@@ -7,6 +7,14 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
+class Threading {
+    companion object {
+        internal var testMode: Boolean = false
+        fun disable() {
+            testMode = true
+        }
+    }
+}
 
 private val crashLogger = { throwable: Throwable -> throwable.printStackTrace() }
 
@@ -34,20 +42,24 @@ class AnkoAsyncContext<T>(val weakRef: WeakReference<T>)
 fun <T> T.onBg(
     exceptionHandler: ((Throwable) -> Unit)? = crashLogger,
     task: AnkoAsyncContext<T>.() -> Unit
-): Future<Unit> {
+): Boolean {
     val context = AnkoAsyncContext(WeakReference(this))
-    return BackgroundExecutor.submit {
-        return@submit try {
-            context.task()
-        } catch (thr: Throwable) {
-            val result = exceptionHandler?.invoke(thr)
-            if (result != null) {
-                result
-            } else {
-                Unit
+    if (Threading.testMode) context.task()
+    else {
+        BackgroundExecutor.submit {
+            return@submit try {
+                context.task()
+            } catch (thr: Throwable) {
+                val result = exceptionHandler?.invoke(thr)
+                if (result != null) {
+                    result
+                } else {
+                    Unit
+                }
             }
         }
     }
+    return true
 }
 
 /**
@@ -57,7 +69,7 @@ fun <T> T.onBg(
  */
 fun <T> AnkoAsyncContext<T>.onUi(f: (T) -> Unit): Boolean {
     val ref = weakRef.get() ?: return false
-    if (Looper.getMainLooper() === Looper.myLooper()) {
+    if (Threading.testMode || Looper.getMainLooper() === Looper.myLooper()) {
         f(ref)
     } else {
         ContextHelper.handler.post { f(ref) }
