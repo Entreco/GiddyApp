@@ -17,7 +17,7 @@
 
             <meta-data
                     android:name="default-url"
-                    android:value="https://giddy.entreco.nl"/>
+                    android:value="https://giddy.entreco.nl/viewer"/>
 
             <intent-filter
                     android:order="1"
