@@ -27,10 +27,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data
-                        android:scheme="https"
-                        android:host="giddy.entreco.nl"
-                        android:pathPrefix="/viewer"/>
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="giddy.entreco.nl"/>
+                <data android:pathPrefix="/viewer"/>
+
             </intent-filter>
         </activity>
     </application>
