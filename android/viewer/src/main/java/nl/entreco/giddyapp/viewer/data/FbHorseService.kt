@@ -68,13 +68,6 @@ internal class FbHorseService @Inject constructor(
         }
     }
 
-    private fun random(): String {
-        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-        val nextInt = Random.nextInt(0xffffff + 1)
-        // format it as hexadecimal string (with hashtag and leading zeros)
-        return String.format("#%06x", nextInt)
-    }
-
     override fun image(ref: String, done: (Uri) -> Unit) {
         val reference = storage.reference.child(ref)
         reference.downloadUrl.addOnSuccessListener {

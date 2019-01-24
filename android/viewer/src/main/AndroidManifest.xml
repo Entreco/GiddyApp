@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          xmlns:tools="http://schemas.android.com/tools"
           package="nl.entreco.giddyapp.viewer">
 
     <dist:module
@@ -10,7 +9,8 @@
         <dist:fusing dist:include="true"/>
     </dist:module>
 
-    <application android:name="nl.entreco.giddyapp.GiddyApp">
+    <application
+            android:name="nl.entreco.giddyapp.GiddyApp">
         <activity
                 android:name=".ViewerActivity"
                 android:theme="@style/ViewerTheme">

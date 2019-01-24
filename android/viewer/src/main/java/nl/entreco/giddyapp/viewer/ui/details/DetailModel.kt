@@ -10,7 +10,6 @@ import nl.entreco.giddyapp.viewer.domain.HorseGender
 class DetailModel(horseDetail: HorseDetail) {
     val name = ObservableField<String>(horseDetail.name)
     val desc = ObservableField<String>(horseDetail.desc)
-    val gender = ObservableField<Int>(genderFor(horseDetail.gender))
     val genderIcon = ObservableField<Int>(iconFor(horseDetail.gender))
     val level = ObservableField<String>(horseDetail.type)
     val price = ObservableField<String>(horseDetail.price)
@@ -18,7 +17,7 @@ class DetailModel(horseDetail: HorseDetail) {
 
     @StringRes
     private fun genderFor(gender: HorseGender): Int {
-        return when(gender){
+        return when (gender) {
             HorseGender.Male -> R.string.gender_male
             HorseGender.Female -> R.string.gender_female
             HorseGender.Gelding -> R.string.gender_gelding
@@ -28,7 +27,7 @@ class DetailModel(horseDetail: HorseDetail) {
 
     @DrawableRes
     private fun iconFor(gender: HorseGender): Int {
-        return when(gender){
+        return when (gender) {
             HorseGender.Male -> R.drawable.ic_male
             HorseGender.Female -> R.drawable.ic_female
             HorseGender.Gelding -> R.drawable.ic_gelding

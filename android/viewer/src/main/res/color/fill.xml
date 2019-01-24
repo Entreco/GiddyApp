@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           android:enterFadeDuration="@android:integer/config_shortAnimTime"
-          android:exitFadeDuration="@android:integer/config_longAnimTime">
+          android:exitFadeDuration="@android:integer/config_longAnimTime"
+          tools:keep="@color/fill">
     <item android:color="@color/fill_activated" android:state_activated="true"/>
     <item android:color="@color/fill_selected" android:state_selected="true"/>
     <item android:color="@color/fill_normal"/>

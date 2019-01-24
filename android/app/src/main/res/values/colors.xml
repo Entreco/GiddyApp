@@ -5,6 +5,4 @@
     <color name="colorAccent">#0E92EA</color>
     <color name="almost_black">#190E20</color>
     <color name="white">#FFFFFF</color>
-
-    <color name="ic_launcher_background">@color/almost_black</color>
 </resources>

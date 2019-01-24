@@ -64,7 +64,7 @@ fun <T> T.onBg(
 
 /**
  * Execute [f] on the application UI thread.
- * [doAsync] receiver will be passed to [f].
+ * [onBg] receiver will be passed to [f].
  * If the receiver does not exist anymore (it was collected by GC), [f] will not be executed.
  */
 fun <T> AnkoAsyncContext<T>.onUi(f: (T) -> Unit): Boolean {

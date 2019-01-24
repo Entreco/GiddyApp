@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="ring">#ffffff</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="ring" tools:keep="@color/ring">#ffffff</color>
     <color name="fill_activated">#FF3C3C</color>
     <color name="fill_selected">#76FF79</color>
     <color name="fill_normal">#ffffff</color>
