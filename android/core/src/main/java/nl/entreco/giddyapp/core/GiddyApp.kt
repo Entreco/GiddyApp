@@ -1,9 +1,6 @@
-package nl.entreco.giddyapp
+package nl.entreco.giddyapp.core
 
 import android.app.Application
-import nl.entreco.giddyapp.core.DaggerFeatureComponent
-import nl.entreco.giddyapp.core.FeatureComponent
-import nl.entreco.giddyapp.core.FeatureModule
 
 class GiddyApp : Application() {
 

@@ -2,7 +2,7 @@ package nl.entreco.giddyapp.viewer.di
 
 import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
-import nl.entreco.giddyapp.GiddyApp
+import nl.entreco.giddyapp.core.GiddyApp
 import nl.entreco.giddyapp.core.ComponentProvider
 import nl.entreco.giddyapp.core.api.ApiModule
 import nl.entreco.giddyapp.core.images.ImageModule
