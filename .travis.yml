@@ -52,7 +52,7 @@ before_install:
 - chmod +x gradlew
 - ./gradlew dependencies || true
 script:
-- ./gradlew clean bundle -PdisablePreDex --stacktrace
+- ./gradlew clean bundleRelease -PdisablePreDex --stacktrace
 before_deploy:
 - APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
