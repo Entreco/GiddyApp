@@ -1,1 +1,4 @@
-include ':app', ':core', ':viewer', ':creator'
+include ':app',
+        ':core',
+        ':features:creator',
+        ':instant:viewer'

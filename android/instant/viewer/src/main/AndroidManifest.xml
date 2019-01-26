@@ -1,28 +1,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="nl.entreco.giddyapp.creator">
+          package="nl.entreco.giddyapp.viewer">
 
-    <application android:name="nl.entreco.giddyapp.core.GiddyApp">
+    <dist:module
+            dist:instant="true"
+            dist:onDemand="false"
+            dist:title="@string/title_viewer">
+        <dist:fusing dist:include="true"/>
+    </dist:module>
+
+    <application>
         <activity
-                android:name=".CreatorActivity"
-                android:theme="@style/CreatorTheme">
+                android:name=".ViewerActivity"
+                android:label="@string/title_viewer"
+                android:theme="@style/ViewerTheme">
 
             <meta-data
                     android:name="default-url"
-                    android:value="https://giddy.entreco.nl/creator"/>
+                    android:value="https://giddy.entreco.nl/viewer"/>
 
             <intent-filter
                     android:order="1"
                     android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
 
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:host="giddy.entreco.nl"/>
-                <data android:pathPrefix="/creator"/>
+                <data android:pathPattern="/viewer/*"/>
 
             </intent-filter>
         </activity>

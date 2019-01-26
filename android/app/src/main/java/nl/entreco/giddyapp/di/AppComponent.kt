@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp
+package nl.entreco.giddyapp.di
 
 import dagger.Component
 import nl.entreco.giddyapp.core.FeatureModule

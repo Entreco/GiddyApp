@@ -20,8 +20,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.button).setOnClickListener {
+        findViewById<Button>(R.id.viewer).setOnClickListener {
             LaunchHelper.launchViewer(this, null)
+        }
+
+        findViewById<Button>(R.id.creator).setOnClickListener {
+            LaunchHelper.launchCreator(this, null)
         }
     }
 }

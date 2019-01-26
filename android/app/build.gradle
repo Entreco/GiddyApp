@@ -12,6 +12,9 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         setProperty("archivesBaseName", "${appName}-${versionName}")
+
+        resValue "string", "version", "\"${appName}-${versionName}\""
+
         resConfigs "en", "nl"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +38,7 @@ android {
         enabled = true
     }
 
-    dynamicFeatures = [":viewer"]
+    dynamicFeatures = [":features:creator", ":instant:viewer"]
 }
 
 android.applicationVariants.all { variant ->
