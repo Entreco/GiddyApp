@@ -14,7 +14,7 @@ import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
-    horseId: String,
+    horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
     private val swapHorseUsecase: SwapHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {

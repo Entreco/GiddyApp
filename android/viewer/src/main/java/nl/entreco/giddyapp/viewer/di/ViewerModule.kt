@@ -17,7 +17,11 @@ import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 class ViewerModule(private val url: String?, private val sheet: View) {
 
     @Provides
-    fun provideUrl(): String = url ?: "nope"
+    fun provideUrl(): String? = when{
+        url.isNullOrBlank() -> null
+        url == "viewer" -> null
+        else -> url
+    }
 
     @Provides
     fun provideSheet(): View {

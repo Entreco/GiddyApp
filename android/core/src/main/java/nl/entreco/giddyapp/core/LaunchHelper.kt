@@ -10,12 +10,20 @@ import androidx.core.app.ActivityCompat
 object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
-    private const val URL_SIGNIN = "$URL_BASE/signin"
-    private const val URL_VIEWER = "$URL_BASE/viewer/MN3XJRk5anrEbAWWyEXY"
+    private const val URL_VIEWER = "$URL_BASE/viewer/"
+    private const val URL_CREATOR = "$URL_BASE/creator/"
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null) {
         val viewer = viewerIntent(activity)
-//        val viewer = Intent().setClassName(activity.packageName, "nl.entreco.giddyapp.viewer.ViewerActivity")
+        if (options == null) {
+            activity.startActivity(viewer)
+        } else {
+            ActivityCompat.startActivity(activity, viewer, options.toBundle())
+        }
+    }
+
+    fun launchCreator(activity: Activity, options: ActivityOptions? = null) {
+        val viewer = creatorIntent(activity)
         if (options == null) {
             activity.startActivity(viewer)
         } else {
@@ -24,6 +32,7 @@ object LaunchHelper {
     }
 
     private fun viewerIntent(context: Context? = null) = baseIntent(URL_VIEWER, context)
+    private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
 
     private fun baseIntent(url: String, context: Context? = null): Intent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

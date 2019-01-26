@@ -3,7 +3,7 @@ ext {
     releaseName = "AppleJack"
 
     kotlinVersion = '1.3.11'
-    gradleVersion = '3.3.0'
+    gradleVersion = '3.4.0-beta02'
     gmsVersion = '4.0.1'
 
     compileSdkVersion = 28
