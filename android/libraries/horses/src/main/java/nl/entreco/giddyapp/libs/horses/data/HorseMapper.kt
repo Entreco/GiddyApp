@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.data
+package nl.entreco.giddyapp.libs.horses.data
 
 import nl.entreco.giddyapp.viewer.domain.Horse
 import nl.entreco.giddyapp.viewer.domain.HorseDetail

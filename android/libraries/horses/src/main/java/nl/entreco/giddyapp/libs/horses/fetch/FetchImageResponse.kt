@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.domain.fetch
+package nl.entreco.giddyapp.libs.horses.fetch
 
 import android.net.Uri
 

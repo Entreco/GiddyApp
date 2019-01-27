@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.viewer.domain.Horse
-import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseRequest
-import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseResponse
-import nl.entreco.giddyapp.viewer.domain.fetch.FetchHorseUsecase
-import nl.entreco.giddyapp.viewer.domain.swap.SwapHorseUsecase
+import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseRequest
+import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseResponse
+import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseUsecase
+import nl.entreco.giddyapp.libs.horses.swap.SwapHorseUsecase
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
 import javax.inject.Inject

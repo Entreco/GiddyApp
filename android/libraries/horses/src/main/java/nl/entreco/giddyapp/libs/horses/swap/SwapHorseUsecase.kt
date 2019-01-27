@@ -1,8 +1,8 @@
-package nl.entreco.giddyapp.viewer.domain.swap
+package nl.entreco.giddyapp.libs.horses.swap
 
 import nl.entreco.giddyapp.viewer.domain.Horse
-import nl.entreco.giddyapp.viewer.domain.fetch.FetchImageRequest
-import nl.entreco.giddyapp.viewer.domain.fetch.FetchImageUsecase
+import nl.entreco.giddyapp.libs.horses.fetch.FetchImageRequest
+import nl.entreco.giddyapp.libs.horses.fetch.FetchImageUsecase
 import java.util.*
 import javax.inject.Inject
 

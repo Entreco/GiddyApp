@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.data
+package nl.entreco.giddyapp.libs.horses.data
 
 import android.net.Uri
 import android.util.Log

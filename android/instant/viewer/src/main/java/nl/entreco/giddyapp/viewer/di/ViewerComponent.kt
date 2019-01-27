@@ -1,14 +1,27 @@
 package nl.entreco.giddyapp.viewer.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
-import nl.entreco.giddyapp.core.api.ApiComponent
-import nl.entreco.giddyapp.core.images.ImageComponent
+import nl.entreco.giddyapp.core.images.ImageModule
+import nl.entreco.giddyapp.libs.horses.HorseModule
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
 
-@Component(modules = [ViewerModule::class], dependencies = [ApiComponent::class, ImageComponent::class])
+@Component(modules = [ViewerModule::class, HorseModule::class, ImageModule::class])
 interface ViewerComponent {
     fun viewModel(): ViewerViewModel
     fun sheet(): DetailSheet
     fun plus(module: SwipeModule): SwipeComponent
+
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun context(context: Context): Builder
+
+        fun viewerModule(module: ViewerModule): Builder
+        fun horseModule(module: HorseModule): Builder
+        fun imageModule(module: ImageModule): Builder
+        fun build(): ViewerComponent
+    }
 }

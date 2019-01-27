@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.domain.fetch
+package nl.entreco.giddyapp.libs.horses.fetch
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.eq
@@ -11,11 +11,10 @@ import org.junit.Before
 import org.junit.Test
 
 class FetchHorseUsecaseTest {
-
     private val mockService: HorseService = mock {}
     private val mockDone: (FetchHorseResponse) -> Unit = mock {}
     private lateinit var subject: FetchHorseUsecase
-    private val doneCaptor = argumentCaptor<(List<Horse>)->Unit>()
+    private val doneCaptor = argumentCaptor<(List<Horse>) -> Unit>()
 
     @Before
     fun setUp() {
