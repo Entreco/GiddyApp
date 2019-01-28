@@ -1,6 +1,7 @@
 include ':app',
-        ':core',
         ':features:creator',
+        ':features:splash',
         ':instant:viewer',
+        ':libraries:core',
         ':libraries:horses'
 

@@ -38,7 +38,9 @@ android {
         enabled = true
     }
 
-    dynamicFeatures = [":features:creator", ":instant:viewer"]
+    dynamicFeatures = [":features:creator", ":features:splash", ":instant:viewer"]
+
+
 }
 
 android.applicationVariants.all { variant ->
@@ -48,7 +50,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    implementation project(':core')
+    api project(':libraries:core')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     implementation "com.google.dagger:dagger:$dagger"
