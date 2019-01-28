@@ -2,14 +2,15 @@
           xmlns:dist="http://schemas.android.com/apk/distribution"
           package="nl.entreco.giddyapp.launcher">
     <dist:module
-            dist:onDemand="true"
+            dist:onDemand="false"
             dist:instant="false"
             dist:title="@string/title_launcher">
         <dist:fusing dist:include="true"/>
     </dist:module>
 
     <application>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:excludeFromRecents="false">
             <meta-data
                     android:name="default-url"
                     android:value="https://giddy.entreco.nl/"/>

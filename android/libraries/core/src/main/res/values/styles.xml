@@ -18,7 +18,7 @@
     </style>
 
     <style name="CreatorTheme" parent="AppTheme">
-
+        <item name="android:windowBackground">@drawable/pattern</item>
     </style>
 
 </resources>

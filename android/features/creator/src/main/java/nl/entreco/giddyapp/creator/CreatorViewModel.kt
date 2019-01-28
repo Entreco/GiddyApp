@@ -7,6 +7,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.core.ChangeableField
 import nl.entreco.giddyapp.core.LaunchHelper
@@ -21,45 +23,29 @@ class CreatorViewModel @Inject constructor(
     private val createHorseUsecase: CreateHorseUsecase
 ) : ViewModel() {
 
-    val isValid = ObservableBoolean(false)
-    val showImage = ObservableInt(View.VISIBLE)
-    val name = ChangeableField("") { isValid.set(validInput()) }
-    val description = ChangeableField("") { isValid.set(validInput()) }
-    val gender = ChangeableField<HorseGender>(HorseGender.Unknown) { isValid.set(validInput()) }
-    val image = ChangeableField<Uri> { isValid.set(validInput()) }
-    private var startColor = ""
-    private var endColor = ""
+    private val state = MutableLiveData<CreatorState>()
+    private val events = MutableLiveData<CreatorState.Event>()
 
-    fun selectedImages(images: List<SelectedImage>) {
-        showImage.set(View.VISIBLE)
-        images.firstOrNull()?.let {img ->
-            Log.i("WAHOO", "path:$img")
-            startColor = img.startColor
-            endColor = img.endColor
-            image.set(img.uri)
-            showImage.set(View.GONE)
-        }
+    init {
+        state.postValue(CreatorState.Select)
     }
 
-    fun tryUpload() {
-        if (validInput()) {
-            createHorseUsecase.go(
-                CreateHorseRequest(
-                    name.get()!!,
-                    description.get()!!,
-                    gender.get()!!,
-                    image.get()!!,
-                    startColor,
-                    endColor
-                )
-            ) {
-                // Bingo or not
-            }
-        }
+    fun state() : LiveData<CreatorState>{
+        return state
     }
 
-    private fun validInput(): Boolean {
-        return name.get()?.isNotBlank() ?: false && description.get()?.isNotBlank() ?: false && gender.get() != null && image.get() != null
+    fun events() : LiveData<CreatorState.Event>{
+        return events
+    }
+
+    fun postEvent(event: CreatorState.Event) {
+        events.postValue(event)
+    }
+
+    fun imageSelected(images: List<SelectedImage>) {
+        images.firstOrNull()?.let {
+            state.postValue(CreatorState.Crop(it))
+        }
     }
 
     companion object {

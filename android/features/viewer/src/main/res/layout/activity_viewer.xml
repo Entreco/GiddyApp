@@ -11,7 +11,6 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -42,7 +41,7 @@
                     android:background="#00ffffff"
                     app:itemIconTint="@drawable/bottom_icon_colors"
                     app:itemTextColor="@drawable/bottom_icon_colors"
-                    app:menu="@menu/tab_menu">
+                    app:menu="@menu/viewer_menu">
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
         </com.google.android.material.bottomappbar.BottomAppBar>

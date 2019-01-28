@@ -11,6 +11,8 @@ interface CreatorComponent {
     fun viewModel(): CreatorViewModel
     fun picker(): ImagePicker
 
+    fun plus(module: StepsModule) : StepsComponent
+
     @Component.Builder
     interface Builder {
         fun creatorModule(module: CreatorModule) : Builder

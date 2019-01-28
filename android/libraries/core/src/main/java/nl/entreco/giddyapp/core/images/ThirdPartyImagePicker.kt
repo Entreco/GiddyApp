@@ -2,16 +2,20 @@ package nl.entreco.giddyapp.core.images
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.util.Log
 import androidx.core.content.FileProvider
+import androidx.core.graphics.BitmapCompat
 import androidx.palette.graphics.Palette
 import com.esafirm.imagepicker.features.ReturnMode
 import nl.entreco.giddyapp.core.R
 import nl.entreco.giddyapp.libs.horses.onBg
 import java.io.File
-import kotlin.math.min
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
     override fun selectImage() {
@@ -37,7 +41,7 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
             val images = if (com.esafirm.imagepicker.features.ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 ImageBuilder(activity, data)
                     .copyTo(activity.filesDir)
-                    .resizeTo(650, 650)
+                    .resizeTo(150, 150)
                     .build()
             } else {
                 emptyList()
@@ -62,8 +66,11 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
                 val to = File(dir, orig.name)
 
                 activity.contentResolver.openInputStream(uri).use { input ->
+
+                    // Resize here??
+
                     to.outputStream().use { fileOut ->
-                        input!!.copyTo(fileOut)
+                        input?.copyTo(fileOut)
                     }
                 }
 
@@ -74,32 +81,63 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
         }
 
         internal fun resizeTo(width: Int, height: Int): ImageBuilder {
-            localImages = localImages.map {
-                val boundsOnlyOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                BitmapFactory.decodeFile(it.uri.path, boundsOnlyOptions)
-                var w = boundsOnlyOptions.outWidth
-                var h = boundsOnlyOptions.outHeight
+            localImages = localImages.map { selectedImage ->
+
+                val scale = extractScale(selectedImage, width, height)
+                val small = scale(selectedImage, scale)
+
+                val noWay = BitmapCompat.getAllocationByteCount(small!!)
+                Log.i("WAAAT", "noWay: $noWay")
+
+                val topSwatch = Palette.from(small).setRegion(0, 0, width, height / 4).generate().dominantSwatch
+                val startColor = if (topSwatch != null) Integer.toHexString(topSwatch.rgb) else "ffFFFFFF"
+                val bottomSwatch =
+                    Palette.from(small).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
+                val endColor = if (bottomSwatch != null) Integer.toHexString(bottomSwatch.rgb) else "ffFFFFFF"
+
+                selectedImage.copy(startColor = "#$startColor", endColor = "#$endColor")
+
+            }
+            return this
+        }
+
+        private fun scale(
+            selectedImage: SelectedImage,
+            scale: Int
+        ): Bitmap? {
+            return FileInputStream(selectedImage.uri.path).use {
+                val scaleOptions = BitmapFactory.Options().apply { inSampleSize = scale }
+                BitmapFactory.decodeStream(it, null, scaleOptions)?.apply {
+                    FileOutputStream(selectedImage.uri.path).use { fos ->
+                        compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                    }
+                }
+            }
+        }
+
+        private fun extractScale(
+            selectedImage: SelectedImage,
+            width: Int,
+            height: Int
+        ): Int {
+            return FileInputStream(selectedImage.uri.path).use { fissa ->
+
+                val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                BitmapFactory.decodeStream(fissa, null, opts)
+                var w = opts.outWidth
+                var h = opts.outHeight
 
                 var scale = 1
-                while(true) {
-                    if(w / 2 < width || h / 2 < height)
+                while (true) {
+                    if (w / 2 < width || h / 2 < height)
                         break;
                     w /= 2;
                     h /= 2;
                     scale *= 2;
                 }
 
-                val scaleOptions = BitmapFactory.Options().apply { inSampleSize = scale }
-                val bitmap = BitmapFactory.decodeStream(activity.contentResolver.openInputStream(it.uri), null, scaleOptions)
-
-                val topSwatch = Palette.from(bitmap).setRegion(0, 0, width, height / 4).generate().dominantSwatch
-                val startColor = if (topSwatch != null) Integer.toHexString(topSwatch.rgb) else "ffFFFFFF"
-                val bottomSwatch = Palette.from(bitmap).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
-                val endColor = if (bottomSwatch != null) Integer.toHexString(bottomSwatch.rgb) else "ffFFFFFF"
-
-                it.copy(startColor = "#$startColor", endColor = "#$endColor")
+                scale
             }
-            return this
         }
 
         internal fun build(): List<SelectedImage> {
