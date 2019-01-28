@@ -38,7 +38,7 @@ android {
         enabled = true
     }
 
-    dynamicFeatures = [":features:creator", ":features:splash", ":instant:viewer"]
+    dynamicFeatures = [":features:launcher", ":features:creator", ":features:viewer", ":instant"]
 
 
 }

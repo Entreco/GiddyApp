@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp
+package nl.entreco.giddyapp.launcher
 
 import android.content.Context
 import android.content.Intent

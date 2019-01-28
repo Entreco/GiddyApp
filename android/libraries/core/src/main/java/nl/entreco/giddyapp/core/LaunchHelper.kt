@@ -10,27 +10,26 @@ import androidx.core.app.ActivityCompat
 object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
+    private const val URL_MAIN = "$URL_BASE/"
     private const val URL_VIEWER = "$URL_BASE/viewer/"
     private const val URL_CREATOR = "$URL_BASE/creator/"
 
+    fun launchMain(activity: Activity, options: ActivityOptions? = null) {
+        val main = mainIntent(activity)
+        launch(main, options, activity)
+    }
+
     fun launchViewer(activity: Activity, options: ActivityOptions? = null) {
         val viewer = viewerIntent(activity)
-        if (options == null) {
-            activity.startActivity(viewer)
-        } else {
-            ActivityCompat.startActivity(activity, viewer, options.toBundle())
-        }
+        launch(viewer, options, activity)
     }
 
     fun launchCreator(activity: Activity, options: ActivityOptions? = null) {
-        val viewer = creatorIntent(activity)
-        if (options == null) {
-            activity.startActivity(viewer)
-        } else {
-            ActivityCompat.startActivity(activity, viewer, options.toBundle())
-        }
+        val creator = creatorIntent(activity)
+        launch(creator, options, activity)
     }
 
+    private fun mainIntent(context: Context? = null) = baseIntent(URL_MAIN, context)
     private fun viewerIntent(context: Context? = null) = baseIntent(URL_VIEWER, context)
     private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
 
@@ -42,5 +41,13 @@ object LaunchHelper {
             intent.`package` = context.packageName
         }
         return intent
+    }
+
+    private fun launch(intent: Intent, options: ActivityOptions?, activity: Activity) {
+        if (options == null) {
+            activity.startActivity(intent)
+        } else {
+            ActivityCompat.startActivity(activity, intent, options.toBundle())
+        }
     }
 }

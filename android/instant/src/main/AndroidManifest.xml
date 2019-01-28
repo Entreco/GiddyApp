@@ -1,14 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="nl.entreco.giddyapp.splash">
+          package="nl.entreco.giddyapp.instant">
     <dist:module
             dist:onDemand="false"
-            dist:instant="false"
-            dist:title="@string/title_splash">
+            dist:instant="true"
+            dist:title="@string/title_instant">
         <dist:fusing dist:include="true"/>
     </dist:module>
 
-    <application>
-    </application>
+    <application android:hasCode="false" />
+
 </manifest>
 

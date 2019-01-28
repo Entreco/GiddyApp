@@ -1,5 +1,7 @@
 <resources>
-
-
     <string name="title_splash">Splash</string>
+    <string name="title_instant">Instant</string>
+    <string name="title_viewer">Viewer</string>
+    <string name="title_creator">Creator</string>
+    <string name="title_launcher">Launcher</string>
 </resources>

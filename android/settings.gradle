@@ -1,7 +1,8 @@
 include ':app',
+        ':instant',
+        ':features:launcher',
         ':features:creator',
-        ':features:splash',
-        ':instant:viewer',
+        ':features:viewer',
         ':libraries:core',
         ':libraries:horses'
 

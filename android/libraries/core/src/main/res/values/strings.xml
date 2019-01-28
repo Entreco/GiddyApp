@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Giddy-app</string>
-    <string name="title_creator">Creator</string>
-    <string name="title_instant">Instant</string>
-    <string name="title_viewer">Viewer</string>
     <string name="title_base">base</string>
 
     <string name="tab_profile">Profile</string>
