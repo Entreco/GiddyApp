@@ -3,8 +3,8 @@ package nl.entreco.giddyapp.viewer.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import nl.entreco.giddyapp.core.horse.HorseModule
 import nl.entreco.giddyapp.core.images.ImageModule
-import nl.entreco.giddyapp.libs.horses.HorseModule
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
 

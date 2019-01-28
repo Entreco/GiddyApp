@@ -2,8 +2,8 @@ package nl.entreco.giddyapp.viewer.di
 
 import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.core.ComponentProvider
+import nl.entreco.giddyapp.core.horse.HorseModule
 import nl.entreco.giddyapp.core.images.ImageModule
-import nl.entreco.giddyapp.libs.horses.HorseModule
 import nl.entreco.giddyapp.viewer.ViewerActivity
 
 internal object ViewerInjector {
@@ -16,7 +16,7 @@ internal object ViewerInjector {
         DaggerViewerComponent.builder()
             .context(this)
             .horseModule(HorseModule())
-            .imageModule(ImageModule(resources.displayMetrics))
+            .imageModule(ImageModule(this, resources.displayMetrics))
             .viewerModule(provider())
             .build()
     }

@@ -1,12 +1,13 @@
-package nl.entreco.giddyapp.libs.horses.data
+package nl.entreco.giddyapp.core.horse.data
 
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
-import nl.entreco.giddyapp.viewer.domain.Horse
-import nl.entreco.giddyapp.viewer.domain.HorseService
+import nl.entreco.giddyapp.libs.horses.Horse
+import nl.entreco.giddyapp.libs.horses.HorseGender
+import nl.entreco.giddyapp.libs.horses.HorseService
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -27,6 +28,28 @@ internal class FbHorseService @Inject constructor(
             done(horses)
         }.addOnFailureListener {
             done(emptyList())
+        }
+    }
+
+    override fun create(
+        name: String,
+        description: String,
+        gender: HorseGender,
+        image: Uri,
+        startColor: String,
+        endColor: String,
+        done: (String) -> Unit
+    ) {
+        val document = collection.document()
+
+        // 1) Upload Image
+        upload(document.id, image){
+            // 2) Set Image Details
+            val horse = mapper.create(name, description, gender, startColor, endColor)
+            document.set(horse).addOnSuccessListener {
+                // TODO: Extract extension from Image
+                done(document.id)
+            }
         }
     }
 
@@ -65,6 +88,16 @@ internal class FbHorseService @Inject constructor(
             } else {
                 Horse.error()
             }
+        }
+    }
+
+    private fun upload(documentId: String, image: Uri, done:(String?)->Unit){
+        val reference = storage.reference
+        val imageRef = reference.child("$documentId.jpg")
+        imageRef.putFile(image).addOnSuccessListener {
+            done(imageRef.name)
+        }.addOnFailureListener {
+            done(null)
         }
     }
 

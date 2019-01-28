@@ -5,8 +5,8 @@ import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import nl.entreco.giddyapp.core.Threading
-import nl.entreco.giddyapp.viewer.domain.Horse
-import nl.entreco.giddyapp.viewer.domain.HorseService
+import nl.entreco.giddyapp.libs.horses.Horse
+import nl.entreco.giddyapp.libs.horses.HorseService
 import org.junit.Before
 import org.junit.Test
 

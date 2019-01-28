@@ -4,8 +4,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.ObservableField
 import nl.entreco.giddyapp.viewer.R
-import nl.entreco.giddyapp.viewer.domain.HorseDetail
-import nl.entreco.giddyapp.viewer.domain.HorseGender
+import nl.entreco.giddyapp.libs.horses.HorseDetail
+import nl.entreco.giddyapp.libs.horses.HorseGender
 
 class DetailModel(horseDetail: HorseDetail) {
     val name = ObservableField<String>(horseDetail.name)

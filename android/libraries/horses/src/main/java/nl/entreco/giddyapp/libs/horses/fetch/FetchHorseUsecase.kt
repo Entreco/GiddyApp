@@ -1,8 +1,8 @@
 package nl.entreco.giddyapp.libs.horses.fetch
 
-import nl.entreco.giddyapp.core.onBg
-import nl.entreco.giddyapp.core.onUi
-import nl.entreco.giddyapp.viewer.domain.HorseService
+import nl.entreco.giddyapp.libs.horses.HorseService
+import nl.entreco.giddyapp.libs.horses.onBg
+import nl.entreco.giddyapp.libs.horses.onUi
 import javax.inject.Inject
 
 class FetchHorseUsecase @Inject constructor(

@@ -12,7 +12,7 @@ import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.databinding.FragmentSwipeBinding
 import nl.entreco.giddyapp.viewer.di.SwipeModule
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromActivity
-import nl.entreco.giddyapp.viewer.domain.Horse
+import nl.entreco.giddyapp.libs.horses.Horse
 
 
 class SwipeFragment : Fragment() {

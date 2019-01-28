@@ -6,7 +6,6 @@
     <!-- This line makes the "app" module instant enabled, which means this bundle can be uploaded
         to the instant track on the Google Play Developer Console -->
     <dist:module dist:instant="true" />
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:name="nl.entreco.giddyapp.core.GiddyApp"

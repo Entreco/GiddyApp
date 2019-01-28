@@ -27,6 +27,7 @@ dependencies {
     implementation project(':core')
     implementation project(':libraries:horses')
 
+
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
@@ -35,10 +36,6 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
     implementation "androidx.dynamicanimation:dynamicanimation:$xDynamicAnimation"
-
-    implementation "com.google.firebase:firebase-core:$fbCore"
-    implementation "com.google.firebase:firebase-firestore:$fbFireStore"
-    implementation "com.google.firebase:firebase-storage:$fbStorage"
 
     testImplementation "junit:junit:$junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"

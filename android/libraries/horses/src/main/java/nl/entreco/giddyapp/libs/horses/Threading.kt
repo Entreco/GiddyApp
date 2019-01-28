@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp.libs.horses
 
 import android.os.Handler
 import android.os.Looper

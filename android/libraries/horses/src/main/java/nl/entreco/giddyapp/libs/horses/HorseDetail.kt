@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.domain
+package nl.entreco.giddyapp.libs.horses
 
 import kotlin.random.Random
 
@@ -11,7 +11,7 @@ data class HorseDetail(
     val price: String = randomPrice()
 )
 
-sealed class HorseGender(val number: Number) {
+sealed class HorseGender(val number: Int) {
     object Unknown : HorseGender(-1)
     object Male : HorseGender(0)
     object Female : HorseGender(1)

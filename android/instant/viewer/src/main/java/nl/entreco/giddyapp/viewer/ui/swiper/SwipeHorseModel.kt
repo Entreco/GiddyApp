@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import androidx.databinding.ObservableField
-import nl.entreco.giddyapp.viewer.domain.Horse
+import nl.entreco.giddyapp.libs.horses.Horse
 
 data class SwipeHorseModel(private val horse: Horse?, val draggable: Boolean = false) {
 

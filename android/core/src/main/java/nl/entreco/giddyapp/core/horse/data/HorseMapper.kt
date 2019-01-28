@@ -1,8 +1,8 @@
-package nl.entreco.giddyapp.libs.horses.data
+package nl.entreco.giddyapp.core.horse.data
 
-import nl.entreco.giddyapp.viewer.domain.Horse
-import nl.entreco.giddyapp.viewer.domain.HorseDetail
-import nl.entreco.giddyapp.viewer.domain.HorseGender
+import nl.entreco.giddyapp.libs.horses.Horse
+import nl.entreco.giddyapp.libs.horses.HorseDetail
+import nl.entreco.giddyapp.libs.horses.HorseGender
 
 internal class HorseMapper {
     fun map(fbHorse: FbHorse, imageRef: String): Horse {
@@ -34,5 +34,15 @@ internal class HorseMapper {
             2 -> HorseGender.Gelding
             else -> HorseGender.Unknown
         }
+    }
+
+    fun create(name: String, description: String, gender: HorseGender, startColor: String, endColor: String): FbHorse {
+        return FbHorse(
+            name = name,
+            description = description,
+            gender = gender.number,
+            startColor = startColor,
+            endColor = endColor
+        )
     }
 }

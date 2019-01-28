@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libs.horses.data
+package nl.entreco.giddyapp.core.horse.data
 
 import androidx.annotation.Keep
 import com.google.firebase.firestore.PropertyName

@@ -2,8 +2,8 @@ package nl.entreco.giddyapp.viewer.data
 
 import android.content.Context
 import android.media.SoundPool
-import nl.entreco.giddyapp.core.onBg
-import nl.entreco.giddyapp.core.onUi
+import nl.entreco.giddyapp.libs.horses.onBg
+import nl.entreco.giddyapp.libs.horses.onUi
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 import java.util.concurrent.atomic.AtomicBoolean

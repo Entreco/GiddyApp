@@ -24,6 +24,8 @@ android {
 }
 
 dependencies {
+
+    implementation project(':libraries:horses')
     implementation "com.google.android.play:core:$playCore"
 
     implementation "com.google.dagger:dagger:$dagger"
@@ -35,6 +37,13 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$xAppcompat"
     implementation "com.google.android.material:material:$material"
     implementation "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
+
+    api "com.google.firebase:firebase-core:$fbCore"
+    api "com.google.firebase:firebase-firestore:$fbFireStore"
+    api "com.google.firebase:firebase-storage:$fbStorage"
+
+    implementation "com.github.esafirm.android-image-picker:imagepicker:$imagePicker"
+    implementation "androidx.palette:palette:$xPalette"
 
     testImplementation "junit:junit:$junit"
 }
