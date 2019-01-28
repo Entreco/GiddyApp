@@ -15,7 +15,7 @@
                     android:value="https://giddy.entreco.nl/"/>
 
             <intent-filter
-                    android:order="0"
+                    android:order="3"
                     android:autoVerify="true">
 
                 <action android:name="android.intent.action.VIEW"/>
@@ -25,6 +25,7 @@
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:host="giddy.entreco.nl"/>
+                <data android:pathPrefix="/launch"/>
 
             </intent-filter>
         </activity>

@@ -26,6 +26,7 @@ android {
 dependencies {
 
     implementation project(':libraries:horses')
+
     implementation "com.google.android.play:core:$playCore"
 
     implementation "com.google.dagger:dagger:$dagger"

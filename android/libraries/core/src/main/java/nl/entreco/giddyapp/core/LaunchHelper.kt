@@ -10,7 +10,7 @@ import androidx.core.app.ActivityCompat
 object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
-    private const val URL_MAIN = "$URL_BASE/"
+    private const val URL_MAIN = "$URL_BASE/launch/"
     private const val URL_VIEWER = "$URL_BASE/viewer/"
     private const val URL_CREATOR = "$URL_BASE/creator/"
 
