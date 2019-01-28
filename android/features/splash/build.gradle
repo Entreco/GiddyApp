@@ -20,4 +20,5 @@ android {
 
 dependencies {
     implementation project(':app')
+    implementation "androidx.appcompat:appcompat:$xAppcompat"
 }

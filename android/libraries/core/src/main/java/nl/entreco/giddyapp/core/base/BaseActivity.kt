@@ -7,15 +7,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.play.core.splitcompat.SplitCompat
 
 abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
-//        if (!InstantApps.isInstantApp(this)) {
+        if (!InstantApps.isInstantApp(this)) {
             SplitCompat.install(this)
-//        }
+        }
     }
 
     override fun onStart() {
