@@ -4,5 +4,6 @@ include ':app',
         ':features:creator',
         ':features:viewer',
         ':libraries:core',
-        ':libraries:horses'
+        ':libraries:horses',
+        ':libraries:libCropper'
 

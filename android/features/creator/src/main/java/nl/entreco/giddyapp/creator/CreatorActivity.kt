@@ -6,12 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.ComponentProvider
+import nl.entreco.giddyapp.core.LaunchHelper
 import nl.entreco.giddyapp.core.base.BaseActivity
 import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.databinding.ActivityCreatorBinding
 import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
 import nl.entreco.giddyapp.creator.di.CreatorModule
+import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
+import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.crop.CropFragment
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
@@ -28,8 +31,9 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_creator)
         binding.viewModel = viewModel
         viewModel.state().observe(this, Observer { state ->
+            viewModel.currentState.set(BottomProgressModel(state))
+            viewModel.currentStep.set(BottomStepModel(state))
             render(state)
-            selectTab(state)
         })
         viewModel.events().observe(this, Observer { event ->
             when(event){
@@ -47,13 +51,7 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
             is CreatorState.Select -> replaceWith(SelectFragment(), state.toString())
             is CreatorState.Crop -> replaceWith(CropFragment(), state.toString())
             is CreatorState.Upload -> replaceWith(UploadFragment(), state.toString())
-        }
-    }
-    private fun selectTab(state: CreatorState?){
-        when (state) {
-            is CreatorState.Select -> binding.bottomNavigation.selectedItemId = R.id.tab_select
-            is CreatorState.Crop -> binding.bottomNavigation.selectedItemId = R.id.tab_crop
-            is CreatorState.Upload -> binding.bottomNavigation.selectedItemId = R.id.tab_upload
+            is CreatorState.Done -> LaunchHelper.launchViewer(this, null)
         }
     }
 

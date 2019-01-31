@@ -41,13 +41,27 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
             val images = if (com.esafirm.imagepicker.features.ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 ImageBuilder(activity, data)
                     .copyTo(activity.filesDir)
-                    .resizeTo(150, 150)
                     .build()
             } else {
                 emptyList()
             }
 
             done(images)
+        }
+    }
+
+    override fun resize(image: SelectedImage, bmp: Bitmap?, done: (SelectedImage) -> Unit) {
+        onBg {
+
+            val cropped = FileOutputStream(image.uri.path).use { fos ->
+                bmp?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            }
+
+            val scaled = ImageCropper(image)
+                .resizeTo(650, 650)
+                .build()
+
+            done(scaled)
         }
     }
 
@@ -80,35 +94,42 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
             return this
         }
 
-        internal fun resizeTo(width: Int, height: Int): ImageBuilder {
-            localImages = localImages.map { selectedImage ->
+        internal fun build(): List<SelectedImage> {
+            return localImages
+        }
+    }
 
-                val scale = extractScale(selectedImage, width, height)
-                val small = scale(selectedImage, scale)
+    internal class ImageCropper(private val image: SelectedImage) {
 
-                val noWay = BitmapCompat.getAllocationByteCount(small!!)
-                Log.i("WAAAT", "noWay: $noWay")
+        internal var croppedImage : SelectedImage? = null
 
-                val topSwatch = Palette.from(small).setRegion(0, 0, width, height / 4).generate().dominantSwatch
-                val startColor = if (topSwatch != null) Integer.toHexString(topSwatch.rgb) else "ffFFFFFF"
-                val bottomSwatch =
-                    Palette.from(small).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
-                val endColor = if (bottomSwatch != null) Integer.toHexString(bottomSwatch.rgb) else "ffFFFFFF"
+        internal fun resizeTo(width: Int, height: Int): ImageCropper {
 
-                selectedImage.copy(startColor = "#$startColor", endColor = "#$endColor")
+            val scale = extractScale(image.uri, width, height)
+            val small = scale(image.uri, scale)
 
-            }
+            val noWay = BitmapCompat.getAllocationByteCount(small!!)
+            Log.i("WAAAT", "noWay: $noWay")
+
+            val topSwatch = Palette.from(small).setRegion(0, 0, width, height / 4).generate().dominantSwatch
+            val startColor = if (topSwatch != null) Integer.toHexString(topSwatch.rgb) else "ffFFFFFF"
+            val bottomSwatch =
+                Palette.from(small).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
+            val endColor = if (bottomSwatch != null) Integer.toHexString(bottomSwatch.rgb) else "ffFFFFFF"
+
+            croppedImage = image.copy(startColor = startColor, endColor =  endColor)
+
             return this
         }
 
         private fun scale(
-            selectedImage: SelectedImage,
+            uri: Uri,
             scale: Int
         ): Bitmap? {
-            return FileInputStream(selectedImage.uri.path).use {
+            return FileInputStream(uri.path).use {
                 val scaleOptions = BitmapFactory.Options().apply { inSampleSize = scale }
                 BitmapFactory.decodeStream(it, null, scaleOptions)?.apply {
-                    FileOutputStream(selectedImage.uri.path).use { fos ->
+                    FileOutputStream(uri.path).use { fos ->
                         compress(Bitmap.CompressFormat.JPEG, 100, fos)
                     }
                 }
@@ -116,11 +137,11 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
         }
 
         private fun extractScale(
-            selectedImage: SelectedImage,
+            uri: Uri,
             width: Int,
             height: Int
         ): Int {
-            return FileInputStream(selectedImage.uri.path).use { fissa ->
+            return FileInputStream(uri.path).use { fissa ->
 
                 val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 BitmapFactory.decodeStream(fissa, null, opts)
@@ -140,8 +161,8 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
             }
         }
 
-        internal fun build(): List<SelectedImage> {
-            return localImages
+        internal fun build(): SelectedImage {
+            return croppedImage ?: throw IllegalStateException("Need to crop first dude")
         }
     }
 }

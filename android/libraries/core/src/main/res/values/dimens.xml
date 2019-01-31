@@ -6,4 +6,10 @@
     <dimen name="medium">16dp</dimen>
     <dimen name="large">24dp</dimen>
     <dimen name="xlarge">32dp</dimen>
+
+    <!-- Bottom Sheet -->
+    <dimen name="sheet_height">400dp</dimen>
+    <dimen name="sheet_peek_height">200dp</dimen>
+    <dimen name="sheet_header_height">100dp</dimen>
+    <dimen name="guide_initial_height">300dp</dimen>
 </resources>

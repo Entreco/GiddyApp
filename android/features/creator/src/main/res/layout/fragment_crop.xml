@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewModel" type="nl.entreco.giddyapp.creator.ui.crop.CropViewModel"/>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.crop.CropViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ScrollView
-                android:id="@+id/creator_image"
+        <nl.entreco.giddyapp.libcropper.CropImageView
+                android:id="@+id/croppedImageView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintBottom_toBottomOf="parent">
-            <ImageView
-                    android:importantForAccessibility="no"
-                    android:contentDescription="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ga_preview="@{viewModel.image}"
-                    android:background="#ff6650"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"/>
-        </ScrollView>
+                android:layout_height="match_parent"
+                app:ga_preview="@{viewModel.image}"
+                android:adjustViewBounds="true"
+                app:guidelines="on"
+                app:aspectRatioX="1"
+                app:aspectRatioY="1"
+                app:fixAspectRatio="true"
+                android:scaleType="centerInside"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

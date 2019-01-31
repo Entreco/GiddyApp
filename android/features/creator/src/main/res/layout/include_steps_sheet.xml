@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="step"
+                type="nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sheet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sheet_height"
+            android:animateLayoutChanges="true"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="@dimen/sheet_peek_height"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ImageView
+                android:contentDescription="@null"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sheet_header_height"
+                android:background="@drawable/gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/details"
+                android:background="@drawable/sheet"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingStart="@dimen/medium"
+                android:paddingEnd="@dimen/medium"
+                android:paddingTop="@dimen/medium"
+                android:paddingBottom="@dimen/xlarge"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info">
+
+            <TextView
+                    android:id="@+id/stepName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/almost_black"
+                    android:text="@{step.title}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
+                    android:singleLine="true"
+                    android:text="@{step.description}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/stepName"
+                    android:textColor="@color/almost_black"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
