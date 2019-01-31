@@ -38,6 +38,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$xAppcompat"
     implementation "com.google.android.material:material:$material"
     implementation "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
+    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
 
     api "com.google.firebase:firebase-core:$fbCore"
     api "com.google.firebase:firebase-firestore:$fbFireStore"

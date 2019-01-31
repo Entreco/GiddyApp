@@ -10,6 +10,7 @@ import androidx.databinding.Bindable
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.WidgetBottomProgressViewBinding
+import nl.entreco.giddyapp.creator.icon
 
 class BottomProgressView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -37,15 +38,5 @@ class BottomProgressView @JvmOverloads constructor(
         binding.fab.setOnClickListener {
             listener.onClick(it)
         }
-    }
-}
-
-@DrawableRes
-internal fun CreatorState.icon() : Int {
-    return when(this){
-        is CreatorState.Select -> R.drawable.ic_select
-        is CreatorState.Crop -> R.drawable.ic_resize
-        is CreatorState.Upload -> R.drawable.ic_upload
-        CreatorState.Done -> 0
     }
 }

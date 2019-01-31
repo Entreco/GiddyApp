@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
+                    android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
                     app:ga_fadeIn="@{@string/detail_1(model.level)}"/>
@@ -52,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
                     app:ga_fadeIn="@{@string/detail_2(model.price)}"/>
@@ -61,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
+                    android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
                     app:ga_fadeIn="@{@string/detail_3(model.category)}"/>

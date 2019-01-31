@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.creator.ui.crop
+package nl.entreco.giddyapp.creator.ui.entry
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,23 +12,21 @@ import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
-import nl.entreco.giddyapp.creator.databinding.FragmentCropBinding
+import nl.entreco.giddyapp.creator.databinding.FragmentEntryBinding
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromActivity
 import nl.entreco.giddyapp.creator.di.StepsModule
 
-class CropFragment : Fragment() {
+class EntryFragment : Fragment() {
 
-    private lateinit var binding: FragmentCropBinding
     private val parentViewModel by parentViewModelProvider { CreatorViewModel::class.java }
     private val component by fromActivity { StepsModule(parentViewModel.state().value) }
-    private val viewModel by viewModelProvider { component.crop() }
+    private val viewModel by viewModelProvider { component.entry() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(
+        val binding = DataBindingUtil.inflate<FragmentEntryBinding>(
             inflater,
-            R.layout.fragment_crop,
-            container,
-            false
+            R.layout.fragment_entry,
+            container, false
         )
         binding.viewModel = viewModel
         return binding.root
@@ -36,19 +34,21 @@ class CropFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.events().observe(this, eventObserver)
-
+        viewModel.events().observe(this, Observer {
+            parentViewModel.postEvent(it)
+        })
+        parentViewModel.toggler().observe(this, toggleObserver)
         parentViewModel.events().observe(this, parentEventObserver)
     }
 
-    private var eventObserver =  Observer<CreatorState.Event> {
-        parentViewModel.postEvent(it)
+    private val toggleObserver = Observer<Float> { offset ->
+        viewModel.constraint.set(offset)
     }
 
     private var parentEventObserver =  Observer<CreatorState.Event> { event ->
         when (event) {
-            is CreatorState.Event.Resize -> viewModel.resize(binding.croppedImageView) {
-                parentViewModel.imageCropped(it)
+            is CreatorState.Event.Enter -> viewModel.compose() {
+                parentViewModel.entered(it)
             }
         }
     }

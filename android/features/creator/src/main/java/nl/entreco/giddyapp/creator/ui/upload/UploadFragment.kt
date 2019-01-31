@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.base.parentViewModelProvider
 import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentUploadBinding
@@ -35,5 +36,10 @@ class UploadFragment : Fragment() {
         viewModel.events().observe(this, Observer {
             parentViewModel.postEvent(it)
         })
+        parentViewModel.toggler().observe(this, toggleObserver)
+    }
+
+    private val toggleObserver = Observer<Float> { offset ->
+        viewModel.constraint.set(offset)
     }
 }

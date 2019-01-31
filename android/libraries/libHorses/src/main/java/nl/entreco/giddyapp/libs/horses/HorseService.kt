@@ -9,7 +9,7 @@ interface HorseService {
                description: String,
                gender: HorseGender,
                image: Uri,
-               startColor: String,
-               endColor: String,
+               startColor: HexString,
+               endColor: HexString,
                done: (String) -> Unit)
 }

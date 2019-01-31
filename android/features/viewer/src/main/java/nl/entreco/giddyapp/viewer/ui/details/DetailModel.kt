@@ -11,9 +11,9 @@ class DetailModel(horseDetail: HorseDetail) {
     val name = ObservableField<String>(horseDetail.name)
     val desc = ObservableField<String>(horseDetail.desc)
     val genderIcon = ObservableField<Int>(iconFor(horseDetail.gender))
-    val level = ObservableField<String>(horseDetail.type)
-    val price = ObservableField<String>(horseDetail.price)
-    val category = ObservableField<String>(horseDetail.category)
+    val level = ObservableField<String>(horseDetail.type.toString())
+    val price = ObservableField<String>(horseDetail.price.toString())
+    val category = ObservableField<String>(horseDetail.category.toString())
 
     @StringRes
     private fun genderFor(gender: HorseGender): Int {
@@ -34,5 +34,4 @@ class DetailModel(horseDetail: HorseDetail) {
             else -> R.drawable.ic_gender_unknown
         }
     }
-
 }

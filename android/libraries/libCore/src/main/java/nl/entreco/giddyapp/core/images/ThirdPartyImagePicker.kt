@@ -12,6 +12,7 @@ import androidx.core.graphics.BitmapCompat
 import androidx.palette.graphics.Palette
 import com.esafirm.imagepicker.features.ReturnMode
 import nl.entreco.giddyapp.core.R
+import nl.entreco.giddyapp.libs.horses.HexString
 import nl.entreco.giddyapp.libs.horses.onBg
 import java.io.File
 import java.io.FileInputStream
@@ -53,7 +54,7 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
     override fun resize(image: SelectedImage, bmp: Bitmap?, done: (SelectedImage) -> Unit) {
         onBg {
 
-            val cropped = FileOutputStream(image.uri.path).use { fos ->
+            FileOutputStream(image.uri.path).use { fos ->
                 bmp?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             }
 
@@ -101,7 +102,7 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
 
     internal class ImageCropper(private val image: SelectedImage) {
 
-        internal var croppedImage : SelectedImage? = null
+        private var croppedImage : SelectedImage? = null
 
         internal fun resizeTo(width: Int, height: Int): ImageCropper {
 
@@ -112,10 +113,9 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
             Log.i("WAAAT", "noWay: $noWay")
 
             val topSwatch = Palette.from(small).setRegion(0, 0, width, height / 4).generate().dominantSwatch
-            val startColor = if (topSwatch != null) Integer.toHexString(topSwatch.rgb) else "ffFFFFFF"
-            val bottomSwatch =
-                Palette.from(small).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
-            val endColor = if (bottomSwatch != null) Integer.toHexString(bottomSwatch.rgb) else "ffFFFFFF"
+            val startColor = HexString.from(topSwatch?.rgb)
+            val bottomSwatch = Palette.from(small).setRegion(0, 3 * height / 4, width, height).generate().dominantSwatch
+            val endColor = HexString.from(bottomSwatch?.rgb)
 
             croppedImage = image.copy(startColor = startColor, endColor =  endColor)
 
@@ -150,11 +150,10 @@ class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
 
                 var scale = 1
                 while (true) {
-                    if (w / 2 < width || h / 2 < height)
-                        break;
-                    w /= 2;
-                    h /= 2;
-                    scale *= 2;
+                    if (w / 2 < width || h / 2 < height) break
+                    w /= 2
+                    h /= 2
+                    scale *= 2
                 }
 
                 scale

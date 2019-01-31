@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.core.horse.data
 
+import nl.entreco.giddyapp.libs.horses.HexString
 import nl.entreco.giddyapp.libs.horses.Horse
 import nl.entreco.giddyapp.libs.horses.HorseDetail
 import nl.entreco.giddyapp.libs.horses.HorseGender
@@ -7,8 +8,8 @@ import nl.entreco.giddyapp.libs.horses.HorseGender
 internal class HorseMapper {
     fun map(fbHorse: FbHorse, imageRef: String): Horse {
         return Horse(
-            fbHorse.startColor,
-            fbHorse.endColor,
+            HexString.from(fbHorse.startColor),
+            HexString.from(fbHorse.endColor),
             imageRef,
             fbHorse.ext,
             fbHorse.posted.time,
@@ -36,13 +37,13 @@ internal class HorseMapper {
         }
     }
 
-    fun create(name: String, description: String, gender: HorseGender, startColor: String, endColor: String): FbHorse {
+    fun create(name: String, description: String, gender: HorseGender, startColor: HexString, endColor: HexString): FbHorse {
         return FbHorse(
             name = name,
             description = description,
             gender = gender.number,
-            startColor = startColor,
-            endColor = endColor
+            startColor = startColor.hex(),
+            endColor = endColor.hex()
         )
     }
 }

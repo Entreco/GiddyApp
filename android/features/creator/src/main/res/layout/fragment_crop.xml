@@ -13,17 +13,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <nl.entreco.giddyapp.libcropper.CropImageView
+        <com.theartofdev.edmodo.cropper.CropImageView
                 android:id="@+id/croppedImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:ga_preview="@{viewModel.image}"
-                android:adjustViewBounds="true"
-                app:guidelines="on"
-                app:aspectRatioX="1"
-                app:aspectRatioY="1"
-                app:fixAspectRatio="true"
-                android:scaleType="centerInside"/>
+                app:ga_preview="@{viewModel.image}"/>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+                style="@android:style/Widget.Material.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:showIf="@{viewModel.isCropping}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

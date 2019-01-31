@@ -11,7 +11,7 @@ import kotlin.math.floor
 internal class BottomAnimator(private val view: BottomProgressView) {
 
     companion object {
-        const val num = 5
+        const val num = 4 // Number of CreatorState's + 1
     }
 
     private val bottomBar = view.findViewById<BottomAppBar>(R.id.bar)

@@ -6,7 +6,7 @@ import dagger.Component
 import nl.entreco.giddyapp.core.horse.HorseModule
 import nl.entreco.giddyapp.core.images.ImageModule
 import nl.entreco.giddyapp.viewer.ViewerViewModel
-import nl.entreco.giddyapp.viewer.ui.details.DetailSheet
+import nl.entreco.giddyapp.core.ui.DetailSheet
 
 @Component(modules = [ViewerModule::class, HorseModule::class, ImageModule::class])
 interface ViewerComponent {

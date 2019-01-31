@@ -16,30 +16,37 @@ import nl.entreco.giddyapp.creator.di.CreatorModule
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.crop.CropFragment
+import nl.entreco.giddyapp.creator.ui.entry.EntryFragment
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
 
-class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
+class CreatorActivity() : BaseActivity(), ComponentProvider<CreatorComponent> {
 
     private lateinit var binding : ActivityCreatorBinding
-    private val component by fromModule { CreatorModule() }
+    private val component by fromModule { CreatorModule( binding.includeSheet.sheet) }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val picker by lazy { component.picker() }
+    private val sheet by lazy { component.sheet() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_creator)
         binding.viewModel = viewModel
-        viewModel.state().observe(this, Observer { state ->
-            viewModel.currentState.set(BottomProgressModel(state))
-            viewModel.currentStep.set(BottomStepModel(state))
-            render(state)
-        })
-        viewModel.events().observe(this, Observer { event ->
-            when(event){
-                CreatorState.Event.Pick -> picker.selectImage()
-            }
-        })
+        sheet.slideListener = viewModel
+        viewModel.state().observe(this, stateObserver)
+        viewModel.events().observe(this, eventObserver)
+    }
+
+    private val stateObserver = Observer<CreatorState> { state ->
+        viewModel.currentState.set(BottomProgressModel(state))
+        viewModel.currentStep.set(BottomStepModel(state))
+        render(state)
+    }
+
+    private val eventObserver = Observer<CreatorState.Event> { event ->
+        when(event){
+            is CreatorState.Event.Pick -> picker.selectImage()
+        }
     }
 
     override fun get(): CreatorComponent {
@@ -50,8 +57,9 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
         when (state) {
             is CreatorState.Select -> replaceWith(SelectFragment(), state.toString())
             is CreatorState.Crop -> replaceWith(CropFragment(), state.toString())
+            is CreatorState.Entry -> replaceWith(EntryFragment(), state.toString())
             is CreatorState.Upload -> replaceWith(UploadFragment(), state.toString())
-            is CreatorState.Done -> LaunchHelper.launchViewer(this, null)
+            is CreatorState.Done -> LaunchHelper.launchViewer(this, null, state.horseId)
         }
     }
 

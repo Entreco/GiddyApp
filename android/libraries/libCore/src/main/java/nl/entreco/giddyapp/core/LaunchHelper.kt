@@ -19,8 +19,8 @@ object LaunchHelper {
         launch(main, options, activity)
     }
 
-    fun launchViewer(activity: Activity, options: ActivityOptions? = null) {
-        val viewer = viewerIntent(activity)
+    fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = null) {
+        val viewer = viewerIntent(activity, id)
         launch(viewer, options, activity)
     }
 
@@ -30,7 +30,7 @@ object LaunchHelper {
     }
 
     private fun mainIntent(context: Context? = null) = baseIntent(URL_MAIN, context)
-    private fun viewerIntent(context: Context? = null) = baseIntent(URL_VIEWER, context)
+    private fun viewerIntent(context: Context? = null, id: String? = null) = baseIntent(URL_VIEWER + id, context)
     private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
 
     private fun baseIntent(url: String, context: Context? = null): Intent {

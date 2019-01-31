@@ -27,11 +27,4 @@ class SelectFragment : Fragment() {
         binding.viewModel = viewModel
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.events().observe(this, Observer {
-            parentViewModel.postEvent(it)
-        })
-    }
 }
