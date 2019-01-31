@@ -64,7 +64,7 @@ internal object HandleUtil {
 
 
     fun getOffset(handle: Handle, x:Float, y:Float, left: Float, top:Float, right:Float, bottom:Float, touchOffsetOutput: PointF) {
-        val (x, y) = when(handle){
+        val (_x, _y) = when(handle){
             Handle.TOP_LEFT -> Pair(left - x, top - y)
             Handle.TOP_RIGHT -> Pair(right - x, top - y)
             Handle.BOTTOM_LEFT -> Pair(left - x, bottom - y)
@@ -80,8 +80,8 @@ internal object HandleUtil {
             }
         }
 
-        touchOffsetOutput.x = x
-        touchOffsetOutput.y = y
+        touchOffsetOutput.x = _x
+        touchOffsetOutput.y = _y
     }
 
     private fun isInHorizontalTargetZone(
@@ -107,6 +107,6 @@ internal object HandleUtil {
     }
 
     private fun isWithinBounds(x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float): Boolean {
-        return x in left..right && y >= top && y <= bottom
+        return x in left..right && y in top..bottom
     }
 }

@@ -112,17 +112,17 @@ internal enum class Edge() {
         return true
     }
 
-    fun isOutOfBounds(top: Float, left: Float, bottom: Float, right: Float, imageRect: RectF): Boolean {
+    private fun isOutOfBounds(top: Float, left: Float, bottom: Float, right: Float, imageRect: RectF): Boolean {
         return (top < imageRect.top || left < imageRect.left || bottom > imageRect.bottom || right > imageRect.right)
     }
 
     fun snapToRect(imageRect: RectF): Float {
         val oldCoordinate = coordinate
-        when (this) {
-            LEFT -> coordinate = imageRect.left
-            TOP -> coordinate = imageRect.top
-            RIGHT -> coordinate = imageRect.right
-            BOTTOM -> coordinate = imageRect.bottom
+        coordinate = when (this) {
+            LEFT -> imageRect.left
+            TOP -> imageRect.top
+            RIGHT -> imageRect.right
+            BOTTOM -> imageRect.bottom
         }
         return coordinate - oldCoordinate
     }

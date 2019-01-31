@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.libcropper.window.handle
 
 import android.graphics.RectF
 import nl.entreco.giddyapp.libcropper.window.edge.Edge
-import kotlin.math.E
 
 internal class CenterHandleHelper : HandleHelper(null, null) {
     override fun updateCropWindow(x: Float, y: Float, imageRect: RectF, snapRadius: Float) {
@@ -22,19 +21,19 @@ internal class CenterHandleHelper : HandleHelper(null, null) {
         Edge.RIGHT.offset = offsetX
         Edge.BOTTOM.offset = offsetY
 
-        if(Edge.LEFT.isOutsideMargin(imageRect, snapRadius)){
+        if (Edge.LEFT.isOutsideMargin(imageRect, snapRadius)) {
             val offset = Edge.LEFT.snapToRect(imageRect)
             Edge.RIGHT.offset = offset
-        } else if(Edge.RIGHT.isOutsideMargin(imageRect, snapRadius)){
+        } else if (Edge.RIGHT.isOutsideMargin(imageRect, snapRadius)) {
             val offset = Edge.RIGHT.snapToRect(imageRect)
             Edge.LEFT.offset = offset
         }
 
 
-        if(Edge.TOP.isOutsideMargin(imageRect, snapRadius)){
+        if (Edge.TOP.isOutsideMargin(imageRect, snapRadius)) {
             val offset = Edge.TOP.snapOffset(imageRect)
             Edge.BOTTOM.offset = offset
-        }else if(Edge.BOTTOM.isOutsideMargin(imageRect, snapRadius)){
+        } else if (Edge.BOTTOM.isOutsideMargin(imageRect, snapRadius)) {
             val offset = Edge.BOTTOM.snapToRect(imageRect)
             Edge.TOP.offset = offset
         }

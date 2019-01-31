@@ -20,7 +20,7 @@ internal class VerticalHandleHelper(private val edge: Edge) : HandleHelper(null,
         Edge.TOP.coordinate = top
         Edge.BOTTOM.coordinate = bottom
 
-        if (Edge.LEFT.isOutsideMargin(imageRect, snapRadius)
+        if (Edge.TOP.isOutsideMargin(imageRect, snapRadius)
             && !edge.isNewRectangleOutOfBounds(Edge.TOP, imageRect, targetAspectRatio)
         ) {
             val offset = Edge.TOP.snapToRect(imageRect)
