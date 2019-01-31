@@ -3,7 +3,7 @@ include ':app',
         ':features:launcher',
         ':features:creator',
         ':features:viewer',
-        ':libraries:core',
-        ':libraries:horses',
+        ':libraries:libCore',
+        ':libraries:libHorses',
         ':libraries:libCropper'
 

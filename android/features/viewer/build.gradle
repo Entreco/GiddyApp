@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation project(':app')
-    implementation project(':libraries:horses')
+    implementation project(':libraries:libHorses')
 
 
     implementation "com.google.dagger:dagger:$dagger"

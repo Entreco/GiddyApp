@@ -50,7 +50,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    api project(':libraries:core')
+    api project(':libraries:libCore')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     implementation "com.google.dagger:dagger:$dagger"

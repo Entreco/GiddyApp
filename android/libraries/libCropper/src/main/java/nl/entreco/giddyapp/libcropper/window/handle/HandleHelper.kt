@@ -5,7 +5,7 @@ import nl.entreco.giddyapp.libcropper.util.AspectRatioUtil
 import nl.entreco.giddyapp.libcropper.window.edge.Edge
 import nl.entreco.giddyapp.libcropper.window.edge.EdgePair
 
-abstract class HandleHelper(private val horizontalEdge: Edge?, private val verticalEdge: Edge?) {
+internal abstract class HandleHelper(private val horizontalEdge: Edge?, private val verticalEdge: Edge?) {
 
     var activeEdges = EdgePair(horizontalEdge, verticalEdge)
 

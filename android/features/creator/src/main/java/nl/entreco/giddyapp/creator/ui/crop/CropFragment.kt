@@ -26,7 +26,9 @@ class CropFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_crop, container, false
+            R.layout.fragment_crop,
+            container,
+            false
         )
         binding.viewModel = viewModel
         return binding.root

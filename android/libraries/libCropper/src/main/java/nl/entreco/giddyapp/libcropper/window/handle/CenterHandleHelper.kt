@@ -4,7 +4,7 @@ import android.graphics.RectF
 import nl.entreco.giddyapp.libcropper.window.edge.Edge
 import kotlin.math.E
 
-class CenterHandleHelper : HandleHelper(null, null) {
+internal class CenterHandleHelper : HandleHelper(null, null) {
     override fun updateCropWindow(x: Float, y: Float, imageRect: RectF, snapRadius: Float) {
         val left = Edge.LEFT.coordinate
         val top = Edge.TOP.coordinate

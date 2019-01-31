@@ -5,7 +5,7 @@ import nl.entreco.giddyapp.libcropper.util.AspectRatioUtil
 import kotlin.math.max
 import kotlin.math.min
 
-enum class Edge() {
+internal enum class Edge() {
     LEFT,
     TOP,
     RIGHT,

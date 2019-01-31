@@ -4,7 +4,7 @@ import android.graphics.RectF
 import nl.entreco.giddyapp.libcropper.util.AspectRatioUtil
 import nl.entreco.giddyapp.libcropper.window.edge.Edge
 
-class HorizontalHandleHelper(private val edge: Edge) : HandleHelper(edge, null) {
+internal class HorizontalHandleHelper(private val edge: Edge) : HandleHelper(edge, null) {
 
     override fun updateCropWindow(x: Float, y: Float, targetAspectRatio: Float, imageRect: RectF, snapRadius: Float) {
         edge.adjustCoordinate(x, y, imageRect, snapRadius, targetAspectRatio)

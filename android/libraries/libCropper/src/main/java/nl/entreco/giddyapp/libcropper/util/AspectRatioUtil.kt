@@ -2,7 +2,7 @@ package nl.entreco.giddyapp.libcropper.util
 
 import android.graphics.RectF
 
-object AspectRatioUtil {
+internal object AspectRatioUtil {
 
     fun calculateAspectRatio(left: Float, top: Float, right: Float, bottom: Float): Float {
         val width = right - left

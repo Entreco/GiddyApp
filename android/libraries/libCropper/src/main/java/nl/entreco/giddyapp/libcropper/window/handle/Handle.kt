@@ -3,7 +3,7 @@ package nl.entreco.giddyapp.libcropper.window.handle
 import android.graphics.RectF
 import nl.entreco.giddyapp.libcropper.window.edge.Edge
 
-enum class Handle(private val helper: HandleHelper) {
+internal enum class Handle(private val helper: HandleHelper) {
     TOP_LEFT(CornerHandleHelper(Edge.TOP, Edge.LEFT)),
     TOP_RIGHT(CornerHandleHelper(Edge.TOP, Edge.RIGHT)),
     BOTTOM_LEFT(CornerHandleHelper(Edge.BOTTOM, Edge.LEFT)),
