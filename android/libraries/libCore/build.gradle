@@ -40,10 +40,5 @@ dependencies {
     api "com.google.firebase:firebase-firestore:$fbFireStore"
     api "com.google.firebase:firebase-storage:$fbStorage"
 
-    implementation "com.github.esafirm.android-image-picker:imagepicker:$imagePicker"
-    implementation "com.github.bumptech.glide:glide:$glide"
-    implementation "androidx.palette:palette:$xPalette"
-    kapt "com.github.bumptech.glide:compiler:$glide"
-
     testImplementation "junit:junit:$junit"
 }

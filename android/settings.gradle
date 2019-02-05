@@ -5,5 +5,6 @@ include ':app',
         ':features:viewer',
         ':libraries:libCore',
         ':libraries:libHorses',
-        ':libraries:libCropper'
+        ':libraries:libCropper',
+        ':libraries:libImg'
 

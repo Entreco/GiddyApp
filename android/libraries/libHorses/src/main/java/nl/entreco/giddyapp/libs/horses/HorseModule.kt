@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libs.horses.di
+package nl.entreco.giddyapp.libs.horses
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings

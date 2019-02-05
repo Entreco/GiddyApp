@@ -2,9 +2,9 @@ package nl.entreco.giddyapp.creator.di
 
 import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.core.ComponentProvider
-import nl.entreco.giddyapp.core.images.ImageModule
+import nl.entreco.giddyapp.libimg.ImageModule
 import nl.entreco.giddyapp.creator.CreatorActivity
-import nl.entreco.giddyapp.libs.horses.di.HorseModule
+import nl.entreco.giddyapp.libs.horses.HorseModule
 
 internal object CreatorInjector {
 

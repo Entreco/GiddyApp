@@ -7,7 +7,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.core.images.SelectedImage
+import nl.entreco.giddyapp.libimg.SelectedImage
 import nl.entreco.giddyapp.core.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
@@ -62,13 +62,13 @@ class CreatorViewModel @Inject constructor(
         slider.postValue(offset)
     }
 
-    fun imageSelected(images: List<SelectedImage>) {
+    fun imageSelected(images: List<nl.entreco.giddyapp.libimg.SelectedImage>) {
         images.firstOrNull()?.let {
             state.postValue(CreatorState.Crop(it))
         }
     }
 
-    fun imageCropped(image: SelectedImage) {
+    fun imageCropped(image: nl.entreco.giddyapp.libimg.SelectedImage) {
         state.postValue(CreatorState.Entry(image))
     }
 

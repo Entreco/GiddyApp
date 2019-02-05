@@ -1,8 +1,7 @@
 package nl.entreco.giddyapp.creator
 
-import android.net.Uri
 import androidx.annotation.DrawableRes
-import nl.entreco.giddyapp.core.images.SelectedImage
+import nl.entreco.giddyapp.libimg.SelectedImage
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 
 sealed class CreatorState(val index: Int) {
@@ -14,8 +13,8 @@ sealed class CreatorState(val index: Int) {
     }
 
     object Select : CreatorState(0)
-    data class Crop(val image: SelectedImage) : CreatorState(1)
-    data class Entry(val image: SelectedImage) : CreatorState(2)
+    data class Crop(val image: nl.entreco.giddyapp.libimg.SelectedImage) : CreatorState(1)
+    data class Entry(val image: nl.entreco.giddyapp.libimg.SelectedImage) : CreatorState(2)
     data class Upload(val model: EntryModel) : CreatorState(3)
     data class Done(val horseId: String) : CreatorState(4)
 }

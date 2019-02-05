@@ -3,10 +3,10 @@ package nl.entreco.giddyapp.viewer.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import nl.entreco.giddyapp.core.images.ImageModule
+import nl.entreco.giddyapp.libimg.ImageModule
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.core.ui.DetailSheet
-import nl.entreco.giddyapp.libs.horses.di.HorseModule
+import nl.entreco.giddyapp.libs.horses.HorseModule
 
 @Component(modules = [ViewerModule::class, HorseModule::class, ImageModule::class])
 interface ViewerComponent {

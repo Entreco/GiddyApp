@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.core.images
+package nl.entreco.giddyapp.libimg.picker
 
 import android.app.Activity
 import android.content.Intent
@@ -14,11 +14,12 @@ import com.esafirm.imagepicker.features.ReturnMode
 import nl.entreco.giddyapp.core.HexString
 import nl.entreco.giddyapp.core.R
 import nl.entreco.giddyapp.core.onBg
+import nl.entreco.giddyapp.libimg.SelectedImage
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
+internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
     override fun selectImage() {
         com.esafirm.imagepicker.features.ImagePicker.create(activity)
             .enableLog(true)

@@ -1,8 +1,8 @@
-package nl.entreco.giddyapp.core.images
+package nl.entreco.giddyapp.libimg.picker
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
+import nl.entreco.giddyapp.libimg.SelectedImage
 
 interface ImagePicker {
     fun selectImage()

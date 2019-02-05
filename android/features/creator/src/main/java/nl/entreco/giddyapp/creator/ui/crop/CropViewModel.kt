@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.core.ChangeableField
-import nl.entreco.giddyapp.core.images.ImagePicker
-import nl.entreco.giddyapp.core.images.SelectedImage
+import nl.entreco.giddyapp.libimg.picker.ImagePicker
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.libcropper.CropImageView
 import javax.inject.Inject
@@ -25,7 +24,7 @@ class CropViewModel @Inject constructor(
         return event
     }
 
-    fun resize(imageView: CropImageView, done: (SelectedImage) -> Unit) {
+    fun resize(imageView: CropImageView, done: (nl.entreco.giddyapp.libimg.SelectedImage) -> Unit) {
         crop.image.let { img ->
             isCropping.set(true)
             imageView.setOnCropImageCompleteListener { result ->

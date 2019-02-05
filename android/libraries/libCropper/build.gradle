@@ -11,10 +11,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding {
-        enabled true
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -26,7 +22,5 @@ android {
 dependencies {
     implementation project(':libraries:libCore')
     implementation "com.theartofdev.edmodo:android-image-cropper:$cropImageView"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$xAppcompat"
     testImplementation "junit:junit:$junit"
 }
