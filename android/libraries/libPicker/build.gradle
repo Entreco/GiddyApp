@@ -1,36 +1,33 @@
-apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
-
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        resValue("string", "fileProviderAuthority", "${applicationId}.android.fileprovider")
     }
 
     buildTypes {
         release {
-            proguardFiles 'proguard-rules-dynamic-features.pro'
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
+    resourcePrefix 'picker_'
 }
 
 dependencies {
-    implementation project(':app')
     implementation project(':libraries:libCore')
-    implementation project(':libraries:libCropper')
-    implementation project(':libraries:libPicker')
-
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
-    testImplementation "junit:junit:$junit"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
+    implementation "androidx.palette:palette:$xPalette"
+    implementation "androidx.legacy:legacy-support-core-utils:$xLegacyCore"
 }

@@ -6,5 +6,6 @@ include ':app',
         ':libraries:libCore',
         ':libraries:libHorses',
         ':libraries:libCropper',
+        ':libraries:libPicker',
         ':libraries:libImg'
 

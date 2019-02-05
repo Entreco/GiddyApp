@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libimg
+package nl.entreco.giddyapp.libpicker
 
 import android.net.Uri
 import nl.entreco.giddyapp.core.HexString

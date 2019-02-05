@@ -1,46 +1,80 @@
-package nl.entreco.giddyapp.libimg.picker
+package nl.entreco.giddyapp.libpicker
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.graphics.BitmapCompat
 import androidx.palette.graphics.Palette
-import com.esafirm.imagepicker.features.ReturnMode
 import nl.entreco.giddyapp.core.HexString
-import nl.entreco.giddyapp.core.R
 import nl.entreco.giddyapp.core.onBg
-import nl.entreco.giddyapp.libimg.SelectedImage
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
 internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePicker {
     override fun selectImage() {
-        com.esafirm.imagepicker.features.ImagePicker.create(activity)
-            .enableLog(true)
-            .returnMode(ReturnMode.ALL)
-            .folderMode(true) // folder mode (false by default)
-            .toolbarFolderTitle("TODO Folder") // folder selection title
-            .toolbarImageTitle("TODO Tap to select") // image selection title
-            .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
-            .includeVideo(false) // Show video on image picker
-            .single()
-            .showCamera(true) // show camera or not (true by default)
-            .imageFullDirectory(activity.filesDir.path)
-            .imageDirectory("Create") // directory name for captured image  ("Camera" folder by default)
-            .theme(R.style.ImagePickerTheme) // must inherit ef_BaseTheme. please refer to sample
-            .start()
+
+        val cameraIntent = camera()
+        val galleryIntent = gallery()
+
+        val hasCamera = cameraIntent.resolveActivity(activity.packageManager) != null
+        val hasGallery = galleryIntent.resolveActivity(activity.packageManager) != null
+
+        if (hasCamera && hasGallery) {
+            // Chooser
+//            val dialog = ChooserBottomSheet(frag.activity!!)
+//            dialog.setContentView(R.layout.bottom_sheet_image_picker)
+//            addDialogChooser(dialog, cameraIntent, galleryIntent)
+//            addCancelOptions(dialog)
+//            dialog.show()
+
+            launchCamera(cameraIntent)
+
+        } else if (hasCamera) {
+            launchCamera(cameraIntent)
+        } else if (hasGallery) {
+            launchGallery(galleryIntent)
+        } else {
+            Log.d("NOPEZ", "No activity available to select images")
+        }
+    }
+
+    private fun launchGallery(galleryIntent: Intent) {
+        activity.startActivityForResult(galleryIntent, ImagePicker.REQ_GALLERY)
+    }
+
+    private fun launchCamera(cameraIntent: Intent) {
+        activity.startActivityForResult(cameraIntent, ImagePicker.REQ_CAMERA)
+    }
+
+    private fun camera() : Intent {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(activity.filesDir))
+        return Intent.createChooser(cameraIntent, "Select camera")
+    }
+
+    private fun gallery() : Intent {
+        val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+        galleryIntent.type = "image/*"
+        galleryIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+        galleryIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        return Intent.createChooser(galleryIntent, "Select Gallery")
+    }
+
+    private fun shouldHandle(requestCode: Int, resultCode: Int, data: Intent?) : Boolean {
+        return requestCode == ImagePicker.REQ_GALLERY || requestCode == ImagePicker.REQ_CAMERA && resultCode == Activity.RESULT_OK && data != null
     }
 
     override fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (List<SelectedImage>) -> Unit) {
 
         onBg {
-            val images = if (com.esafirm.imagepicker.features.ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            val images = if (shouldHandle(requestCode, resultCode, data)) {
                 ImageBuilder(activity, data)
                     .copyTo(activity.filesDir)
                     .build()
@@ -69,9 +103,16 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
 
     internal class ImageBuilder(private val activity: Activity, data: Intent?) {
 
-        private val images: MutableList<com.esafirm.imagepicker.model.Image> =
-            com.esafirm.imagepicker.features.ImagePicker.getImages(data)
+        private val images: List<IntentImage> = getImages(data)
         private var localImages: List<SelectedImage> = emptyList()
+
+        private fun getImages(data: Intent?) : List<IntentImage>{
+            if(data == null) return emptyList()
+            // if gallery -> copy to private folder
+
+            // now, all images are in private folder
+            return listOf(IntentImage(1L, "name", "path/to/img"))
+        }
 
         internal fun copyTo(dir: File): ImageBuilder {
             localImages = images.map { img ->

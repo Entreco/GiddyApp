@@ -1,10 +1,15 @@
-package nl.entreco.giddyapp.libimg.picker
+package nl.entreco.giddyapp.libpicker
 
 import android.content.Intent
 import android.graphics.Bitmap
-import nl.entreco.giddyapp.libimg.SelectedImage
 
 interface ImagePicker {
+
+    companion object {
+        const val REQ_CAMERA = 42
+        const val REQ_GALLERY = 69
+    }
+
     fun selectImage()
     fun resize(image: SelectedImage, bmp: Bitmap?, done: (SelectedImage) -> Unit)
     fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (List<SelectedImage>)->Unit)

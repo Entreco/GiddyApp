@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.core.ComponentProvider
 import nl.entreco.giddyapp.libimg.ImageModule
 import nl.entreco.giddyapp.creator.CreatorActivity
+import nl.entreco.giddyapp.libpicker.PickerModule
 import nl.entreco.giddyapp.libs.horses.HorseModule
 
 internal object CreatorInjector {
@@ -15,7 +16,8 @@ internal object CreatorInjector {
         DaggerCreatorComponent.builder()
             .creatorModule(provider())
             .horseModule(HorseModule())
-            .imageModule(ImageModule(this, resources.displayMetrics))
+            .imageModule(ImageModule(resources.displayMetrics))
+            .pickerModule(PickerModule(this))
             .build()
     }
 

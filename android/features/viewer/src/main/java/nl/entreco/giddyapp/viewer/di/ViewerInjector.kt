@@ -16,7 +16,7 @@ internal object ViewerInjector {
         DaggerViewerComponent.builder()
             .context(this)
             .horseModule(HorseModule())
-            .imageModule(ImageModule(this, resources.displayMetrics))
+            .imageModule(ImageModule(resources.displayMetrics))
             .viewerModule(provider())
             .build()
     }
