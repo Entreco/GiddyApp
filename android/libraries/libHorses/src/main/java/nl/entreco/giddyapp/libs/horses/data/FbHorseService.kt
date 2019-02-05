@@ -1,11 +1,11 @@
-package nl.entreco.giddyapp.core.horse.data
+package nl.entreco.giddyapp.libs.horses.data
 
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
-import nl.entreco.giddyapp.libs.horses.HexString
+import nl.entreco.giddyapp.core.HexString
 import nl.entreco.giddyapp.libs.horses.Horse
 import nl.entreco.giddyapp.libs.horses.HorseGender
 import nl.entreco.giddyapp.libs.horses.HorseService
@@ -37,8 +37,8 @@ internal class FbHorseService @Inject constructor(
         description: String,
         gender: HorseGender,
         image: Uri,
-        startColor: HexString,
-        endColor: HexString,
+        startColor: nl.entreco.giddyapp.core.HexString,
+        endColor: nl.entreco.giddyapp.core.HexString,
         done: (String) -> Unit
     ) {
         val document = collection.document()

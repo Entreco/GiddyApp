@@ -25,27 +25,25 @@ android {
 
 dependencies {
 
-    implementation project(':libraries:libHorses')
-
     implementation "com.google.android.play:core:$playCore"
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
-    kapt "com.github.bumptech.glide:compiler:$glide"
-    implementation "com.github.bumptech.glide:glide:$glide"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "com.google.android.material:material:$material"
-    implementation "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
-    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    api "androidx.appcompat:appcompat:$xAppcompat"
+    api "com.google.android.material:material:$material"
+    api "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
+    api "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
 
     api "com.google.firebase:firebase-core:$fbCore"
     api "com.google.firebase:firebase-firestore:$fbFireStore"
     api "com.google.firebase:firebase-storage:$fbStorage"
 
     implementation "com.github.esafirm.android-image-picker:imagepicker:$imagePicker"
+    implementation "com.github.bumptech.glide:glide:$glide"
     implementation "androidx.palette:palette:$xPalette"
+    kapt "com.github.bumptech.glide:compiler:$glide"
 
     testImplementation "junit:junit:$junit"
 }

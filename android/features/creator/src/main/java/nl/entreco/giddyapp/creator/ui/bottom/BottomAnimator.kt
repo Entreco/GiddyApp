@@ -27,7 +27,7 @@ internal class BottomAnimator(private val view: BottomProgressView) {
                 .withStartAction { bottomFab.hide() }
                 .translationX((index * ((screenWidth - bottomBar.width) / (num - 1))).toFloat())
                 .setInterpolator(AccelerateDecelerateInterpolator())
-                .setUpdateListener { animator ->
+                .setUpdateListener { _ ->
                     val current = bottomBar.x
                     bottomStart.scaleX = (current / screenWidth) + 0.01f
                     bottomEnd.scaleX = 1.01f- (current + bottomBar.width) / screenWidth

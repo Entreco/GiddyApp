@@ -4,8 +4,8 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.core.graphics.BitmapCompat
 import nl.entreco.giddyapp.libs.horses.HorseService
-import nl.entreco.giddyapp.libs.horses.onBg
-import nl.entreco.giddyapp.libs.horses.onUi
+import nl.entreco.giddyapp.core.onBg
+import nl.entreco.giddyapp.core.onUi
 import javax.inject.Inject
 
 class CreateHorseUsecase @Inject constructor(

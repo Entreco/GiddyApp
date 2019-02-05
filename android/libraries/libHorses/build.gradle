@@ -24,15 +24,14 @@ android {
 }
 
 dependencies {
-
+    implementation project(':libraries:libCore')
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-
-    api "com.google.firebase:firebase-core:$fbCore"
-    api "com.google.firebase:firebase-firestore:$fbFireStore"
-    api "com.google.firebase:firebase-storage:$fbStorage"
+    implementation "com.google.firebase:firebase-core:$fbCore"
+    implementation "com.google.firebase:firebase-firestore:$fbFireStore"
+    implementation "com.google.firebase:firebase-storage:$fbStorage"
 
     testImplementation "junit:junit:$junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"

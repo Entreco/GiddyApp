@@ -11,9 +11,9 @@ import androidx.core.content.FileProvider
 import androidx.core.graphics.BitmapCompat
 import androidx.palette.graphics.Palette
 import com.esafirm.imagepicker.features.ReturnMode
+import nl.entreco.giddyapp.core.HexString
 import nl.entreco.giddyapp.core.R
-import nl.entreco.giddyapp.libs.horses.HexString
-import nl.entreco.giddyapp.libs.horses.onBg
+import nl.entreco.giddyapp.core.onBg
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

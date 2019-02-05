@@ -50,15 +50,11 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    api project(':libraries:libCore')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation project(':libraries:libCore')
+    api project(':libraries:libHorses') // Alas, this is suggested work-around to make libraries available in multiple features
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
-
-    implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
-    implementation "com.google.firebase:firebase-core:$fbCore"
 
     testImplementation "junit:junit:$junit"
 }

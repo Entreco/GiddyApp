@@ -7,12 +7,12 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.theartofdev.edmodo.cropper.CropImageView
 import nl.entreco.giddyapp.core.images.SelectedImage
 import nl.entreco.giddyapp.core.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
+import nl.entreco.giddyapp.libcropper.CropImageView
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseUsecase
 import javax.inject.Inject
@@ -88,6 +88,7 @@ class CreatorViewModel @Inject constructor(
     }
 
     companion object {
+
         @JvmStatic
         @BindingAdapter("ga_preview")
         fun preview(view: CropImageView, uri: Uri?) {

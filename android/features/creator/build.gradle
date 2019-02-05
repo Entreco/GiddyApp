@@ -24,16 +24,11 @@ android {
 
 dependencies {
     implementation project(':app')
-    implementation project(':libraries:libHorses')
+    implementation project(':libraries:libCore')
     implementation project(':libraries:libCropper')
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "com.google.android.material:material:$material"
-    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
 
     testImplementation "junit:junit:$junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
