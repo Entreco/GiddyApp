@@ -4,12 +4,17 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.AttributeSet
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.theartofdev.edmodo.cropper.CropImageView
 
-class CropImageView(context: Context?, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+class CropImageView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     private val libCropImageView = com.theartofdev.edmodo.cropper.CropImageView(context, attrs)
+
+    init {
+        addView(libCropImageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+    }
 
     var cropShape = CropShape.RECTANGLE
         get() = when (libCropImageView.getCropShape()) {

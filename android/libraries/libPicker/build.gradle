@@ -10,7 +10,6 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        resValue("string", "fileProviderAuthority", "${applicationId}.android.fileprovider")
     }
 
     buildTypes {
@@ -20,7 +19,9 @@ android {
         }
     }
 
-    resourcePrefix 'picker_'
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -30,4 +31,5 @@ dependencies {
 
     implementation "androidx.palette:palette:$xPalette"
     implementation "androidx.legacy:legacy-support-core-utils:$xLegacyCore"
+    implementation "androidx.exifinterface:exifinterface:$xExifInterface"
 }
