@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.CreatorViewModel"/>
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/space"
+            app:layout_constraintBottom_toBottomOf="@id/space"
+            app:layout_constraintStart_toStartOf="@id/space"
+            app:layout_constraintEnd_toEndOf="@id/space"
+            android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/xlarge">
+
+            <!-- Horse Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/entry_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name of your Horse"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/entry_desc"
+                    app:layout_constraintVertical_chainStyle="packed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@={viewModel.entryViewModel.name}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Horse Description -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/entry_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description of your Horse"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="100"
+                    app:layout_constraintTop_toBottomOf="@id/entry_name"
+                    app:layout_constraintBottom_toTopOf="@id/entry_gender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@={viewModel.entryViewModel.desc}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Horse Gender -->
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/entry_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Gender"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="100"
+                    app:layout_constraintTop_toBottomOf="@id/entry_desc"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@={viewModel.entryViewModel.desc}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

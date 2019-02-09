@@ -12,6 +12,7 @@ import nl.entreco.giddyapp.core.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
+import nl.entreco.giddyapp.creator.ui.entry.EntryViewModel
 import nl.entreco.giddyapp.libcropper.CropImageView
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseUsecase
@@ -26,6 +27,8 @@ class CreatorViewModel @Inject constructor(
     private val slider = MutableLiveData<Float>()
     val currentState = ObservableField<BottomProgressModel>()
     val currentStep = ObservableField<BottomStepModel>()
+
+    val entryViewModel = ObservableField<EntryViewModel>()
 
     init {
         state.postValue(CreatorState.Select)
@@ -47,11 +50,19 @@ class CreatorViewModel @Inject constructor(
         return slider
     }
 
+    fun onSelectFromCamera(){
+        postEvent(CreatorState.Event.PickCamera)
+    }
+    fun onSelectFromGallery(){
+        postEvent(CreatorState.Event.PickGallery)
+    }
+    fun onCropImage(){
+        postEvent(CreatorState.Event.Resize)
+    }
+
     fun onProceed() {
         val current = state.value
         when (current) {
-            is CreatorState.Select -> postEvent(CreatorState.Event.Pick)
-            is CreatorState.Crop -> postEvent(CreatorState.Event.Resize)
             is CreatorState.Entry -> postEvent(CreatorState.Event.Enter)
             is CreatorState.Upload -> go(current.model)
             else -> { }
@@ -69,7 +80,9 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun imageCropped(image: nl.entreco.giddyapp.libpicker.SelectedImage) {
-        state.postValue(CreatorState.Entry(image))
+        val entry = CreatorState.Entry(image)
+        entryViewModel.set(EntryViewModel(entry))
+        state.postValue(entry)
     }
 
     fun entered(model: EntryModel) {

@@ -8,7 +8,6 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import nl.entreco.giddyapp.core.onBg
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,7 +17,7 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
     private val format = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
     private var fileName: String = ""
 
-    override fun selectImage() {
+    override fun selectImage(fromCamera: Boolean) {
         fileName = format.format(Date())
         val cameraIntent = camera(imageHelper.toInternalUri(fileName))
         val galleryIntent = gallery()
@@ -26,23 +25,7 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
         val hasCamera = cameraIntent.resolveActivity(activity.packageManager) != null
         val hasGallery = galleryIntent.resolveActivity(activity.packageManager) != null
 
-        if (hasCamera && hasGallery) {
-
-            AlertDialog.Builder(activity)
-                .setTitle("Choose 1 mofo")
-                .setMessage("Which one fucker?")
-                .setPositiveButton("Camera") { dialog, _ ->
-                    dialog.dismiss()
-                    launchCamera(cameraIntent)
-                }
-                .setNegativeButton("Gallery") { dialog, _ ->
-                    dialog.dismiss()
-                    launchGallery(galleryIntent)
-                }
-                .setCancelable(true)
-                .show()
-
-        } else if (hasCamera) {
+        if (hasCamera && fromCamera) {
             launchCamera(cameraIntent)
         } else if (hasGallery) {
             launchGallery(galleryIntent)
@@ -74,11 +57,15 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
         return Intent.createChooser(galleryIntent, "Select Gallery")
     }
 
-    private fun didComeFromGallery(req: Int, code: Int): Boolean {
-        return code == Activity.RESULT_OK && req == ImagePicker.REQ_GALLERY
+    private fun didCancel(result: Int): Boolean {
+        return result != Activity.RESULT_OK
+    }
+    private fun didComeFromGallery(request: Int, result: Int): Boolean {
+        return result == Activity.RESULT_OK && request == ImagePicker.REQ_GALLERY
     }
 
     override fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (List<SelectedImage>) -> Unit) {
+        if(didCancel(resultCode)) return
 
         onBg {
             if (didComeFromGallery(requestCode, resultCode)) {
@@ -95,12 +82,8 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
     override fun resize(image: SelectedImage, bmp: Bitmap?, done: (SelectedImage) -> Unit) {
         onBg {
 
-            FileOutputStream(image.uri.path).use { fos ->
-                bmp?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-            }
-
-            val scaled = ImageCropper(image)
-                .resizeTo(650, 650)
+            val scaled = ImageCropper(activity, image)
+                .resizeTo(1050, 1050)
                 .build()
 
             done(scaled)

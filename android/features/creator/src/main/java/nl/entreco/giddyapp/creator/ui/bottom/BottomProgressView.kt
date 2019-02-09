@@ -31,6 +31,7 @@ class BottomProgressView @JvmOverloads constructor(
             binding.executePendingBindings()
             animator.slideTo(mod.state.index)
             binding.fab.setImageResource(mod.state.icon())
+            binding.fab.hide()
         }
     }
 

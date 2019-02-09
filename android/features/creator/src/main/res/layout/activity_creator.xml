@@ -21,6 +21,7 @@
         <include
                 layout="@layout/include_steps_sheet"
                 android:id="@+id/include_sheet"
+                app:viewModel="@{viewModel}"
                 app:step="@{viewModel.currentStep}"/>
 
 

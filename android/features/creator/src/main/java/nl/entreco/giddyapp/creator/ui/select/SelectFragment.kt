@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.base.parentViewModelProvider
 import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentSelectBinding
@@ -26,5 +26,10 @@ class SelectFragment : Fragment() {
             R.layout.fragment_select, container, false)
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        parentViewModel.postEvent(CreatorState.Event.Expand)
     }
 }

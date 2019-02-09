@@ -45,7 +45,10 @@ class CreatorActivity() : BaseActivity(), ComponentProvider<CreatorComponent> {
 
     private val eventObserver = Observer<CreatorState.Event> { event ->
         when(event){
-            is CreatorState.Event.Pick -> picker.selectImage()
+            is CreatorState.Event.Collapse -> sheet.collapse()
+            is CreatorState.Event.Expand -> sheet.expand()
+            is CreatorState.Event.PickCamera -> picker.selectImage(true)
+            is CreatorState.Event.PickGallery -> picker.selectImage(false)
         }
     }
 

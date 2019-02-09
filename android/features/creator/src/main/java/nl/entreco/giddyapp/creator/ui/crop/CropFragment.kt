@@ -36,8 +36,8 @@ class CropFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentViewModel.postEvent(CreatorState.Event.Collapse)
         viewModel.events().observe(this, eventObserver)
-
         parentViewModel.events().observe(this, parentEventObserver)
     }
 

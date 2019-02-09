@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        >
 
     <data>
-
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.CreatorViewModel"/>
         <variable
                 name="step"
                 type="nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel"/>
@@ -13,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sheet"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sheet_height"
+            android:layout_height="match_parent"
+            app:ga_animateheight="@{step}"
             android:animateLayoutChanges="true"
             app:behavior_hideable="false"
             app:behavior_peekHeight="@dimen/sheet_peek_height"
@@ -39,7 +42,7 @@
                 android:orientation="horizontal">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
@@ -77,6 +80,7 @@
                     app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
             <TextView
+                    android:id="@+id/stepDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
@@ -86,6 +90,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/stepName"
                     android:textColor="@color/almost_black"/>
+
+            <include
+                    android:id="@+id/include_steps_select"
+                    layout="@layout/include_steps_select"
+                    app:layout_constraintTop_toBottomOf="@id/stepDescription"
+                    app:viewModel="@{viewModel}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <include
+                    android:id="@+id/include_steps_crop"
+                    layout="@layout/include_steps_crop"
+                    app:layout_constraintTop_toBottomOf="@id/stepDescription"
+                    app:viewModel="@{viewModel}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <include
+                    android:id="@+id/include_steps_entry"
+                    layout="@layout/include_steps_entry"
+                    app:layout_constraintTop_toBottomOf="@id/stepDescription"
+                    app:viewModel="@{viewModel}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

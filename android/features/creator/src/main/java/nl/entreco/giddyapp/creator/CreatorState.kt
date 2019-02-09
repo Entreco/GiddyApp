@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.creator
 
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import nl.entreco.giddyapp.libpicker.SelectedImage
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
@@ -7,7 +8,10 @@ import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 sealed class CreatorState(val index: Int) {
 
     sealed class Event {
-        object Pick : Event()
+        object Collapse : Event()
+        object Expand : Event()
+        object PickCamera : Event()
+        object PickGallery : Event()
         object Resize : Event()
         object Enter : Event()
     }
