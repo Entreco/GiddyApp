@@ -3,21 +3,25 @@ package nl.entreco.giddyapp.libcropper
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.theartofdev.edmodo.cropper.CropImageView
+import kotlin.random.Random
+
 
 class CropImageView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     private val libCropImageView = com.theartofdev.edmodo.cropper.CropImageView(context, attrs)
 
     init {
+        libCropImageView.id = Random.nextInt(10000)
         addView(libCropImageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     var cropShape = CropShape.RECTANGLE
-        get() = when (libCropImageView.getCropShape()) {
+        get() = when (libCropImageView.cropShape) {
             com.theartofdev.edmodo.cropper.CropImageView.CropShape.RECTANGLE -> CropShape.RECTANGLE
             com.theartofdev.edmodo.cropper.CropImageView.CropShape.OVAL -> CropShape.OVAL
             else -> CropShape.RECTANGLE
@@ -57,7 +61,7 @@ class CropImageView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
     }
 
     fun setOnCropImageCompleteListener(done: (Result) -> Unit) {
-        libCropImageView.setOnCropImageCompleteListener { view, result ->
+        libCropImageView.setOnCropImageCompleteListener { _, result ->
             done(
                 Result(
                     result?.isSuccessful ?: false,

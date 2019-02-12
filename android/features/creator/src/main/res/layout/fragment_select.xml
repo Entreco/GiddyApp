@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewModel" type="nl.entreco.giddyapp.creator.ui.select.SelectViewModel"/>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.select.SelectViewModel"/>
+
+        <variable
+                name="callback"
+                type="nl.entreco.giddyapp.creator.ui.select.SelectCallback"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <TextView
                 android:id="@+id/creator_select"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/select_image"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:layout_gravity="center"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+                android:id="@+id/include_sheet"
+                layout="@layout/include_steps_select"
+                app:callback="@{callback}"
+                app:step="@{viewModel.step}"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="detail_1">&lt;b>%1$s&lt;/b>&lt;br/>niveau</string>
-    <string name="detail_2">&lt;b>%1$s&lt;/b>&lt;br/>EUR</string>
-    <string name="detail_3">&lt;b>%1$s&lt;/b>&lt;br/>discipline</string>
     <string name="cd_like">Yes, love this horse</string>
     <string name="cd_dislike">Meh</string>
     <string name="cd_fab">Options</string>
@@ -10,4 +7,10 @@
     <string name="gender_female">Merrie</string>
     <string name="gender_gelding">Ruin</string>
     <string name="gender_unknown">Onbekend</string>
+
+
+    <!-- Horse Details -->
+    <string name="detail_1">&lt;b>%1$s&lt;/b>&lt;br/>niveau</string>
+    <string name="detail_2">&lt;b>%1$s&lt;/b>&lt;br/>EUR</string>
+    <string name="detail_3">&lt;b>%1$s&lt;/b>&lt;br/>discipline</string>
 </resources>

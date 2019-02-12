@@ -5,23 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.base.parentViewModelProvider
 import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentCropBinding
-import nl.entreco.giddyapp.creator.di.CreatorInjector.fromActivity
-import nl.entreco.giddyapp.creator.di.StepsModule
+import nl.entreco.giddyapp.creator.di.CreatorInjector.componentFromSheet
+import nl.entreco.giddyapp.creator.ui.CreateStepFragment
 
-class CropFragment : Fragment() {
+class CropFragment : CreateStepFragment() {
 
     private lateinit var binding: FragmentCropBinding
-    private val parentViewModel by parentViewModelProvider { CreatorViewModel::class.java }
-    private val component by fromActivity { StepsModule(parentViewModel.state().value) }
+    private val component by componentFromSheet { binding.includeSheet.cropSheet }
     private val viewModel by viewModelProvider { component.crop() }
+    private val sheet by lazy { component.sheet() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -30,26 +26,23 @@ class CropFragment : Fragment() {
             container,
             false
         )
+        sheet.collapse()
         binding.viewModel = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.postEvent(CreatorState.Event.Collapse)
-        viewModel.events().observe(this, eventObserver)
-        parentViewModel.events().observe(this, parentEventObserver)
-    }
-
-    private var eventObserver =  Observer<CreatorState.Event> {
-        parentViewModel.postEvent(it)
-    }
-
-    private var parentEventObserver =  Observer<CreatorState.Event> { event ->
-        when (event) {
-            is CreatorState.Event.Resize -> viewModel.resize(binding.croppedImageView) {
+        onEvents(CreatorState.Event.Resize) {
+            sheet.collapse()
+            viewModel.resize(binding.cropView) {
                 parentViewModel.imageCropped(it)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sheet.expand()
     }
 }

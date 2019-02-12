@@ -4,13 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.DrawableRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.databinding.Bindable
-import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.WidgetBottomProgressViewBinding
-import nl.entreco.giddyapp.creator.icon
 
 class BottomProgressView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -18,24 +13,34 @@ class BottomProgressView @JvmOverloads constructor(
 
     private val binding: WidgetBottomProgressViewBinding
     private val inflater by lazy { LayoutInflater.from(context) }
-    private val animator by lazy { BottomAnimator(this) }
 
     init {
         binding = WidgetBottomProgressViewBinding.inflate(inflater, this, true)
         clipChildren = false
+        hide()
     }
 
     fun setModel(model: BottomProgressModel?) {
         model?.let { mod ->
             binding.model = mod
             binding.executePendingBindings()
-            animator.slideTo(mod.state.index)
-            binding.fab.setImageResource(mod.state.icon())
-            binding.fab.hide()
+            if (mod.showFab()) {
+                show()
+            } else {
+                hide()
+            }
         }
     }
 
-    override fun setOnClickListener(listener: View.OnClickListener){
+    private fun show(){
+        binding.fab.show()
+    }
+
+    private fun hide(){
+        binding.fab.hide()
+    }
+
+    override fun setOnClickListener(listener: View.OnClickListener) {
         binding.fab.setOnClickListener {
             listener.onClick(it)
         }

@@ -1,38 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-                name="viewModel"
-                type="nl.entreco.giddyapp.creator.CreatorViewModel"/>
+                name="step"
+                type="nl.entreco.giddyapp.creator.ui.crop.CropBottomModel"/>
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/crop_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/def"
-            android:paddingBottom="@dimen/def"
-            android:divider="@drawable/div_def"
-            android:showDividers="middle">
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="@dimen/sheet_peek_height"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="please\ncheckj\nthat\neveryting\nis\nvisible\nbefore you\nfgo"/>
+        <ImageView
+                android:contentDescription="@null"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sheet_header_height"
+                android:background="@drawable/gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="@{() -> viewModel.onCropImage()}"
-                android:text="@string/pick_gallery"
-                app:iconPadding="@dimen/xlarge"
-                app:iconGravity="textStart"
-                app:icon="@drawable/ic_gallery"/>
+        <LinearLayout
+                android:id="@+id/crop_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/crop_details"
+                android:background="@drawable/sheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium"
+                android:paddingEnd="@dimen/medium"
+                android:paddingTop="@dimen/medium"
+                android:paddingBottom="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/crop_info">
+
+            <TextView
+                    android:id="@+id/stepName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/almost_black"
+                    app:ga_fadeIn="@{step.title}"
+                    tools:text="@string/app_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+            <TextView
+                    android:id="@+id/stepDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
+                    android:singleLine="true"
+                    app:ga_fadeIn="@{step.description}"
+                    tools:text="@string/app_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/stepName"
+                    android:textColor="@color/almost_black"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/xlarge"
+                    android:paddingBottom="@dimen/def"
+                    app:layout_constraintTop_toBottomOf="@id/stepDescription"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:divider="@drawable/div_def"
+                    android:showDividers="middle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

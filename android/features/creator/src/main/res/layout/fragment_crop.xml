@@ -9,26 +9,21 @@
                 type="nl.entreco.giddyapp.creator.ui.crop.CropViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <nl.entreco.giddyapp.libcropper.CropImageView
-                android:id="@+id/croppedImageView"
+                android:id="@+id/cropView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:ga_preview="@{viewModel.image}"/>
 
-        <androidx.core.widget.ContentLoadingProgressBar
-                style="@android:style/Widget.Material.Light.ProgressBar.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:showIf="@{viewModel.isCropping}"/>
+        <include
+                android:id="@+id/include_sheet"
+                layout="@layout/include_steps_crop"
+                app:step="@{viewModel.step}"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

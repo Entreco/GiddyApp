@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.media.SoundPool
 import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
 import dagger.Provides
 import nl.entreco.giddyapp.viewer.data.SoundPoolService
@@ -20,8 +21,8 @@ class ViewerModule(private val url: String?, private val sheet: View) {
     }
 
     @Provides
-    fun provideSheet(): View {
-        return sheet
+    fun provideSheet(): BottomSheetBehavior<View> {
+        return BottomSheetBehavior.from(sheet)
     }
 
     @Provides

@@ -2,6 +2,7 @@ package nl.entreco.giddyapp.creator
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,42 +15,53 @@ import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
 import nl.entreco.giddyapp.creator.di.CreatorModule
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
-import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.crop.CropFragment
 import nl.entreco.giddyapp.creator.ui.entry.EntryFragment
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
 
-class CreatorActivity() : BaseActivity(), ComponentProvider<CreatorComponent> {
+class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
 
-    private lateinit var binding : ActivityCreatorBinding
-    private val component by fromModule { CreatorModule( binding.includeSheet.sheet) }
+    private lateinit var binding: ActivityCreatorBinding
+    private val component by fromModule { CreatorModule() }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val picker by lazy { component.picker() }
-    private val sheet by lazy { component.sheet() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_creator)
         binding.viewModel = viewModel
-        sheet.slideListener = viewModel
         viewModel.state().observe(this, stateObserver)
         viewModel.events().observe(this, eventObserver)
     }
 
     private val stateObserver = Observer<CreatorState> { state ->
         viewModel.currentState.set(BottomProgressModel(state))
-        viewModel.currentStep.set(BottomStepModel(state))
         render(state)
     }
 
     private val eventObserver = Observer<CreatorState.Event> { event ->
-        when(event){
-            is CreatorState.Event.Collapse -> sheet.collapse()
-            is CreatorState.Event.Expand -> sheet.expand()
+        when (event) {
             is CreatorState.Event.PickCamera -> picker.selectImage(true)
             is CreatorState.Event.PickGallery -> picker.selectImage(false)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setSupportActionBar(binding.includeToolbarCreator.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) onBackPressed()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        viewModel.popSate()
+        super.onBackPressed()
     }
 
     override fun get(): CreatorComponent {
@@ -67,9 +79,14 @@ class CreatorActivity() : BaseActivity(), ComponentProvider<CreatorComponent> {
     }
 
     private fun replaceWith(frag: Fragment, tag: String) {
-        supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
             .replace(R.id.createFragmentContainer, frag, tag)
-            .commitNowAllowingStateLoss()
+        when (frag) {
+            is SelectFragment -> { }
+            else -> transaction.addToBackStack(tag)
+        }
+
+        transaction.commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -15,7 +15,7 @@
         <activity
                 android:name="nl.entreco.giddyapp.viewer.ViewerActivity"
                 android:label="@string/title_viewer"
-                android:theme="@style/ViewerTheme">
+                android:theme="@style/AppTheme.ViewerTheme">
 
             <meta-data
                     android:name="default-url"

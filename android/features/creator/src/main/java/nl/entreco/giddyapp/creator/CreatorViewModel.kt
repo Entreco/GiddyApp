@@ -7,31 +7,29 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.libpicker.SelectedImage
-import nl.entreco.giddyapp.core.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
-import nl.entreco.giddyapp.creator.ui.bottom.BottomStepModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryViewModel
+import nl.entreco.giddyapp.creator.ui.select.SelectCallback
 import nl.entreco.giddyapp.libcropper.CropImageView
+import nl.entreco.giddyapp.libpicker.SelectedImage
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libs.horses.create.CreateHorseUsecase
+import java.util.*
 import javax.inject.Inject
 
 class CreatorViewModel @Inject constructor(
     private val createHorseUsecase: CreateHorseUsecase
-) : ViewModel(), DetailSheet.SlideListener {
+) : ViewModel(), SelectCallback {
 
+    private val stateStack = ArrayDeque<CreatorState>()
     private val state = MutableLiveData<CreatorState>()
     private val events = MutableLiveData<CreatorState.Event>()
-    private val slider = MutableLiveData<Float>()
     val currentState = ObservableField<BottomProgressModel>()
-    val currentStep = ObservableField<BottomStepModel>()
-
-    val entryViewModel = ObservableField<EntryViewModel>()
 
     init {
-        state.postValue(CreatorState.Select)
+        stateStack.add(CreatorState.Select)
+        state.postValue(stateStack.last)
     }
 
     fun state(): LiveData<CreatorState> {
@@ -46,57 +44,61 @@ class CreatorViewModel @Inject constructor(
         events.postValue(event)
     }
 
-    fun toggler(): LiveData<Float> {
-        return slider
-    }
-
-    fun onSelectFromCamera(){
+    override fun onSelectFromCamera() {
         postEvent(CreatorState.Event.PickCamera)
     }
-    fun onSelectFromGallery(){
+
+    override fun onSelectFromGallery() {
         postEvent(CreatorState.Event.PickGallery)
-    }
-    fun onCropImage(){
-        postEvent(CreatorState.Event.Resize)
     }
 
     fun onProceed() {
-        val current = state.value
+        val current = stateStack.last
         when (current) {
+            is CreatorState.Crop -> postEvent(CreatorState.Event.Resize)
             is CreatorState.Entry -> postEvent(CreatorState.Event.Enter)
-            is CreatorState.Upload -> go(current.model)
-            else -> { }
+            is CreatorState.Upload -> postEvent(CreatorState.Event.Verify)
+            else -> { /* ignore other events */ }
         }
     }
 
-    override fun onSlide(offset: Float) {
-        slider.postValue(offset)
-    }
-
-    fun imageSelected(images: List<nl.entreco.giddyapp.libpicker.SelectedImage>) {
+    fun imageSelected(images: List<SelectedImage>) {
         images.firstOrNull()?.let {
-            state.postValue(CreatorState.Crop(it))
+            val crop = CreatorState.Crop(it)
+            stateStack.add(crop)
+            state.postValue(stateStack.last)
         }
     }
 
-    fun imageCropped(image: nl.entreco.giddyapp.libpicker.SelectedImage) {
+    fun imageCropped(image: SelectedImage) {
         val entry = CreatorState.Entry(image)
-        entryViewModel.set(EntryViewModel(entry))
-        state.postValue(entry)
+        stateStack.add(entry)
+        state.postValue(stateStack.last)
     }
 
     fun entered(model: EntryModel) {
-        state.postValue(CreatorState.Upload(model))
+        stateStack.add(CreatorState.Upload(model))
+        state.postValue(stateStack.last)
     }
 
-    private fun go(model: EntryModel) {
+    fun startUpload(model: EntryModel) {
         createHorseUsecase.go(
             CreateHorseRequest(
                 model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
                 model.image.uri, model.image.startColor, model.image.endColor
             )
-        ){ response ->
-            state.postValue(CreatorState.Done(response.horseId))
+        ) { response ->
+            val done = CreatorState.Done(response.horseId)
+            stateStack.add(done)
+            state.postValue(stateStack.last)
+        }
+    }
+
+    fun popSate() {
+        if (stateStack.isNotEmpty()) {
+            stateStack.removeLast()
+
+            if(stateStack.isNotEmpty()) state.postValue(stateStack.last)
         }
     }
 

@@ -5,31 +5,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import nl.entreco.giddyapp.core.base.parentViewModelProvider
 import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentSelectBinding
-import nl.entreco.giddyapp.creator.di.CreatorInjector.fromActivity
-import nl.entreco.giddyapp.creator.di.StepsModule
+import nl.entreco.giddyapp.creator.di.CreatorInjector.componentFromSheet
+import nl.entreco.giddyapp.creator.ui.CreateStepFragment
 
-class SelectFragment : Fragment() {
+class SelectFragment : CreateStepFragment() {
 
-    private val parentViewModel by parentViewModelProvider { CreatorViewModel::class.java }
-    private val component by fromActivity { StepsModule(parentViewModel.state().value) }
+    private lateinit var binding : FragmentSelectBinding
+    private val component by componentFromSheet { binding.includeSheet.selectSheet }
     private val viewModel by viewModelProvider { component.select() }
+    private val sheet by lazy{ component.sheet() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentSelectBinding>(inflater,
+        binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_select, container, false)
         binding.viewModel = viewModel
+        binding.callback = parentViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentViewModel.postEvent(CreatorState.Event.Expand)
+        onEvents(CreatorState.Event.PickCamera, CreatorState.Event.PickGallery) {
+            sheet.collapse()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sheet.expand()
     }
 }

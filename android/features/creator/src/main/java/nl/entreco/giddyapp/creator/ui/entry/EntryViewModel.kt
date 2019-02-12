@@ -8,20 +8,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.core.ChangeableField
 import nl.entreco.giddyapp.creator.CreatorState
+import nl.entreco.giddyapp.creator.ui.crop.CropBottomModel
 import nl.entreco.giddyapp.libs.horses.*
 import javax.inject.Inject
 
 class EntryViewModel @Inject constructor(private val state: CreatorState.Entry) : ViewModel() {
 
+    val step = EntryBottomModel(state)
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.image.uri)
 
     val name = ObservableField<String>("")
     val desc = ObservableField<String>("")
+    val price = ObservableField<HorsePrice>(HorsePrice.Unknown)
+    val priceString = ObservableField<String>("EUR: ")
     val gender = ObservableField<HorseGender>(HorseGender.Unknown)
     val level = ObservableField<HorseLevel>(HorseLevel.Unknown)
     val category = ObservableField<HorseCategory>(HorseCategory.Unknown)
-    val price = ObservableField<HorsePrice>(HorsePrice.Unknown)
 
     private val event = MutableLiveData<CreatorState.Event>()
     fun events(): LiveData<CreatorState.Event> {

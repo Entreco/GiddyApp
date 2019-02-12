@@ -5,30 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.base.parentViewModelProvider
 import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentEntryBinding
-import nl.entreco.giddyapp.creator.di.CreatorInjector.fromActivity
-import nl.entreco.giddyapp.creator.di.StepsModule
+import nl.entreco.giddyapp.creator.di.CreatorInjector.componentFromSheet
+import nl.entreco.giddyapp.creator.ui.CreateStepFragment
 
-class EntryFragment : Fragment() {
+class EntryFragment : CreateStepFragment() {
 
-    private val parentViewModel by parentViewModelProvider { CreatorViewModel::class.java }
-    private val component by fromActivity { StepsModule(parentViewModel.state().value) }
+    private lateinit var binding: FragmentEntryBinding
+    private val component by componentFromSheet { binding.includeSheet.entrySheet }
     private val viewModel by viewModelProvider { component.entry() }
+    private val sheet by lazy { component.sheet() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentEntryBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_entry,
             container, false
         )
         binding.viewModel = viewModel
+        sheet.expand()
+        sheet.slideListener { offset ->
+            viewModel.constraint.set(offset)
+        }
         return binding.root
     }
 
@@ -37,17 +39,9 @@ class EntryFragment : Fragment() {
         viewModel.events().observe(this, Observer {
             parentViewModel.postEvent(it)
         })
-        parentViewModel.toggler().observe(this, toggleObserver)
-        parentViewModel.events().observe(this, parentEventObserver)
-    }
-
-    private val toggleObserver = Observer<Float> { offset ->
-        viewModel.constraint.set(offset)
-    }
-
-    private var parentEventObserver =  Observer<CreatorState.Event> { event ->
-        when (event) {
-            is CreatorState.Event.Enter -> viewModel.compose() {
+        onEvents(CreatorState.Event.Enter) {
+            sheet.collapse()
+            viewModel.compose() {
                 parentViewModel.entered(it)
             }
         }

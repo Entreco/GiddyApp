@@ -23,7 +23,7 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_viewer)
         binding.viewModel = viewModel
-        sheet.slideListener = viewModel
+        sheet.slideListener(viewModel)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

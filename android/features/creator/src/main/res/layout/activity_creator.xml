@@ -10,22 +10,23 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <include
+                layout="@layout/toolbar_creator"
+                android:id="@+id/include_toolbar_creator"
+                android:fitsSystemWindows="true"/>
 
         <FrameLayout
                 android:id="@+id/createFragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        <include
-                layout="@layout/include_steps_sheet"
-                android:id="@+id/include_sheet"
-                app:viewModel="@{viewModel}"
-                app:step="@{viewModel.currentStep}"/>
-
-
         <nl.entreco.giddyapp.creator.ui.bottom.BottomProgressView
+                android:id="@+id/bottomProgress"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_gravity="bottom"

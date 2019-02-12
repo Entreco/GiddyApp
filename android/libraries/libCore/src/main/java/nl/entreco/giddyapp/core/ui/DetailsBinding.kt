@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.ui.details
+package nl.entreco.giddyapp.core.ui
 
 import android.content.res.Resources
 import android.text.Html
