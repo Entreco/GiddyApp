@@ -1,5 +1,7 @@
 package nl.entreco.giddyapp.libs.horses
 
+import android.content.Context
+import androidx.annotation.DrawableRes
 import kotlin.random.Random
 
 data class HorseDetail(
@@ -12,24 +14,39 @@ data class HorseDetail(
 )
 
 sealed class HorseGender(val number: Int) {
-    object Unknown : HorseGender(-1)
-    object Male : HorseGender(0)
-    object Female : HorseGender(1)
-    object Gelding : HorseGender(2)
+    object Unknown : HorseGender(0)
+    object Male : HorseGender(1)
+    object Female : HorseGender(2)
+    object Gelding : HorseGender(3)
+}
+
+@DrawableRes
+fun HorseGender.icon(): Int {
+    return when (this) {
+        HorseGender.Unknown -> R.drawable.ic_gender_unknown
+        HorseGender.Female -> R.drawable.ic_female
+        HorseGender.Male -> R.drawable.ic_male
+        HorseGender.Gelding -> R.drawable.ic_gelding
+    }
 }
 
 sealed class HorseLevel(val number: Int) {
     object Unknown : HorseLevel(-1)
-    object Male : HorseLevel(0)
-    object Female : HorseLevel(1)
-    object Gelding : HorseLevel(2)
+    object Mak : HorseLevel(0)
+    object B : HorseLevel(1)
+    object C : HorseLevel(2)
+    object M : HorseLevel(3)
+    object Z : HorseLevel(4)
+    object Zz : HorseLevel(5)
 }
 
 sealed class HorseCategory(val number: Int) {
     object Unknown : HorseCategory(-1)
-    object Male : HorseCategory(0)
-    object Female : HorseCategory(1)
-    object Gelding : HorseCategory(2)
+    object Jumping : HorseCategory(0)
+    object Dressage : HorseCategory(1)
+    object Eventing : HorseCategory(2)
+    object Recreation : HorseCategory(3)
+    object Other : HorseCategory(4)
 }
 
 sealed class HorsePrice(val number: Int) {
@@ -40,9 +57,6 @@ sealed class HorsePrice(val number: Int) {
 }
 
 private val categories = listOf("Springen", "Dressuur", "Eventing", "Recreatie", "Overige")
-private fun randomCategory(): String {
-    return categories[Random.nextInt(until = categories.size)]
-}
 
 private val levels = listOf("Zadelmak", "B", "C", "M", "Z", "ZZ")
 private fun randomLevel(): String {

@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/entry_sheet"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/guide_initial_height"
             app:behavior_hideable="false"
             app:behavior_peekHeight="@dimen/sheet_peek_height"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -63,35 +63,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/entry_info">
 
-            <TextView
-                    android:id="@+id/stepName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:singleLine="true"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/almost_black"
-                    app:ga_fadeIn="@{step.title}"
-                    tools:text="@string/app_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"/>
-
-            <TextView
-                    android:id="@+id/stepDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:singleLine="true"
-                    app:ga_fadeIn="@{step.description}"
-                    tools:text="@string/app_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/stepName"
-                    android:textColor="@color/almost_black"/>
-
-            <LinearLayout
+            <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/entryPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/xlarge"
@@ -100,66 +73,7 @@
                     app:layout_constraintTop_toBottomOf="@id/stepDescription"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:divider="@drawable/div_def"
-                    android:showDividers="middle">
-
-                <!-- Horse Name -->
-                <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:id="@+id/entry_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Name of your Horse">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@={viewModel.name}"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Horse Description -->
-                <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:id="@+id/entry_desc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Description of your Horse"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="100">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@={viewModel.desc}"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Horse Price -->
-                <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:id="@+id/entry_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Price"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="100">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@={viewModel.priceString}"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                        android:id="@+id/entry_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gender"/>
-
-                <androidx.appcompat.widget.AppCompatRatingBar
-                        android:id="@+id/entry_gender_select"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:numStars="3"/>
-            </LinearLayout>
+                    android:showDividers="middle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
