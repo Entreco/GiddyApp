@@ -4,8 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.libpicker.SelectedImage
-import nl.entreco.giddyapp.libs.horses.HorseDetail
-import nl.entreco.giddyapp.libs.horses.HorseGender
+import nl.entreco.giddyapp.libs.horses.*
 
 data class EntryModel(val horseDetail: HorseDetail, val image: SelectedImage)
 
@@ -19,13 +18,20 @@ sealed class Form {
     }
 
     data class Gender(val title: Int = R.string.entry_gender) : Form() {
-        val input = ObservableInt(HorseGender.Unknown.number)
-        val entries = listOf(
-            HorseGender.Unknown,
-            HorseGender.Male,
-            HorseGender.Female,
-            HorseGender.Gelding
-        )
+        val input = ObservableInt(HorseGender.Unknown.ordinal)
+        val entries = HorseGender.values().toList()
+    }
+
+    data class Level(val title: Int = R.string.entry_level) : Form() {
+        val input = ObservableInt(HorseLevel.Unknown.ordinal)
+    }
+
+    data class Price(val title: Int = R.string.entry_price) : Form() {
+        val input = ObservableInt(HorsePrice.NotForSale.ordinal)
+    }
+
+    data class Category(val title: Int = R.string.entry_category) : Form() {
+        val input = ObservableInt(HorseCategory.Unknown.ordinal)
     }
 
     object Empty : Form()

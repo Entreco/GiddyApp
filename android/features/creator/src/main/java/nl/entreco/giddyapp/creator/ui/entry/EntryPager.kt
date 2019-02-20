@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import nl.entreco.giddyapp.creator.databinding.EntryDescriptionBinding
-import nl.entreco.giddyapp.creator.databinding.EntryEmptyBinding
-import nl.entreco.giddyapp.creator.databinding.EntryGenderBinding
-import nl.entreco.giddyapp.creator.databinding.EntryNameBinding
+import nl.entreco.giddyapp.creator.databinding.*
 
 class EntryPager(
     context: Context,
@@ -23,6 +20,9 @@ class EntryPager(
             is Form.Name -> setupName(container, currentItem)
             is Form.Desc -> setupDescription(container, currentItem)
             is Form.Gender -> setupGender(container, currentItem)
+            is Form.Level -> setupLevel(container, currentItem)
+            is Form.Price -> setupPrice(container, currentItem)
+            is Form.Category -> setupCategory(container, currentItem)
             else -> setupEmpty(container)
         }
         container.addView(binding.root)
@@ -52,6 +52,35 @@ class EntryPager(
         container: ViewGroup,
         currentItem: Form.Gender
     ): EntryGenderBinding = EntryGenderBinding
+        .inflate(inflater, container, false)
+        .apply {
+            entry = currentItem
+            model = InputEntryModel(currentItem, nextListener)
+        }
+
+    private fun setupLevel(
+        container: ViewGroup,
+        currentItem: Form.Level
+    ): EntryLevelBinding = EntryLevelBinding
+        .inflate(inflater, container, false)
+        .apply {
+            entry = currentItem
+            model = InputEntryModel(currentItem, nextListener)
+        }
+
+    private fun setupPrice(
+        container: ViewGroup,
+        currentItem: Form.Price
+    ): EntryPriceBinding = EntryPriceBinding
+        .inflate(inflater, container, false)
+        .apply {
+            entry = currentItem
+            model = InputEntryModel(currentItem, nextListener)
+        }
+    private fun setupCategory(
+        container: ViewGroup,
+        currentItem: Form.Category
+    ): EntryCategoryBinding = EntryCategoryBinding
         .inflate(inflater, container, false)
         .apply {
             entry = currentItem

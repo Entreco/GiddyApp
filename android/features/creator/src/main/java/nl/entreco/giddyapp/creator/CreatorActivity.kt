@@ -75,7 +75,10 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
             is CreatorState.Crop -> replaceWith(CropFragment(), state.toString())
             is CreatorState.Entry -> replaceWith(EntryFragment(), state.toString())
             is CreatorState.Upload -> replaceWith(UploadFragment(), state.toString())
-            is CreatorState.Done -> LaunchHelper.launchViewer(this, null, state.horseId)
+            is CreatorState.Done -> {
+                LaunchHelper.launchViewer(this, null, state.horseId)
+                finish()
+            }
         }
     }
 

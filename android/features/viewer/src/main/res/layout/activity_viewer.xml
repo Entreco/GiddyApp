@@ -58,5 +58,8 @@
                 app:backgroundTint="@color/colorPrimary"
                 app:layout_anchor="@id/bar"/>
 
+        <include layout="@layout/toolbar_viewer"
+                 android:id="@+id/include_toolbar_viewer"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

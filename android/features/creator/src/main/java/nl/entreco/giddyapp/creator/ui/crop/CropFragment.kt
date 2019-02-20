@@ -26,6 +26,9 @@ class CropFragment : CreateStepFragment() {
             container,
             false
         )
+        sheet.slideListener { offset ->
+            viewModel.constraint.set(offset)
+        }
         sheet.collapse()
         binding.viewModel = viewModel
         return binding.root

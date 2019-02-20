@@ -1,3 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="TransparentTheme" parent="Widget.AppCompat.Toolbar">
+        <item name="colorPrimary">@color/almost_black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:colorControlNormal">@color/white</item>
+        <item name="android:colorControlHighlight">@color/almost_white</item>
+        <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="elevation">0dp</item>
+    </style>
+
 </resources>

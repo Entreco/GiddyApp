@@ -87,6 +87,7 @@ class CreatorViewModel @Inject constructor(
         createHorseUsecase.go(
             CreateHorseRequest(
                 model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
+                model.horseDetail.price, model.horseDetail.category, model.horseDetail.type,
                 model.image.uri, model.image.startColor, model.image.endColor
             )
         ) { response ->
@@ -96,10 +97,13 @@ class CreatorViewModel @Inject constructor(
         }
     }
 
-    fun popSate() {
-        if (stateStack.isNotEmpty()) {
+    fun popSate() : Boolean {
+        return if (stateStack.size > 1) {
             stateStack.removeLast()
-            if(stateStack.isNotEmpty()) state.postValue(stateStack.last)
+            state.postValue(stateStack.last)
+            true
+        } else {
+            false
         }
     }
 
@@ -109,6 +113,7 @@ class CreatorViewModel @Inject constructor(
         @BindingAdapter("ga_preview")
         fun preview(view: CropImageView, uri: Uri?) {
             view.setAspectRatio(1, 1)
+            view.setMinCropSize(1050)
             view.setFixedAspectRatio(true)
             view.setMultiTouchEnabled(false)
             view.setSnapRadius(10f)

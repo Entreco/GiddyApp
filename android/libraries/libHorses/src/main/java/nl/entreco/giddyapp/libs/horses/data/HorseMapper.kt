@@ -1,15 +1,13 @@
 package nl.entreco.giddyapp.libs.horses.data
 
 import nl.entreco.giddyapp.core.HexString
-import nl.entreco.giddyapp.libs.horses.Horse
-import nl.entreco.giddyapp.libs.horses.HorseDetail
-import nl.entreco.giddyapp.libs.horses.HorseGender
+import nl.entreco.giddyapp.libs.horses.*
 
 internal class HorseMapper {
     fun map(fbHorse: FbHorse, imageRef: String): Horse {
         return Horse(
-            nl.entreco.giddyapp.core.HexString.from(fbHorse.startColor),
-            nl.entreco.giddyapp.core.HexString.from(fbHorse.endColor),
+            HexString.from(fbHorse.startColor),
+            HexString.from(fbHorse.endColor),
             imageRef,
             fbHorse.ext,
             fbHorse.posted.time,
@@ -21,7 +19,10 @@ internal class HorseMapper {
         return HorseDetail(
             fbHorse.name,
             mapDescription(fbHorse),
-            mapGender(fbHorse.gender)
+            mapGender(fbHorse.gender),
+            mapLevel(fbHorse.level),
+            mapCategory(fbHorse.category),
+            mapPrice(fbHorse.price)
         )
     }
 
@@ -29,19 +30,40 @@ internal class HorseMapper {
         if (fbHorse.description.isBlank()) "no description" else fbHorse.description
 
     private fun mapGender(gender: Int): HorseGender {
-        return when (gender) {
-            0 -> HorseGender.Male
-            1 -> HorseGender.Female
-            2 -> HorseGender.Gelding
-            else -> HorseGender.Unknown
-        }
+        return if (gender == -1) HorseGender.Unknown
+        else HorseGender.values()[gender]
     }
 
-    fun create(name: String, description: String, gender: HorseGender, startColor: nl.entreco.giddyapp.core.HexString, endColor: nl.entreco.giddyapp.core.HexString): FbHorse {
+    private fun mapPrice(price: Int): HorsePrice {
+        return if (price == -1) HorsePrice.NotForSale
+        else HorsePrice.values()[price]
+    }
+
+    private fun mapCategory(category: Int): HorseCategory {
+        return if (category == -1) HorseCategory.Unknown
+        else HorseCategory.values()[category]
+    }
+
+    private fun mapLevel(level: Int): HorseLevel {
+        return if (level == -1) HorseLevel.Unknown
+        else HorseLevel.values()[level]
+    }
+
+    fun create(
+        name: String, description: String, gender: HorseGender,
+        price: HorsePrice,
+        category: HorseCategory,
+        level: HorseLevel,
+        startColor: HexString,
+        endColor: HexString
+    ): FbHorse {
         return FbHorse(
             name = name,
             description = description,
-            gender = gender.number,
+            gender = gender.ordinal,
+            price = price.ordinal,
+            category = category.ordinal,
+            level = level.ordinal,
             startColor = startColor.hex(),
             endColor = endColor.hex()
         )

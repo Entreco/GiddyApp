@@ -56,6 +56,10 @@ class CropImageView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         libCropImageView.setFixedAspectRatio(fixed)
     }
 
+    fun setMinCropSize(minimumSize: Int){
+        libCropImageView.setMinCropResultSize(minimumSize, minimumSize)
+    }
+
     fun setAspectRatio(x: Int, y: Int) {
         libCropImageView.setAspectRatio(x, y)
     }

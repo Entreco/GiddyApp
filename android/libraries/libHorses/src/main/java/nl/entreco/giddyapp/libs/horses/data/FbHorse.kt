@@ -12,5 +12,8 @@ internal data class FbHorse(
     @get:PropertyName("e") @set:PropertyName("e") var endColor: String = "#000000",
     @get:PropertyName("p") @set:PropertyName("p") var posted: Date = Date(0L),
     @get:PropertyName("ext") @set:PropertyName("ext") var ext: String = "jpg",
-    @get:PropertyName("g") @set:PropertyName("g") var gender: Int = -1
+    @get:PropertyName("gen") @set:PropertyName("gen") var gender: Int = -1,
+    @get:PropertyName("pr") @set:PropertyName("pr") var price: Int = -1,
+    @get:PropertyName("cat") @set:PropertyName("cat") var category: Int = -1,
+    @get:PropertyName("lvl") @set:PropertyName("lvl") var level: Int = -1
 )

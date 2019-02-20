@@ -20,12 +20,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:fitsSystemWindows="true"
                 app:layout_constraintGuide_end="@dimen/guide_initial_height"
                 app:ga_constraintEnd="@{viewModel.constraint}"
                 android:orientation="horizontal"/>
@@ -34,6 +36,7 @@
                 android:id="@+id/space"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:fitsSystemWindows="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,10 +46,10 @@
                 android:id="@+id/nextView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:elevation="@dimen/def"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:transitionGroup="true"
+                android:translationZ="-2dp"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="@id/space"
@@ -60,8 +63,8 @@
                 android:id="@+id/currentView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:elevation="@dimen/def"
                 android:transitionGroup="true"
+                android:fitsSystemWindows="true"
                 app:layout_constraintTop_toTopOf="@id/space"
                 app:layout_constraintBottom_toBottomOf="@id/space"
                 app:layout_constraintStart_toStartOf="@id/space"

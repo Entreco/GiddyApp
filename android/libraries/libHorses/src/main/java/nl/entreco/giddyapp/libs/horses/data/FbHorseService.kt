@@ -6,9 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import nl.entreco.giddyapp.core.HexString
-import nl.entreco.giddyapp.libs.horses.Horse
-import nl.entreco.giddyapp.libs.horses.HorseGender
-import nl.entreco.giddyapp.libs.horses.HorseService
+import nl.entreco.giddyapp.libs.horses.*
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -36,9 +34,12 @@ internal class FbHorseService @Inject constructor(
         name: String,
         description: String,
         gender: HorseGender,
+        price: HorsePrice,
+        category: HorseCategory,
+        level: HorseLevel,
         image: Uri,
-        startColor: nl.entreco.giddyapp.core.HexString,
-        endColor: nl.entreco.giddyapp.core.HexString,
+        startColor: HexString,
+        endColor: HexString,
         done: (String) -> Unit
     ) {
         val document = collection.document()
@@ -46,7 +47,7 @@ internal class FbHorseService @Inject constructor(
         // 1) Upload Image
         upload(document.id, image){
             // 2) Set Image Details
-            val horse = mapper.create(name, description, gender, startColor, endColor)
+            val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor)
             document.set(horse).addOnSuccessListener {
                 // TODO: Extract extension from Image
                 done(document.id)

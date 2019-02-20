@@ -17,6 +17,7 @@ class ViewerModule(private val url: String?, private val sheet: View) {
     fun provideUrl(): String? = when{
         url.isNullOrBlank() -> null
         url == "viewer" -> null
+        url == "null" -> null
         else -> url
     }
 

@@ -14,7 +14,6 @@ class SwipeViewModel @Inject constructor(
 
     val constraint = ObservableFloat(0F)
     val playing = ObservableBoolean(false)
-    val price = ObservableField<String>()
     val nextTouched = ObservableBoolean(false)
     val nextProgress = ObservableFloat(0F)
     val next = ObservableField<SwipeHorseModel>()

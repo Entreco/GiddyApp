@@ -12,13 +12,14 @@
     <string name="sheet_description_select">Take a new picture or select an existing one from your gallery</string>
     <string name="sheet_title_crop">Crop your Image</string>
     <string name="sheet_description_crop">Make sure ar details are visible inside the rectangle</string>
-    <string name="sheet_title_entry">Data entry</string>
-    <string name="sheet_description_entry">Fill in as much details as possible</string>
 
     <!-- Form Entry -->
     <string name="entry_name">What\'s your horses name?</string>
     <string name="entry_desc">Describe %1$s</string>
     <string name="entry_gender">Select the horse\'s gender</string>
+    <string name="entry_level">What\'s the horse\'s level</string>
+    <string name="entry_price">What\'s the horse\'s price range</string>
+    <string name="entry_category">What\'s the horse\'s category</string>
 
     <!-- Horse Details -->
     <string name="preview_1">&lt;b>%1$s&lt;/b>&lt;br/>niveau</string>

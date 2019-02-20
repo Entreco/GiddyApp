@@ -1,7 +1,7 @@
 package nl.entreco.giddyapp.core
 
-import androidx.databinding.BindingAdapter
 import androidx.constraintlayout.widget.Guideline
+import androidx.databinding.BindingAdapter
 
 object ConstraintBindings {
 
@@ -15,5 +15,4 @@ object ConstraintBindings {
         val guidelineEnd = (start + (offset * difference) - header).toInt()
         view.setGuidelineEnd(guidelineEnd)
     }
-
 }

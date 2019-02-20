@@ -39,7 +39,6 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
         view.animate().scaleY(1F)
             .scaleX(1f)
             .rotationY(0F)
-            .translationZ(2F)
             .setDuration(300)
             .start()
 
@@ -60,7 +59,6 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
     fun animateDrag(progress: Float) {
         view.scaleX = 1 - (abs(progress) / 6F)
         view.scaleY = 1 - (abs(progress) / 6F)
-        view.translationZ = abs(progress) * 8 + 2F
         view.rotationY = progress * piAsFloat
         view.isSelected = progress > threshold
         view.isActivated = progress < -threshold

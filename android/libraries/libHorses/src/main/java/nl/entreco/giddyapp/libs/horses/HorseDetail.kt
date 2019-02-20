@@ -1,8 +1,6 @@
 package nl.entreco.giddyapp.libs.horses
 
-import android.content.Context
 import androidx.annotation.DrawableRes
-import kotlin.random.Random
 
 data class HorseDetail(
     val name: String,
@@ -10,25 +8,14 @@ data class HorseDetail(
     val gender: HorseGender = HorseGender.Unknown,
     val type: HorseLevel = HorseLevel.Unknown,
     val category: HorseCategory = HorseCategory.Unknown,
-    val price: HorsePrice = HorsePrice.Unknown
+    val price: HorsePrice = HorsePrice.NotForSale
 )
 
-sealed class HorseGender(val number: Int) {
-    object Unknown : HorseGender(0)
-    object Male : HorseGender(1)
-    object Female : HorseGender(2)
-    object Gelding : HorseGender(3)
-
-    companion object {
-        fun fromIndex(index: Int): HorseGender {
-            return when (index) {
-                1 -> Male
-                2 -> Female
-                3 -> Gelding
-                else -> Unknown
-            }
-        }
-    }
+enum class HorseGender {
+    Unknown,
+    Male,
+    Female,
+    Gelding
 }
 
 @DrawableRes
@@ -41,40 +28,43 @@ fun HorseGender.icon(): Int {
     }
 }
 
-sealed class HorseLevel(val number: Int) {
-    object Unknown : HorseLevel(-1)
-    object Mak : HorseLevel(0)
-    object B : HorseLevel(1)
-    object C : HorseLevel(2)
-    object M : HorseLevel(3)
-    object Z : HorseLevel(4)
-    object Zz : HorseLevel(5)
+enum class HorseLevel {
+    Unknown,
+    Mak,
+    B,
+    C,
+    M,
+    Z,
+    Zz
 }
 
-sealed class HorseCategory(val number: Int) {
-    object Unknown : HorseCategory(-1)
-    object Jumping : HorseCategory(0)
-    object Dressage : HorseCategory(1)
-    object Eventing : HorseCategory(2)
-    object Recreation : HorseCategory(3)
-    object Other : HorseCategory(4)
+enum class HorseCategory {
+    Unknown,
+    Jumping,
+    Dressage,
+    Eventing,
+    Recreation,
+    Other
 }
 
-sealed class HorsePrice(val number: Int) {
-    object Unknown : HorsePrice(-1)
-    object Male : HorsePrice(0)
-    object Female : HorsePrice(1)
-    object Gelding : HorsePrice(2)
+@DrawableRes
+fun HorseCategory.icon(): Int {
+    return when (this) {
+        HorseCategory.Unknown -> R.drawable.ic_filter
+        HorseCategory.Jumping -> R.drawable.ic_filter
+        HorseCategory.Dressage -> R.drawable.ic_filter
+        HorseCategory.Eventing -> R.drawable.ic_filter
+        HorseCategory.Recreation -> R.drawable.ic_filter
+        HorseCategory.Other -> R.drawable.ic_filter
+    }
 }
 
-private val categories = listOf("Springen", "Dressuur", "Eventing", "Recreatie", "Overige")
-
-private val levels = listOf("Zadelmak", "B", "C", "M", "Z", "ZZ")
-private fun randomLevel(): String {
-    return levels[Random.nextInt(until = levels.size)]
-}
-
-private fun randomPrice(): String {
-    val random = Random.nextInt(11)
-    return "${random}K - ${random + 1}K"
+enum class HorsePrice {
+    NotForSale,
+    Range1,
+    Range2,
+    Range3,
+    Range4,
+    Range5,
+    Range6
 }

@@ -46,12 +46,12 @@ object DetailsBinding {
         }
     }
 
-    private fun fadeAnTranslate(view: View, update: () -> Unit) {
+    fun fadeAnTranslate(view: View, update: () -> Unit) {
         view.animate().alpha(0F).translationY(48F).setInterpolator(AccelerateInterpolator()).withEndAction {
             update()
             view.animate().alpha(1F).translationY(0F).setInterpolator(DecelerateInterpolator()).setDuration(100).start()
         }.setDuration(100).start()
     }
 
-    private fun asHtml(value: String?) = Html.fromHtml(value, Html.FROM_HTML_MODE_LEGACY)
+    fun asHtml(value: String?) = Html.fromHtml(value, Html.FROM_HTML_MODE_LEGACY)
 }

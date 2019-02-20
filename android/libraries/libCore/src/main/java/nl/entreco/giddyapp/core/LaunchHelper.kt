@@ -30,7 +30,7 @@ object LaunchHelper {
     }
 
     private fun mainIntent(context: Context? = null) = baseIntent(URL_MAIN, context)
-    private fun viewerIntent(context: Context? = null, id: String? = null) = baseIntent(URL_VIEWER + id, context)
+    private fun viewerIntent(context: Context? = null, id: String? = null) = baseIntent(URL_VIEWER + id ?: "", context)
     private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
 
     private fun baseIntent(url: String, context: Context? = null): Intent {

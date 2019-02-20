@@ -21,7 +21,16 @@ class EntryFragment : CreateStepFragment() {
     private val sheet by lazy { component.sheet() }
     private val keyboard by lazy { component.keyboard() }
     private val pager by lazy { binding.includeSheet.entryPager }
-    private val entryData by lazy { listOf(Form.Name(), Form.Desc(), Form.Gender(), Form.Empty) }
+    private val entryData by lazy {
+        listOf(
+            Form.Name(),
+            Form.Desc(),
+            Form.Gender(),
+            Form.Level(),
+            Form.Price(),
+            Form.Category()
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -46,16 +55,21 @@ class EntryFragment : CreateStepFragment() {
             handleEvent()
         }
 
-        pager.adapter = EntryPager(requireContext(), entryData, object: EntryListeners.OnNextPlease{
+        pager.adapter = EntryPager(requireContext(), entryData, object : EntryListeners.OnNextPlease {
             override fun onNext(current: Form) {
+                when(current){
+                    is Form.Name -> keyboard.show()
+                    is Form.Desc -> keyboard.show()
+                    else -> keyboard.hide()
+                }
                 handleEvent()
             }
         })
     }
 
     private fun handleEvent() {
+        viewModel.enter(entryData[pager.currentItem])
         if (pager.currentItem < entryData.size - 1) {
-            viewModel.enter(entryData[pager.currentItem])
             pager.currentItem++
         } else {
             sheet.collapse()

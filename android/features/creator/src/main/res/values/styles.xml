@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TransparentTheme" parent="Widget.AppCompat.Toolbar">
-        <item name="colorPrimary">@color/almost_black</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:actionMenuTextColor">@color/white</item>
-        <item name="android:colorControlNormal">@color/white</item>
-        <item name="android:colorControlHighlight">@color/almost_white</item>
-        <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
-    </style>
-
 </resources>

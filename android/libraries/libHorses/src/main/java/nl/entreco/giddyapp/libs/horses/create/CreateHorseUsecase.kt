@@ -18,8 +18,11 @@ class CreateHorseUsecase @Inject constructor(
             val description = request.description
             val gender = request.gender
             val image = request.image
+            val price = request.price
+            val category = request.category
+            val level = request.level
 
-            service.create(name, description, gender, image, request.startColor, request.endColor){ id ->
+            service.create(name, description, gender, price, category, level, image, request.startColor, request.endColor){ id ->
                 onUi { done(CreateHorseResponse(id)) }
             }
         }

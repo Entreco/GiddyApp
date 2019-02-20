@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.core.base
 
 import android.content.Context
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel

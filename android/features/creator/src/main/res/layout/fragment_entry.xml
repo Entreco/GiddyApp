@@ -54,8 +54,7 @@
 
         <include
                 android:id="@+id/include_sheet"
-                layout="@layout/include_steps_entry"
-                app:step="@{viewModel.step}"/>
+                layout="@layout/include_steps_entry"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -6,10 +6,6 @@
     <data>
 
         <variable
-                name="step"
-                type="nl.entreco.giddyapp.creator.ui.entry.EntryBottomModel"/>
-
-        <variable
                 name="viewModel"
                 type="nl.entreco.giddyapp.creator.ui.entry.EntryViewModel"/>
     </data>

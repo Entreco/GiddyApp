@@ -16,10 +16,6 @@
             android:isScrollContainer="true"
             android:fitsSystemWindows="true">
 
-        <include
-                layout="@layout/toolbar_creator"
-                android:id="@+id/include_toolbar_creator"/>
-
         <FrameLayout
                 android:id="@+id/createFragmentContainer"
                 android:layout_width="match_parent"
@@ -34,6 +30,10 @@
                 android:clipToPadding="false"
                 android:onClick="@{() -> viewModel.onProceed()}"
                 app:model="@{viewModel.currentState}"/>
+
+        <include
+                layout="@layout/toolbar_creator"
+                android:id="@+id/include_toolbar_creator"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
