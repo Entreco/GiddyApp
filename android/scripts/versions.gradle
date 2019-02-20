@@ -2,34 +2,37 @@ ext {
     appName = "GiddyApp"
     releaseName = "AppleJack"
 
-    kotlinVersion = '1.3.11'
+    kotlinVersion = '1.3.20'
     gradleVersion = '3.3.1'
-    gmsVersion = '4.0.1'
+    gmsVersion = '4.2.0'
 
     compileSdkVersion = 28
     minSdkVersion = 24
     targetSdkVersion = 28
 
     dependencies = [
-            dagger = "2.19",
+            dagger = '2.20',
             material = '1.0.0',
-            playCore = '1.3.6',
+            playCore = '1.3.7',
             xLifecycle = '2.0.0',
-            xAppcompat = '1.1.0-alpha01',
+            xAppcompat = '1.0.2',
+            xArchitecture = '2.0.0',
             xConstraintLayout = '2.0.0-alpha3',
             xDynamicAnimation = '1.0.0',
             xLegacyCore = '1.0.0',
             xPalette = '1.0.0',
             fbCore = '16.0.7',
             fbCommon = '16.0.4',
-            fbFireStore = '18.0.0',
+            fbFireStore = '18.0.1',
             fbStorage = '16.0.5',
-//            imagePicker = '1.13.1',
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',
             glide = '4.8.0',
             junit = '4.12',
-            mockito = '2.1.0'
+            mockito = '2.1.0',
+
+            // Development tools
+            leakCanary = '1.6.3',
     ]
 }
 

@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import nl.entreco.giddyapp.core.onBg
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,16 +59,16 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
     private fun didCancel(result: Int): Boolean {
         return result != Activity.RESULT_OK
     }
+
     private fun didComeFromGallery(request: Int, result: Int): Boolean {
         return result == Activity.RESULT_OK && request == ImagePicker.REQ_GALLERY
     }
 
     override fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (List<SelectedImage>) -> Unit) {
-        if(didCancel(resultCode)) return
+        if (didCancel(resultCode)) return
 
         onBg {
             if (didComeFromGallery(requestCode, resultCode)) {
-                Log.i("MOFO", "CAMERA")
                 imageHelper.copyUriToInternalUri(data!!.data!!, fileName)
             }
 
@@ -79,11 +78,11 @@ internal class ThirdPartyImagePicker(private val activity: Activity) : ImagePick
         }
     }
 
-    override fun resize(image: SelectedImage, bmp: Bitmap?, done: (SelectedImage) -> Unit) {
+    override fun resize(image: SelectedImage, bmp: Bitmap, done: (SelectedImage) -> Unit) {
         onBg {
 
             val scaled = ImageCropper(activity, image)
-                .resizeTo(1050, 1050)
+                .resizeTo(bmp, 1050, 1050)
                 .build()
 
             done(scaled)

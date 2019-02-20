@@ -3,10 +3,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
                 name="entry"
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Desc"/>
+        <variable
+                name="model"
+                type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
+
     </data>
 
     <LinearLayout
@@ -33,9 +36,11 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@={entry.input}"/>
+                    android:text="@={entry.input}"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:onEditorAction="@{(tv, id, ev)-> model.onEditor(tv, id)}"/>
         </com.google.android.material.textfield.TextInputLayout>
-
 
     </LinearLayout>
 </layout>

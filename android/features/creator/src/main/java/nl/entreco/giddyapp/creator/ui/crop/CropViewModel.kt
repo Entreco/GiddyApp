@@ -27,7 +27,7 @@ class CropViewModel @Inject constructor(
             isCropping.set(true)
             imageView.setOnCropImageCompleteListener { result ->
                 if(result.isSuccessful) {
-                    picker.resize(img, result.bitmap, done)
+                    picker.resize(img, result.bitmap!!, done)
                 }
                 else Log.e("OOPS", "error cropping: ${result.error}")
 

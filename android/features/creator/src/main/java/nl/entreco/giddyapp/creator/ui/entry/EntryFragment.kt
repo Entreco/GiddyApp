@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.base.viewModelProvider
@@ -20,6 +19,7 @@ class EntryFragment : CreateStepFragment() {
     private val component by componentFromSheet { binding.includeSheet.entrySheet }
     private val viewModel by viewModelProvider { component.entry() }
     private val sheet by lazy { component.sheet() }
+    private val keyboard by lazy { component.keyboard() }
     private val pager by lazy { binding.includeSheet.entryPager }
     private val entryData by lazy { listOf(Form.Name(), Form.Desc(), Form.Gender(), Form.Empty) }
 
@@ -46,11 +46,16 @@ class EntryFragment : CreateStepFragment() {
             handleEvent()
         }
 
-        pager.adapter = EntryPager(requireContext(), entryData)
+        pager.adapter = EntryPager(requireContext(), entryData, object: EntryListeners.OnNextPlease{
+            override fun onNext(current: Form) {
+                handleEvent()
+            }
+        })
     }
 
     private fun handleEvent() {
         if (pager.currentItem < entryData.size - 1) {
+            viewModel.enter(entryData[pager.currentItem])
             pager.currentItem++
         } else {
             sheet.collapse()

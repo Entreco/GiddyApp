@@ -4,6 +4,7 @@ import dagger.Subcomponent
 import nl.entreco.giddyapp.core.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.crop.CropViewModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryViewModel
+import nl.entreco.giddyapp.creator.ui.entry.KeyboardHandler
 import nl.entreco.giddyapp.creator.ui.select.SelectViewModel
 import nl.entreco.giddyapp.creator.ui.upload.UploadViewModel
 
@@ -14,4 +15,5 @@ interface StepsComponent {
     fun entry(): EntryViewModel
     fun upload(): UploadViewModel
     fun sheet(): DetailSheet
+    fun keyboard(): KeyboardHandler
 }

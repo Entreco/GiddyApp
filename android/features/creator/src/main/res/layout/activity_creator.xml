@@ -13,12 +13,12 @@
             android:id="@+id/coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:isScrollContainer="true"
             android:fitsSystemWindows="true">
 
         <include
                 layout="@layout/toolbar_creator"
-                android:id="@+id/include_toolbar_creator"
-                android:fitsSystemWindows="true"/>
+                android:id="@+id/include_toolbar_creator"/>
 
         <FrameLayout
                 android:id="@+id/createFragmentContainer"

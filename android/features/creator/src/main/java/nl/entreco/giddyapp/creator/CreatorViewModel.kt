@@ -99,7 +99,6 @@ class CreatorViewModel @Inject constructor(
     fun popSate() {
         if (stateStack.isNotEmpty()) {
             stateStack.removeLast()
-
             if(stateStack.isNotEmpty()) state.postValue(stateStack.last)
         }
     }

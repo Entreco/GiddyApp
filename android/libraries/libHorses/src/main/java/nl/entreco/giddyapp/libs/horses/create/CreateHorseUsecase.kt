@@ -19,10 +19,6 @@ class CreateHorseUsecase @Inject constructor(
             val gender = request.gender
             val image = request.image
 
-            val bmp = BitmapFactory.decodeFile(image.path)
-            val noWay = BitmapCompat.getAllocationByteCount(bmp)
-            Log.i("WAAAT", "noWay: $noWay")
-
             service.create(name, description, gender, image, request.startColor, request.endColor){ id ->
                 onUi { done(CreateHorseResponse(id)) }
             }

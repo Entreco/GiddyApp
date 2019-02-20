@@ -7,6 +7,10 @@
         <variable
                 name="entry"
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Gender"/>
+        <variable
+                name="model"
+                type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
+
     </data>
 
     <LinearLayout

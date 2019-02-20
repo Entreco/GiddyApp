@@ -18,14 +18,6 @@ abstract class BaseActivity : AppCompatActivity() {
             SplitCompat.install(this)
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-    }
 }
 
 inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(

@@ -15,8 +15,8 @@
         <activity
                 android:name=".CreatorActivity"
                 android:label="@string/title_creator"
-                android:windowSoftInputMode="adjustPan"
-                android:theme="@style/AppTheme.CreatorTheme">
+                android:theme="@style/AppTheme.CreatorTheme"
+                android:windowSoftInputMode="adjustResize">
 
             <meta-data
                     android:name="default-url"
@@ -27,6 +27,7 @@
                     android:autoVerify="true">
 
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 

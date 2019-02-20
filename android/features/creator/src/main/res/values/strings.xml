@@ -2,7 +2,7 @@
 <resources>
     <string name="create_name">Name of your horse</string>
     <string name="create_description">Short description</string>
-    <string name="select_image">Select Image</string>
+    <!--<string name="select_image">Select Image</string>-->
     <string name="pick_camera">Camera</string>
     <string name="pick_gallery">Gallery</string>
 

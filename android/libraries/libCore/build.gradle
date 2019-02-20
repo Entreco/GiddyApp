@@ -40,5 +40,9 @@ dependencies {
     api "com.google.firebase:firebase-firestore:$fbFireStore"
     api "com.google.firebase:firebase-storage:$fbStorage"
 
+    // LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
+
     testImplementation "junit:junit:$junit"
 }

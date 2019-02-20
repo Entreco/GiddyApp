@@ -18,6 +18,17 @@ sealed class HorseGender(val number: Int) {
     object Male : HorseGender(1)
     object Female : HorseGender(2)
     object Gelding : HorseGender(3)
+
+    companion object {
+        fun fromIndex(index: Int): HorseGender {
+            return when (index) {
+                1 -> Male
+                2 -> Female
+                3 -> Gelding
+                else -> Unknown
+            }
+        }
+    }
 }
 
 @DrawableRes

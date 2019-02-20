@@ -10,6 +10,7 @@
 
     <application>
         <activity android:name=".MainActivity"
+                  android:theme="@style/AppTheme.Launcher"
                   android:excludeFromRecents="false">
             <meta-data
                     android:name="default-url"
