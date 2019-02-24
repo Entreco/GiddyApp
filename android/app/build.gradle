@@ -20,10 +20,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
+            // The temporary workaround is to disable shrinking
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+        }
         release {
             // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
             // The temporary workaround is to disable shrinking
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
@@ -39,8 +45,6 @@ android {
     }
 
     dynamicFeatures = [":features:launcher", ":features:creator", ":features:viewer", ":instant"]
-
-
 }
 
 android.applicationVariants.all { variant ->
@@ -56,6 +60,10 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    // LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     testImplementation "junit:junit:$junit"
 }

@@ -16,8 +16,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
@@ -25,11 +29,10 @@ android {
 
 dependencies {
 
-    implementation "com.google.android.play:core:$playCore"
-
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
+    api "com.google.android.play:core:$playCore"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     api "androidx.appcompat:appcompat:$xAppcompat"
     api "com.google.android.material:material:$material"
@@ -39,10 +42,6 @@ dependencies {
     api "com.google.firebase:firebase-core:$fbCore"
     api "com.google.firebase:firebase-firestore:$fbFireStore"
     api "com.google.firebase:firebase-storage:$fbStorage"
-
-    // LeakCanary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     testImplementation "junit:junit:$junit"
 }

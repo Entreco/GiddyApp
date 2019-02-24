@@ -1,7 +1,10 @@
-package nl.entreco.giddyapp.core
+package nl.entreco.giddyapp
 
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary
+import nl.entreco.giddyapp.core.DaggerFeatureComponent
+import nl.entreco.giddyapp.core.FeatureComponent
+import nl.entreco.giddyapp.core.FeatureModule
 
 class GiddyApp : Application() {
 
@@ -13,7 +16,6 @@ class GiddyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         if(LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this)
     }
 

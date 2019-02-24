@@ -6,7 +6,7 @@
     <dist:module dist:instant="true"/>
 
     <application
-            android:name=".core.GiddyApp"
+            android:name=".GiddyApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/giddy_app_name"
