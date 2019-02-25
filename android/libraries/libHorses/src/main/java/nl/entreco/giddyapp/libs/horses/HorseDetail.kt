@@ -13,8 +13,8 @@ data class HorseDetail(
 
 enum class HorseGender {
     Unknown,
-    Male,
-    Female,
+    Stallion,
+    Mare,
     Gelding
 }
 
@@ -22,8 +22,8 @@ enum class HorseGender {
 fun HorseGender.icon(): Int {
     return when (this) {
         HorseGender.Unknown -> R.drawable.ic_gender_unknown
-        HorseGender.Female -> R.drawable.ic_female
-        HorseGender.Male -> R.drawable.ic_male
+        HorseGender.Mare -> R.drawable.ic_female
+        HorseGender.Stallion -> R.drawable.ic_male
         HorseGender.Gelding -> R.drawable.ic_gelding
     }
 }

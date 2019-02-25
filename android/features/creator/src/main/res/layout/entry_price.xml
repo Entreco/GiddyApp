@@ -7,6 +7,10 @@
         <variable
                 name="entry"
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Price"/>
+
+        <variable
+                name="gender"
+                type="String" />
         <variable
                 name="model"
                 type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
@@ -14,6 +18,7 @@
     </data>
 
     <LinearLayout
+            style="@style/EntryStep"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:textSize="20sp"
-                app:ga_priceIcon="@{entry.input}"
-                app:ga_fadeIn="@{entry.title}"/>
+                app:ga_fadeIn="@{@string/entry_price(gender)}"/>
 
         <!-- Horse Price -->
         <androidx.appcompat.widget.AppCompatSpinner

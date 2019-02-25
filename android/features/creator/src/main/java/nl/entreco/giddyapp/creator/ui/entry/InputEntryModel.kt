@@ -1,10 +1,11 @@
 package nl.entreco.giddyapp.creator.ui.entry
 
 import android.widget.TextView
+import androidx.annotation.IdRes
 
 class InputEntryModel(
     private val currentForm: Form,
-    private val nextListener: EntryListeners.OnNextPlease) :
+    private val onUpdate: (Form) -> Unit) :
     EntryListeners.OnTextEnteredListener,
     EntryListeners.OnGenderSelected {
 
@@ -14,14 +15,14 @@ class InputEntryModel(
             is Form.Desc -> currentForm.input.set(textView.text.toString())
             else -> { /* unsupported for this form */}
         }
-        nextListener.onNext(currentForm)
+        onUpdate(currentForm)
         return true
     }
 
-    override fun onSelected(position: Int) {
+    override fun onSelected(@IdRes itemId: Int) {
         when(currentForm){
-            is Form.Gender -> currentForm.input.set(position)
+            is Form.Gender -> currentForm.checked(itemId)
         }
-        nextListener.onNext(currentForm)
+        onUpdate(currentForm)
     }
 }

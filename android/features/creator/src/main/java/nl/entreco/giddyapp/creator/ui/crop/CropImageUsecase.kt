@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.creator.ui.crop
 
+import android.os.SystemClock
 import android.util.Log
 import nl.entreco.giddyapp.core.onBg
 import nl.entreco.giddyapp.libpicker.ImagePicker

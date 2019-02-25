@@ -3,9 +3,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="entry"
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Desc"/>
+
+        <variable
+                name="name"
+                type="String" />
+
         <variable
                 name="model"
                 type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
@@ -13,6 +19,7 @@
     </data>
 
     <LinearLayout
+            style="@style/EntryStep"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,13 +31,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                app:ga_fadeIn="@{entry.title}"/>
+                app:ga_fadeIn="@{@string/entry_desc(name)}"/>
 
         <!-- Horse Name -->
         <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
                 android:hint="@{entry.hint}">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -38,6 +47,7 @@
                     android:layout_height="match_parent"
                     android:text="@={entry.input}"
                     android:singleLine="true"
+                    android:inputType="textCapSentences|textAutoCorrect"
                     android:imeOptions="actionNext"
                     android:onEditorAction="@{(tv, id, ev)-> model.onEditor(tv, id)}"/>
         </com.google.android.material.textfield.TextInputLayout>

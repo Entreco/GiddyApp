@@ -26,9 +26,9 @@ class EntryFragment : CreateStepFragment() {
             Form.Name(),
             Form.Desc(),
             Form.Gender(),
-            Form.Level(),
             Form.Price(),
-            Form.Category()
+            Form.Category(),
+            Form.Level()
         )
     }
 
@@ -48,20 +48,12 @@ class EntryFragment : CreateStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.events().observe(this, Observer {
-            parentViewModel.postEvent(it)
-        })
         onEvents(CreatorState.Event.Enter) {
             handleEvent()
         }
 
-        pager.adapter = EntryPager(requireContext(), entryData, object : EntryListeners.OnNextPlease {
+        pager.adapter = EntryPager(requireContext(), entryData.toMutableList(), object : EntryListeners.OnNextPlease {
             override fun onNext(current: Form) {
-                when(current){
-                    is Form.Name -> keyboard.show()
-                    is Form.Desc -> keyboard.show()
-                    else -> keyboard.hide()
-                }
                 handleEvent()
             }
         })
@@ -69,6 +61,7 @@ class EntryFragment : CreateStepFragment() {
 
     private fun handleEvent() {
         viewModel.enter(entryData[pager.currentItem])
+        keyboard.handle(entryData[pager.currentItem])
         if (pager.currentItem < entryData.size - 1) {
             pager.currentItem++
         } else {

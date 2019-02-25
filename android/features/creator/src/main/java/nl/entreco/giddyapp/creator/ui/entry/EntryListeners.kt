@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.creator.ui.entry
 
 import android.widget.TextView
+import androidx.annotation.IdRes
 import nl.entreco.giddyapp.libs.horses.HorseGender
 
 object EntryListeners {
@@ -9,7 +10,7 @@ object EntryListeners {
     }
 
     interface OnGenderSelected {
-        fun onSelected(position: Int)
+        fun onSelected(@IdRes itemId: Int)
     }
 
     interface OnNextPlease{

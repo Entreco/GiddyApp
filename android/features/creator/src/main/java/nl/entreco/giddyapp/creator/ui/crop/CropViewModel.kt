@@ -14,7 +14,6 @@ class CropViewModel @Inject constructor(
     private val cropImageUsecase: CropImageUsecase
 ) : ViewModel() {
 
-    val constraint = ObservableFloat(0F)
     val step = CropBottomModel(crop)
     val image = ChangeableField(crop.image.uri)
 

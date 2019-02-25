@@ -19,8 +19,7 @@ class DetailSheet @Inject constructor(
                     when (p1) {
                         BottomSheetBehavior.STATE_COLLAPSED -> collapseListener?.onCollapsed()
                         BottomSheetBehavior.STATE_EXPANDED -> expandListener?.onExpanded()
-                        else -> {
-                        }
+                        else -> { }
                     }
                 }
             })

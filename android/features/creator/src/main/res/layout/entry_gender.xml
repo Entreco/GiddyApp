@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
                 name="entry"
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Gender"/>
+
+        <variable
+                name="name"
+                type="String" />
+
         <variable
                 name="model"
                 type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
@@ -14,6 +20,7 @@
     </data>
 
     <LinearLayout
+            style="@style/EntryStep"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,17 +31,51 @@
                 android:textColor="@color/almost_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:textSize="20sp"
-                app:ga_genderIcon="@{entry.input}"
-                app:ga_fadeIn="@{entry.title}"/>
+                tools:text="@string/gender_male"
+                app:ga_fadeIn="@{@string/entry_gender(name)}"/>
 
         <!-- Horse Gender -->
-        <androidx.appcompat.widget.AppCompatSpinner
+        <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@{entry.entries}"
-                android:selectedItemPosition="@={entry.input}"/>
+                android:layout_marginTop="@dimen/medium"
+                android:layout_marginStart="@dimen/def"
+                android:layout_marginEnd="@dimen/def"
+                android:checkedButton="@={entry.checked}"
+                android:onCheckedChanged="@{(group, id) -> entry.checked(id)}"
+                android:orientation="horizontal">
+
+            <RadioButton
+                    android:id="@+id/stallion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender_male"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/ic_male"/>
+
+            <RadioButton
+                    android:id="@+id/mare"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender_female"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/ic_female"/>
+
+            <RadioButton
+                    android:id="@+id/gelding"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender_gelding"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/ic_gelding"/>
+        </RadioGroup>
 
     </LinearLayout>
 </layout>

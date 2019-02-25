@@ -31,7 +31,7 @@ object HorseBinding {
 
     private fun apply(view: TextView, resolved: String?) {
         if (view.text != resolved) {
-            DetailsBinding.fadeAnTranslate(view) {
+            DetailsBinding.fadeAndTranslate(view) {
                 view.text = DetailsBinding.asHtml(resolved)
             }
         }

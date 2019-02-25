@@ -1,5 +1,7 @@
 package nl.entreco.giddyapp.creator.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.libimg.ImageModule
@@ -16,6 +18,7 @@ interface CreatorComponent {
 
     @Component.Builder
     interface Builder {
+        @BindsInstance fun context(context: Context) : Builder
         fun creatorModule(module: CreatorModule) : Builder
         fun horseModule(module: HorseModule): Builder
         fun imageModule(module: ImageModule): Builder

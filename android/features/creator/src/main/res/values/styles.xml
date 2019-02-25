@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="EntryStep">
+        <item name="android:paddingStart">@dimen/medium</item>
+        <item name="android:paddingEnd">@dimen/medium</item>
+        <item name="android:paddingTop">@dimen/xlarge</item>
+        <item name="android:paddingBottom">@dimen/def</item>
+    </style>
 </resources>

@@ -13,7 +13,6 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
             proguardFiles 'proguard-rules-dynamic-features.pro'
         }
     }

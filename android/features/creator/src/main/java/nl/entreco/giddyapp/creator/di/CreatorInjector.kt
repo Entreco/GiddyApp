@@ -16,6 +16,7 @@ internal object CreatorInjector {
         crossinline provider: () -> CreatorModule
     ): Lazy<CreatorComponent> = kotlin.lazy(mode) {
         DaggerCreatorComponent.builder()
+            .context(this)
             .creatorModule(provider())
             .horseModule(HorseModule())
             .imageModule(ImageModule(resources.displayMetrics))

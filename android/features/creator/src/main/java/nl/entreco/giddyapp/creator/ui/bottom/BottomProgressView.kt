@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.DrawableRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import nl.entreco.giddyapp.creator.databinding.WidgetBottomProgressViewBinding
 
@@ -24,25 +25,38 @@ class BottomProgressView @JvmOverloads constructor(
         model?.let { mod ->
             binding.model = mod
             binding.executePendingBindings()
-            if (mod.showFab()) {
-                show()
-            } else {
-                hide()
-            }
+            configureFab(mod.fab())
         }
     }
 
-    private fun show(){
+    private fun configureFab(@DrawableRes icon: Int) {
+        when (icon) {
+            0 -> hide()
+            else -> show(icon)
+        }
+    }
+
+    private fun show(@DrawableRes icon: Int) {
+        binding.fab.setImageResource(icon)
         binding.fab.show()
     }
 
-    private fun hide(){
+    private fun hide() {
         binding.fab.hide()
     }
 
     override fun setOnClickListener(listener: View.OnClickListener) {
-        binding.fab.setOnClickListener {
-            listener.onClick(it)
+        binding.fab.setOnClickListener { fab ->
+            binding.fab.animate()
+                .withStartAction {
+                    binding.fab.hide()
+                    binding.fab.setImageResource(binding.model?.waiting() ?: 0)
+                    listener.onClick(fab)
+                }
+                .withEndAction {
+                    binding.fab.show()
+                }
+                .start()
         }
     }
 }

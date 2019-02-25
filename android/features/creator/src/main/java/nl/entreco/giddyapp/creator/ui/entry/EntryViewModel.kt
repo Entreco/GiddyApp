@@ -24,11 +24,6 @@ class EntryViewModel @Inject constructor(private val state: CreatorState.Entry) 
     val level = ObservableField<HorseLevel>(HorseLevel.Unknown)
     val category = ObservableField<HorseCategory>(HorseCategory.Unknown)
 
-    private val event = MutableLiveData<CreatorState.Event>()
-    fun events(): LiveData<CreatorState.Event> {
-        return event
-    }
-
     fun compose(done: (EntryModel) -> Unit) {
         if (validate()) {
             val details =

@@ -26,9 +26,6 @@ class CropFragment : CreateStepFragment() {
             container,
             false
         )
-        sheet.slideListener { offset ->
-            viewModel.constraint.set(offset)
-        }
         sheet.collapse()
         binding.viewModel = viewModel
         return binding.root
@@ -37,7 +34,6 @@ class CropFragment : CreateStepFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onEvents(CreatorState.Event.Resize) {
-            sheet.collapse()
             viewModel.resize(binding.cropView) {
                 parentViewModel.imageCropped(it)
             }

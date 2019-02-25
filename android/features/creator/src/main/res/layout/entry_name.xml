@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+            style="@style/EntryStep"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -30,6 +31,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="25"
                 android:hint="@{entry.hint}">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -37,6 +40,7 @@
                     android:layout_height="match_parent"
                     android:text="@={entry.input}"
                     android:singleLine="true"
+                    android:inputType="textPersonName"
                     android:imeOptions="actionNext"
                     android:onEditorAction="@{(tv, id, ev)-> model.onEditor(tv, id)}"/>
         </com.google.android.material.textfield.TextInputLayout>

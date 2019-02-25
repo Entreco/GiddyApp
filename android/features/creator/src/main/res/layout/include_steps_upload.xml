@@ -110,7 +110,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:scaleType="fitEnd"
                     android:adjustViewBounds="true"
-                    app:ga_fadeIn="@{safeUnbox(model.genderIcon)}"
+                    app:ga_spinIn="@{safeUnbox(model.genderIcon)}"
                     android:tint="@color/almost_black"
                     android:alpha="0.1"/>
 
