@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer
 
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class ViewerViewModel @Inject constructor(
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
     val details = ObservableField<DetailModel>()
+    val actionIcon = ObservableInt(R.drawable.ic_get_app)
 
     private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()

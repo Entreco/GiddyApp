@@ -4,14 +4,17 @@ import android.content.Context
 import android.content.res.Resources
 import android.media.SoundPool
 import android.view.View
+import android.view.Window
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
 import dagger.Provides
 import nl.entreco.giddyapp.viewer.data.SoundPoolService
+import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 
 @Module
-class ViewerModule(private val url: String?, private val sheet: View) {
+class ViewerModule(private val url: String?, private val binding: ActivityViewerBinding) {
 
     @Provides
     fun provideUrl(): String? = when{
@@ -23,7 +26,12 @@ class ViewerModule(private val url: String?, private val sheet: View) {
 
     @Provides
     fun provideSheet(): BottomSheetBehavior<View> {
-        return BottomSheetBehavior.from(sheet)
+        return BottomSheetBehavior.from(binding.includeSheet.sheet)
+    }
+
+    @Provides
+    fun provideAppbarLayout(): AppBarLayout {
+        return binding.includeToolbarViewer.appbar
     }
 
     @Provides
