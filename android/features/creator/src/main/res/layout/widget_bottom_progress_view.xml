@@ -30,10 +30,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cd_fab"
                 android:tint="@color/white"
-                android:layout_gravity="bottom|center"
-                app:backgroundTint="@color/colorPrimary"
                 app:layout_anchor="@id/bar"
-                android:src="@drawable/ic_check"
-                tools:translationY="-24dp"/>
+                android:src="@drawable/ic_check"/>
     </merge>
 </layout>

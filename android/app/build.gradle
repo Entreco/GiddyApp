@@ -20,12 +20,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
-            // The temporary workaround is to disable shrinking
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
-        }
         release {
             // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
             // The temporary workaround is to disable shrinking

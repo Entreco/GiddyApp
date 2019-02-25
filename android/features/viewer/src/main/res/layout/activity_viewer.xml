@@ -43,7 +43,6 @@
                     android:background="#00ffffff"
                     app:itemIconTint="@drawable/bottom_icon_colors"
                     app:itemTextColor="@drawable/bottom_icon_colors">
-                <!--app:menu="@menu/viewer_menu"-->
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
         </com.google.android.material.bottomappbar.BottomAppBar>
