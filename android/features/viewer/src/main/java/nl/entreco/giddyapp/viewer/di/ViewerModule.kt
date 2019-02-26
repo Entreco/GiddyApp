@@ -1,10 +1,11 @@
 package nl.entreco.giddyapp.viewer.di
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.media.SoundPool
 import android.view.View
-import android.view.Window
+import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
@@ -12,12 +13,19 @@ import dagger.Provides
 import nl.entreco.giddyapp.viewer.data.SoundPoolService
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.domain.sound.SoundService
+import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
+import nl.entreco.giddyapp.viewer.navigation.installed.InstalledViewerNavigation
+import nl.entreco.giddyapp.viewer.navigation.instant.InstantViewerNavigation
 
 @Module
 class ViewerModule(private val url: String?, private val binding: ActivityViewerBinding) {
 
+
     @Provides
-    fun provideUrl(): String? = when{
+    fun provideContext(activity: Activity): Context = activity
+
+    @Provides
+    fun provideUrl(): String? = when {
         url.isNullOrBlank() -> null
         url == "viewer" -> null
         url == "null" -> null
@@ -27,6 +35,25 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
     @Provides
     fun provideSheet(): BottomSheetBehavior<View> {
         return BottomSheetBehavior.from(binding.includeSheet.sheet)
+    }
+
+    @Provides
+    fun provideInstantNavigation(activity: Activity): InstantViewerNavigation = InstantViewerNavigation(activity)
+
+    @Provides
+    fun provideInstalledNavigation(activity: Activity): InstalledViewerNavigation = InstalledViewerNavigation(activity)
+
+    @Provides
+    fun provideNavigation(
+        context: Context,
+        instant: InstantViewerNavigation,
+        installed: InstalledViewerNavigation
+    ): ViewerNavigation {
+        return if (InstantApps.isInstantApp(context)) {
+            instant
+        } else {
+            installed
+        }
     }
 
     @Provides

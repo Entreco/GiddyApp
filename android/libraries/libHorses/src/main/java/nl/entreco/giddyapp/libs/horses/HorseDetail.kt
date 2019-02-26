@@ -47,18 +47,6 @@ enum class HorseCategory {
     Other
 }
 
-@DrawableRes
-fun HorseCategory.icon(): Int {
-    return when (this) {
-        HorseCategory.Unknown -> R.drawable.ic_filter
-        HorseCategory.Jumping -> R.drawable.ic_filter
-        HorseCategory.Dressage -> R.drawable.ic_filter
-        HorseCategory.Eventing -> R.drawable.ic_filter
-        HorseCategory.Recreation -> R.drawable.ic_filter
-        HorseCategory.Other -> R.drawable.ic_filter
-    }
-}
-
 enum class HorsePrice {
     NotForSale,
     Range1,

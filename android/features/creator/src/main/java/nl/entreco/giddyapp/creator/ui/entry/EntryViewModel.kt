@@ -66,7 +66,7 @@ class EntryViewModel @Inject constructor(private val state: CreatorState.Entry) 
         @JvmStatic
         @BindingAdapter("ga_categoryIcon")
         fun category(view: TextView, position: Int) {
-            view.setCompoundDrawablesWithIntrinsicBounds(0, 0, HorseCategory.values()[position].icon(), 0)
+//            view.setCompoundDrawablesWithIntrinsicBounds(0, 0, HorseCategory.values()[position].icon(), 0)
         }
     }
 }

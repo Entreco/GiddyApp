@@ -3,6 +3,9 @@
     <string name="cd_like">Yes, love this horse</string>
     <string name="cd_dislike">Meh</string>
     <string name="cd_fab">Options</string>
+    <string name="cd_profile">Profile</string>
+    <string name="cd_settings">Settings</string>
+
     <string name="gender_male">Hengst</string>
     <string name="gender_female">Merrie</string>
     <string name="gender_gelding">Ruin</string>

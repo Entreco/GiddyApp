@@ -20,11 +20,13 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
     private val component by fromModule { ViewerModule(intent.data?.lastPathSegment, binding) }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val sheet by lazy { component.sheet() }
+    private val navigation by lazy { component.navigation() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_viewer)
         binding.viewModel = viewModel
+        binding.navigation = navigation
         sheet.slideListener(viewModel)
 
         component.animator()
@@ -36,8 +38,14 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
         }
 
         viewModel.current().observeOnce(this, Observer {
-            onNext()
+            nextFragment()
         })
+    }
+
+    private fun nextFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.swipeFragmentContainer, SwipeFragment(), "Swipe")
+            .commitAllowingStateLoss()
     }
 
     override fun onResume() {
@@ -52,8 +60,6 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
 
     override fun onNext() {
         viewModel.onNext()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.swipeFragmentContainer, SwipeFragment(), "Swipe")
-            .commitAllowingStateLoss()
+        nextFragment()
     }
 }

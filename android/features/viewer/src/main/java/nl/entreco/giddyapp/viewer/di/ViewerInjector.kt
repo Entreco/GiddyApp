@@ -14,7 +14,7 @@ internal object ViewerInjector {
     ): Lazy<ViewerComponent> = lazy(mode) {
 
         DaggerViewerComponent.builder()
-            .context(this)
+            .activity(this)
             .window(this.window)
             .horseModule(HorseModule())
             .imageModule(ImageModule(resources.displayMetrics))

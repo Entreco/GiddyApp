@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
->
+        >
 
     <data>
 
         <variable
                 name="viewModel"
                 type="nl.entreco.giddyapp.viewer.ViewerViewModel"/>
+
+        <variable
+                name="navigation"
+                type="nl.entreco.giddyapp.viewer.navigation.ViewerNavigation"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -52,12 +56,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cd_fab"
-                android:src="@drawable/ic_get_app"
-                android:tint="@color/white"
+                android:onClick="@{() -> navigation.onFabClicked()}"
+                app:ga_fab="@{navigation.fabIcon}"
+                app:tint="@color/white"
                 app:layout_anchor="@id/bar"/>
 
-        <include layout="@layout/toolbar_viewer"
-                 android:id="@+id/include_toolbar_viewer"/>
+        <include
+                layout="@layout/toolbar_viewer"
+                android:id="@+id/include_toolbar_viewer"
+                app:navigation="@{navigation}"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
