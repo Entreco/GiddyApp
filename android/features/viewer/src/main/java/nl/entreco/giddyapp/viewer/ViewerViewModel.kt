@@ -10,11 +10,12 @@ import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.libs.horses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libs.horses.swap.SwapHorseUsecase
+import nl.entreco.giddyapp.viewer.di.ViewerUrl
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
-    horseId: String?,
+    @ViewerUrl horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
     private val swapHorseUsecase: SwapHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {

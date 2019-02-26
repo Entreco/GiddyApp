@@ -3,14 +3,13 @@ package nl.entreco.giddyapp.creator
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.ComponentProvider
 import nl.entreco.giddyapp.core.LaunchHelper
 import nl.entreco.giddyapp.core.base.BaseActivity
 import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.core.di.DiProvider
 import nl.entreco.giddyapp.creator.databinding.ActivityCreatorBinding
 import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
@@ -21,7 +20,7 @@ import nl.entreco.giddyapp.creator.ui.entry.EntryFragment
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
 
-class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
+class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
 
     private lateinit var binding: ActivityCreatorBinding
     private val component by fromModule { CreatorModule() }
@@ -52,7 +51,7 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
         super.onResume()
         setSupportActionBar(binding.includeToolbarCreator.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        supportActionBar?.setTitle(R.string.creator_title)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -86,7 +85,8 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
         val transaction = supportFragmentManager.beginTransaction()
             .replace(R.id.createFragmentContainer, frag, tag)
         when (frag) {
-            is SelectFragment -> { }
+            is SelectFragment -> {
+            }
             else -> transaction.addToBackStack(tag)
         }
 

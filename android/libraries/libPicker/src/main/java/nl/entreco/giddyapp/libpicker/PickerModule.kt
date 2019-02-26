@@ -1,15 +1,18 @@
 package nl.entreco.giddyapp.libpicker
 
 import android.app.Activity
+import android.util.Log
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
+import nl.entreco.giddyapp.core.di.AppScope
 
 @Module
-class PickerModule @Inject constructor(private val activity: Activity) {
+object PickerModule {
 
     @Provides
-    fun provideImagePicker(): ImagePicker {
+    @JvmStatic
+    fun provideImagePicker(activity: Activity): ImagePicker {
+        Log.i("DEPINJ", "provide imagePicker")
         return ThirdPartyImagePicker(activity)
     }
 }

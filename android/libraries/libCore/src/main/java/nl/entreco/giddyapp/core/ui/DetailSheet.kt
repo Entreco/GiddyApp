@@ -12,7 +12,9 @@ class DetailSheet @Inject constructor(
         behaviour.apply {
             setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(p0: View, p1: Float) {
-                    slideListener?.onSlide(p1)
+                    slideListeners.forEach {
+                        it.onSlide(p1)
+                    }
                 }
 
                 override fun onStateChanged(p0: View, p1: Int) {
@@ -37,7 +39,7 @@ class DetailSheet @Inject constructor(
 
     private var collapseListener: CollapseListener? = null
     private var expandListener: ExpandListener? = null
-    private var slideListener: SlideListener? = null
+    private var slideListeners: MutableList<SlideListener> = mutableListOf()
 
     fun collapseListener(listener: CollapseListener) {
         collapseListener = listener
@@ -47,32 +49,16 @@ class DetailSheet @Inject constructor(
         expandListener = listener
     }
 
-    fun slideListener(listener: SlideListener) {
-        slideListener = listener
-    }
-
-    fun collapseListener(f: () -> Unit) {
-        collapseListener = object : CollapseListener {
-            override fun onCollapsed() {
-                f()
-            }
-        }
-    }
-
-    fun expandListener(f: () -> Unit) {
-        expandListener = object : ExpandListener {
-            override fun onExpanded() {
-                f()
-            }
-        }
+    fun slideListener(vararg listeners: SlideListener) {
+        slideListeners.addAll(listeners)
     }
 
     fun slideListener(f: (Float) -> Unit) {
-        slideListener = object : SlideListener {
+        slideListeners.add(object : SlideListener {
             override fun onSlide(offset: Float) {
                 f(offset)
             }
-        }
+        })
     }
 
     interface SlideListener {

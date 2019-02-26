@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.lib.img.loader.ImageLoader
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
 

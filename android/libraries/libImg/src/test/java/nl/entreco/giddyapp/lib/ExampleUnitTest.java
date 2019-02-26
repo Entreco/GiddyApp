@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libimg;
+package nl.entreco.giddyapp.lib;
 
 import org.junit.Test;
 

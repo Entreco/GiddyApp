@@ -1,18 +1,18 @@
 package nl.entreco.giddyapp.viewer.di
 
 import android.app.Activity
-import android.content.Context
+import android.util.DisplayMetrics
 import android.view.Window
 import dagger.BindsInstance
 import dagger.Component
-import nl.entreco.giddyapp.libimg.ImageModule
-import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.core.ui.DetailSheet
-import nl.entreco.giddyapp.libs.horses.HorseModule
+import nl.entreco.giddyapp.lib.img.loader.ImageLoader
+import nl.entreco.giddyapp.libs.horses.HorseService
+import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.ToolbarAnimator
 
-@Component(modules = [ViewerModule::class, HorseModule::class, ImageModule::class])
+@Component(modules = [ViewerModule::class])
 interface ViewerComponent {
     fun viewModel(): ViewerViewModel
     fun sheet(): DetailSheet
@@ -22,12 +22,22 @@ interface ViewerComponent {
 
     @Component.Builder
     interface Builder {
-        @BindsInstance fun activity(activity: Activity): Builder
-        @BindsInstance fun window(window: Window) : Builder
+        @BindsInstance
+        fun activity(activity: Activity): Builder
 
-        fun viewerModule(module: ViewerModule): Builder
-        fun horseModule(module: HorseModule): Builder
-        fun imageModule(module: ImageModule): Builder
+        @BindsInstance
+        fun metrics(metrics: DisplayMetrics): Builder
+
+        @BindsInstance
+        fun window(window: Window): Builder
+
+        @BindsInstance
+        fun horse(service: HorseService): Builder
+
+        @BindsInstance
+        fun img(loader: ImageLoader): Builder
+
+        fun module(module: ViewerModule): Builder
         fun build(): ViewerComponent
     }
 }

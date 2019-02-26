@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libimg;
+package nl.entreco.giddyapp.lib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

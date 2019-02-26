@@ -1,13 +1,10 @@
 package nl.entreco.giddyapp.creator.di
 
 import android.view.View
-import androidx.fragment.app.Fragment
-import nl.entreco.giddyapp.core.ComponentProvider
-import nl.entreco.giddyapp.libimg.ImageModule
+import nl.entreco.giddyapp.core.di.DiProvider
 import nl.entreco.giddyapp.creator.CreatorActivity
 import nl.entreco.giddyapp.creator.ui.CreateStepFragment
-import nl.entreco.giddyapp.libpicker.PickerModule
-import nl.entreco.giddyapp.libs.horses.HorseModule
+import nl.entreco.giddyapp.featureComponent
 
 internal object CreatorInjector {
 
@@ -15,12 +12,13 @@ internal object CreatorInjector {
         mode: LazyThreadSafetyMode = kotlin.LazyThreadSafetyMode.NONE,
         crossinline provider: () -> CreatorModule
     ): Lazy<CreatorComponent> = kotlin.lazy(mode) {
+        val component = featureComponent()
         DaggerCreatorComponent.builder()
-            .context(this)
-            .creatorModule(provider())
-            .horseModule(HorseModule())
-            .imageModule(ImageModule(resources.displayMetrics))
-            .pickerModule(PickerModule(this))
+            .appContext(component.appContext())
+            .activity(this)
+            .horse(featureComponent().horseService())
+            .img(featureComponent().imageLoader())
+            .module(provider())
             .build()
     }
 
@@ -28,7 +26,7 @@ internal object CreatorInjector {
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> View
     ): Lazy<StepsComponent> = lazy(mode) {
-        val componentProvider = activity as? ComponentProvider<CreatorComponent>
+        val componentProvider = activity as? DiProvider<CreatorComponent>
             ?: throw IllegalStateException("activity($activity) must implement ComponentProvider<CreatorComponent>")
         val component = componentProvider.get()
         val stepsModule = StepsModule(provider(), parentViewModel.state().value)

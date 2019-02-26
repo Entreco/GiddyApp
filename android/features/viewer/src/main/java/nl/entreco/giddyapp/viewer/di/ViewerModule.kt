@@ -20,11 +20,11 @@ import nl.entreco.giddyapp.viewer.navigation.instant.InstantViewerNavigation
 @Module
 class ViewerModule(private val url: String?, private val binding: ActivityViewerBinding) {
 
-
     @Provides
     fun provideContext(activity: Activity): Context = activity
 
     @Provides
+    @ViewerUrl
     fun provideUrl(): String? = when {
         url.isNullOrBlank() -> null
         url == "viewer" -> null

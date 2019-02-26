@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cd_fab"
+                app:backgroundTint="@color/colorAccent"
                 android:tint="@color/white"
                 app:layout_anchor="@id/bar"
                 android:src="@drawable/ic_check"/>

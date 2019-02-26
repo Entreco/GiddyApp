@@ -2,24 +2,27 @@ package nl.entreco.giddyapp
 
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary
-import nl.entreco.giddyapp.core.DaggerFeatureComponent
-import nl.entreco.giddyapp.core.FeatureComponent
-import nl.entreco.giddyapp.core.FeatureModule
+import nl.entreco.giddyapp.core.base.BaseActivity
+import nl.entreco.giddyapp.core.di.DiProvider
 
-class GiddyApp : Application() {
+class GiddyApp : Application(),
+    DiProvider<FeatureComponent> {
 
     private val featureComponent: FeatureComponent by lazy {
         DaggerFeatureComponent.builder()
-            .featureModule(FeatureModule(this))
+            .app(this)
+            .metrics(resources.displayMetrics)
             .build()
     }
 
     override fun onCreate() {
         super.onCreate()
-        if(LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this)
+        if (LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this)
     }
 
-    fun get(): FeatureComponent {
-        return featureComponent
-    }
+    override fun get(): FeatureComponent = featureComponent
 }
+
+fun BaseActivity.featureComponent(): nl.entreco.giddyapp.FeatureComponent =
+    (application as? DiProvider<FeatureComponent>)?.get()
+        ?: throw IllegalStateException("application must implement DiProvider<FeatureComponent>")

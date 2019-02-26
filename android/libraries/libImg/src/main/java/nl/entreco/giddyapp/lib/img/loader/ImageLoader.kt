@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libimg.loader
+package nl.entreco.giddyapp.lib.img.loader
 
 import android.net.Uri
 import android.widget.ImageView
