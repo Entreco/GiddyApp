@@ -52,7 +52,7 @@ class CreatorActivity : BaseActivity(), ComponentProvider<CreatorComponent> {
         super.onResume()
         setSupportActionBar(binding.includeToolbarCreator.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        supportActionBar?.setTitle(R.string.creator_title)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

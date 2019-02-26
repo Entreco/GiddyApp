@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cd_fab"
                 android:onClick="@{() -> navigation.onFabClicked()}"
+                app:backgroundTint="@color/colorAccent"
                 app:ga_fab="@{navigation.fabIcon}"
                 app:tint="@color/white"
                 app:layout_anchor="@id/bar"/>

@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer
 
 import android.os.Bundle
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.core.ComponentProvider
@@ -21,15 +22,14 @@ class ViewerActivity : BaseActivity(), ComponentProvider<ViewerComponent>, OnSwi
     private val viewModel by viewModelProvider { component.viewModel() }
     private val sheet by lazy { component.sheet() }
     private val navigation by lazy { component.navigation() }
+    private val animator by lazy { component.animator() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_viewer)
         binding.viewModel = viewModel
         binding.navigation = navigation
-        sheet.slideListener(viewModel)
-
-        component.animator()
+        sheet.slideListener(viewModel, animator)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

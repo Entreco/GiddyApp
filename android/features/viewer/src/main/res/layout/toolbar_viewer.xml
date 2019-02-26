@@ -19,7 +19,7 @@
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:contentInsetStart="@dimen/medium"
                 app:contentInsetEnd="@dimen/medium"
                 android:background="@android:color/transparent">
@@ -31,7 +31,6 @@
                     android:layout_gravity="bottom|start"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="@{() -> navigation.onProfileClicked()}"
-                    android:tint="@color/almost_white"
                     android:src="@drawable/ic_profile"/>
 
             <ImageView
@@ -41,7 +40,6 @@
                     android:layout_gravity="bottom|end"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="@{() -> navigation.onSettingsClicked()}"
-                    android:tint="@color/almost_white"
                     android:src="@drawable/ic_settings"/>
 
         </androidx.appcompat.widget.Toolbar>
