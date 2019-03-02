@@ -4,10 +4,10 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.core.ChangeableField
+import nl.entreco.giddyapp.libcore.ChangeableField
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
-import nl.entreco.giddyapp.libs.horses.icon
+import nl.entreco.giddyapp.libhorses.icon
 import javax.inject.Inject
 
 class UploadViewModel @Inject constructor(private val state: CreatorState.Upload): ViewModel() {

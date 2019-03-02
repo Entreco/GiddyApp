@@ -1,7 +1,7 @@
 package nl.entreco.giddyapp.viewer.di
 
 import androidx.fragment.app.Fragment
-import nl.entreco.giddyapp.core.di.DiProvider
+import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.featureComponent
 import nl.entreco.giddyapp.viewer.ViewerActivity
 

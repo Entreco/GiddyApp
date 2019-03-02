@@ -2,7 +2,7 @@ package nl.entreco.giddyapp.viewer.navigation.installed
 
 import android.app.Activity
 import android.util.Log
-import nl.entreco.giddyapp.core.LaunchHelper
+import nl.entreco.giddyapp.libcore.LaunchHelper
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import javax.inject.Inject

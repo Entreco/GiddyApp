@@ -1,7 +1,7 @@
 package nl.entreco.giddyapp.creator.di
 
 import dagger.Subcomponent
-import nl.entreco.giddyapp.core.ui.DetailSheet
+import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.creator.ui.crop.CropViewModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryViewModel
 import nl.entreco.giddyapp.creator.ui.entry.KeyboardHandler

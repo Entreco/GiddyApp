@@ -6,7 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
 import dagger.Provides
-import nl.entreco.giddyapp.core.di.App
+import nl.entreco.giddyapp.libcore.di.App
 import nl.entreco.giddyapp.creator.CreatorState
 
 @Module

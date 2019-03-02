@@ -1,7 +1,7 @@
 package nl.entreco.giddyapp.creator.di
 
 import android.view.View
-import nl.entreco.giddyapp.core.di.DiProvider
+import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.creator.CreatorActivity
 import nl.entreco.giddyapp.creator.ui.CreateStepFragment
 import nl.entreco.giddyapp.featureComponent
@@ -18,6 +18,7 @@ internal object CreatorInjector {
             .activity(this)
             .horse(featureComponent().horseService())
             .img(featureComponent().imageLoader())
+            .fbApp(featureComponent().fbApp())
             .module(provider())
             .build()
     }

@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.base.parentViewModelProvider
-import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.base.parentViewModelProvider
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.databinding.FragmentSwipeBinding
 import nl.entreco.giddyapp.viewer.di.SwipeModule
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromActivity
-import nl.entreco.giddyapp.libs.horses.Horse
+import nl.entreco.giddyapp.libhorses.Horse
 
 
 class SwipeFragment : Fragment() {

@@ -6,10 +6,6 @@ import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.LaunchHelper
-import nl.entreco.giddyapp.core.base.BaseActivity
-import nl.entreco.giddyapp.core.base.viewModelProvider
-import nl.entreco.giddyapp.core.di.DiProvider
 import nl.entreco.giddyapp.creator.databinding.ActivityCreatorBinding
 import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
@@ -19,6 +15,11 @@ import nl.entreco.giddyapp.creator.ui.crop.CropFragment
 import nl.entreco.giddyapp.creator.ui.entry.EntryFragment
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
+import nl.entreco.giddyapp.libcore.LaunchHelper
+import nl.entreco.giddyapp.libcore.base.BaseActivity
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.di.DiProvider
+import nl.entreco.giddyapp.libpicker.ImagePickerResult
 
 class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
 
@@ -94,8 +95,11 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        picker.get(requestCode, resultCode, data) { images ->
-            viewModel.imageSelected(images)
+        picker.get(requestCode, resultCode, data) { result ->
+            when (result) {
+                is ImagePickerResult.Success -> viewModel.imageSelected(result.images)
+                is ImagePickerResult.Failed -> viewModel.imageRejected(result.reason)
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

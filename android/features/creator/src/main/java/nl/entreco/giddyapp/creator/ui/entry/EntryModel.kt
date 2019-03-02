@@ -5,7 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.libpicker.SelectedImage
-import nl.entreco.giddyapp.libs.horses.*
+import nl.entreco.giddyapp.libhorses.*
 
 data class EntryModel(val horseDetail: HorseDetail, val image: SelectedImage)
 
@@ -14,7 +14,7 @@ sealed class Form {
         val input = ObservableField<String>("")
     }
 
-    data class Desc(val hint: String = "") : Form() {
+    data class Desc(val title: String = "", val hint: String = "") : Form() {
         val input = ObservableField<String>("")
     }
 
@@ -33,11 +33,11 @@ sealed class Form {
         }
     }
 
-    data class Level(val nono: Int = 0) : Form() {
+    data class Level(val title: String = "") : Form() {
         val input = ObservableInt(HorseLevel.Unknown.ordinal)
     }
 
-    data class Price(val nono: Int = 0) : Form() {
+    data class Price(val title: String = "") : Form() {
         val input = ObservableInt(HorsePrice.NotForSale.ordinal)
     }
 

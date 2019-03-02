@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.creator.ui.entry
 
 import android.widget.TextView
 import androidx.annotation.IdRes
-import nl.entreco.giddyapp.libs.horses.HorseGender
 
 object EntryListeners {
     interface OnTextEnteredListener {

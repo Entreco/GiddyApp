@@ -5,9 +5,9 @@ import android.util.DisplayMetrics
 import android.view.Window
 import dagger.BindsInstance
 import dagger.Component
-import nl.entreco.giddyapp.core.ui.DetailSheet
-import nl.entreco.giddyapp.lib.img.loader.ImageLoader
-import nl.entreco.giddyapp.libs.horses.HorseService
+import nl.entreco.giddyapp.libcore.ui.DetailSheet
+import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.ToolbarAnimator

@@ -28,6 +28,8 @@ ext {
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',
             glide = '4.8.0',
+            mlVision = '19.0.2',
+            mlVisionImageLabelModel = '17.0.2',
             junit = '4.12',
             mockito = '2.1.0',
 

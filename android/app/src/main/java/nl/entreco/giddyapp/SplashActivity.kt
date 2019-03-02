@@ -2,8 +2,8 @@ package nl.entreco.giddyapp
 
 import android.graphics.PixelFormat
 import android.os.Bundle
-import nl.entreco.giddyapp.core.LaunchHelper
-import nl.entreco.giddyapp.core.base.BaseActivity
+import nl.entreco.giddyapp.libcore.LaunchHelper
+import nl.entreco.giddyapp.libcore.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
 

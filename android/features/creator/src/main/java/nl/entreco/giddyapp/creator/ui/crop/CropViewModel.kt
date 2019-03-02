@@ -1,10 +1,9 @@
 package nl.entreco.giddyapp.creator.ui.crop
 
 import android.util.Log
-import androidx.databinding.ObservableFloat
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.core.ChangeableField
 import nl.entreco.giddyapp.creator.CreatorState
+import nl.entreco.giddyapp.libcore.ChangeableField
 import nl.entreco.giddyapp.libcropper.CropImageView
 import nl.entreco.giddyapp.libpicker.SelectedImage
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class CropViewModel @Inject constructor(
         cropImageUsecase.go(CropImageRequest(imageView, crop.image)) { result ->
             when (result) {
                 is CropImageResult.Success -> done(result.image)
-                is CropImageResult.Error -> Log.e("Oops", "err: ${result.msg?.localizedMessage}")
+                is CropImageResult.Error -> Log.e("Oops", "err: ${result.msg}")
             }
         }
     }

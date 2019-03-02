@@ -4,46 +4,38 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.core.ChangeableField
+import nl.entreco.giddyapp.libcore.ChangeableField
 import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.libs.horses.*
+import nl.entreco.giddyapp.libhorses.*
 import javax.inject.Inject
 
 class EntryViewModel @Inject constructor(private val state: CreatorState.Entry) : ViewModel() {
 
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.image.uri)
-
-    val name = ObservableField<String>("")
-    val desc = ObservableField<String>("")
-    val price = ObservableField<HorsePrice>(HorsePrice.NotForSale)
-    val gender = ObservableField<HorseGender>(HorseGender.Unknown)
-    val level = ObservableField<HorseLevel>(HorseLevel.Unknown)
-    val category = ObservableField<HorseCategory>(HorseCategory.Unknown)
+    val model = ObservableField<EntryModel>((EntryModel(HorseDetail("", ""), state.image)))
 
     fun compose(done: (EntryModel) -> Unit) {
         if (validate()) {
-            val details =
-                HorseDetail(name.get()!!, desc.get()!!, gender.get()!!, level.get()!!, category.get()!!, price.get()!!)
-            val entry = EntryModel(details, state.image)
-            done(entry)
+            done(model.get()!!)
         }
     }
 
     private fun validate(): Boolean = true
 
     fun enter(form: Form) {
-        when (form) {
-            is Form.Name -> name.set(form.input.get())
-            is Form.Desc -> desc.set(form.input.get())
-            is Form.Gender -> gender.set(HorseGender.values()[form.input.get()])
-            is Form.Level -> level.set(HorseLevel.values()[form.input.get()])
-            is Form.Price -> price.set(HorsePrice.values()[form.input.get()])
-            is Form.Category -> category.set(HorseCategory.values()[form.input.get()])
+        val detail = model.get()!!.horseDetail
+        val update = when (form) {
+            is Form.Name -> detail.copy(name = form.input.get()!!)
+            is Form.Desc -> detail.copy(desc = form.input.get()!!)
+            is Form.Gender -> detail.copy(gender = HorseGender.values()[form.input.get()])
+            is Form.Level -> detail.copy(type = HorseLevel.values()[form.input.get()])
+            is Form.Price -> detail.copy(price = HorsePrice.values()[form.input.get()])
+            is Form.Category -> detail.copy(category = HorseCategory.values()[form.input.get()])
+            else -> detail
         }
+        model.set(model.get()!!.copy(horseDetail = update))
     }
 
     companion object {

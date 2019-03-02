@@ -11,6 +11,7 @@
 
     <string name="sheet_title_select">Select an image</string>
     <string name="sheet_description_select">Take a new picture or select an existing one from your gallery</string>
+    <string name="sheet_rejected">Giddy App is meant for Horses only.\nSelected images have to contain a Horse and we do not accept violence, nudity or profanity.\nPlease try again</string>
     <string name="sheet_title_crop">Crop your Image</string>
     <string name="sheet_description_crop">Make sure ar details are visible inside the rectangle</string>
 

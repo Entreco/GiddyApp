@@ -2,8 +2,8 @@ package nl.entreco.giddyapp
 
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary
-import nl.entreco.giddyapp.core.base.BaseActivity
-import nl.entreco.giddyapp.core.di.DiProvider
+import nl.entreco.giddyapp.libcore.base.BaseActivity
+import nl.entreco.giddyapp.libcore.di.DiProvider
 
 class GiddyApp : Application(),
     DiProvider<FeatureComponent> {

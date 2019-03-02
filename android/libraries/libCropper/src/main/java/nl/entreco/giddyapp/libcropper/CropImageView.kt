@@ -3,8 +3,6 @@ package nl.entreco.giddyapp.libcropper
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Bundle
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.FrameLayout

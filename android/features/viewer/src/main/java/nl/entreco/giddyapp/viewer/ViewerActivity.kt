@@ -3,10 +3,10 @@ package nl.entreco.giddyapp.viewer
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.base.BaseActivity
-import nl.entreco.giddyapp.core.base.viewModelProvider
-import nl.entreco.giddyapp.core.di.DiProvider
-import nl.entreco.giddyapp.core.observeOnce
+import nl.entreco.giddyapp.libcore.base.BaseActivity
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.di.DiProvider
+import nl.entreco.giddyapp.libcore.observeOnce
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.di.ViewerComponent
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromModule

@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentEntryBinding
@@ -48,18 +47,18 @@ class EntryFragment : CreateStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onEvents(CreatorState.Event.Enter) {
-            handleEvent()
+        onEvents(CreatorState.Event.Enter::class) {
+            proceed()
         }
 
         pager.adapter = EntryPager(requireContext(), entryData.toMutableList(), object : EntryListeners.OnNextPlease {
             override fun onNext(current: Form) {
-                handleEvent()
+                proceed()
             }
         })
     }
 
-    private fun handleEvent() {
+    private fun proceed() {
         viewModel.enter(entryData[pager.currentItem])
         keyboard.handle(entryData[pager.currentItem])
         if (pager.currentItem < entryData.size - 1) {

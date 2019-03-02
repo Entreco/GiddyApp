@@ -9,10 +9,6 @@
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Desc"/>
 
         <variable
-                name="name"
-                type="String" />
-
-        <variable
                 name="model"
                 type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
 
@@ -31,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                app:ga_fadeIn="@{@string/entry_desc(name)}"/>
+                app:ga_fadeIn="@{entry.title}"/>
 
         <!-- Horse Name -->
         <com.google.android.material.textfield.TextInputLayout

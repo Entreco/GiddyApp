@@ -2,22 +2,19 @@ package nl.entreco.giddyapp.creator
 
 import android.net.Uri
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
-import nl.entreco.giddyapp.creator.ui.entry.EntryViewModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
 import nl.entreco.giddyapp.libcropper.CropImageView
 import nl.entreco.giddyapp.libpicker.SelectedImage
-import nl.entreco.giddyapp.libs.horses.HorseGender
-import nl.entreco.giddyapp.libs.horses.create.CreateHorseRequest
-import nl.entreco.giddyapp.libs.horses.create.CreateHorseUsecase
+import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
+import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
+import nl.entreco.giddyapp.libpicker.moderator.Moderation
 import java.util.*
 import javax.inject.Inject
 
@@ -43,7 +40,7 @@ class CreatorViewModel @Inject constructor(
         return events
     }
 
-    fun postEvent(event: CreatorState.Event) {
+    private fun postEvent(event: CreatorState.Event) {
         events.postValue(event)
     }
 
@@ -63,6 +60,10 @@ class CreatorViewModel @Inject constructor(
             is CreatorState.Upload -> postEvent(CreatorState.Event.Verify)
             else -> { /* ignore other events */ }
         }
+    }
+
+    fun imageRejected(reason: Moderation.Rejected) {
+        postEvent(CreatorState.Event.Rejected(reason.contains + reason.missing))
     }
 
     fun imageSelected(images: List<SelectedImage>) {

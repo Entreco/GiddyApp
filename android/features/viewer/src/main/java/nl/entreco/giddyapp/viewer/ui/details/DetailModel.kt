@@ -2,7 +2,7 @@ package nl.entreco.giddyapp.viewer.ui.details
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import nl.entreco.giddyapp.libs.horses.*
+import nl.entreco.giddyapp.libhorses.*
 
 class DetailModel(horseDetail: HorseDetail) {
     val name = ObservableField<String>(horseDetail.name)

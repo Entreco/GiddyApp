@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import nl.entreco.giddyapp.core.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentCropBinding
 import nl.entreco.giddyapp.creator.di.CreatorInjector.componentFromSheet
 import nl.entreco.giddyapp.creator.ui.CreateStepFragment
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
 
 class CropFragment : CreateStepFragment() {
 
@@ -33,9 +33,9 @@ class CropFragment : CreateStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onEvents(CreatorState.Event.Resize) {
-            viewModel.resize(binding.cropView) {
-                parentViewModel.imageCropped(it)
+        onEvents(CreatorState.Event.Resize::class) {
+            viewModel.resize(binding.cropView) { result ->
+                parentViewModel.imageCropped(result)
             }
         }
     }

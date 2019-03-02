@@ -16,9 +16,6 @@ class EntryPager(
 ) : PagerAdapter() {
     private val inflater = LayoutInflater.from(context)
 
-    private var enteredName : String? = null
-    private var enteredGender : String? = null
-
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val currentItem = items[position]
         val binding = when (currentItem) {
@@ -44,11 +41,9 @@ class EntryPager(
             .apply {
                 entry = currentItem
                 model = InputEntryModel(currentItem) { update ->
-                    items[position] = update
-                    enteredName = (update as Form.Name).input.get()
-                    notifyDataSetChanged()
                     nextListener.onNext(update)
                 }
+                root.tag = currentItem
             }
 
     private fun setupDescription(
@@ -60,11 +55,10 @@ class EntryPager(
             .inflate(inflater, container, false)
             .apply {
                 entry = currentItem
-                name = enteredName
                 model = InputEntryModel(currentItem) { update ->
-                    items[position] = update
                     nextListener.onNext(update)
                 }
+                root.tag = currentItem
             }
 
     private fun setupGender(
@@ -75,16 +69,10 @@ class EntryPager(
         .inflate(inflater, container, false)
         .apply {
             entry = currentItem
-            name = "$enteredName's"
             model = InputEntryModel(currentItem) { update ->
-                items[position] = update
-                enteredGender = when((update as Form.Gender).checked.get()){
-                    R.id.mare -> "her"
-                    else -> "his"
-                }
-                notifyDataSetChanged()
                 nextListener.onNext(update)
             }
+            root.tag = currentItem
         }
 
     private fun setupLevel(
@@ -95,11 +83,10 @@ class EntryPager(
         .inflate(inflater, container, false)
         .apply {
             entry = currentItem
-            name = enteredName
             model = InputEntryModel(currentItem) { update ->
-                items[position] = update
                 nextListener.onNext(update)
             }
+            root.tag = currentItem
         }
 
     private fun setupPrice(
@@ -110,11 +97,10 @@ class EntryPager(
         .inflate(inflater, container, false)
         .apply {
             entry = currentItem
-            gender = enteredGender
             model = InputEntryModel(currentItem) { update ->
-                items[position] = update
                 nextListener.onNext(update)
             }
+            root.tag = currentItem
         }
 
     private fun setupCategory(
@@ -126,9 +112,9 @@ class EntryPager(
         .apply {
             entry = currentItem
             model = InputEntryModel(currentItem) { update ->
-                items[position] = update
                 nextListener.onNext(update)
             }
+            root.tag = currentItem
         }
 
     private fun setupEmpty(container: ViewGroup) = EntryEmptyBinding.inflate(inflater, container, false)

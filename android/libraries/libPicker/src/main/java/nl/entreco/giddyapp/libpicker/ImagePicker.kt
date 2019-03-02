@@ -12,5 +12,5 @@ interface ImagePicker {
 
     fun selectImage(fromCamera: Boolean)
     fun resize(image: SelectedImage, bmp: Bitmap, done: (SelectedImage) -> Unit)
-    fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (List<SelectedImage>)->Unit)
+    fun get(requestCode: Int, resultCode: Int, data: Intent?, done: (ImagePickerResult) -> Unit)
 }

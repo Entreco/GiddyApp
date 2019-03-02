@@ -9,10 +9,6 @@
                 type="nl.entreco.giddyapp.creator.ui.entry.Form.Level"/>
 
         <variable
-                name="name"
-                type="String" />
-
-        <variable
                 name="model"
                 type="nl.entreco.giddyapp.creator.ui.entry.InputEntryModel"/>
 
@@ -33,7 +29,7 @@
                 android:gravity="bottom"
                 android:textSize="20sp"
                 app:ga_levelIcon="@{entry.input}"
-                app:ga_fadeIn="@{@string/entry_level(name)}"/>
+                app:ga_fadeIn="@{entry.title}"/>
 
         <!-- Horse Level -->
         <androidx.appcompat.widget.AppCompatSpinner

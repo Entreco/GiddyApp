@@ -92,6 +92,20 @@
                     app:layout_constraintTop_toBottomOf="@id/stepName"
                     android:textColor="@color/almost_black"/>
 
+            <TextView
+                    android:id="@+id/stepRejection"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    app:ga_fadeIn="@{step.rejected}"
+                    android:paddingTop="@dimen/medium"
+                    android:paddingBottom="@dimen/medium"
+                    tools:text="@string/app_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/stepDescription"
+                    android:textColor="@color/colorPrimaryDark"/>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

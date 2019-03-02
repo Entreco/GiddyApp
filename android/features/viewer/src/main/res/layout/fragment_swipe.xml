@@ -15,7 +15,7 @@
 
         <variable
                 name="loader"
-                type="nl.entreco.giddyapp.lib.img.loader.ImageLoader"/>
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

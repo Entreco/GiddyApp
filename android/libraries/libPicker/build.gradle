@@ -32,4 +32,9 @@ dependencies {
     implementation "androidx.palette:palette:$xPalette"
     implementation "androidx.legacy:legacy-support-core-utils:$xLegacyCore"
     implementation "androidx.exifinterface:exifinterface:$xExifInterface"
+    implementation "com.google.firebase:firebase-ml-vision:$mlVision"
+    implementation "com.google.firebase:firebase-ml-vision-image-label-model:$mlVisionImageLabelModel"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import nl.entreco.giddyapp.core.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.databinding.FragmentUploadBinding
@@ -33,7 +33,7 @@ class UploadFragment : CreateStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onEvents(CreatorState.Event.Verify) {
+        onEvents(CreatorState.Event.Verify::class) {
             parentViewModel.startUpload(viewModel.model())
         }
     }

@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.viewer.ui.swiper
 
 import android.view.View
 import androidx.databinding.BindingAdapter
-import nl.entreco.giddyapp.core.R
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.random.Random
