@@ -10,9 +10,9 @@ import kotlin.reflect.KClass
 abstract class CreateStepFragment : Fragment() {
     val parentViewModel by parentViewModelProvider { CreatorViewModel::class.java }
 
-    protected fun <T : CreatorState.Event> onEvents(type: KClass<T>, f: (T) -> Unit) {
+    protected fun <T : CreatorState.Event> onEvents(kclass: KClass<T>, f: (T) -> Unit) {
         parentViewModel.events().observe(this, Observer<CreatorState.Event> { event ->
-            if (event::class == type) {
+            if(event::class == kclass) {
                 f(event as T)
             }
         })

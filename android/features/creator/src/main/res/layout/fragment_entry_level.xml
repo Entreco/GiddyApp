@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.entry.EntryLevelViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintGuide_end="@dimen/guide_initial_height"
+                    app:ga_constraintEnd="@{viewModel.constraint}"
+                    android:orientation="horizontal"/>
+
+            <Space
+                    android:id="@+id/space"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/guide"/>
+
+            <ImageView
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:transitionGroup="true"
+                    app:layout_constraintTop_toTopOf="@id/space"
+                    app:layout_constraintBottom_toBottomOf="@id/space"
+                    app:layout_constraintStart_toStartOf="@id/space"
+                    app:layout_constraintEnd_toEndOf="@id/space"
+                    app:ga_preview="@{viewModel.image}"
+                    android:scaleType="centerCrop"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/entry_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/guide_initial_height"
+                app:behavior_hideable="false"
+                app:behavior_peekHeight="@dimen/sheet_peek_height"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <ImageView
+                    android:contentDescription="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sheet_header_height"
+                    android:background="@drawable/gradient"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <LinearLayout
+                    android:id="@+id/entry_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:fontFamily="sans-serif-thin"
+                        android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    style="@style/EntryStep"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/sheet"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/entry_info">
+
+                <TextView
+                        android:singleLine="true"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/almost_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        tools:text="@string/gender_male"
+                        app:ga_fadeIn="@{@string/entry_level(viewModel.name)}"/>
+
+                <!-- Horse Price -->
+               <androidx.appcompat.widget.AppCompatSeekBar
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:paddingTop="@dimen/medium"
+                       android:paddingBottom="@dimen/medium"
+                       android:max="6"
+                       android:progress="@={viewModel.progress}"/>
+
+                <TextView
+                        android:singleLine="true"
+                        android:fontFamily="sans-serif-thin"
+                        android:textColor="@color/almost_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        tools:text="@string/entry_price"
+                        app:ga_entries="@{@stringArray/horse_level}"
+                        app:ga_slideIn="@{viewModel.progress}"/>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -12,7 +12,7 @@ import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
 import nl.entreco.giddyapp.creator.di.CreatorModule
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.crop.CropFragment
-import nl.entreco.giddyapp.creator.ui.entry.EntryFragment
+import nl.entreco.giddyapp.creator.ui.entry.*
 import nl.entreco.giddyapp.creator.ui.select.SelectFragment
 import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
 import nl.entreco.giddyapp.libcore.LaunchHelper
@@ -56,7 +56,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) onBackPressed()
+        if (item?.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 
@@ -73,7 +73,12 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         when (state) {
             is CreatorState.Select -> replaceWith(SelectFragment(), state.toString())
             is CreatorState.Crop -> replaceWith(CropFragment(), state.toString())
-            is CreatorState.Entry -> replaceWith(EntryFragment(), state.toString())
+            is CreatorState.EntryName -> replaceWith(EntryNameFragment(), state.toString())
+            is CreatorState.EntryDescription -> replaceWith(EntryDescriptionFragment(), state.toString())
+            is CreatorState.EntryGender -> replaceWith(EntryGenderFragment(), state.toString())
+            is CreatorState.EntryPrice -> replaceWith(EntryPriceFragment(), state.toString())
+            is CreatorState.EntryCategory -> replaceWith(EntryCategoryFragment(), state.toString())
+            is CreatorState.EntryLevel -> replaceWith(EntryLevelFragment(), state.toString())
             is CreatorState.Upload -> replaceWith(UploadFragment(), state.toString())
             is CreatorState.Done -> {
                 LaunchHelper.launchViewer(this, null, state.horseId)

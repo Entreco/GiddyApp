@@ -56,7 +56,12 @@ class CreatorViewModel @Inject constructor(
         val current = stateStack.last
         when (current) {
             is CreatorState.Crop -> postEvent(CreatorState.Event.Resize)
-            is CreatorState.Entry -> postEvent(CreatorState.Event.Enter)
+            is CreatorState.EntryName -> postEvent(CreatorState.Event.EnterName)
+            is CreatorState.EntryDescription -> postEvent(CreatorState.Event.EnterDesc)
+            is CreatorState.EntryGender -> postEvent(CreatorState.Event.EnterGender)
+            is CreatorState.EntryPrice -> postEvent(CreatorState.Event.EnterPrice)
+            is CreatorState.EntryCategory -> postEvent(CreatorState.Event.EnterCategory)
+            is CreatorState.EntryLevel -> postEvent(CreatorState.Event.EnterLevel)
             is CreatorState.Upload -> postEvent(CreatorState.Event.Verify)
             else -> { /* ignore other events */ }
         }
@@ -75,8 +80,33 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun imageCropped(image: SelectedImage) {
-        val entry = CreatorState.Entry(image)
+        val entry = CreatorState.EntryName(image)
         stateStack.add(entry)
+        state.postValue(stateStack.last)
+    }
+
+    fun enteredName(model: EntryModel) {
+        stateStack.add(CreatorState.EntryDescription(model))
+        state.postValue(stateStack.last)
+    }
+
+    fun enteredDescription(model: EntryModel) {
+        stateStack.add(CreatorState.EntryGender(model))
+        state.postValue(stateStack.last)
+    }
+
+    fun enteredGender(model: EntryModel) {
+        stateStack.add(CreatorState.EntryPrice(model))
+        state.postValue(stateStack.last)
+    }
+
+    fun enteredPrice(model: EntryModel) {
+        stateStack.add(CreatorState.EntryCategory(model))
+        state.postValue(stateStack.last)
+    }
+
+    fun enteredCategory(model: EntryModel) {
+        stateStack.add(CreatorState.EntryLevel(model))
         state.postValue(stateStack.last)
     }
 
