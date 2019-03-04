@@ -2,7 +2,10 @@ package nl.entreco.giddyapp.viewer.ui
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.Window
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.BounceInterpolator
 import com.google.android.material.appbar.AppBarLayout
 import nl.entreco.giddyapp.libcore.doOnLayout
 import nl.entreco.giddyapp.libcore.ui.DetailSheet

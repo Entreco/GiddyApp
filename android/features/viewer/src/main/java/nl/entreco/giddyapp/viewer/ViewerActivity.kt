@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer
 
 import android.os.Bundle
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.libcore.base.BaseActivity
