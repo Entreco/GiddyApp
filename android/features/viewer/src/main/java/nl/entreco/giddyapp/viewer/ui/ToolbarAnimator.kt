@@ -25,7 +25,7 @@ class ToolbarAnimator @Inject constructor(window: Window, private val appbar: Ap
 
     override fun onSlide(offset: Float) {
         appbar.animate()
-            .alpha(offset)
+            .alpha(offset + 0.07F)
 //            .translationY(height * (offset - 1))
             .setDuration(0)
             .start()

@@ -86,8 +86,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         val transaction = supportFragmentManager.beginTransaction()
             .replace(R.id.createFragmentContainer, frag, tag)
         when (frag) {
-            is SelectFragment -> {
-            }
+            is SelectFragment -> { }
             else -> transaction.addToBackStack(tag)
         }
 
