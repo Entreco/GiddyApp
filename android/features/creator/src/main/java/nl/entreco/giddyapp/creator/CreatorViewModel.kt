@@ -7,13 +7,14 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import nl.entreco.giddyapp.libcore.SingleLiveEvent
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
 import nl.entreco.giddyapp.libcropper.CropImageView
-import nl.entreco.giddyapp.libpicker.SelectedImage
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
+import nl.entreco.giddyapp.libpicker.SelectedImage
 import nl.entreco.giddyapp.libpicker.moderator.Moderation
 import java.util.*
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class CreatorViewModel @Inject constructor(
 
     private val stateStack = ArrayDeque<CreatorState>()
     private val state = MutableLiveData<CreatorState>()
-    private val events = MutableLiveData<CreatorState.Event>()
+    private val events = SingleLiveEvent<CreatorState.Event>()
     val currentState = ObservableField<BottomProgressModel>()
 
     init {
@@ -36,7 +37,7 @@ class CreatorViewModel @Inject constructor(
         return state
     }
 
-    fun events(): LiveData<CreatorState.Event> {
+    fun events(): SingleLiveEvent<CreatorState.Event> {
         return events
     }
 
@@ -132,7 +133,6 @@ class CreatorViewModel @Inject constructor(
     fun popSate() : Boolean {
         return if (stateStack.size > 1) {
             stateStack.removeLast()
-            state.postValue(stateStack.last)
             true
         } else {
             false

@@ -25,6 +25,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintGuide_end="@dimen/guide_initial_height"
                     app:ga_constraintEnd="@{viewModel.constraint}"
+                    app:ga_sheetHeight="@{2}"
                     android:orientation="horizontal"/>
 
             <Space

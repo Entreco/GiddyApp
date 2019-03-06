@@ -34,10 +34,10 @@ class EntryDescriptionFragment : CreateStepFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sheet.expand(true)
+    override fun onResume() {
+        super.onResume()
         setupKeyboard()
+        sheet.expand(true)
         onEvents(CreatorState.Event.EnterDesc::class) {
             parentViewModel.enteredDescription(viewModel.compose())
         }

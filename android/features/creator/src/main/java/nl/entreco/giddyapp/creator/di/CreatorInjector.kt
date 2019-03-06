@@ -1,10 +1,10 @@
 package nl.entreco.giddyapp.creator.di
 
 import android.view.View
-import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.creator.CreatorActivity
 import nl.entreco.giddyapp.creator.ui.CreateStepFragment
 import nl.entreco.giddyapp.featureComponent
+import nl.entreco.giddyapp.libcore.di.DiProvider
 
 internal object CreatorInjector {
 
@@ -16,6 +16,7 @@ internal object CreatorInjector {
         DaggerCreatorComponent.builder()
             .appContext(component.appContext())
             .activity(this)
+            .manager(this.supportFragmentManager)
             .horse(featureComponent().horseService())
             .img(featureComponent().imageLoader())
             .fbApp(featureComponent().fbApp())

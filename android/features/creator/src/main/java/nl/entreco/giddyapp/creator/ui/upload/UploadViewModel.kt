@@ -5,6 +5,7 @@ import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.CreatorState
+import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.libcore.ChangeableField
 import nl.entreco.giddyapp.libhorses.HorseCategory

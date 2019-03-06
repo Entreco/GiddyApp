@@ -30,11 +30,12 @@ class EntryLevelFragment : CreateStepFragment() {
         sheet.slideListener { offset ->
             viewModel.constraint.set(offset)
         }
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         sheet.expand()
         onEvents(CreatorState.Event.EnterLevel::class) {
             parentViewModel.entered(viewModel.compose())

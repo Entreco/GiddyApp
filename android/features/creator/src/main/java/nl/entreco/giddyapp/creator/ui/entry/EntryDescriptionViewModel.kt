@@ -2,8 +2,10 @@ package nl.entreco.giddyapp.creator.ui.entry
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.CreatorState
+import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.libcore.ChangeableField
 import javax.inject.Inject
 

@@ -5,17 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.creator.databinding.ActivityCreatorBinding
 import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
 import nl.entreco.giddyapp.creator.di.CreatorModule
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
-import nl.entreco.giddyapp.creator.ui.crop.CropFragment
-import nl.entreco.giddyapp.creator.ui.entry.*
-import nl.entreco.giddyapp.creator.ui.select.SelectFragment
-import nl.entreco.giddyapp.creator.ui.upload.UploadFragment
 import nl.entreco.giddyapp.libcore.LaunchHelper
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
@@ -27,6 +22,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
     private lateinit var binding: ActivityCreatorBinding
     private val component by fromModule { CreatorModule() }
     private val viewModel by viewModelProvider { component.viewModel() }
+    private val animator by lazy { component.animator() }
     private val picker by lazy { component.picker() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +35,10 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
 
     private val stateObserver = Observer<CreatorState> { state ->
         viewModel.currentState.set(BottomProgressModel(state))
-        render(state)
+        animator.render(state) { id ->
+            LaunchHelper.launchViewer(this, null, id)
+            finish()
+        }
     }
 
     private val eventObserver = Observer<CreatorState.Event> { event ->
@@ -73,35 +72,6 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
 
     override fun get(): CreatorComponent {
         return component
-    }
-
-    private fun render(state: CreatorState?) {
-        when (state) {
-            is CreatorState.Select -> replaceWith(SelectFragment(), state.toString())
-            is CreatorState.Crop -> replaceWith(CropFragment(), state.toString())
-            is CreatorState.EntryName -> replaceWith(EntryNameFragment(), state.toString())
-            is CreatorState.EntryDescription -> replaceWith(EntryDescriptionFragment(), state.toString())
-            is CreatorState.EntryGender -> replaceWith(EntryGenderFragment(), state.toString())
-            is CreatorState.EntryPrice -> replaceWith(EntryPriceFragment(), state.toString())
-            is CreatorState.EntryCategory -> replaceWith(EntryCategoryFragment(), state.toString())
-            is CreatorState.EntryLevel -> replaceWith(EntryLevelFragment(), state.toString())
-            is CreatorState.Upload -> replaceWith(UploadFragment(), state.toString())
-            is CreatorState.Done -> {
-                LaunchHelper.launchViewer(this, null, state.horseId)
-                finish()
-            }
-        }
-    }
-
-    private fun replaceWith(frag: Fragment, tag: String) {
-        val transaction = supportFragmentManager.beginTransaction()
-            .replace(R.id.createFragmentContainer, frag, tag)
-        when (frag) {
-            is SelectFragment -> { }
-            else -> transaction.addToBackStack(tag)
-        }
-
-        transaction.commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
