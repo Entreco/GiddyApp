@@ -114,19 +114,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:counterEnabled="true"
-                        app:counterMaxLength="100"
+                        app:counterMaxLength="@{viewModel.maxLength}"
                         android:hint="@{viewModel.hint}">
 
                     <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/entryDescription"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@={viewModel.desc}"
                             android:singleLine="true"
                             android:inputType="textCapSentences|textAutoCorrect"
-                            android:imeOptions="actionNext">
+                            android:imeOptions="actionNext" />
 
-                        <requestFocus/>
-                    </com.google.android.material.textfield.TextInputEditText>
+                            <!--android:onEditorActionListener="@{() -> viewModel.onEntered()}"-->
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

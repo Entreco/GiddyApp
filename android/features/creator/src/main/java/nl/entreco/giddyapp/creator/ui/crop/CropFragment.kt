@@ -42,6 +42,6 @@ class CropFragment : CreateStepFragment() {
 
     override fun onResume() {
         super.onResume()
-        sheet.expand()
+        sheet.expand(true)
     }
 }

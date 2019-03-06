@@ -14,8 +14,7 @@ class EntryNameViewModel @Inject constructor(
     private val state: CreatorState.EntryName
 ) : ViewModel() {
 
-    fun compose(): EntryModel = EntryModel(HorseDetail(name.get()!!, ""), state.image)
-
+    val maxLength = 25
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.image.uri)
 
@@ -23,4 +22,6 @@ class EntryNameViewModel @Inject constructor(
     val hint = ObservableField<String>("")
 
     val name = ObservableField<String>("")
+
+    fun compose(): EntryModel = EntryModel(HorseDetail(name.get()!!, ""), state.image)
 }

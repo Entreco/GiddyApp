@@ -46,7 +46,7 @@
                     android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/preview_1(model.level)}"/>
+                    app:ga_fadeIn="@{model.level}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -56,7 +56,7 @@
                     android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/preview_2(model.price)}"/>
+                    app:ga_fadeIn="@{model.price}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -66,7 +66,7 @@
                     android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{@string/preview_3(model.category)}"/>
+                    app:ga_fadeIn="@{model.category}"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,8 +96,7 @@
                     app:layout_constraintEnd_toStartOf="@id/horseGenderIcon"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:ga_fadeIn="@{model.name}"
-                    tools:text="@string/preview_1"/>
+                    app:ga_fadeIn="@{model.name}"/>
 
             <ImageView
                     android:importantForAccessibility="no"

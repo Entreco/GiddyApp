@@ -98,6 +98,8 @@
                     android:divider="@drawable/div_def"
                     android:showDividers="middle" />
 
+            <!-- TODO: Check for explanation or Errors here -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,16 +2,20 @@ package nl.entreco.giddyapp.libcore.ui
 
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class DetailSheet @Inject constructor(
     private val behaviour: BottomSheetBehavior<View>
 ) {
+    private val isLockedExpanded = AtomicBoolean(false)
+    private val isLockedCollapsed = AtomicBoolean(false)
 
     init {
         behaviour.apply {
             setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(p0: View, p1: Float) {
+                    if (isLockedExpanded.get() || isLockedCollapsed.get()) return
                     slideListeners.forEach {
                         it.onSlide(p1)
                     }
@@ -19,9 +23,15 @@ class DetailSheet @Inject constructor(
 
                 override fun onStateChanged(p0: View, p1: Int) {
                     when (p1) {
-                        BottomSheetBehavior.STATE_COLLAPSED -> collapseListener?.onCollapsed()
-                        BottomSheetBehavior.STATE_EXPANDED -> expandListener?.onExpanded()
-                        else -> { }
+                        BottomSheetBehavior.STATE_DRAGGING, BottomSheetBehavior.STATE_SETTLING -> handleLock()
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+                        }
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+                        }
+                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                        }
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                        }
                     }
                 }
             })
@@ -29,25 +39,27 @@ class DetailSheet @Inject constructor(
         collapse()
     }
 
-    fun collapse() {
+    private fun handleLock() {
+        if (isLockedExpanded.get()) {
+            behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        } else if (isLockedCollapsed.get()) {
+            behaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    fun collapse(lock: Boolean = false) {
+        isLockedCollapsed.set(lock)
+        isLockedExpanded.set(false)
         behaviour.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    fun expand() {
+    fun expand(lock: Boolean = false) {
+        isLockedExpanded.set(lock)
+        isLockedCollapsed.set(false)
         behaviour.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private var collapseListener: CollapseListener? = null
-    private var expandListener: ExpandListener? = null
     private var slideListeners: MutableList<SlideListener> = mutableListOf()
-
-    fun collapseListener(listener: CollapseListener) {
-        collapseListener = listener
-    }
-
-    fun expandListener(listener: ExpandListener) {
-        expandListener = listener
-    }
 
     fun slideListener(vararg listeners: SlideListener) {
         slideListeners.addAll(listeners)
@@ -63,13 +75,5 @@ class DetailSheet @Inject constructor(
 
     interface SlideListener {
         fun onSlide(offset: Float)
-    }
-
-    interface CollapseListener {
-        fun onCollapsed()
-    }
-
-    interface ExpandListener {
-        fun onExpanded()
     }
 }

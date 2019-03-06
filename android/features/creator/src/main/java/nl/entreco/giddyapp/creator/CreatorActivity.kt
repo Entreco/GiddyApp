@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.creator
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -56,8 +57,13 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) finish()
+        if (item?.itemId == android.R.id.home) cancel()
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun cancel() {
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 
     override fun onBackPressed() {

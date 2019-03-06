@@ -13,6 +13,7 @@
                 type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
     </data>
 
+    <!--suppress AndroidElementNotAllowed -->
     <merge
             android:layout_width="match_parent"
             android:layout_height="match_parent">

@@ -114,19 +114,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:counterEnabled="true"
-                        app:counterMaxLength="25"
+                        app:counterMaxLength="@{viewModel.maxLength}"
                         android:hint="@{viewModel.hint}">
 
                     <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameEntry"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@={viewModel.name}"
                             android:singleLine="true"
                             android:inputType="textPersonName"
-                            android:imeOptions="actionNext">
+                            android:imeOptions="actionNext"/>
 
-                        <requestFocus/>
-                    </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -134,5 +133,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>

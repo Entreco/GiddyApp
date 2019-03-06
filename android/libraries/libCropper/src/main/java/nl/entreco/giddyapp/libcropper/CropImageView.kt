@@ -30,7 +30,7 @@ class CropImageView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
                 CropShape.RECTANGLE -> com.theartofdev.edmodo.cropper.CropImageView.CropShape.RECTANGLE
                 CropShape.OVAL -> com.theartofdev.edmodo.cropper.CropImageView.CropShape.OVAL
             }
-            libCropImageView.setCropShape(internal)
+            libCropImageView.cropShape = internal
         }
 
     enum class CropShape {

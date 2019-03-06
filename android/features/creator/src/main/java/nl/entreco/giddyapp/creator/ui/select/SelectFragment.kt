@@ -46,6 +46,6 @@ class SelectFragment : CreateStepFragment() {
 
     override fun onResume() {
         super.onResume()
-        sheet.expand()
+        sheet.expand(true)
     }
 }

@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import androidx.palette.graphics.Palette
 import nl.entreco.giddyapp.libcore.HexString
 import nl.entreco.giddyapp.libpicker.SelectedImage
-import javax.inject.Inject
 
 internal class ImageCropper(private val activity: Activity) {
 

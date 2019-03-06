@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
@@ -35,9 +36,20 @@ class EntryNameFragment : CreateStepFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sheet.expand()
+        sheet.expand(true)
+        setupKeyboard()
         onEvents(CreatorState.Event.EnterName::class) {
             parentViewModel.enteredName(viewModel.compose())
         }
+    }
+
+    private fun setupKeyboard() {
+        binding.nameEntry.requestFocus()
+        binding.nameEntry.setOnEditorActionListener { _, _, _ ->
+            parentViewModel.enteredName(viewModel.compose())
+            true
+        }
+        val imm = activity?.getSystemService(InputMethodManager::class.java)
+        imm?.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }

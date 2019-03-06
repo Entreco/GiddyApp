@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.libhorses
 
 import android.widget.TextView
-import androidx.annotation.ArrayRes
 import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.libcore.ui.DetailsBinding
 import nl.entreco.giddyapp.libhorses.horses.R
