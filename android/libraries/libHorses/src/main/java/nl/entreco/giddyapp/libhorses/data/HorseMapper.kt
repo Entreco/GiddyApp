@@ -6,6 +6,7 @@ import nl.entreco.giddyapp.libhorses.*
 internal class HorseMapper {
     fun map(fbHorse: FbHorse, imageRef: String): Horse {
         return Horse(
+            imageRef,
             HexString.from(fbHorse.startColor),
             HexString.from(fbHorse.endColor),
             imageRef,

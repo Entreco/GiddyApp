@@ -65,6 +65,7 @@
         <include
                 layout="@layout/toolbar_viewer"
                 android:id="@+id/include_toolbar_viewer"
+                app:horseId="@{viewModel.details.horseId}"
                 app:navigation="@{navigation}"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -14,9 +14,7 @@ import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libpicker.ImagePicker
 import nl.entreco.giddyapp.libpicker.PickerModule
 
-@Component(
-    modules = [CreatorModule::class, PickerModule::class]
-)
+@Component(modules = [CreatorModule::class, PickerModule::class])
 interface CreatorComponent {
     fun viewModel(): CreatorViewModel
     fun animator(): CreatorAnimator
@@ -44,6 +42,7 @@ interface CreatorComponent {
         fun fbApp(app: FirebaseApp): Builder
 
         fun module(module: CreatorModule): Builder
+
         fun build(): CreatorComponent
     }
 }

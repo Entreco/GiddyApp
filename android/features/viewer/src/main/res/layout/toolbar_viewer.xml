@@ -7,6 +7,9 @@
         <variable
                 name="navigation"
                 type="nl.entreco.giddyapp.viewer.navigation.ViewerNavigation"/>
+        <variable
+                name="horseId"
+                type="String" />
     </data>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +22,7 @@
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:contentInsetStart="@dimen/medium"
                 app:contentInsetEnd="@dimen/medium"
                 android:background="@android:color/transparent">
@@ -28,7 +31,7 @@
                     android:contentDescription="@string/cd_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="bottom|start"
+                    android:layout_gravity="start"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="@{() -> navigation.onProfileClicked()}"
                     android:src="@drawable/ic_profile"/>
@@ -37,10 +40,10 @@
                     android:contentDescription="@string/cd_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="bottom|end"
+                    android:layout_gravity="end"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> navigation.onSettingsClicked()}"
-                    android:src="@drawable/ic_settings"/>
+                    android:onClick="@{() -> navigation.onShareClicked(horseId)}"
+                    android:src="@drawable/ic_share"/>
 
         </androidx.appcompat.widget.Toolbar>
 

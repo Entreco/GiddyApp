@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ShareCompat
 
 object LaunchHelper {
 
@@ -13,6 +14,7 @@ object LaunchHelper {
     private const val URL_MAIN = "$URL_BASE/launch/"
     private const val URL_VIEWER = "$URL_BASE/viewer/"
     private const val URL_CREATOR = "$URL_BASE/creator/"
+    private const val URL_PROFILE = "$URL_BASE/profile/"
 
     fun launchMain(activity: Activity, options: ActivityOptions? = null) {
         val main = mainIntent(activity)
@@ -29,9 +31,23 @@ object LaunchHelper {
         launch(creator, options, activity)
     }
 
+    fun launchProfile(activity: Activity, options: ActivityOptions? = null) {
+        val profile = profileIntent(activity)
+        launch(profile, options, activity)
+    }
+
+    fun share(activity: Activity, horseId: String) {
+        ShareCompat.IntentBuilder.from(activity)
+            .setChooserTitle("Share URL")
+            .setText(URL_VIEWER + horseId)
+            .setType("text/plain")
+            .startChooser()
+    }
+
     private fun mainIntent(context: Context? = null) = baseIntent(URL_MAIN, context)
     private fun viewerIntent(context: Context? = null, id: String? = null) = baseIntent(URL_VIEWER + id, context)
     private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
+    private fun profileIntent(context: Context? = null) = baseIntent(URL_PROFILE, context)
 
     private fun baseIntent(url: String, context: Context? = null): Intent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

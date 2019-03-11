@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="TransparentTheme" parent="Widget.AppCompat.Toolbar">
+    <style name="TransparentTheme" parent="Widget.Design.AppBarLayout">
         <item name="colorPrimary">@color/almost_black</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:actionMenuTextColor">@color/white</item>

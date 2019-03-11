@@ -16,10 +16,10 @@ class InstalledViewerNavigation @Inject constructor(private val activity: Activi
     }
 
     override fun onProfileClicked() {
-        LaunchHelper.launchCreator(activity, null)
+        LaunchHelper.launchProfile(activity, null)
     }
 
-    override fun onSettingsClicked() {
-//        LaunchHelper.launchSettings(activity, null)
+    override fun onShareClicked(horseId: String) {
+        LaunchHelper.share(activity, horseId)
     }
 }

@@ -1,22 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="nl.entreco.giddyapp.launcher">
+          package="nl.entreco.giddyapp.profile">
 
     <dist:module
-            dist:onDemand="false"
+            dist:onDemand="true"
             dist:instant="false"
-            dist:title="@string/title_launcher">
+            dist:title="@string/title_profile">
         <dist:fusing dist:include="true"/>
     </dist:module>
 
     <application>
         <activity
-                android:name=".MainActivity"
-                android:theme="@style/AppTheme.Launcher"
-                android:excludeFromRecents="false">
+                android:name=".ProfileActivity"
+                android:label="@string/title_profile"
+                android:theme="@style/AppTheme.ProfileTheme">
 
             <intent-filter
-                    android:order="3"
+                    android:order="4"
                     android:autoVerify="true">
 
                 <action android:name="android.intent.action.VIEW"/>
@@ -27,9 +27,10 @@
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:host="giddy.entreco.nl"/>
-                <data android:pathPrefix="/launch"/>
+                <data android:pathPrefix="/profile"/>
 
             </intent-filter>
+
         </activity>
     </application>
 </manifest>

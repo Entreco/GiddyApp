@@ -8,7 +8,7 @@ interface ViewerNavigation {
     val fabIcon : Int
     fun onFabClicked()
     fun onProfileClicked()
-    fun onSettingsClicked()
+    fun onShareClicked(horseId: String)
 }
 
 object ViewerBinding{

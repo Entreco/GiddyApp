@@ -42,7 +42,7 @@ class ViewerViewModel @Inject constructor(
         swapHorseUsecase.go { popped, peeked ->
             current.postValue(popped)
             next.postValue(peeked)
-            details.set(DetailModel(popped.details))
+            details.set(DetailModel(popped.id, popped.details))
         }
     }
 

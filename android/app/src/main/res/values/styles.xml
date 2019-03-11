@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -29,6 +29,12 @@
 
     <style name="AppTheme.CreatorTheme">
         <item name="android:windowBackground">@drawable/pattern</item>
+        <item name="android:statusBarColor">@color/almost_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="AppTheme.ProfileTheme">
+        <item name="android:windowBackground">@color/almost_white</item>
         <item name="android:statusBarColor">@color/almost_black</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>

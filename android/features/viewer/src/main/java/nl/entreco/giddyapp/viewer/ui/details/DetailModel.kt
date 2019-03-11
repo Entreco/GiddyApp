@@ -4,7 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import nl.entreco.giddyapp.libhorses.*
 
-class DetailModel(horseDetail: HorseDetail) {
+class DetailModel(horseId: String, horseDetail: HorseDetail) {
+    val horseId = ObservableField<String>(horseId)
     val name = ObservableField<String>(horseDetail.name)
     val desc = ObservableField<String>(horseDetail.desc)
     val genderIcon = ObservableInt(horseDetail.gender.icon())

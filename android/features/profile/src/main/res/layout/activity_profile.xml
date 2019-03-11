@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.ProfileViewModel"/>
+
+        <variable
+                name="navigation"
+                type="nl.entreco.giddyapp.profile.ProfileNavigation"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:showDividers="middle"
+                    android:divider="@color/almost_black"
+                    android:dividerPadding="@dimen/def"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_creator"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/medium"
+                        android:fontFamily="sans-serif-thin"
+                        android:textSize="22sp"
+                        android:textColor="@color/almost_black"
+                        android:background="?android:selectableItemBackground"
+                        android:drawableTint="@color/almost_black"
+                        android:drawablePadding="@dimen/medium"
+                        android:drawableStart="@drawable/ic_create"
+                        android:onClick="@{() -> navigation.launchCreator()}"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Your Horses"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/medium"
+                        android:fontFamily="sans-serif-thin"
+                        android:textSize="22sp"
+                        android:textColor="@color/almost_black"
+                        android:background="?android:selectableItemBackground"
+                        android:drawableTint="@color/almost_black"
+                        android:drawablePadding="@dimen/medium"
+                        android:drawableStart="@drawable/ic_history"
+                        android:onClick="@{() -> navigation.launchSettings()}"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Settings"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/medium"
+                        android:fontFamily="sans-serif-thin"
+                        android:textSize="22sp"
+                        android:textColor="@color/almost_black"
+                        android:background="?android:selectableItemBackground"
+                        android:drawableTint="@color/almost_black"
+                        android:drawablePadding="@dimen/medium"
+                        android:drawableStart="@drawable/ic_settings"
+                        android:onClick="@{() -> navigation.launchSettings()}"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+                android:id="@+id/includeToolbar"
+                layout="@layout/toolbar_profile"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -4,8 +4,9 @@ import android.net.Uri
 import nl.entreco.giddyapp.libcore.HexString
 
 data class Horse(
-    val start: nl.entreco.giddyapp.libcore.HexString,
-    val end: nl.entreco.giddyapp.libcore.HexString,
+    val id: String,
+    val start: HexString,
+    val end: HexString,
     val imageRef: String,
     val imageExt: String,
     val posted: Long,
@@ -15,6 +16,7 @@ data class Horse(
     companion object {
         fun none(): Horse {
             return Horse(
+                "none",
                 HexString.Red,
                 HexString.Blue,
                 "none",
@@ -26,6 +28,7 @@ data class Horse(
 
         fun notFound(id: String): Horse {
             return Horse(
+                id,
                 HexString.Red,
                 HexString.Blue,
                 "notFound",
@@ -37,6 +40,7 @@ data class Horse(
 
         fun error(): Horse {
             return Horse(
+                "error",
                 HexString.Red,
                 HexString.Blue,
                 "error",

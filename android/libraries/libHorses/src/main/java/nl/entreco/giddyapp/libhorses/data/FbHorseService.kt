@@ -45,7 +45,7 @@ internal class FbHorseService @Inject constructor(
         val document = collection.document()
 
         // 1) Upload Image
-        upload(document.id, image){
+        upload(document.id, image) {
             // 2) Set Image Details
             val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor)
             document.set(horse).addOnSuccessListener {
@@ -93,7 +93,7 @@ internal class FbHorseService @Inject constructor(
         }
     }
 
-    private fun upload(documentId: String, image: Uri, done:(String?)->Unit){
+    private fun upload(documentId: String, image: Uri, done: (String?) -> Unit) {
         val reference = storage.reference
         val imageRef = reference.child("$documentId.jpg")
         imageRef.putFile(image).addOnSuccessListener {
