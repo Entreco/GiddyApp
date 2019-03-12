@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application>
-
         <provider
-                android:name=".provider.ImagePickerFileProvider"
+                android:name="nl.entreco.giddyapp.libcore.providers.ImagePickerFileProvider"
                 android:authorities="nl.entreco.giddyapp.libpicker.provider"
                 android:exported="false"
                 tools:node="merge"

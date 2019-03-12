@@ -1,5 +1,4 @@
 include ':app',
-        ':features:launcher',
         ':features:creator',
         ':features:viewer',
         ':features:profile',

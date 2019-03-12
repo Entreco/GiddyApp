@@ -14,7 +14,7 @@
     <application>
         <activity
                 android:excludeFromRecents="false"
-                android:name="nl.entreco.giddyapp.viewer.ViewerActivity"
+                android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
                 android:theme="@style/AppTheme.ViewerTheme">
 

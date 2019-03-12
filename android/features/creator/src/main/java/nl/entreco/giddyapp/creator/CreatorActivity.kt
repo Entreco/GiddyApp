@@ -11,10 +11,10 @@ import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
 import nl.entreco.giddyapp.creator.di.CreatorModule
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
-import nl.entreco.giddyapp.libcore.LaunchHelper
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
+import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libpicker.ImagePickerResult
 
 class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {

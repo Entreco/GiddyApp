@@ -5,11 +5,12 @@ import android.content.Context
 import android.content.res.Resources
 import android.media.SoundPool
 import android.view.View
-import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import dagger.Module
 import dagger.Provides
+import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.data.SoundPoolService
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.domain.sound.SoundService
@@ -49,10 +50,12 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
         instant: InstantViewerNavigation,
         installed: InstalledViewerNavigation
     ): ViewerNavigation {
-        return if (InstantApps.isInstantApp(context)) {
-            instant
-        } else {
+        val splitInstallManager = SplitInstallManagerFactory.create(context)
+        val modules = splitInstallManager.installedModules
+        return if (modules.contains("profile")) {
             installed
+        } else {
+            instant
         }
     }
 

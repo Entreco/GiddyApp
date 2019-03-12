@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libcore
+package nl.entreco.giddyapp.libcore.launch
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -11,15 +11,9 @@ import androidx.core.app.ShareCompat
 object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
-    private const val URL_MAIN = "$URL_BASE/launch/"
     private const val URL_VIEWER = "$URL_BASE/viewer/"
     private const val URL_CREATOR = "$URL_BASE/creator/"
     private const val URL_PROFILE = "$URL_BASE/profile/"
-
-    fun launchMain(activity: Activity, options: ActivityOptions? = null) {
-        val main = mainIntent(activity)
-        launch(main, options, activity)
-    }
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = null) {
         val viewer = viewerIntent(activity, id)
@@ -44,10 +38,19 @@ object LaunchHelper {
             .startChooser()
     }
 
-    private fun mainIntent(context: Context? = null) = baseIntent(URL_MAIN, context)
-    private fun viewerIntent(context: Context? = null, id: String? = null) = baseIntent(URL_VIEWER + id, context)
-    private fun creatorIntent(context: Context? = null) = baseIntent(URL_CREATOR, context)
-    private fun profileIntent(context: Context? = null) = baseIntent(URL_PROFILE, context)
+    private fun viewerIntent(context: Context? = null, id: String? = null) =
+        baseIntent(
+            URL_VIEWER + id,
+            context
+        )
+    private fun creatorIntent(context: Context? = null) = baseIntent(
+        URL_CREATOR,
+        context
+    )
+    private fun profileIntent(context: Context? = null) = baseIntent(
+        URL_PROFILE,
+        context
+    )
 
     private fun baseIntent(url: String, context: Context? = null): Intent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

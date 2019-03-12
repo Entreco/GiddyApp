@@ -38,10 +38,10 @@ android {
         enabled = true
     }
 
-    dynamicFeatures = [":features:launcher",
-                       ":features:creator",
-                       ":features:viewer",
-                       ":features:profile"]
+    dynamicFeatures = [
+            ":features:creator",
+            ":features:viewer",
+            ":features:profile"]
 
 
 }

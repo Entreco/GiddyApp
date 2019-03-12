@@ -1,7 +1,7 @@
 package nl.entreco.giddyapp.profile
 
 import android.app.Activity
-import nl.entreco.giddyapp.libcore.LaunchHelper
+import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
