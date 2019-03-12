@@ -3,7 +3,7 @@
           package="nl.entreco.giddyapp.viewer">
 
     <dist:module
-            dist:instant="false"
+            dist:instant="true"
             dist:onDemand="false"
             dist:title="@string/title_viewer">
         <dist:fusing dist:include="true"/>
