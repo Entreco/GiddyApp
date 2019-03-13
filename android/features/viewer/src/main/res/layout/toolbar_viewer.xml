@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"
                 app:contentInsetStart="@dimen/medium"
                 app:contentInsetEnd="@dimen/medium"
-                app:showIf="@{navigation.hasMenu}"
+                app:showIf="@{!navigation.isInstant}"
                 android:background="@android:color/transparent">
 
             <ImageView

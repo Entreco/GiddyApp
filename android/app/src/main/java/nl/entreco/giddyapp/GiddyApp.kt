@@ -23,6 +23,6 @@ class GiddyApp : Application(),
     override fun get(): FeatureComponent = featureComponent
 }
 
-fun BaseActivity.featureComponent(): nl.entreco.giddyapp.FeatureComponent =
+fun BaseActivity.featureComponent(): FeatureComponent =
     (application as? DiProvider<FeatureComponent>)?.get()
         ?: throw IllegalStateException("application must implement DiProvider<FeatureComponent>")

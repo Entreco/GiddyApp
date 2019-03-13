@@ -18,6 +18,7 @@ internal object ViewerInjector {
             .metrics(featureComponent().metrics())
             .horse(featureComponent().horseService())
             .img(featureComponent().imageLoader())
+            .dynamicLauncher(featureComponent().dynamicLauncher())
             .module(provider())
             .build()
     }

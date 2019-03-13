@@ -5,13 +5,13 @@ import android.content.Context
 import com.google.firebase.FirebaseApp
 import dagger.Module
 import dagger.Provides
-import nl.entreco.giddyapp.libcore.di.App
+import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.di.AppScope
 
 @Module
 object FeatureModule {
 
-    @App
+    @AppContext
     @Provides
     @JvmStatic
     @AppScope
@@ -22,7 +22,7 @@ object FeatureModule {
     @Provides
     @JvmStatic
     @AppScope
-    fun providePackageName(@App context: Context): String {
+    fun providePackageName(@AppContext context: Context): String {
         return context.packageName
     }
 

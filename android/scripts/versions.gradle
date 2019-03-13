@@ -14,6 +14,7 @@ ext {
             dagger = '2.20',
             material = '1.1.0-alpha04',
             playCore = '1.4.0',
+            playInstant = '16.0.1',
             xLifecycle = '2.0.0',
             xAppcompat = '1.0.2',
             xArchitecture = '2.0.0',
@@ -70,4 +71,11 @@ ext.gitCommit = { ->
 
 ext.generateVersionName = { ->
     return "${gitTag()}-${branchName()}-${gitCommit()}"
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "androidx.appcompat:appcompat:$xAppcompat"
+        force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    }
 }

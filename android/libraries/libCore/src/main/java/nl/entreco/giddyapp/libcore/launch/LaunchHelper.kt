@@ -11,9 +11,9 @@ import androidx.core.app.ShareCompat
 object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
-    private const val URL_VIEWER = "$URL_BASE/viewer/"
-    private const val URL_CREATOR = "$URL_BASE/creator/"
-    private const val URL_PROFILE = "$URL_BASE/profile/"
+    const val URL_VIEWER = "$URL_BASE/viewer/"
+    const val URL_CREATOR = "$URL_BASE/creator/"
+    const val URL_PROFILE = "$URL_BASE/profile/"
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = null) {
         val viewer = viewerIntent(activity, id)

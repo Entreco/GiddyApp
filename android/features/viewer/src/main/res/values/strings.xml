@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="install">installeren</string>
+
     <string name="cd_like">Yes, love this horse</string>
     <string name="cd_dislike">Meh</string>
     <string name="cd_fab">Options</string>

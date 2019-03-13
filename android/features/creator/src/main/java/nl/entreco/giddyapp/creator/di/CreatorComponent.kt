@@ -8,7 +8,7 @@ import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.creator.CreatorAnimator
 import nl.entreco.giddyapp.creator.CreatorViewModel
-import nl.entreco.giddyapp.libcore.di.App
+import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libpicker.ImagePicker
@@ -24,7 +24,7 @@ interface CreatorComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun appContext(@App context: Context): Builder
+        fun appContext(@AppContext context: Context): Builder
 
         @BindsInstance
         fun activity(activity: Activity): Builder

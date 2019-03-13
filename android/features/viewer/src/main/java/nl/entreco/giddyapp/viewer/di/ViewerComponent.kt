@@ -5,9 +5,11 @@ import android.util.DisplayMetrics
 import android.view.Window
 import dagger.BindsInstance
 import dagger.Component
+import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libhorses.HorseService
+import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.ToolbarAnimator
@@ -23,7 +25,7 @@ interface ViewerComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun activity(activity: Activity): Builder
+        fun activity(activity: ViewerActivity): Builder
 
         @BindsInstance
         fun metrics(metrics: DisplayMetrics): Builder
@@ -36,6 +38,9 @@ interface ViewerComponent {
 
         @BindsInstance
         fun img(loader: ImageLoader): Builder
+
+        @BindsInstance
+        fun dynamicLauncher(launcher: DynamicLauncher): Builder
 
         fun module(module: ViewerModule): Builder
         fun build(): ViewerComponent

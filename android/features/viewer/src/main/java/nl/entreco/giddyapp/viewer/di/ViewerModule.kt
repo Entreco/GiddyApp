@@ -1,16 +1,18 @@
 package nl.entreco.giddyapp.viewer.di
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.media.SoundPool
+import android.util.Log
 import android.view.View
+import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import dagger.Module
 import dagger.Provides
-import nl.entreco.giddyapp.viewer.R
+import nl.entreco.giddyapp.libcore.di.ActivityContext
+import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
+import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.data.SoundPoolService
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.domain.sound.SoundService
@@ -22,7 +24,8 @@ import nl.entreco.giddyapp.viewer.navigation.instant.InstantViewerNavigation
 class ViewerModule(private val url: String?, private val binding: ActivityViewerBinding) {
 
     @Provides
-    fun provideContext(activity: Activity): Context = activity
+    @ActivityContext
+    fun provideContext(activity: ViewerActivity): Context = activity
 
     @Provides
     @ViewerUrl
@@ -39,23 +42,30 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
     }
 
     @Provides
-    fun provideInstantNavigation(activity: Activity): InstantViewerNavigation = InstantViewerNavigation(activity)
+    fun provideInstantNavigation(
+        activity: ViewerActivity
+    ): InstantViewerNavigation = InstantViewerNavigation(activity)
 
     @Provides
-    fun provideInstalledNavigation(activity: Activity): InstalledViewerNavigation = InstalledViewerNavigation(activity)
+    fun provideInstalledNavigation(
+        activity: ViewerActivity,
+        dynamicLauncher: DynamicLauncher
+    ): InstalledViewerNavigation = InstalledViewerNavigation(activity, dynamicLauncher)
 
     @Provides
     fun provideNavigation(
-        context: Context,
+        @ActivityContext context: Context,
         instant: InstantViewerNavigation,
         installed: InstalledViewerNavigation
     ): ViewerNavigation {
-        val splitInstallManager = SplitInstallManagerFactory.create(context)
-        val modules = splitInstallManager.installedModules
-        return if (modules.contains("profile")) {
-            installed
-        } else {
+
+        val isInstant = InstantApps.isInstantApp(context)
+        Log.i("YOGO", "isInstantApp: $isInstant")
+
+        return if (isInstant) {
             instant
+        } else {
+            installed
         }
     }
 
@@ -65,12 +75,12 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
     }
 
     @Provides
-    fun provideResources(context: Context): Resources {
+    fun provideResources(@ActivityContext context: Context): Resources {
         return context.resources
     }
 
     @Provides
-    fun provideSoundService(context: Context): SoundService {
+    fun provideSoundService(@ActivityContext context: Context): SoundService {
         val pool = SoundPool.Builder().setMaxStreams(2).build()
         return SoundPoolService(context, pool)
     }

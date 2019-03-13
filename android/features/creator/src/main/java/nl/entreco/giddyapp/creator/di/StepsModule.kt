@@ -7,7 +7,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
 import dagger.Provides
 import nl.entreco.giddyapp.creator.CreatorState
-import nl.entreco.giddyapp.libcore.di.App
+import nl.entreco.giddyapp.libcore.di.AppContext
 
 @Module
 class StepsModule(private val sheet: View, private val state: CreatorState?) {
@@ -18,7 +18,7 @@ class StepsModule(private val sheet: View, private val state: CreatorState?) {
     }
 
     @Provides
-    fun provideInputMethodManager(@App context: Context): InputMethodManager =
+    fun provideInputMethodManager(@AppContext context: Context): InputMethodManager =
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     @Provides

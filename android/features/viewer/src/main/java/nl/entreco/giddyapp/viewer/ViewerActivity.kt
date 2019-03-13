@@ -1,5 +1,7 @@
 package nl.entreco.giddyapp.viewer
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -41,24 +43,27 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         })
     }
 
-    private fun nextFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.swipeFragmentContainer, SwipeFragment(), "Swipe")
-            .commitAllowingStateLoss()
-    }
-
     override fun onResume() {
         super.onResume()
         setSupportActionBar(binding.includeToolbarViewer.toolbar)
         supportActionBar?.title = ""
     }
 
-    override fun get(): ViewerComponent {
-        return component
-    }
-
     override fun onNext() {
         viewModel.onNext()
         nextFragment()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // if Install Intent -> reload and update (e)FAB's
+        binding.eFab.extend(true)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun get(): ViewerComponent = component
+
+    private fun nextFragment() =
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.swipeFragmentContainer, SwipeFragment(), "Swipe")
+            .commitAllowingStateLoss()
 }
