@@ -1,12 +1,15 @@
 package nl.entreco.giddyapp.viewer.navigation.installed
 
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.GravityCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.Observer
+import androidx.transition.Slide
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
@@ -15,6 +18,7 @@ import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
+import nl.entreco.giddyapp.viewer.ui.filter.FilterFragment
 import javax.inject.Inject
 
 class InstalledViewerNavigation @Inject constructor(
@@ -32,7 +36,12 @@ class InstalledViewerNavigation @Inject constructor(
         get() = false
 
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) {
-        fab.hide()
+        val enter = FilterFragment()
+        enter.enterTransition = Slide(Gravity.BOTTOM)
+        activity.supportFragmentManager.beginTransaction()
+            .add(R.id.filterContainer, FilterFragment(), "filter")
+            .addToBackStack("filter")
+            .commit()
     }
 
     override fun onProfileClicked() {

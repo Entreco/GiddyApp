@@ -83,5 +83,14 @@
                 app:horseId="@{viewModel.details.horseId}"
                 app:navigation="@{navigation}"/>
 
+        <FrameLayout
+                android:id="@+id/filterContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="0dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

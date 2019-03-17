@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.viewer.di
 
 import android.content.Context
 import android.content.res.Resources
-import android.media.SoundPool
 import android.util.Log
 import android.view.View
 import com.google.android.gms.common.wrappers.InstantApps
@@ -13,9 +12,7 @@ import dagger.Provides
 import nl.entreco.giddyapp.libcore.di.ActivityContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.viewer.ViewerActivity
-import nl.entreco.giddyapp.viewer.data.SoundPoolService
 import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
-import nl.entreco.giddyapp.viewer.domain.sound.SoundService
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.navigation.installed.InstalledViewerNavigation
 import nl.entreco.giddyapp.viewer.navigation.instant.InstantViewerNavigation
@@ -77,11 +74,5 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
     @Provides
     fun provideResources(@ActivityContext context: Context): Resources {
         return context.resources
-    }
-
-    @Provides
-    fun provideSoundService(@ActivityContext context: Context): SoundService {
-        val pool = SoundPool.Builder().setMaxStreams(2).build()
-        return SoundPoolService(context, pool)
     }
 }

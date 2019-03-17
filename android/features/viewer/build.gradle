@@ -26,6 +26,7 @@ android {
 dependencies {
     implementation project(':app')
     implementation project(':libraries:libCore')
+    implementation project(':libraries:libSound')
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"

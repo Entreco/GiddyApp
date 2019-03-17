@@ -4,8 +4,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.viewer.R
-import nl.entreco.giddyapp.viewer.domain.sound.PlaySoundUsecase
+import nl.entreco.giddyapp.libsound.PlaySoundUsecase
 import javax.inject.Inject
 
 class SwipeViewModel @Inject constructor(
@@ -27,11 +26,11 @@ class SwipeViewModel @Inject constructor(
             when {
                 progress > 0.6F && progress < 0.9F -> {
                     playing.set(true)
-                    playSoundUsecase.play(R.raw.like)
+                    playSoundUsecase.like()
                 }
                 progress > -0.9F && progress < -0.6F -> {
                     playing.set(true)
-                    playSoundUsecase.play(R.raw.dislike)
+                    playSoundUsecase.dislike()
                 }
             }
         }

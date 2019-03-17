@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer.domain.sound
+package nl.entreco.giddyapp.libsound
 
 import androidx.annotation.RawRes
 

@@ -1,14 +1,14 @@
-package nl.entreco.giddyapp.viewer.data
+package nl.entreco.giddyapp.libsound.data
 
 import android.content.Context
 import android.media.SoundPool
 import nl.entreco.giddyapp.libcore.onBg
 import nl.entreco.giddyapp.libcore.onUi
-import nl.entreco.giddyapp.viewer.R
-import nl.entreco.giddyapp.viewer.domain.sound.SoundService
+import nl.entreco.giddyapp.libsound.R
+import nl.entreco.giddyapp.libsound.SoundService
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SoundPoolService(
+internal class SoundPoolService(
     private val context: Context,
     private val soundPool: SoundPool
 ) : SoundService {

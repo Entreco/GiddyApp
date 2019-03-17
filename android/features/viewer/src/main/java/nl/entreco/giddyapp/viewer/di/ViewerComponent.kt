@@ -1,20 +1,20 @@
 package nl.entreco.giddyapp.viewer.di
 
-import android.app.Activity
 import android.util.DisplayMetrics
 import android.view.Window
 import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
-import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libhorses.HorseService
+import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libsound.di.SoundModule
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.ToolbarAnimator
 
-@Component(modules = [ViewerModule::class])
+@Component(modules = [ViewerModule::class, SoundModule::class])
 interface ViewerComponent {
     fun viewModel(): ViewerViewModel
     fun sheet(): DetailSheet

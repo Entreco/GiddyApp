@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.viewer
+package nl.entreco.giddyapp.viewer.ui.loading
 
 import android.os.Bundle
 import android.view.LayoutInflater

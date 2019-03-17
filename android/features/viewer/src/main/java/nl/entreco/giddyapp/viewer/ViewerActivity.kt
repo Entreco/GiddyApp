@@ -12,6 +12,7 @@ import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.di.ViewerComponent
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromModule
 import nl.entreco.giddyapp.viewer.di.ViewerModule
+import nl.entreco.giddyapp.viewer.ui.loading.LoaderFragment
 import nl.entreco.giddyapp.viewer.ui.swiper.OnSwipedListener
 import nl.entreco.giddyapp.viewer.ui.swiper.SwipeFragment
 
