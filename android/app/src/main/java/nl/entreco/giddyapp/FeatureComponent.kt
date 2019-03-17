@@ -25,10 +25,11 @@ interface FeatureComponent {
     fun imageLoader(): ImageLoader
     fun metrics(): DisplayMetrics
     fun fbApp(): FirebaseApp
-    fun dynamicLauncher() : DynamicLauncher
+    fun dynamicLauncher(): DynamicLauncher
 
     @Component.Builder
     interface Builder {
+
         @BindsInstance
         fun app(app: Application): Builder
 

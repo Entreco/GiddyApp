@@ -39,12 +39,6 @@ class InstantViewerNavigation @Inject constructor(
         InstantApps.showInstallPrompt(activity, postInstallIntent, REQUEST_CODE, REFERRER)
     }
 
-    private fun hide(eFab: ExtendedFloatingActionButton) = eFab.shrink(true)
-    private fun show(eFab: ExtendedFloatingActionButton) = eFab.extend(true)
-    private val postInstallIntent = Intent(Intent.ACTION_VIEW, Uri.parse(LaunchHelper.URL_VIEWER))
-        .addCategory(Intent.CATEGORY_DEFAULT)
-        .addCategory(Intent.CATEGORY_BROWSABLE)
-
     override fun onProfileClicked() {
         throw IllegalStateException("InstantViewerNavigation should not have Profile")
     }
@@ -52,6 +46,11 @@ class InstantViewerNavigation @Inject constructor(
     override fun onShareClicked(horseId: String) {
         throw IllegalStateException("InstantViewerNavigation should not have Share")
     }
+
+    private fun hide(eFab: ExtendedFloatingActionButton) = eFab.shrink(true)
+    private val postInstallIntent = Intent(Intent.ACTION_VIEW, Uri.parse(LaunchHelper.URL_VIEWER))
+        .addCategory(Intent.CATEGORY_DEFAULT)
+        .addCategory(Intent.CATEGORY_BROWSABLE)
 }
 
 object InstantBinding {
@@ -72,13 +71,12 @@ object InstantBinding {
     @JvmStatic
     @BindingAdapter("ga_show")
     fun efabVisibility(eFab: ExtendedFloatingActionButton, isInstant: Boolean) {
-        if (isInstant){
+        if (isInstant) {
             eFab.visibility = View.VISIBLE
             val lp = eFab.layoutParams as CoordinatorLayout.LayoutParams
             lp.anchorId = R.id.bar
             eFab.layoutParams = lp
             eFab.requestLayout()
-        }
-        else eFab.visibility = View.GONE
+        } else eFab.visibility = View.GONE
     }
 }

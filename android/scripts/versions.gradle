@@ -31,8 +31,18 @@ ext {
             glide = '4.8.0',
             mlVision = '19.0.2',
             mlVisionImageLabelModel = '17.0.2',
+
+            // UnitTest
             junit = '4.12',
             mockito = '2.1.0',
+
+            // InstrumentationTest
+            dexmaker = '2.19.1',
+            xTestCore = '1.0.0',
+            xTestRules = '1.1.0',
+            xTestRunner = '1.1.0',
+            xTestExtJunit = '1.1.0',
+            xEspressoCore = '3.1.0',
 
             // Development tools
             leakCanary = '1.6.3',

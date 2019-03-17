@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.viewer.navigation.installed
 
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.DrawableRes
@@ -33,15 +32,12 @@ class InstalledViewerNavigation @Inject constructor(
         get() = false
 
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) {
-        Log.i("ViewerNavigation", "onFabClicked installed app")
         fab.hide()
     }
 
     override fun onProfileClicked() {
-        Log.i("ViewerNavigation", "onFabClicked instant app")
         dynamicLauncher.launch(activity.lifecycle, "profile")
         dynamicLauncher.listen().observe(activity, Observer { state ->
-            Log.i("YOGO", "install status: $state == ${SplitInstallSessionStatus.INSTALLED}")
             when (state) {
                 SplitInstallSessionStatus.INSTALLED -> LaunchHelper.launchProfile(activity, null)
                 SplitInstallSessionStatus.FAILED -> Toast.makeText(
@@ -75,7 +71,7 @@ object InstalledBinding {
     @BindingAdapter("ga_show")
     fun fabVisibility(fab: FloatingActionButton, isInstant: Boolean) {
         if (isInstant) fab.visibility = View.GONE
-        else{
+        else {
             fab.visibility = View.VISIBLE
             val lp = fab.layoutParams as CoordinatorLayout.LayoutParams
             lp.anchorId = R.id.bar

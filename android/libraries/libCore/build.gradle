@@ -41,4 +41,10 @@ dependencies {
     api "com.google.firebase:firebase-storage:$fbStorage"
 
     testImplementation "junit:junit:$junit"
+
+    androidTestImplementation "androidx.test:core:$xTestCore"
+    androidTestImplementation "androidx.test:runner:$xTestRunner"
+    androidTestImplementation "androidx.test:rules:$xTestRules"
+    androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
 }

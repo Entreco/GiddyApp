@@ -2,7 +2,6 @@ package nl.entreco.giddyapp.libcore
 
 import android.view.View
 import android.view.ViewTreeObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
@@ -15,7 +14,7 @@ fun View.doOnLayout(f:()->Unit){
     })
 }
 
-fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+fun <T> LiveData<T>.observeOnce(observer: Observer<T>) {
     observeForever(object : Observer<T> {
         override fun onChanged(t: T?) {
             observer.onChanged(t)

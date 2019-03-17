@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.viewer
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -38,7 +37,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
                 .commitAllowingStateLoss()
         }
 
-        viewModel.current().observeOnce(this, Observer {
+        viewModel.current().observeOnce(Observer {
             nextFragment()
         })
     }
