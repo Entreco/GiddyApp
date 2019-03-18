@@ -5,12 +5,16 @@
     <data/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/xlarge">
+            android:paddingTop="@dimen/xlarge"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
-                android:id="@+id/filter"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -30,14 +34,11 @@
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 android:paddingBottom="@dimen/xlarge"
                 android:background="@color/almost_black"
                 android:alpha="0.9"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-
-        </androidx.core.widget.NestedScrollView>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

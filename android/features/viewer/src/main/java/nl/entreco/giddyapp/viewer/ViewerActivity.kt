@@ -22,6 +22,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
     private val component by fromModule { ViewerModule(intent.data?.lastPathSegment, binding) }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val sheet by lazy { component.sheet() }
+    private val filter by lazy { component.filter() }
     private val navigation by lazy { component.navigation() }
     private val animator by lazy { component.animator() }
 
@@ -31,6 +32,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         binding.viewModel = viewModel
         binding.navigation = navigation
         sheet.slideListener(viewModel, animator)
+        filter.collapse()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

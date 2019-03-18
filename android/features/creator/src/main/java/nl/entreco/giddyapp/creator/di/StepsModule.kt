@@ -8,11 +8,13 @@ import dagger.Module
 import dagger.Provides
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.libcore.di.AppContext
+import nl.entreco.giddyapp.libcore.ui.SheetBehavior
 
 @Module
 class StepsModule(private val sheet: View, private val state: CreatorState?) {
 
     @Provides
+    @SheetBehavior
     fun provideBottomSheet(): BottomSheetBehavior<View> {
         return BottomSheetBehavior.from(sheet)
     }

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class DetailSheet @Inject constructor(
-    private val behaviour: BottomSheetBehavior<View>
+    @SheetBehavior private val behaviour: BottomSheetBehavior<View>
 ) {
     private val isLockedExpanded = AtomicBoolean(false)
     private val isLockedCollapsed = AtomicBoolean(false)

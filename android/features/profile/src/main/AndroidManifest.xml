@@ -3,7 +3,7 @@
           package="nl.entreco.giddyapp.profile">
 
     <dist:module
-            dist:onDemand="true"
+            dist:onDemand="false"
             dist:instant="false"
             dist:title="@string/title_profile">
         <dist:fusing dist:include="true"/>
