@@ -10,7 +10,7 @@ class FilterPanel @Inject constructor(
     @FilterBehaviour private val behaviour: BottomSheetBehavior<View>
 ) {
 
-    private val isExpanded = AtomicBoolean(true)
+    private val isExpanded = AtomicBoolean(false)
 
     init {
         behaviour.apply {
