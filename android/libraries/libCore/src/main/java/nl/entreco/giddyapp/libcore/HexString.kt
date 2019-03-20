@@ -40,6 +40,7 @@ sealed class HexString(private val colorString: String) {
     }
 
     data class Hex(val hex: String) : HexString(hex)
+    object Transparent : HexString("#00000000")
     object White : HexString("#ffffff")
     object Red : HexString("#ff000000")
     object Blue : HexString("#0000ff")

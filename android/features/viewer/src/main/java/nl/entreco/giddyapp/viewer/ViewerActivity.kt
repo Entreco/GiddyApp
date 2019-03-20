@@ -12,7 +12,7 @@ import nl.entreco.giddyapp.viewer.databinding.ActivityViewerBinding
 import nl.entreco.giddyapp.viewer.di.ViewerComponent
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromModule
 import nl.entreco.giddyapp.viewer.di.ViewerModule
-import nl.entreco.giddyapp.viewer.ui.loading.LoaderFragment
+import nl.entreco.giddyapp.viewer.ui.filter.FilterPanel
 import nl.entreco.giddyapp.viewer.ui.swiper.OnSwipedListener
 import nl.entreco.giddyapp.viewer.ui.swiper.SwipeFragment
 
@@ -32,13 +32,12 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         binding.viewModel = viewModel
         binding.navigation = navigation
         sheet.slideListener(viewModel, animator)
+        filter.slideListener(object : FilterPanel.SlideListener {
+            override fun onSlide(offset: Float) {
+                binding.fab.animate().alpha(1F - offset).setDuration(0).start()
+            }
+        })
         filter.collapse()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.swipeFragmentContainer, LoaderFragment(), "loader")
-                .commitAllowingStateLoss()
-        }
 
         viewModel.current().observeOnce(Observer {
             nextFragment()

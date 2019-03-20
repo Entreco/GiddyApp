@@ -32,6 +32,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:ga_ref="@{model.ref}"
                 app:ga_image="@{model.image}"
                 app:ga_loader="@{loader}"
                 android:scaleType="centerCrop"/>

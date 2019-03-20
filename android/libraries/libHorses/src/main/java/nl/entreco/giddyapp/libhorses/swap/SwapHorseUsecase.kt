@@ -1,13 +1,16 @@
 package nl.entreco.giddyapp.libhorses.swap
 
 import nl.entreco.giddyapp.libhorses.Horse
+import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
+import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.fetch.FetchImageRequest
 import nl.entreco.giddyapp.libhorses.fetch.FetchImageUsecase
 import java.util.*
 import javax.inject.Inject
 
 class SwapHorseUsecase @Inject constructor(
-    private val fetchImageUsecase: FetchImageUsecase
+    private val fetchImageUsecase: FetchImageUsecase,
+    private val fetchHorseUsecase: FetchHorseUsecase
 ) {
 
     private val horses = mutableListOf<Horse>()
@@ -17,6 +20,7 @@ class SwapHorseUsecase @Inject constructor(
     fun initWith(collection: List<Horse>) {
         val atLeastOne = if (collection.isEmpty()) listOf(Horse.none()) else collection
         horses.addAll(atLeastOne)
+        queue.clear()
         queue.addAll(atLeastOne.map { it.imageRef })
         preloadImages(atLeastOne)
     }
@@ -41,8 +45,10 @@ class SwapHorseUsecase @Inject constructor(
     private fun ensure() {
         if (horses.isEmpty()) throw IllegalStateException("need to add horses first")
         if (queue.isEmpty()) {
-            queue.addAll(horses.shuffled().map { it.imageRef })
-
+            initWith(emptyList())
+            fetchHorseUsecase.go(FetchHorseRequest()) { response ->
+                initWith(response.horses)
+            }
         }
     }
 

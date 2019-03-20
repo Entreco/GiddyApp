@@ -14,6 +14,7 @@ import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
+import nl.entreco.giddyapp.viewer.di.ViewerScope
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.filter.FilterPanel
 import javax.inject.Inject
@@ -21,7 +22,7 @@ import javax.inject.Inject
 class InstalledViewerNavigation @Inject constructor(
     private val activity: ViewerActivity,
     private val dynamicLauncher: DynamicLauncher,
-    private val filterPanel: FilterPanel
+    @ViewerScope private val filterPanel: FilterPanel
 ) : ViewerNavigation {
 
     override val fabIcon: Int
@@ -33,9 +34,7 @@ class InstalledViewerNavigation @Inject constructor(
     override val isInstant: Boolean
         get() = false
 
-    override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) {
-        filterPanel.toggle()
-    }
+    override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) = filterPanel.toggle()
 
     override fun onProfileClicked() {
         dynamicLauncher.launch(activity.lifecycle, "profile")
@@ -51,9 +50,7 @@ class InstalledViewerNavigation @Inject constructor(
         })
     }
 
-    override fun onShareClicked(horseId: String) {
-        LaunchHelper.share(activity, horseId)
-    }
+    override fun onShareClicked(horseId: String) = LaunchHelper.share(activity, horseId)
 }
 
 object InstalledBinding {

@@ -1,11 +1,14 @@
 package nl.entreco.giddyapp.viewer.ui.filter
 
+import android.util.Log
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import nl.entreco.giddyapp.viewer.di.FilterBehaviour
+import nl.entreco.giddyapp.viewer.di.ViewerScope
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
+@ViewerScope
 class FilterPanel @Inject constructor(
     @FilterBehaviour private val behaviour: BottomSheetBehavior<View>
 ) {
@@ -15,15 +18,21 @@ class FilterPanel @Inject constructor(
     init {
         behaviour.apply {
             setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(p0: View, p1: Float) {}
+                override fun onSlide(view: View, offset: Float) {
+                    slideListeners.forEach {
+                        it.onSlide(offset)
+                    }
+                }
 
-                override fun onStateChanged(p0: View, p1: Int) {
-                    when (p1) {
-                        BottomSheetBehavior.STATE_DRAGGING, BottomSheetBehavior.STATE_SETTLING -> { }
+                override fun onStateChanged(view: View, state: Int) {
+                    when (state) {
                         BottomSheetBehavior.STATE_COLLAPSED -> collapse()
                         BottomSheetBehavior.STATE_EXPANDED -> expand()
-                        BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
-                        BottomSheetBehavior.STATE_HIDDEN -> { }
+                        BottomSheetBehavior.STATE_DRAGGING,
+                        BottomSheetBehavior.STATE_SETTLING,
+                        BottomSheetBehavior.STATE_HALF_EXPANDED,
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                        }
                     }
                 }
             })
@@ -31,6 +40,7 @@ class FilterPanel @Inject constructor(
     }
 
     private fun expand() {
+        Log.i("WTF", "FilterPanel $this")
         isExpanded.set(true)
         behaviour.state = BottomSheetBehavior.STATE_EXPANDED
     }
@@ -41,10 +51,19 @@ class FilterPanel @Inject constructor(
     }
 
     fun toggle() {
-        if (isExpanded.get()) {
-            collapse()
-        } else {
+        if (!isExpanded.get()) {
             expand()
+        } else {
+            collapse()
         }
+    }
+
+    private var slideListeners: MutableList<SlideListener> = mutableListOf()
+    fun slideListener(vararg listeners: SlideListener) {
+        slideListeners.addAll(listeners)
+    }
+
+    interface SlideListener {
+        fun onSlide(offset: Float)
     }
 }

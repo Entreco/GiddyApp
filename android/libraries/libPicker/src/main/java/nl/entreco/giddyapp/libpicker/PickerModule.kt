@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.libpicker
 
 import android.app.Activity
-import android.util.Log
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ml.vision.FirebaseVision
 import dagger.Module
@@ -18,14 +17,12 @@ object PickerModule {
     @Provides
     @JvmStatic
     internal fun provideImageLabeller(app: FirebaseApp): ImageLabeller {
-        Log.i("DEPINJ", "provide imageLabeller")
         return MlKitImageLabeller(FirebaseVision.getInstance(app).onDeviceImageLabeler)
     }
 
     @Provides
     @JvmStatic
     fun provideImagePicker(activity: Activity, labeller: ImageLabeller): ImagePicker {
-        Log.i("DEPINJ", "provide imagePicker")
         val helper = ImageHelper(activity)
         val cropper = ImageCropper(activity)
         val moderation = ApplyModerationUsecase(labeller)

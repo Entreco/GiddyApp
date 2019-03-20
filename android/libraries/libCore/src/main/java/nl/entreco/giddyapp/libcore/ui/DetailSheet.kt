@@ -24,14 +24,10 @@ class DetailSheet @Inject constructor(
                 override fun onStateChanged(p0: View, p1: Int) {
                     when (p1) {
                         BottomSheetBehavior.STATE_DRAGGING, BottomSheetBehavior.STATE_SETTLING -> handleLock()
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-                        }
-                        BottomSheetBehavior.STATE_EXPANDED -> {
-                        }
-                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                        }
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                        }
+                        BottomSheetBehavior.STATE_COLLAPSED,
+                        BottomSheetBehavior.STATE_EXPANDED,
+                        BottomSheetBehavior.STATE_HALF_EXPANDED,
+                        BottomSheetBehavior.STATE_HIDDEN -> { }
                     }
                 }
             })

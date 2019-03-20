@@ -126,10 +126,10 @@ class SwipeHorseView @JvmOverloads constructor(
 
     companion object {
         @JvmStatic
-        @BindingAdapter("ga_loader", "ga_image", requireAll = true)
-        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?) {
+        @BindingAdapter("ga_loader", "ga_image", "ga_ref", requireAll = true)
+        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?, ref: String?) {
             if (view.drawable == null) {
-                loader?.get(view, uri)
+                loader?.get(view, uri, ref)
             }
         }
     }

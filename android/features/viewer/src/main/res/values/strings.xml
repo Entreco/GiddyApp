@@ -2,6 +2,7 @@
 <resources>
 
     <string name="install">installeren</string>
+    <string name="filter_title">Filter opties</string>
 
     <string name="cd_like">Yes, love this horse</string>
     <string name="cd_dislike">Meh</string>

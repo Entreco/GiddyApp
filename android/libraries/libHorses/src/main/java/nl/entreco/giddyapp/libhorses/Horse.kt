@@ -17,12 +17,12 @@ data class Horse(
         fun none(): Horse {
             return Horse(
                 "none",
-                HexString.Red,
-                HexString.Blue,
+                HexString.Transparent,
+                HexString.Transparent,
                 "none",
                 "-",
                 0L,
-                HorseDetail("Empty", "")
+                HorseDetail("Loading", "even geduld aub...")
             )
         }
 

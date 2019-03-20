@@ -35,12 +35,13 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
 
     @Provides
     @SheetBehavior
-    fun provideDetailSheet(): BottomSheetBehavior<View> = BottomSheetBehavior.from(binding.includeSheet.sheet)
+    fun provideDetailBehaviour(): BottomSheetBehavior<View> = BottomSheetBehavior.from(binding.includeSheet.sheet)
 
     @Provides
     @ViewerScope
     @FilterBehaviour
-    fun provideFilterPanel(): BottomSheetBehavior<View> = BottomSheetBehavior.from(binding.includeFilterViewer.filter)
+    fun provideFilterBehaviour(): BottomSheetBehavior<View> =
+        BottomSheetBehavior.from(binding.includeFilterViewer.filter)
 
     @Provides
     @ViewerScope
