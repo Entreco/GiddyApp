@@ -11,7 +11,7 @@ ext {
     targetSdkVersion = 28
 
     dependencies = [
-            dagger = '2.20',
+            dagger = '2.21',
             material = '1.1.0-alpha04',
             playCore = '1.4.0',
             playInstant = '16.0.1',
@@ -28,7 +28,7 @@ ext {
             fbStorage = '16.0.5',
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',
-            glide = '4.8.0',
+            glide = '4.9.0',
             mlVision = '19.0.2',
             mlVisionImageLabelModel = '17.0.2',
 
@@ -45,7 +45,7 @@ ext {
             xEspressoCore = '3.1.0',
 
             // Development tools
-            leakCanary = '1.6.3',
+            leakCanary = '1.6.3'
     ]
 }
 
