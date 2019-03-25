@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
-class BaseFragment : Fragment()
-
 inline fun <reified VM : ViewModel> Fragment.parentViewModelProvider(
     mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
     crossinline provider: () -> Class<VM>

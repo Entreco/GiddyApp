@@ -11,7 +11,6 @@ internal class ImageHelper(private val activity: Activity) {
     companion object {
         private const val ext = ".jpg"
         private const val claimsSubDir = "creator"
-        private const val BYTES_IN_MEGABYTE = (1024.0 * 1000)
     }
 
     fun toInternalUri(fileName: String): Uri {

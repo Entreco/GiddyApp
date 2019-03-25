@@ -30,8 +30,8 @@ class InstantViewerNavigation @Inject constructor(
         get() = true
 
     companion object {
-        private val REFERRER = "InstallApiActivity"
-        private val REQUEST_CODE = 7
+        private const val REFERRER = "InstallApiActivity"
+        private const val REQUEST_CODE = 7
     }
 
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) {
