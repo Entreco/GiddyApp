@@ -6,6 +6,7 @@ import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
+import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
 
@@ -21,7 +22,7 @@ interface ProfileComponent {
         fun appContext(@AppContext context: Context): Builder
 
         @BindsInstance
-        fun activity(activity: Activity): Builder
+        fun activity(activity: ProfileActivity): Builder
 
         @BindsInstance
         fun dynamicLauncher(launcher: DynamicLauncher): Builder

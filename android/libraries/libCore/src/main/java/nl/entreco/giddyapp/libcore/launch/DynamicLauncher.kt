@@ -18,6 +18,7 @@ class DynamicLauncher @Inject constructor(@AppContext context: Context) : Lifecy
         Log.i("YOGO", "install status: ${state.status()} ${state.errorCode()} ${state.moduleNames()}")
         when (state.status()) {
             SplitInstallSessionStatus.INSTALLED -> {
+                unRegisterListener()
             }
         }
     }
@@ -42,10 +43,12 @@ class DynamicLauncher @Inject constructor(@AppContext context: Context) : Lifecy
             // Ready
             events.postValue(SplitInstallSessionStatus.INSTALLED)
             lifeCycle.removeObserver(this)
+            unRegisterListener()
             return
         }
 
         val request = SplitInstallRequest.newBuilder().addModule(module).build()
+        registerListener()
         manager.startInstall(request)
     }
 }
