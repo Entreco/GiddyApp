@@ -10,7 +10,7 @@ class FetchHorseUsecase @Inject constructor(
 ) {
 
     companion object {
-        private const val BATCH_SIZE = 10
+        private const val BATCH_SIZE = 25
         private const val RANDOM = ""
     }
 
@@ -20,7 +20,7 @@ class FetchHorseUsecase @Inject constructor(
                 request.id.isNullOrBlank() -> (0 until BATCH_SIZE).map { RANDOM }
                 else -> listOf(request.id) + (1 until BATCH_SIZE).map { RANDOM }
             }
-            service.fetch(ids) { response ->
+            service.fetch(ids, request.filterOptions) { response ->
                 onUi { done(FetchHorseResponse(response)) }
             }
         }

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import nl.entreco.giddyapp.libcore.HexString
 import nl.entreco.giddyapp.libhorses.*
+import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -18,11 +19,18 @@ internal class FbHorseService @Inject constructor(
     private val collection = db.collection("horses")
     private val mapper by lazy { HorseMapper() }
 
-    override fun fetch(ids: List<String>, done: (List<Horse>) -> Unit) {
-        collection.get().addOnSuccessListener { query ->
+    override fun fetch(ids: List<String>, filterOptions: FilterOptions, done: (List<Horse>) -> Unit) {
+        Log.i("FILTER", "filter: $filterOptions")
+
+        val inc = filterOptions.includes()
+        val exc = filterOptions.excludes()
+
+        Log.i("FILTER", "includes: $inc")
+        Log.i("FILTER", "excludes: $exc")
+        collection.limit(ids.size.toLong()).get().addOnSuccessListener { snapshot ->
             val horses = when {
-                query.isEmpty -> emptyList()
-                else -> mapResults(ids, query)
+                snapshot.isEmpty -> emptyList()
+                else -> mapResults(ids, snapshot)
             }
             done(horses)
         }.addOnFailureListener {

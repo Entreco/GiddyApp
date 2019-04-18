@@ -1,10 +1,8 @@
 package nl.entreco.giddyapp.libhorses.swap
 
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
-import nl.entreco.giddyapp.libhorses.fetch.FetchImageRequest
-import nl.entreco.giddyapp.libhorses.fetch.FetchImageUsecase
+import nl.entreco.giddyapp.libhorses.HorseDetail
+import nl.entreco.giddyapp.libhorses.fetch.*
 import java.util.*
 import javax.inject.Inject
 
@@ -15,9 +13,11 @@ class SwapHorseUsecase @Inject constructor(
 
     private val horses = mutableListOf<Horse>()
     private val queue = ArrayDeque<String>()
+    private lateinit var filterOptions: FilterOptions
     var onPreloadListener: PreloadListener? = null
 
-    fun initWith(collection: List<Horse>) {
+    fun initWith(collection: List<Horse>, filterOptions: FilterOptions) {
+        this.filterOptions = filterOptions
         val atLeastOne = if (collection.isEmpty()) listOf(Horse.none()) else collection
         horses.addAll(atLeastOne)
         queue.clear()
@@ -45,9 +45,9 @@ class SwapHorseUsecase @Inject constructor(
     private fun ensure() {
         if (horses.isEmpty()) throw IllegalStateException("need to add horses first")
         if (queue.isEmpty()) {
-            initWith(emptyList())
-            fetchHorseUsecase.go(FetchHorseRequest()) { response ->
-                initWith(response.horses)
+            initWith(emptyList(), filterOptions)
+            fetchHorseUsecase.go(FetchHorseRequest(filterOptions = filterOptions)) { response ->
+                initWith(response.horses, filterOptions)
             }
         }
     }
@@ -67,6 +67,8 @@ class SwapHorseUsecase @Inject constructor(
             }
         }
     }
+
+    fun improve(detail: HorseDetail, like: Boolean) = filterOptions.improve(detail, like)
 
     interface PreloadListener {
         fun onImageReady(horse: Horse)

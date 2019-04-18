@@ -50,8 +50,8 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         supportActionBar?.title = ""
     }
 
-    override fun onNext() {
-        viewModel.onNext()
+    override fun onNext(like: Boolean) {
+        viewModel.onNext(like)
         nextFragment()
     }
 

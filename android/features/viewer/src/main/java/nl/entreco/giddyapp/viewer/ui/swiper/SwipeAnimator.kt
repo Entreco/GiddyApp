@@ -25,7 +25,7 @@ internal class SwipeAnimator(private val view: SwipeHorseView) {
                 onUpdate(value)
             }
             addEndListener { _, _, _, _ ->
-                swipeListener?.onNext()
+                swipeListener?.onNext(xTarget > 0F)
             }
             animateToFinalPosition(xTarget)
         }
