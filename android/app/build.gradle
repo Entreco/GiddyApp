@@ -12,7 +12,6 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         setProperty("archivesBaseName", "${appName}-${versionName}")
-
         resValue "string", "version", "\"${appName}-${versionName}\""
 
         resConfigs "en", "nl"

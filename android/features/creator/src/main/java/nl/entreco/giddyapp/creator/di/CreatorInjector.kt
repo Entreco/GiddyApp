@@ -9,7 +9,7 @@ import nl.entreco.giddyapp.libcore.di.DiProvider
 internal object CreatorInjector {
 
     inline fun CreatorActivity.fromModule(
-        mode: LazyThreadSafetyMode = kotlin.LazyThreadSafetyMode.NONE,
+        mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> CreatorModule
     ): Lazy<CreatorComponent> = kotlin.lazy(mode) {
         val component = featureComponent()

@@ -45,7 +45,7 @@ class BottomProgressView @JvmOverloads constructor(
         binding.fab.hide()
     }
 
-    override fun setOnClickListener(listener: View.OnClickListener) {
+    override fun setOnClickListener(listener: OnClickListener) {
         binding.fab.setOnClickListener { fab ->
             binding.fab.animate()
                 .withStartAction {

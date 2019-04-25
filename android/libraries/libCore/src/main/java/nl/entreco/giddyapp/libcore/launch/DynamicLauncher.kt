@@ -1,54 +1,48 @@
 package nl.entreco.giddyapp.libcore.launch
 
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import nl.entreco.giddyapp.libcore.di.AppContext
+import nl.entreco.giddyapp.libcore.di.AppScope
+import nl.entreco.giddyapp.libcore.toSingleEvent
 import javax.inject.Inject
 
-class DynamicLauncher @Inject constructor(@AppContext context: Context) : LifecycleObserver {
+class DynamicLauncher @Inject constructor(@AppScope private val manager: SplitInstallManager) {
 
-    private val manager = SplitInstallManagerFactory.create(context)
     private val stateListener = SplitInstallStateUpdatedListener { state ->
         events.postValue(state.status())
         Log.i("YOGO", "install status: ${state.status()} ${state.errorCode()} ${state.moduleNames()}")
         when (state.status()) {
-            SplitInstallSessionStatus.INSTALLED -> {
-                unRegisterListener()
-            }
+            SplitInstallSessionStatus.INSTALLED -> unregister()
         }
     }
 
     private val events = MutableLiveData<Int>()
-    fun listen(): LiveData<Int> = events
 
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun registerListener() {
-        manager.registerListener(stateListener)
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun unRegisterListener() {
-        manager.unregisterListener(stateListener)
-    }
-
-    fun launch(lifeCycle: Lifecycle, module: String) {
-        lifeCycle.addObserver(this)
-        if (manager.installedModules.contains(module)) {
-            // Ready
-            events.postValue(SplitInstallSessionStatus.INSTALLED)
-            lifeCycle.removeObserver(this)
-            unRegisterListener()
-            return
+    fun listen(module: String): LiveData<Int> {
+        return events.toSingleEvent().also {
+            when (manager.installedModules.contains(module)) {
+                true -> launch()
+                else -> requestInstall(module)
+            }
         }
+    }
 
+    private fun launch() {
+        events.postValue(SplitInstallSessionStatus.INSTALLED)
+    }
+
+    private fun requestInstall(module: String) {
+        manager.registerListener(stateListener)
         val request = SplitInstallRequest.newBuilder().addModule(module).build()
-        registerListener()
         manager.startInstall(request)
+    }
+
+    private fun unregister() {
+        manager.unregisterListener(stateListener)
     }
 }

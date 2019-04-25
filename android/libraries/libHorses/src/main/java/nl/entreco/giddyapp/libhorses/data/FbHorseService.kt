@@ -59,6 +59,8 @@ internal class FbHorseService @Inject constructor(
             document.set(horse).addOnSuccessListener {
                 // TODO: Extract extension from Image
                 done(document.id)
+            }.addOnFailureListener {
+                done(it.localizedMessage)
             }
         }
     }

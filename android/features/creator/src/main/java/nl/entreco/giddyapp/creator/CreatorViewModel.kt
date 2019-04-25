@@ -1,17 +1,13 @@
 package nl.entreco.giddyapp.creator
 
-import android.net.Uri
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.libcore.SingleLiveEvent
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
-import nl.entreco.giddyapp.libcropper.CropImageView
+import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
 import nl.entreco.giddyapp.libpicker.SelectedImage
@@ -25,7 +21,7 @@ class CreatorViewModel @Inject constructor(
 
     private val stateStack = ArrayDeque<CreatorState>()
     private val state = MutableLiveData<CreatorState>()
-    private val events = SingleLiveEvent<CreatorState.Event>()
+    private val events = MutableLiveData<CreatorState.Event>()
     val currentState = ObservableField<BottomProgressModel>()
 
     init {
@@ -37,8 +33,8 @@ class CreatorViewModel @Inject constructor(
         return state
     }
 
-    fun events(): SingleLiveEvent<CreatorState.Event> {
-        return events
+    fun events(): LiveData<CreatorState.Event> {
+        return events.toSingleEvent()
     }
 
     private fun postEvent(event: CreatorState.Event) {
@@ -54,8 +50,7 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun onProceed() {
-        val current = stateStack.last
-        when (current) {
+        when (stateStack.last) {
             is CreatorState.Crop -> postEvent(CreatorState.Event.Resize)
             is CreatorState.EntryName -> postEvent(CreatorState.Event.EnterName)
             is CreatorState.EntryDescription -> postEvent(CreatorState.Event.EnterDesc)
@@ -130,36 +125,12 @@ class CreatorViewModel @Inject constructor(
         }
     }
 
-    fun popSate() : Boolean {
+    fun popSate(): Boolean {
         return if (stateStack.size > 1) {
             stateStack.removeLast()
             true
         } else {
             false
-        }
-    }
-
-    companion object {
-
-        @JvmStatic
-        @BindingAdapter("ga_preview")
-        fun preview(view: CropImageView, uri: Uri?) {
-            view.setAspectRatio(1, 1)
-            view.setMinCropSize(1050)
-            view.setFixedAspectRatio(true)
-            view.setMultiTouchEnabled(false)
-            view.setSnapRadius(10f)
-            view.setImageUriAsync(uri)
-            view.cropShape = CropImageView.CropShape.RECTANGLE
-        }
-
-        @JvmStatic
-        @BindingAdapter("ga_preview")
-        fun preview(view: ImageView, uri: Uri?) {
-            view.setImageURI(null)
-            if (uri != null) {
-                view.setImageURI(uri)
-            }
         }
     }
 }

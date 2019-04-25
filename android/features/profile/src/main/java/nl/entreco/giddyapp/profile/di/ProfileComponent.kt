@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.profile.di
 
-import android.app.Activity
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component

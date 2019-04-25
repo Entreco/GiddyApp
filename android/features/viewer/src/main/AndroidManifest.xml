@@ -16,6 +16,7 @@
                 android:excludeFromRecents="false"
                 android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
+                android:launchMode="singleTop"
                 android:theme="@style/AppTheme.ViewerTheme">
 
             <meta-data

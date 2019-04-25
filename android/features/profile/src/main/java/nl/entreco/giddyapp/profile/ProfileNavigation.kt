@@ -3,19 +3,19 @@ package nl.entreco.giddyapp.profile
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
+import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
     private val activity: ProfileActivity,
-    private val dynamicLauncher: DynamicLauncher
+    @AppScope private val dynamicLauncher: DynamicLauncher
 ) {
 
     fun launchCreator() {
 
-        dynamicLauncher.launch(activity.lifecycle, "creator")
-        dynamicLauncher.listen().observe(activity, Observer { state ->
+        dynamicLauncher.listen("creator").observe(activity, Observer { state ->
             when (state) {
                 SplitInstallSessionStatus.INSTALLED -> {
                     LaunchHelper.launchCreator(activity, null)
