@@ -6,6 +6,8 @@ import android.util.DisplayMetrics
 import com.google.firebase.FirebaseApp
 import dagger.BindsInstance
 import dagger.Component
+import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.di.AuthModule
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.di.DynamicModule
@@ -16,11 +18,12 @@ import nl.entreco.giddyapp.libimg.di.ImageModule
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 
 @AppScope
-@Component(modules = [FeatureModule::class, DynamicModule::class, HorseModule::class, ImageModule::class])
+@Component(modules = [FeatureModule::class, DynamicModule::class, HorseModule::class, ImageModule::class, AuthModule::class])
 interface FeatureComponent {
     @AppContext
     fun appContext(): Context
 
+    fun auth(): Authenticator
     fun horseService(): HorseService
     fun imageLoader(): ImageLoader
     fun metrics(): DisplayMetrics
