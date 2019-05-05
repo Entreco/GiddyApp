@@ -25,14 +25,17 @@ android {
 
 dependencies {
 
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     api "com.google.android.play:core:$playCore"
     api "com.google.android.gms:play-services-instantapps:$playInstant"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    api "androidx.appcompat:appcompat:$xAppcompat"
     api "com.google.android.material:material:$material"
+
+    api "androidx.appcompat:appcompat:$xAppcompat"
+
     api "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
     api "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
 

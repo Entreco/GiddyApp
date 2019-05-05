@@ -22,18 +22,10 @@ allprojects {
     }
 }
 
-configurations.all {
-    resolutionStrategy {
-        force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-        force "com.google.firebase:firebase-common:$fbCommon"
-    }
-}
-
 subprojects {
     project.configurations.all {
         resolutionStrategy {
             force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-            force "com.google.firebase:firebase-common:$fbCommon"
         }
     }
 }

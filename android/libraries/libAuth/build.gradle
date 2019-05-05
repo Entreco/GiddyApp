@@ -25,5 +25,4 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     implementation "com.google.firebase:firebase-auth:$fbAuth"
-    implementation "com.google.android.gms:play-services-auth:$playAuth"
 }

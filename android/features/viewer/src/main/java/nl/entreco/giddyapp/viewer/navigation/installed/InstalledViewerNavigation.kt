@@ -1,18 +1,17 @@
 package nl.entreco.giddyapp.viewer.navigation.installed
 
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
+import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.di.ViewerScope
@@ -38,16 +37,12 @@ class InstalledViewerNavigation @Inject constructor(
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) = filterPanel.toggle()
 
     override fun onProfileClicked() {
-        dynamicLauncher.listen("profile").observe(activity, Observer { state ->
-            when (state) {
-                SplitInstallSessionStatus.INSTALLED -> LaunchHelper.launchProfile(activity, null)
-                SplitInstallSessionStatus.FAILED -> Toast.makeText(
-                    activity,
-                    "Installation failed",
-                    Toast.LENGTH_SHORT
-                ).show()
+        ProfileNavigator.launch(activity) { progress, intent ->
+            Log.i("WOOP", "progress: $progress")
+            intent?.let {
+                activity.startActivity(intent)
             }
-        })
+        }
     }
 
     override fun onShareClicked(horseId: String) = LaunchHelper.share(activity, horseId)

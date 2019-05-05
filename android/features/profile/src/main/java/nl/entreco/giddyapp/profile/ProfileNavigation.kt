@@ -1,11 +1,14 @@
 package nl.entreco.giddyapp.profile
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
+import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
+import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
@@ -14,20 +17,13 @@ class ProfileNavigation @Inject constructor(
 ) {
 
     fun launchCreator() {
-
-        dynamicLauncher.listen("creator").observe(activity, Observer { state ->
-            when (state) {
-                SplitInstallSessionStatus.INSTALLED -> {
-                    LaunchHelper.launchCreator(activity, null)
-                    activity.finish()
-                }
-                SplitInstallSessionStatus.FAILED -> Toast.makeText(
-                    activity,
-                    "Installation failed",
-                    Toast.LENGTH_SHORT
-                ).show()
+        CreatorNavigator.launch(activity) { progress, intent ->
+            Log.i("WOOP", "progress: $progress")
+            intent?.let {
+                activity.startActivity(intent)
+                activity.finish()
             }
-        })
+        }
     }
 
     fun launchSettings() {

@@ -30,6 +30,6 @@ object FeatureModule {
     @JvmStatic
     @AppScope
     fun provideFirebaseApp(): FirebaseApp {
-        return FirebaseApp.getInstance()!!
+        return FirebaseApp.getInstance()
     }
 }
