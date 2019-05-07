@@ -6,14 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.HorseDetail
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.swap.SwapHorseUsecase
 import nl.entreco.giddyapp.viewer.di.ViewerUrl
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
-import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
@@ -35,7 +33,7 @@ class ViewerViewModel @Inject constructor(
 
     private fun onHorsesFetched(): (FetchHorseResponse) -> Unit {
         return { response ->
-            swapHorseUsecase.initWith(response.horses, FilterOptions())
+            swapHorseUsecase.initWith(response.horses)
             swap()
         }
     }
@@ -61,14 +59,7 @@ class ViewerViewModel @Inject constructor(
     }
 
     fun onNext(like: Boolean) {
-        buildFilterOptions(current.value?.details, like)
         swap()
-    }
-
-    private fun buildFilterOptions(details: HorseDetail?, like: Boolean) {
-        details?.let {
-            swapHorseUsecase.improve(it, like)
-        }
     }
 
     override fun onSlide(offset: Float) {

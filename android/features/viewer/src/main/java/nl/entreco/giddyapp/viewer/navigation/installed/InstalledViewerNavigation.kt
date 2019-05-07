@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.viewer.navigation.installed
 
-import android.util.Log
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -16,17 +15,17 @@ import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.di.ViewerScope
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
-import nl.entreco.giddyapp.viewer.ui.filter.FilterPanel
+import nl.entreco.giddyapp.viewer.ui.filter.SearchPanelBehavior
 import javax.inject.Inject
 
 class InstalledViewerNavigation @Inject constructor(
     private val activity: ViewerActivity,
     @AppScope private val dynamicLauncher: DynamicLauncher,
-    @ViewerScope private val filterPanel: FilterPanel
+    @ViewerScope private val filterPanel: SearchPanelBehavior
 ) : ViewerNavigation {
 
     override val fabIcon: Int
-        get() = R.drawable.ic_filter
+        get() = R.drawable.ic_search
 
     override val fabText: Int
         get() = 0
@@ -38,7 +37,6 @@ class InstalledViewerNavigation @Inject constructor(
 
     override fun onProfileClicked() {
         ProfileNavigator.launch(activity) { progress, intent ->
-            Log.i("WOOP", "progress: $progress")
             intent?.let {
                 activity.startActivity(intent)
             }

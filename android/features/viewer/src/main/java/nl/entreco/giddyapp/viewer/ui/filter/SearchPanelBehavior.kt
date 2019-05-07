@@ -1,15 +1,16 @@
 package nl.entreco.giddyapp.viewer.ui.filter
 
-import android.util.Log
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 import nl.entreco.giddyapp.viewer.di.FilterBehaviour
 import nl.entreco.giddyapp.viewer.di.ViewerScope
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 @ViewerScope
-class FilterPanel @Inject constructor(
+class SearchPanelBehavior @Inject constructor(
     @FilterBehaviour private val behaviour: BottomSheetBehavior<View>
 ) {
 
@@ -31,8 +32,7 @@ class FilterPanel @Inject constructor(
                         BottomSheetBehavior.STATE_DRAGGING,
                         BottomSheetBehavior.STATE_SETTLING,
                         BottomSheetBehavior.STATE_HALF_EXPANDED,
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                        }
+                        BottomSheetBehavior.STATE_HIDDEN -> { }
                     }
                 }
             })
@@ -40,7 +40,6 @@ class FilterPanel @Inject constructor(
     }
 
     private fun expand() {
-        Log.i("WTF", "FilterPanel $this")
         isExpanded.set(true)
         behaviour.state = BottomSheetBehavior.STATE_EXPANDED
     }

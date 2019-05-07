@@ -36,7 +36,7 @@ internal class ImageHelper(private val activity: Activity) {
         }
     }
 
-    private fun toContentUri(file: File) : Uri {
+    private fun toContentUri(file: File): Uri {
         return FileProvider.getUriForFile(activity, "nl.entreco.giddyapp.libpicker.provider", file)
     }
 

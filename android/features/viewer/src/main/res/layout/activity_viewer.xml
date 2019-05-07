@@ -83,9 +83,14 @@
                 app:horseId="@{viewModel.details.horseId}"
                 app:navigation="@{navigation}"/>
 
-        <include
-                layout="@layout/filter_viewer"
-                android:id="@+id/include_filter_viewer"/>
+        <nl.entreco.giddyapp.viewer.ui.filter.SearchPanel
+                android:id="@+id/include_search_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/xlarge"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="0dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -2,6 +2,8 @@
 <resources>
 
     <string name="install">installeren</string>
+    <string name="search_title">Zoek opties</string>
+    <string name="search_hint">Zoeken</string>
     <string name="filter_title">Filter opties</string>
 
     <string name="cd_like">Yes, love this horse</string>

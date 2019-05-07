@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libhorses.di
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
@@ -16,7 +15,6 @@ object HorseModule {
     @Provides
     @JvmStatic
     internal fun provideFireStore(): FirebaseFirestore {
-        Log.i("DEPINJ", "provide FireStore")
         val fireStore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()
             .setTimestampsInSnapshotsEnabled(true)
@@ -28,7 +26,6 @@ object HorseModule {
     @Provides
     @JvmStatic
     internal fun provideFireStorage(): FirebaseStorage {
-        Log.i("DEPINJ", "provide FireStorage")
         return FirebaseStorage.getInstance()
     }
 
@@ -36,7 +33,6 @@ object HorseModule {
     @JvmStatic
     @AppScope
     internal fun provideFbHorseService(db: FirebaseFirestore, storage: FirebaseStorage): HorseService {
-        Log.i("DEPINJ", "provide FbHorseService")
         return FbHorseService(db, storage)
     }
 }

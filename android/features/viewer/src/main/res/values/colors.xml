@@ -4,4 +4,5 @@
     <color name="fill_activated">#FF3C3C</color>
     <color name="fill_selected">#76FF79</color>
     <color name="fill_normal">#ffffff</color>
+    <color name="search_accent">#FF5722</color>
 </resources>

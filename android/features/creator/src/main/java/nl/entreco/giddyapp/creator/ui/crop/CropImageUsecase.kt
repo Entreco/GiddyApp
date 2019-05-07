@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.creator.ui.crop
 
-import android.util.Log
 import nl.entreco.giddyapp.libcore.onBg
 import nl.entreco.giddyapp.libpicker.ImagePicker
 import javax.inject.Inject
@@ -18,7 +17,6 @@ class CropImageUsecase @Inject constructor(
                             result(CropImageResult.Success(img))
                         }
                     } else {
-                        Log.e("OOPS", "error cropping: ${result.error}")
                         result(CropImageResult.Error(result.error?.localizedMessage ?: "unknown error"))
                     }
                 }

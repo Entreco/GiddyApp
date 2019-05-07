@@ -8,6 +8,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.Module
 import dagger.Provides
+import kotlinx.android.synthetic.main.search_panel.view.*
 import nl.entreco.giddyapp.libcore.di.ActivityContext
 import nl.entreco.giddyapp.libcore.ui.SheetBehavior
 import nl.entreco.giddyapp.viewer.ViewerActivity
@@ -41,7 +42,7 @@ class ViewerModule(private val url: String?, private val binding: ActivityViewer
     @ViewerScope
     @FilterBehaviour
     fun provideFilterBehaviour(): BottomSheetBehavior<View> =
-        BottomSheetBehavior.from(binding.includeFilterViewer.filter)
+        BottomSheetBehavior.from(binding.includeSearchPanel)
 
     @Provides
     @ViewerScope

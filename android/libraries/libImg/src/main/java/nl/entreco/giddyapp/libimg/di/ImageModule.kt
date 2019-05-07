@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.libimg.di
 
 import android.util.DisplayMetrics
-import android.util.Log
 import dagger.Module
 import dagger.Provides
 import nl.entreco.giddyapp.libcore.di.AppScope
@@ -15,7 +14,6 @@ object ImageModule {
     @JvmStatic
     @AppScope
     fun provideImageLoader(metrics: DisplayMetrics): ImageLoader {
-        Log.i("DEPINJ", "provide Glide")
         return GlideImageLoader(metrics.widthPixels, metrics.heightPixels)
     }
 }

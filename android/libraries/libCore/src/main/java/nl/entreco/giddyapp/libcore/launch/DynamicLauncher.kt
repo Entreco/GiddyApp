@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libcore.launch
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.play.core.splitinstall.SplitInstallManager
@@ -15,7 +14,6 @@ class DynamicLauncher @Inject constructor(@AppScope private val manager: SplitIn
 
     private val stateListener = SplitInstallStateUpdatedListener { state ->
         events.postValue(state.status())
-        Log.i("YOGO", "install status: ${state.status()} ${state.errorCode()} ${state.moduleNames()}")
         when (state.status()) {
             SplitInstallSessionStatus.INSTALLED -> unregister()
         }

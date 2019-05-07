@@ -13,14 +13,14 @@ import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.ViewerViewModel
 import nl.entreco.giddyapp.viewer.navigation.ViewerNavigation
 import nl.entreco.giddyapp.viewer.ui.ToolbarAnimator
-import nl.entreco.giddyapp.viewer.ui.filter.FilterPanel
+import nl.entreco.giddyapp.viewer.ui.filter.SearchPanelBehavior
 
 @ViewerScope
 @Component(modules = [ViewerModule::class, SoundModule::class])
 interface ViewerComponent {
     fun viewModel(): ViewerViewModel
     fun sheet(): DetailSheet
-    fun filter(): FilterPanel
+    fun filter(): SearchPanelBehavior
     fun navigation(): ViewerNavigation
     fun animator(): ToolbarAnimator
     fun plus(module: SwipeModule): SwipeComponent
