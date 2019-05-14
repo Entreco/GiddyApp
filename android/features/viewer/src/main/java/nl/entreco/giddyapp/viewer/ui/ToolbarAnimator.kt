@@ -8,8 +8,10 @@ import nl.entreco.giddyapp.libcore.doOnLayout
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import javax.inject.Inject
 
-class ToolbarAnimator @Inject constructor(window: Window, private val appbar: AppBarLayout) :
-    DetailSheet.SlideListener {
+class ToolbarAnimator @Inject constructor(
+    window: Window,
+    private val appbar: AppBarLayout
+) : DetailSheet.SlideListener {
 
     private var height: Int = 0
 
@@ -27,10 +29,5 @@ class ToolbarAnimator @Inject constructor(window: Window, private val appbar: Ap
         }
     }
 
-    override fun onSlide(offset: Float) {
-        appbar.animate()
-            .alpha(offset + 0.07F)
-            .setDuration(0)
-            .start()
-    }
+    override fun onSlide(offset: Float) {}
 }

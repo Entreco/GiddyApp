@@ -10,15 +10,10 @@ import nl.entreco.giddyapp.libauth.firebase.FbAuth
 @Module
 object AuthModule {
 
-    @JvmStatic
     @Provides
-    internal fun provideFirebaseAuth(fbApp: FirebaseApp) : FirebaseAuth {
-        return FirebaseAuth.getInstance(fbApp)
-    }
-
     @JvmStatic
-    @Provides
-    internal fun provideAuthenticator(fbAuth: FirebaseAuth) : Authenticator {
+    fun provideAuthenticator(fbApp: FirebaseApp): Authenticator {
+        val fbAuth = FirebaseAuth.getInstance(fbApp)
         return FbAuth(fbAuth)
     }
 }

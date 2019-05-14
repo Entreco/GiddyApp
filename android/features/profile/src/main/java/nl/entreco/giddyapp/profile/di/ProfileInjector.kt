@@ -13,7 +13,7 @@ internal object ProfileInjector {
             .appContext(component.appContext())
             .activity(this)
             .dynamicLauncher(component.dynamicLauncher())
-            .module(provider())
+            .authentication(component.authentication())
             .build()
     }
 }

@@ -3,6 +3,7 @@ package nl.entreco.giddyapp.profile.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.profile.ProfileActivity
@@ -26,7 +27,9 @@ interface ProfileComponent {
         @BindsInstance
         fun dynamicLauncher(launcher: DynamicLauncher): Builder
 
-        fun module(module: ProfileModule): Builder
+        @BindsInstance
+        fun authentication(auth: Authenticator): Builder
+
         fun build(): ProfileComponent
     }
 }

@@ -3,4 +3,4 @@ package nl.entreco.giddyapp.profile.di
 import dagger.Module
 
 @Module
-class ProfileModule
+object ProfileModule

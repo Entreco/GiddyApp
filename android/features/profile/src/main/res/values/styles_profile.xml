@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ProfileMenuItem" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="ProfileSubItem" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:padding">8dp</item>
+    </style>
+</resources>

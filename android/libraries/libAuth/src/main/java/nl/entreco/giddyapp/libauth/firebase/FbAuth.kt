@@ -1,30 +1,38 @@
 package nl.entreco.giddyapp.libauth.firebase
 
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import nl.entreco.giddyapp.libauth.Authenticator
-import nl.entreco.giddyapp.libauth.user.*
+import nl.entreco.giddyapp.libauth.user.SigninMethod
+import nl.entreco.giddyapp.libauth.user.User
 import javax.inject.Inject
 
-class FbAuth @Inject constructor(private val auth: FirebaseAuth) : Authenticator {
+internal class FbAuth @Inject constructor(private val auth: FirebaseAuth) : Authenticator {
     override fun current(done: (User) -> Unit) {
         val user = auth.currentUser
-        if (user != null && user.isAnonymous) done(AnomymousUser(user.uid))
-        else if (user != null && !user.isAnonymous) done(AuthenticatedUser(user.uid))
+        if (user != null && user.isAnonymous) done(User.Anomymous(user.uid))
+        else if (user != null && !user.isAnonymous) done(User.Authenticated(user.uid))
         else {
             auth.signInAnonymously().addOnCompleteListener { task ->
-                if (task.isSuccessful) done(AnomymousUser(auth.currentUser!!.uid))
-                else done(ErrorUser(task.exception?.localizedMessage ?: "Unknown error"))
+                if (task.isSuccessful) done(User.Anomymous(auth.currentUser!!.uid))
+                else done(User.Error(task.exception?.localizedMessage ?: "Unknown error"))
             }
         }
     }
 
     override fun link(provider: SigninMethod, done: (User) -> Unit) {
-        auth.currentUser?.linkWithCredential(provider.credentials())?.addOnCompleteListener { task ->
+        val credentials = when (provider) {
+            is SigninMethod.Google -> GoogleAuthProvider.getCredential(provider.googleIdToken, null)
+            is SigninMethod.EmailSignIn -> EmailAuthProvider.getCredential(provider.email, provider.password)
+        }
+
+        auth.currentUser?.linkWithCredential(credentials)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.user!!
-                done(AuthenticatedUser(user.uid))
+                done(User.Authenticated(user.uid))
             } else {
-                done(ErrorUser(task.exception?.localizedMessage ?: "Error linking account"))
+                done(User.Error(task.exception?.localizedMessage ?: "Error linking account"))
             }
         }
     }
