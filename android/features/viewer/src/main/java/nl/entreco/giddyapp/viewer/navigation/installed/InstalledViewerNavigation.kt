@@ -1,16 +1,17 @@
 package nl.entreco.giddyapp.viewer.navigation.installed
 
+import android.app.ActivityOptions
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
-import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.di.ViewerScope
@@ -35,12 +36,23 @@ class InstalledViewerNavigation @Inject constructor(
 
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) = filterPanel.toggle()
 
-    override fun onProfileClicked() {
-        ProfileNavigator.launch(activity) { progress, intent ->
-            intent?.let {
-                activity.startActivity(intent)
-            }
-        }
+    override fun onProfileClicked(view: View) {
+        val reveal = ActivityOptionsCompat.makeClipRevealAnimation(
+            view,
+            (view.x + view.width / 2).toInt(),
+            (view.y + view.height / 2).toInt(),
+            0,
+            0
+        )
+        val transition = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, view.transitionName)
+        val doh = ActivityOptionsCompat.makeSceneTransitionAnimation(activity)
+
+        LaunchHelper.launchProfile(activity, reveal)
+//        ProfileNavigator.launch(activity) { progress, intent ->
+//            intent?.let {
+//                activity.startActivity(intent)
+//            }
+//        }
     }
 
     override fun onShareClicked(horseId: String) = LaunchHelper.share(activity, horseId)

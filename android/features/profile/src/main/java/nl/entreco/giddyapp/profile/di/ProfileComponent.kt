@@ -28,7 +28,7 @@ interface ProfileComponent {
         fun dynamicLauncher(launcher: DynamicLauncher): Builder
 
         @BindsInstance
-        fun authentication(auth: Authenticator): Builder
+        fun auth(auth: Authenticator): Builder
 
         fun build(): ProfileComponent
     }

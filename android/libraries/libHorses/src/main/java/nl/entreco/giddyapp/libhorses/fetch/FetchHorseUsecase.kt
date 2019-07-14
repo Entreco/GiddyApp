@@ -10,7 +10,7 @@ class FetchHorseUsecase @Inject constructor(
 ) {
 
     companion object {
-        private const val BATCH_SIZE = 25
+        private const val BATCH_SIZE = 10
         private const val RANDOM = ""
     }
 

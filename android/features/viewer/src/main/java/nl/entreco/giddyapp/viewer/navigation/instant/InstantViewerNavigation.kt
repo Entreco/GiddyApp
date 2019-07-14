@@ -39,7 +39,7 @@ class InstantViewerNavigation @Inject constructor(
         InstantApps.showInstallPrompt(activity, postInstallIntent, REQUEST_CODE, REFERRER)
     }
 
-    override fun onProfileClicked() {
+    override fun onProfileClicked(view: View) {
         throw IllegalStateException("InstantViewerNavigation should not have Profile")
     }
 

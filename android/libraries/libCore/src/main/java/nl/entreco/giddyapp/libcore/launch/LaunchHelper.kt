@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.ShareCompat
 
 object LaunchHelper {
@@ -15,17 +16,17 @@ object LaunchHelper {
     const val URL_CREATOR = "$URL_BASE/creator/"
     const val URL_PROFILE = "$URL_BASE/profile/"
 
-    fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = null) {
+    fun launchViewer(activity: Activity, options: ActivityOptionsCompat? = null, id: String? = null) {
         val viewer = viewerIntent(activity, id)
         launch(viewer, options, activity)
     }
 
-    fun launchCreator(activity: Activity, options: ActivityOptions? = null) {
+    fun launchCreator(activity: Activity, options: ActivityOptionsCompat? = null) {
         val creator = creatorIntent(activity)
         launch(creator, options, activity)
     }
 
-    fun launchProfile(activity: Activity, options: ActivityOptions? = null) {
+    fun launchProfile(activity: Activity, options: ActivityOptionsCompat? = null) {
         val profile = profileIntent(activity)
         launch(profile, options, activity)
     }
@@ -38,19 +39,19 @@ object LaunchHelper {
             .startChooser()
     }
 
-    private fun viewerIntent(context: Context? = null, id: String? = null) =
+    private fun viewerIntent(context: Context, id: String? = null) =
         baseIntent(
             URL_VIEWER + id,
             context
         )
-    private fun creatorIntent(context: Context? = null) = baseIntent(
+    private fun creatorIntent(context: Context) = baseIntent(
         URL_CREATOR,
         context
     )
-    private fun profileIntent(context: Context? = null) = baseIntent(
-        URL_PROFILE,
-        context
-    )
+
+    private fun profileIntent(context: Context) = Intent("nl.entreco.profile.open").apply {
+        `package` = context.packageName
+    }
 
     private fun baseIntent(url: String, context: Context? = null): Intent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -62,7 +63,7 @@ object LaunchHelper {
         return intent
     }
 
-    private fun launch(intent: Intent, options: ActivityOptions?, activity: Activity) {
+    private fun launch(intent: Intent, options: ActivityOptionsCompat?, activity: Activity) {
         if (options == null) {
             activity.startActivity(intent)
         } else {

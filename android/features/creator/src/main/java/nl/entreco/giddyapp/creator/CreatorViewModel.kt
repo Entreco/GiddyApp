@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
+import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
@@ -16,12 +18,14 @@ import java.util.*
 import javax.inject.Inject
 
 class CreatorViewModel @Inject constructor(
-    private val createHorseUsecase: CreateHorseUsecase
+    private val createHorseUsecase: CreateHorseUsecase,
+    private val authenticator: Authenticator
 ) : ViewModel(), SelectCallback {
 
     private val stateStack = ArrayDeque<CreatorState>()
     private val state = MutableLiveData<CreatorState>()
     private val events = MutableLiveData<CreatorState.Event>()
+    private val snacks = MutableLiveData<String>()
     val currentState = ObservableField<BottomProgressModel>()
 
     init {
@@ -29,13 +33,9 @@ class CreatorViewModel @Inject constructor(
         state.postValue(stateStack.last)
     }
 
-    fun state(): LiveData<CreatorState> {
-        return state
-    }
-
-    fun events(): LiveData<CreatorState.Event> {
-        return events.toSingleEvent()
-    }
+    fun state(): LiveData<CreatorState> = state
+    fun events(): LiveData<CreatorState.Event> = events.toSingleEvent()
+    fun snacks(): LiveData<String> = snacks.toSingleEvent()
 
     private fun postEvent(event: CreatorState.Event) {
         events.postValue(event)
@@ -112,8 +112,19 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun startUpload(model: EntryModel) {
+        authenticator.current { user ->
+            when (user) {
+                is User.Authenticated -> uploadForUser(user.uid, model)
+                is User.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
+                else -> { /* Show Error login */ }
+            }
+        }
+    }
+
+    private fun uploadForUser(uid: String, model: EntryModel) {
         createHorseUsecase.go(
             CreateHorseRequest(
+                uid,
                 model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
                 model.horseDetail.price, model.horseDetail.category, model.horseDetail.type,
                 model.image.uri, model.image.startColor, model.image.endColor

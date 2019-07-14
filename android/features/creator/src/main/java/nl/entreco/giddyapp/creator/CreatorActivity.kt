@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import nl.entreco.giddyapp.creator.databinding.ActivityCreatorBinding
 import nl.entreco.giddyapp.creator.di.CreatorComponent
 import nl.entreco.giddyapp.creator.di.CreatorInjector.fromModule
@@ -31,6 +32,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         binding.viewModel = viewModel
         viewModel.state().observe(this, stateObserver)
         viewModel.events().observe(this, eventObserver)
+        viewModel.snacks().observe(this, snackObserver)
     }
 
     private val stateObserver = Observer<CreatorState> { state ->
@@ -46,6 +48,14 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
             is CreatorState.Event.PickCamera -> picker.selectImage(true)
             is CreatorState.Event.PickGallery -> picker.selectImage(false)
         }
+    }
+
+    private val snackObserver = Observer<String> { item ->
+        Snackbar.make(binding.root, item, Snackbar.LENGTH_INDEFINITE)
+            .setAction("Login") { _ ->
+                // TODO entreco - 2019-07-13: Should add Login Dialog here...
+                finish()
+            }.show()
     }
 
     override fun onResume() {

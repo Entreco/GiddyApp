@@ -31,12 +31,15 @@
                 android:background="@android:color/transparent">
 
             <ImageView
+                    android:id="@+id/viewer_profile"
                     android:contentDescription="@string/cd_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
+                    android:backgroundTint="@color/white"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> navigation.onProfileClicked()}"
+                    android:onClick="@{() -> navigation.onProfileClicked(viewerProfile)}"
+                    android:transitionName="@string/trans_profile_image"
                     android:src="@drawable/ic_profile"/>
 
             <ImageView

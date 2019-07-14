@@ -20,6 +20,7 @@ internal object CreatorInjector {
             .horse(featureComponent().horseService())
             .img(featureComponent().imageLoader())
             .fbApp(featureComponent().fbApp())
+            .auth(featureComponent().authentication())
             .module(provider())
             .build()
     }

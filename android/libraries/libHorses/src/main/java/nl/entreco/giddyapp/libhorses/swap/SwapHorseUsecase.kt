@@ -19,6 +19,7 @@ class SwapHorseUsecase @Inject constructor(
 
     fun initWith(collection: List<Horse>) {
         val atLeastOne = if (collection.isEmpty()) listOf(Horse.none()) else collection
+        horses.clear()
         horses.addAll(atLeastOne)
         queue.clear()
         queue.addAll(atLeastOne.map { it.imageRef })
@@ -43,8 +44,9 @@ class SwapHorseUsecase @Inject constructor(
     }
 
     private fun ensure() {
-        if (horses.isEmpty()) throw IllegalStateException("need to add horses first")
-        if (queue.isEmpty()) {
+        require(horses.isNotEmpty()){ "need to add horses first" }
+        if (queue.size < 1) {
+            queue.add(horses.random().imageRef)
             fetchHorseUsecase.go(FetchHorseRequest()) { response ->
                 initWith(response.horses)
             }

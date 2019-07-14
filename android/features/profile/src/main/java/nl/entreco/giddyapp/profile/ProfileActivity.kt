@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
-import nl.entreco.giddyapp.libcore.observeOnce
 import nl.entreco.giddyapp.profile.databinding.ActivityProfileBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 import nl.entreco.giddyapp.profile.di.ProfileInjector.fromModule

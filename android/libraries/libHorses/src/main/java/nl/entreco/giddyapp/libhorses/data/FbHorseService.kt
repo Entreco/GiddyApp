@@ -16,7 +16,7 @@ internal class FbHorseService @Inject constructor(
     private val storage: FirebaseStorage
 ) : HorseService {
 
-    private val collection = db.collection("horses")
+    private val horseCollection = db.collection("horses")
     private val mapper by lazy { HorseMapper() }
 
     override fun fetch(ids: List<String>, filterOptions: FilterOptions, done: (List<Horse>) -> Unit) {
@@ -27,7 +27,8 @@ internal class FbHorseService @Inject constructor(
 
         Log.i("FILTER", "includes: $inc")
         Log.i("FILTER", "excludes: $exc")
-        collection.limit(ids.size.toLong()).get().addOnSuccessListener { snapshot ->
+
+        horseCollection.get().addOnSuccessListener { snapshot ->
             val horses = when {
                 snapshot.isEmpty -> emptyList()
                 else -> mapResults(ids, snapshot)
@@ -39,6 +40,7 @@ internal class FbHorseService @Inject constructor(
     }
 
     override fun create(
+        user: String,
         name: String,
         description: String,
         gender: HorseGender,
@@ -50,14 +52,13 @@ internal class FbHorseService @Inject constructor(
         endColor: HexString,
         done: (String) -> Unit
     ) {
-        val document = collection.document()
+        val document = horseCollection.document()
 
         // 1) Upload Image
         upload(document.id, image) {
             // 2) Set Image Details
-            val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor)
+            val horse = mapper.create(user, name, description, gender, price, category, level, startColor, endColor)
             document.set(horse).addOnSuccessListener {
-                // TODO: Extract extension from Image
                 done(document.id)
             }.addOnFailureListener {
                 done(it.localizedMessage)
@@ -71,7 +72,7 @@ internal class FbHorseService @Inject constructor(
     ): List<Horse> {
         val nonNull = ids.filter { it.isNotBlank() }.fetchOrNotFound(query)
         val randomRange = ids.size - nonNull.size
-        val randomStart = Random.nextInt(randomRange)
+        val randomStart = Random.nextInt(query.size() - randomRange)
         val random = (randomStart until randomStart + randomRange).map { index ->
             index % query.size()
         }.fetchOrError(query)

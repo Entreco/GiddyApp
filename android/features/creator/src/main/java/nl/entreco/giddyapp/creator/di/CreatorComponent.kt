@@ -8,6 +8,8 @@ import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.creator.CreatorAnimator
 import nl.entreco.giddyapp.creator.CreatorViewModel
+import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.di.AuthModule
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
@@ -40,6 +42,9 @@ interface CreatorComponent {
 
         @BindsInstance
         fun fbApp(app: FirebaseApp): Builder
+
+        @BindsInstance
+        fun auth(auth: Authenticator): Builder
 
         fun module(module: CreatorModule): Builder
 

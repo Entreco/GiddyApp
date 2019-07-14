@@ -17,7 +17,7 @@ object HorseModule {
     internal fun provideFireStore(): FirebaseFirestore {
         val fireStore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()
-            .setTimestampsInSnapshotsEnabled(true)
+            .setPersistenceEnabled(true)
             .build()
         fireStore.firestoreSettings = settings
         return fireStore
