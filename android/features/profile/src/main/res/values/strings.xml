@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_anonymous">Please signup to access all features</string>
+    <string name="profile_authenticated">You rock</string>
+    <string name="profile_error"></string>
+</resources>

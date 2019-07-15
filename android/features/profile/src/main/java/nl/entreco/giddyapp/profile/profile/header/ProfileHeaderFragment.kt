@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.profile.profile
+package nl.entreco.giddyapp.profile.profile.header
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,21 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.libcore.base.parentViewModelProvider
+import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
-import nl.entreco.giddyapp.profile.databinding.FragmentProfileBinding
+import nl.entreco.giddyapp.profile.databinding.FragmentProfileHeaderBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 
-class ProfileFragment : Fragment() {
+class ProfileHeaderFragment : Fragment() {
 
-    private val viewModel: ProfileViewModel by parentViewModelProvider { ProfileViewModel::class.java }
+//    private val parentViewModel: ProfileViewModel by parentViewModelProvider { ProfileViewModel::class.java }
     private val component: ProfileComponent by lazy { (activity as DiProvider<ProfileComponent>).get() }
+    private val viewModel: ProfileHeaderViewModel by viewModelProvider { component.header() }
     private val navigation: ProfileNavigation by lazy { component.navigation() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentProfileBinding.inflate(inflater, container, false)
-        binding.profile = viewModel.state().value
+        val binding = FragmentProfileHeaderBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         return binding.root
     }
 }

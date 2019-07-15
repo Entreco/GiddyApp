@@ -1,10 +1,12 @@
 package nl.entreco.giddyapp.profile.profile
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 
-sealed class ProfileItem(private val name: String, private val onClick: OnClick) {
-    val title = ObservableField<String>(name)
-    val description = ObservableField<String>("Some description based on User")
+sealed class ProfileItem(name: String, private val onClick: OnClick) {
+    val title = ObservableField(name)
+    val description = ObservableField("Some description based on User")
+    val available = ObservableBoolean()
 
     fun onClick() {
         onClick.onClick(this)

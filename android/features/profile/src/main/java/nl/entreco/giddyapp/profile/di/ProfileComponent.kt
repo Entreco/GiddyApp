@@ -9,11 +9,13 @@ import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
+import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderViewModel
 
 @Component(modules = [ProfileModule::class])
 interface ProfileComponent {
 
     fun viewModel(): ProfileViewModel
+    fun header(): ProfileHeaderViewModel
     fun navigation(): ProfileNavigation
 
     @Component.Builder

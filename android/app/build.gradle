@@ -40,7 +40,8 @@ android {
     dynamicFeatures = [
             ":features:creator",
             ":features:viewer",
-            ":features:profile"]
+            ":features:profile",
+            ":features:signup"]
 
 
 }

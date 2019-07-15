@@ -15,14 +15,13 @@ import nl.entreco.giddyapp.profile.di.ProfileModule
 
 class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
 
-    private lateinit var binding: ActivityProfileBinding
     private val component by fromModule { ProfileModule }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val navigation by lazy { component.navigation() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
+        val binding = DataBindingUtil.setContentView<ActivityProfileBinding>(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.navigation = navigation
         viewModel.state().observe(this, Observer { profile ->

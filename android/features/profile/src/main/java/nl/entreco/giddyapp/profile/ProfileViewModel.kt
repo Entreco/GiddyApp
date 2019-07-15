@@ -22,7 +22,7 @@ class ProfileViewModel @Inject constructor(
     private val state = MutableLiveData<Profile>()
     private val selected = MutableLiveData<ProfileItem>()
 
-    fun state(): LiveData<Profile> = state.toSingleEvent()
+    fun state(): LiveData<Profile> = state
     fun clicks(): LiveData<ProfileItem> = selected.toSingleEvent()
 
     init {

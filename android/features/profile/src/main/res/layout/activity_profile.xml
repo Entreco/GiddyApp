@@ -37,15 +37,5 @@
                 layout="@layout/toolbar_profile"
                 app:profile="@{viewModel.currentProfile}"/>
 
-        <ImageView
-                android:contentDescription="@null"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:backgroundTint="@color/white"
-                android:transitionName="@string/trans_profile_image"
-                app:layout_anchor="@id/includeToolbar"
-                app:layout_anchorGravity="center_horizontal|bottom"
-                android:src="@drawable/ic_profile"/>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

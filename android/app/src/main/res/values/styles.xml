@@ -43,4 +43,10 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <style name="AppTheme.SignupTheme">
+        <!--<item name="android:windowBackground">@color/almost_white</item>-->
+        <!--<item name="android:statusBarColor">@color/almost_black</item>-->
+        <!--<item name="android:windowLightStatusBar">false</item>-->
+    </style>
+
 </resources>

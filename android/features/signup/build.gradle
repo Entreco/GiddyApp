@@ -1,29 +1,32 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            consumerProguardFiles 'proguard-rules.pro'
+            proguardFiles 'proguard-rules-dynamic-features.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
 dependencies {
+    implementation project(':app')
     implementation project(':libraries:libCore')
+    implementation project(':libraries:libAuth')
+
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
-
-    implementation "com.google.firebase:firebase-auth:$fbAuth"
-    implementation "com.firebaseui:firebase-ui-auth:5.0.0"
 }
