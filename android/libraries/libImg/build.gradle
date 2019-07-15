@@ -17,6 +17,10 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+
+    dataBinding { // For custom bindings for loading images
+        enabled = true
+    }
 }
 
 dependencies {

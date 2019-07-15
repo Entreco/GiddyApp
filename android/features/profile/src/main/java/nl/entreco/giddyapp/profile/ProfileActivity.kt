@@ -34,6 +34,11 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.reload()
+    }
+
     override fun get() = component
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

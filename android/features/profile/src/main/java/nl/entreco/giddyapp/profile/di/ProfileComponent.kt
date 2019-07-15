@@ -6,6 +6,7 @@ import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
+import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
@@ -17,6 +18,8 @@ interface ProfileComponent {
     fun viewModel(): ProfileViewModel
     fun header(): ProfileHeaderViewModel
     fun navigation(): ProfileNavigation
+    fun auth(): Authenticator
+    fun loader(): ImageLoader
 
     @Component.Builder
     interface Builder {
@@ -31,6 +34,9 @@ interface ProfileComponent {
 
         @BindsInstance
         fun auth(auth: Authenticator): Builder
+
+        @BindsInstance
+        fun imageLoader(loader: ImageLoader) : Builder
 
         fun build(): ProfileComponent
     }

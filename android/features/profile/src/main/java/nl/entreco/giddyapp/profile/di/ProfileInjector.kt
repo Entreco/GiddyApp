@@ -14,6 +14,7 @@ internal object ProfileInjector {
             .activity(this)
             .dynamicLauncher(component.dynamicLauncher())
             .auth(component.authentication())
+            .imageLoader(component.imageLoader())
             .build()
     }
 }

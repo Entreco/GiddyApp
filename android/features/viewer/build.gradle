@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation project(':app')
+    implementation project(':libraries:libAuth')
     implementation project(':libraries:libCore')
     implementation project(':libraries:libSound')
 

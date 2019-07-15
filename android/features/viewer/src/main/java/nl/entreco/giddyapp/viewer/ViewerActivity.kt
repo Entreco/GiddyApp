@@ -25,12 +25,14 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
     private val filter by lazy { component.filter() }
     private val navigation by lazy { component.navigation() }
     private val animator by lazy { component.animator() }
+    private val loader by lazy { component.loader() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_viewer)
         binding.viewModel = viewModel
         binding.navigation = navigation
+        binding.loader = loader
         sheet.slideListener(viewModel, animator)
         filter.slideListener(object : SearchPanelBehavior.SlideListener {
             override fun onSlide(offset: Float) {

@@ -2,6 +2,7 @@ package nl.entreco.giddyapp.profile
 
 import android.content.Intent
 import android.widget.Toast
+import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
     private val activity: ProfileActivity,
-    @AppScope private val dynamicLauncher: DynamicLauncher
+    @AppScope private val dynamicLauncher: DynamicLauncher,
+    private val auth: Authenticator
 ) {
     private val fm = activity.supportFragmentManager
 
@@ -77,5 +79,12 @@ class ProfileNavigation @Inject constructor(
 
     fun onSignup() {
         activity.startActivity(Intent(activity, SignupActivity::class.java))
+    }
+
+    fun onLogout(){
+        auth.logout(activity){
+            Toast.makeText(activity, "LOGGED OUT", Toast.LENGTH_SHORT).show()
+            activity.finish()
+        }
     }
 }

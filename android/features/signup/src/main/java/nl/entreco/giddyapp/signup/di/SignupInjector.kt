@@ -12,7 +12,7 @@ internal object SignupInjector {
         val component = featureComponent()
         DaggerSignupComponent.builder()
             .appContext(component.appContext())
-            .auth(component.authentication())
+            .authenticator(component.authentication())
             .build()
     }
 }

@@ -1,8 +1,11 @@
 package nl.entreco.giddyapp.profile
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.databinding.ProfileItemBinding
 import nl.entreco.giddyapp.profile.profile.ProfileItem
 

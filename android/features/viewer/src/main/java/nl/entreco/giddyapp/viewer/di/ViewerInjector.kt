@@ -13,12 +13,14 @@ internal object ViewerInjector {
     ): Lazy<ViewerComponent> = lazy(mode) {
 
         DaggerViewerComponent.builder()
+            .appContext(featureComponent().appContext())
             .activity(this)
             .window(this.window)
             .metrics(featureComponent().metrics())
             .horse(featureComponent().horseService())
             .img(featureComponent().imageLoader())
             .dynamicLauncher(featureComponent().dynamicLauncher())
+            .auth(featureComponent().authentication())
             .module(provider())
             .build()
     }

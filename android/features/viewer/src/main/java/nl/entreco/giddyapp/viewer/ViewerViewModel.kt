@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.viewer
 
+import android.net.Uri
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,16 +12,19 @@ import nl.entreco.giddyapp.libhorses.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.swap.SwapHorseUsecase
 import nl.entreco.giddyapp.viewer.di.ViewerUrl
+import nl.entreco.giddyapp.viewer.ui.FetchToolbarIcon
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
     @ViewerUrl horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
-    private val swapHorseUsecase: SwapHorseUsecase
+    private val swapHorseUsecase: SwapHorseUsecase,
+    private val fetchToolbarIcon: FetchToolbarIcon
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
     val details = ObservableField<DetailModel>()
+    val icon = ObservableField<Uri?>()
 
     private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()
@@ -29,6 +33,9 @@ class ViewerViewModel @Inject constructor(
     init {
         swapHorseUsecase.onPreloadListener = this
         fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
+        fetchToolbarIcon.go { uri ->
+            icon.set(uri)
+        }
     }
 
     private fun onHorsesFetched(): (FetchHorseResponse) -> Unit {

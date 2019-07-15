@@ -10,6 +10,14 @@
                 type="nl.entreco.giddyapp.viewer.navigation.ViewerNavigation"/>
 
         <variable
+                name="gaLoader"
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
+
+        <variable
+                name="gaImage"
+                type="android.net.Uri"/>
+
+        <variable
                 name="horseId"
                 type="String"/>
     </data>
@@ -40,7 +48,8 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="@{() -> navigation.onProfileClicked(viewerProfile)}"
                     android:transitionName="@string/trans_profile_image"
-                    android:src="@drawable/ic_profile"/>
+                    app:ga_image="@{gaImage}"
+                    app:ga_loader="@{gaLoader}"/>
 
             <ImageView
                     android:contentDescription="@string/cd_settings"

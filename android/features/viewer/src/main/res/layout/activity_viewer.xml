@@ -9,6 +9,10 @@
                 type="nl.entreco.giddyapp.viewer.ViewerViewModel"/>
 
         <variable
+                name="loader"
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
+
+        <variable
                 name="navigation"
                 type="nl.entreco.giddyapp.viewer.navigation.ViewerNavigation"/>
     </data>
@@ -67,7 +71,9 @@
                 layout="@layout/toolbar_viewer"
                 android:id="@+id/include_toolbar_viewer"
                 app:horseId="@{viewModel.details.horseId}"
-                app:navigation="@{navigation}"/>
+                app:navigation="@{navigation}"
+                app:gaImage="@{viewModel.icon}"
+                app:gaLoader="@{loader}"/>
 
         <nl.entreco.giddyapp.viewer.ui.filter.SearchPanel
                 android:id="@+id/include_search_panel"

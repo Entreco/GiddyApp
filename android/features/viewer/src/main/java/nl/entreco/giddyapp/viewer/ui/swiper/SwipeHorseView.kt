@@ -123,14 +123,4 @@ class SwipeHorseView @JvmOverloads constructor(
     interface OnProgressChangedListener {
         fun onChanged(view: View, progress: Float, touched: Boolean)
     }
-
-    companion object {
-        @JvmStatic
-        @BindingAdapter("ga_loader", "ga_image", "ga_ref", requireAll = true)
-        fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?, ref: String?) {
-            if (view.drawable == null) {
-                loader?.get(view, uri, ref)
-            }
-        }
-    }
 }

@@ -1,10 +1,14 @@
 package nl.entreco.giddyapp.libauth
 
-import nl.entreco.giddyapp.libauth.user.SigninMethod
+import android.content.Context
+import android.content.Intent
+import nl.entreco.giddyapp.libauth.user.SignupResponse
 import nl.entreco.giddyapp.libauth.user.User
 
 interface Authenticator {
-    fun current(done: (User) -> Unit)
-    fun link(provider: SigninMethod, done: (User) -> Unit)
-    fun logout()
+    fun silent(context: Context, done: (User)->Unit)
+    fun current(done: (User)->Unit)
+    fun upgrade() : Intent
+    fun merge(resultCode: Int, data: Intent?, done : (SignupResponse)->Unit)
+    fun logout(context: Context, done:()->Unit)
 }
