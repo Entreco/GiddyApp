@@ -55,32 +55,32 @@ internal class FbAuth @Inject constructor(
             }
     }
 
-    override fun silent(context: Context, done: (User) -> Unit) {
+    override fun silent(context: Context) {
         val user = auth.currentUser
-        if(user == null) {
+        if (user == null) {
             authUi.silentSignIn(context, providers)
                 .continueWithTask { task ->
                     if (task.isSuccessful) task
                     else auth.signInAnonymously()
                 }
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) get(done)
-                    else done(User.Error(task.exception?.localizedMessage ?: "Oops"))
-                }
-        } else {
-            get(done)
+                .addOnCompleteListener { }
         }
     }
 
-    override fun current(done: (User) -> Unit) {
-        get(done)
-    }
-
-    private fun get(done: (User) -> Unit) {
-        val user = auth.currentUser
-        if (user != null && user.isAnonymous) done(User.Anomymous(user.uid))
-        else if (user != null && !user.isAnonymous) done(User.Authenticated(user.uid, user.displayName ?: user.email ?: user.uid, user.photoUrl))
-        else done(User.Error("Unknown error"))
+    override fun observe(done: (User) -> Unit) {
+        auth.addAuthStateListener { _auth ->
+            val user = _auth.currentUser
+            if (user != null && user.isAnonymous) done(User.Anomymous(user.uid))
+            else if (user != null && !user.isAnonymous) done(
+                User.Authenticated(
+                    user.uid,
+                    user.displayName ?: user.email ?: user.uid,
+                    user.email ?: user.phoneNumber ?: user.uid,
+                    user.photoUrl
+                )
+            )
+            else done(User.Error("Unknown error"))
+        }
     }
 
     override fun logout(context: Context, done: () -> Unit) {

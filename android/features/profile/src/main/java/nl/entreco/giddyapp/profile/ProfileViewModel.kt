@@ -13,7 +13,7 @@ import nl.entreco.giddyapp.profile.profile.ProfileItem
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-    private val fetchProfileUsecase: FetchProfileUsecase
+    fetchProfileUsecase: FetchProfileUsecase
 ) : ViewModel(), ProfileItem.OnClick {
 
     val currentProfile = ObservableField<Profile>()
@@ -25,7 +25,7 @@ class ProfileViewModel @Inject constructor(
     fun state(): LiveData<Profile> = state
     fun clicks(): LiveData<ProfileItem> = selected.toSingleEvent()
     
-    fun reload() {
+    init {
         state.postValue(null)
         fetchProfileUsecase.go { profile ->
             currentProfile.set(profile)

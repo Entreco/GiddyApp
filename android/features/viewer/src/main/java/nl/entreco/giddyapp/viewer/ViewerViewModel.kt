@@ -19,8 +19,8 @@ import javax.inject.Inject
 class ViewerViewModel @Inject constructor(
     @ViewerUrl horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
-    private val swapHorseUsecase: SwapHorseUsecase,
-    private val fetchToolbarIcon: FetchToolbarIcon
+    fetchToolbarIcon: FetchToolbarIcon,
+    private val swapHorseUsecase: SwapHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
     val details = ObservableField<DetailModel>()

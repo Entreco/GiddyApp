@@ -13,7 +13,7 @@ class ProfileHeaderViewModel @Inject constructor(
 ) : ViewModel() {
 
     val name = ObservableField("")
-    val desc = ObservableInt(0)
+    val desc = ObservableField("")
     val image = ObservableField<Uri?>()
 
     init {

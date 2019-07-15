@@ -10,4 +10,9 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="RoundedImage" parent="Widget.MaterialComponents.CardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">60dp</item>
+    </style>
+
 </resources>

@@ -38,18 +38,25 @@
                 app:showIf="@{!navigation.isInstant}"
                 android:background="@android:color/transparent">
 
-            <ImageView
-                    android:id="@+id/viewer_profile"
-                    android:contentDescription="@string/cd_profile"
+            <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:backgroundTint="@color/white"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> navigation.onProfileClicked(viewerProfile)}"
-                    android:transitionName="@string/trans_profile_image"
-                    app:ga_image="@{gaImage}"
-                    app:ga_loader="@{gaLoader}"/>
+                    app:shapeAppearanceOverlay="@style/RoundedImage">
+
+                <ImageView
+                        android:id="@+id/viewer_profile"
+                        android:contentDescription="@string/cd_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:backgroundTint="@color/white"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{() -> navigation.onProfileClicked(viewerProfile)}"
+                        android:transitionName="@string/trans_profile_image"
+                        app:ga_image="@{gaImage}"
+                        app:ga_loader="@{gaLoader}"/>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <ImageView
                     android:contentDescription="@string/cd_settings"

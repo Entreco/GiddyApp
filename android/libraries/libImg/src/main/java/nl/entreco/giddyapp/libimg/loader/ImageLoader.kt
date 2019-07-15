@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libimg.loader
 
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -23,9 +22,7 @@ object ImageBindings {
     @JvmStatic
     @BindingAdapter("ga_loader", "ga_image", requireAll = true)
     fun loadImage(view: ImageView, loader: ImageLoader?, uri: Uri?) {
-        if (view.drawable == null) {
-            loader?.uri(view, uri)
-        }
+        loader?.uri(view, uri)
     }
 
     @JvmStatic

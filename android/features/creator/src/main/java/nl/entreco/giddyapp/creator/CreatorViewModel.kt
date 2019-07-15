@@ -112,7 +112,7 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun startUpload(model: EntryModel) {
-        authenticator.current { user ->
+        authenticator.observe { user ->
             when (user) {
                 is User.Authenticated -> uploadForUser(user.uid, model)
                 is User.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
