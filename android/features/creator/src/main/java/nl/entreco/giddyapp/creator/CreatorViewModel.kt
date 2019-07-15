@@ -112,7 +112,7 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun startUpload(model: EntryModel) {
-        authenticator.observe { user ->
+        authenticator.observe("creator") { user ->
             when (user) {
                 is User.Authenticated -> uploadForUser(user.uid, model)
                 is User.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
@@ -143,5 +143,10 @@ class CreatorViewModel @Inject constructor(
         } else {
             false
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        authenticator.stopObserving("creator")
     }
 }

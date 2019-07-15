@@ -12,12 +12,18 @@ class FetchProfileUsecase @Inject constructor(
     private val authenticator: Authenticator
 ) {
 
-    fun go(done: (Profile) -> Unit) {
+    fun go(key: String, done: (Profile) -> Unit) {
         onBg {
             authenticator.silent(context)
-            authenticator.observe { user ->
+            authenticator.observe(key) { user ->
                 onUi { done(Profile(user)) }
             }
+        }
+    }
+
+    fun clear(key: String) {
+        onBg {
+            authenticator.stopObserving(key)
         }
     }
 }

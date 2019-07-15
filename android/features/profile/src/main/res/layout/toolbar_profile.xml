@@ -15,11 +15,12 @@
             android:layout_height="@dimen/profile_header_height"
             android:theme="@style/TransparentTheme">
 
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="#ff6600"
+                app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="top|center_horizontal"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -35,9 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:title="@{profile.name()}"
-                    app:subtitle="@{profile.desc()}"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:background="@android:color/transparent"
                     app:layout_collapseMode="pin"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

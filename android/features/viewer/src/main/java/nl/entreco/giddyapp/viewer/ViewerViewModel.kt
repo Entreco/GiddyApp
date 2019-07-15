@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ViewerViewModel @Inject constructor(
     @ViewerUrl horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
-    fetchToolbarIcon: FetchToolbarIcon,
+    private val fetchToolbarIcon: FetchToolbarIcon,
     private val swapHorseUsecase: SwapHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
@@ -76,5 +76,10 @@ class ViewerViewModel @Inject constructor(
     override fun onImageReady(horse: Horse) {
         if (current.value?.imageRef == horse.imageRef) current.postValue(horse)
         else if (next.value?.imageRef == horse.imageRef) next.postValue(horse)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        fetchToolbarIcon.clear()
     }
 }

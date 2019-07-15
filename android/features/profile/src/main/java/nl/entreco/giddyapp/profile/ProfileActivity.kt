@@ -38,6 +38,7 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> onBackPressed()
+            R.id.menu_logout -> navigation.onLogout()
         }
         return super.onOptionsItemSelected(item)
     }

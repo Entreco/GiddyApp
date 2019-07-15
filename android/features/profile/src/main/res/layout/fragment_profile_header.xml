@@ -36,17 +36,6 @@
                 android:scaleType="centerCrop"
                 android:background="@drawable/pattern"/>
 
-        <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:id="@+id/profile_signout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:gravity="center"
-                android:onClick="@{() -> navigator.onLogout()}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
         <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/profile_image_size"
@@ -56,7 +45,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:cardBackgroundColor="@android:color/transparent"
-                app:cardElevation="0dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp"
                 app:shapeAppearanceOverlay="@style/RoundedImage">
 
             <ImageView

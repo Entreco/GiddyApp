@@ -9,7 +9,7 @@ import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import javax.inject.Inject
 
 class ProfileHeaderViewModel @Inject constructor(
-    fetchProfileUsecase: FetchProfileUsecase
+    private val fetchProfileUsecase: FetchProfileUsecase
 ) : ViewModel() {
 
     val name = ObservableField("")
@@ -17,10 +17,15 @@ class ProfileHeaderViewModel @Inject constructor(
     val image = ObservableField<Uri?>()
 
     init {
-        fetchProfileUsecase.go { profile ->
+        fetchProfileUsecase.go("header"){ profile ->
             name.set(profile.name())
             desc.set(profile.desc())
             image.set(profile.image())
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        fetchProfileUsecase.clear("header")
     }
 }

@@ -7,7 +7,7 @@ import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
-import nl.entreco.giddyapp.profile.loading.ProfileLoadingFragment
+import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderLoadingFragment
 import nl.entreco.giddyapp.profile.profile.Profile
 import nl.entreco.giddyapp.profile.profile.ProfileItem
 import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderAnonymousFrament
@@ -36,6 +36,11 @@ class ProfileNavigation @Inject constructor(
 //        activity.finish()
     }
 
+    private fun launchAbout() {
+//        LaunchHelper.launchAbout(activity, null)
+//        activity.finish()
+    }
+
     fun onStateChanged(state: Profile?) {
         when (state?.user) {
             is User.Anomymous -> showAnonymous()
@@ -47,7 +52,7 @@ class ProfileNavigation @Inject constructor(
 
     private fun showLoading() {
         fm.beginTransaction()
-            .replace(R.id.profile_container, ProfileLoadingFragment())
+            .replace(R.id.profile_container, ProfileHeaderLoadingFragment())
             .commit()
     }
 
@@ -72,16 +77,19 @@ class ProfileNavigation @Inject constructor(
     fun onProfileItemClicked(item: ProfileItem?) {
         when (item) {
             is ProfileItem.Creator -> launchCreator()
+            is ProfileItem.About -> launchAbout()
             is ProfileItem.Settings -> launchSettings()
             else -> Toast.makeText(activity, "NOT IMPLEMENTED: $item", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun onSignup() {
+        showLoading()
         activity.startActivity(Intent(activity, SignupActivity::class.java))
     }
 
     fun onLogout(){
+        showLoading()
         auth.logout(activity){
             Toast.makeText(activity, "LOGGED OUT", Toast.LENGTH_SHORT).show()
             activity.finish()

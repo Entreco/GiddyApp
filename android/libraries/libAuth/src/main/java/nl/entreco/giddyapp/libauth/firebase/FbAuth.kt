@@ -18,8 +18,10 @@ internal class FbAuth @Inject constructor(
     private val auth: FirebaseAuth
 ) : Authenticator {
 
+    private val authListeners = mutableMapOf<String, FirebaseAuth.AuthStateListener>()
+
     private val providers by lazy {
-        arrayListOf(
+        listOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
 //            AuthUI.IdpConfig.PhoneBuilder().build(),
@@ -37,10 +39,20 @@ internal class FbAuth @Inject constructor(
     override fun merge(resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
         val response = IdpResponse.fromResultIntent(data)
         when {
-            resultCode == RESULT_OK -> done(SignupResponse.Success("some id"))
+            resultCode == RESULT_OK -> success(done)
             response?.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(response, done)
-            else -> done(SignupResponse.Failed("FML", -1))
+            else -> failed(done)
         }
+    }
+
+    private fun success(done: (SignupResponse) -> Unit) {
+        auth.currentUser?.reload()?.addOnCompleteListener {
+            done(SignupResponse.Success("some id"))
+        }
+    }
+
+    private fun failed(done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Failed("FML", -1))
     }
 
     private fun link(
@@ -67,20 +79,34 @@ internal class FbAuth @Inject constructor(
         }
     }
 
-    override fun observe(done: (User) -> Unit) {
-        auth.addAuthStateListener { _auth ->
-            val user = _auth.currentUser
-            if (user != null && user.isAnonymous) done(User.Anomymous(user.uid))
-            else if (user != null && !user.isAnonymous) done(
-                User.Authenticated(
-                    user.uid,
-                    user.displayName ?: user.email ?: user.uid,
-                    user.email ?: user.phoneNumber ?: user.uid,
-                    user.photoUrl
+    override fun observe(key: String, done: (User) -> Unit) {
+        val listener = authListeners.getOrPut(key) {
+            FirebaseAuth.AuthStateListener { _auth ->
+                val user = _auth.currentUser
+                if (user != null && user.isAnonymous) done(User.Anomymous(user.uid))
+                else if (user != null && !user.isAnonymous) done(
+                    User.Authenticated(
+                        user.uid,
+                        user.displayName ?: user.email ?: user.uid,
+                        user.email ?: user.phoneNumber ?: user.uid,
+                        user.photoUrl
+                    )
                 )
-            )
-            else done(User.Error("Unknown error"))
+                else done(User.Error("Unknown error"))
+            }
         }
+        auth.addAuthStateListener(listener)
+    }
+
+    override fun stopObserving(key: String) {
+        authListeners.remove(key)?.let { listener ->
+            auth.removeAuthStateListener(listener)
+        }
+    }
+
+    override fun clearAllObservers() {
+        authListeners.values.forEach { listener ->
+            auth.removeAuthStateListener(listener) }
     }
 
     override fun logout(context: Context, done: () -> Unit) {

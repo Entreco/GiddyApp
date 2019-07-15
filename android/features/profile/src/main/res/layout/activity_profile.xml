@@ -23,15 +23,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:layout_marginTop="@dimen/large"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:divider="?attr/colorPrimary"
+                    android:dividerPadding="1dp"
+                    android:showDividers="middle"
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginEnd="@dimen/large"
+                    android:animateLayoutChanges="true"
                     app:menuItems="@{viewModel.items}"/>
 
         </androidx.core.widget.NestedScrollView>
+
+        <TextView
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/def"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed-light"
+                android:text="@string/profile_star_description"/>
 
         <include
                 android:id="@+id/includeToolbar"

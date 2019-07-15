@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.signup
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -23,16 +22,22 @@ class SignupActivity : BaseActivity() {
         val binding = DataBindingUtil.setContentView<ActivitySignupBinding>(this, R.layout.activity_signup)
         binding.viewModel = viewModel
 
+        authenticator.clearAllObservers()
+
         startActivityForResult(authenticator.upgrade(), RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            authenticator.merge(resultCode, data){ response ->
-                when(response){
-                    is SignupResponse.Success -> { /* BINGO */ }
-                    else -> { /* FML */}
+            authenticator.merge(resultCode, data) { response ->
+                when (response) {
+                    is SignupResponse.Success -> { /* BINGO */
+                        finish()
+                    }
+                    else -> { /* FML */
+                        Toast.makeText(this, "Unable to signin", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

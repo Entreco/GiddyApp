@@ -7,8 +7,10 @@ import nl.entreco.giddyapp.libauth.user.User
 
 interface Authenticator {
     fun silent(context: Context)
-    fun observe(done: (User)->Unit)
+    fun observe(key: String, done: (User)->Unit)
+    fun stopObserving(key: String)
     fun upgrade() : Intent
     fun merge(resultCode: Int, data: Intent?, done : (SignupResponse)->Unit)
     fun logout(context: Context, done:()->Unit)
+    fun clearAllObservers()
 }

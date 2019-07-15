@@ -13,11 +13,11 @@ import nl.entreco.giddyapp.profile.profile.ProfileItem
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-    fetchProfileUsecase: FetchProfileUsecase
+    private val fetchProfileUsecase: FetchProfileUsecase
 ) : ViewModel(), ProfileItem.OnClick {
 
     val currentProfile = ObservableField<Profile>()
-    val items = generateItems(this)
+    val items = ObservableArrayList<ProfileItem>()
 
     private val state = MutableLiveData<Profile>()
     private val selected = MutableLiveData<ProfileItem>()
@@ -27,13 +27,10 @@ class ProfileViewModel @Inject constructor(
     
     init {
         state.postValue(null)
-        fetchProfileUsecase.go { profile ->
+        fetchProfileUsecase.go("profile") { profile ->
             currentProfile.set(profile)
-            when (profile.user) {
-                is User.Anomymous -> state.postValue(profile)
-                is User.Authenticated -> state.postValue(profile)
-                is User.Error -> state.postValue(profile)
-            }
+            state.postValue(profile)
+            generateItems(profile.user)
         }
     }
 
@@ -41,7 +38,19 @@ class ProfileViewModel @Inject constructor(
         if (selected.value != item) selected.postValue(item)
     }
 
-    private fun generateItems(onClick: ProfileItem.OnClick) = ObservableArrayList<ProfileItem>().apply {
-        addAll(ProfileItem.all(onClick))
+    private fun generateItems(user: User) {
+        items.clear()
+        val _items = when(user){
+            is User.Authenticated -> ProfileItem.all(this)
+            is User.Anomymous -> ProfileItem.anonymous(this)
+            else -> ProfileItem.error()
+
+        }
+        items.addAll(_items)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        fetchProfileUsecase.clear("profile")
     }
 }
