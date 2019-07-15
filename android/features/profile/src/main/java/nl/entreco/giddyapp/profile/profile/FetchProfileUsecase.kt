@@ -14,7 +14,7 @@ class FetchProfileUsecase @Inject constructor(
 
     fun go(key: String, done: (Profile) -> Unit) {
         onBg {
-            authenticator.silent(context)
+            authenticator.signinOrAnonymous(context)
             authenticator.observe(key) { user ->
                 onUi { done(Profile(user)) }
             }

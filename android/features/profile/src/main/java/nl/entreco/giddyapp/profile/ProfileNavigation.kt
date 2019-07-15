@@ -3,7 +3,7 @@ package nl.entreco.giddyapp.profile
 import android.content.Intent
 import android.widget.Toast
 import nl.entreco.giddyapp.libauth.Authenticator
-import nl.entreco.giddyapp.libauth.user.User
+import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
@@ -42,10 +42,10 @@ class ProfileNavigation @Inject constructor(
     }
 
     fun onStateChanged(state: Profile?) {
-        when (state?.user) {
-            is User.Anomymous -> showAnonymous()
-            is User.Authenticated -> showLoggedIn()
-            is User.Error -> showError()
+        when (state?.account) {
+            is Account.Anomymous -> showAnonymous()
+            is Account.Authenticated -> showLoggedIn()
+            is Account.Error -> showError()
             else -> showLoading()
         }
     }

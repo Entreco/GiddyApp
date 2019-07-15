@@ -1,9 +1,6 @@
 package nl.entreco.giddyapp.libauth.user
 
-import android.net.Uri
-
-sealed class User {
-    data class Anomymous(val uid: String) : User()
-    data class Authenticated(val uid: String, val name: String, val email: String, val url: Uri?) : User()
-    data class Error(val msg: String) : User()
-}
+data class User(
+    val name: String,
+    val likes: List<String>,
+    val dislikes: List<String>)

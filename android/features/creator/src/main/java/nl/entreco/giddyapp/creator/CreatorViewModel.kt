@@ -8,7 +8,7 @@ import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
 import nl.entreco.giddyapp.libauth.Authenticator
-import nl.entreco.giddyapp.libauth.user.User
+import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
@@ -114,8 +114,8 @@ class CreatorViewModel @Inject constructor(
     fun startUpload(model: EntryModel) {
         authenticator.observe("creator") { user ->
             when (user) {
-                is User.Authenticated -> uploadForUser(user.uid, model)
-                is User.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
+                is Account.Authenticated -> uploadForUser(user.uid, model)
+                is Account.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
                 else -> { /* Show Error login */ }
             }
         }

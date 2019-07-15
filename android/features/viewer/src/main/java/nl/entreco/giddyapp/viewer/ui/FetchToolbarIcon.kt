@@ -3,7 +3,7 @@ package nl.entreco.giddyapp.viewer.ui
 import android.content.Context
 import android.net.Uri
 import nl.entreco.giddyapp.libauth.Authenticator
-import nl.entreco.giddyapp.libauth.user.User
+import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.onBg
 import nl.entreco.giddyapp.libcore.onUi
@@ -16,10 +16,10 @@ class FetchToolbarIcon @Inject constructor(
 
     fun go(done: (Uri?) -> Unit) {
         onBg {
-            authenticator.silent(context)
+            authenticator.signinOrAnonymous(context)
             authenticator.observe("toolbar") { user ->
                 val icon = when (user) {
-                    is User.Authenticated -> user.url
+                    is Account.Authenticated -> user.url
                     else -> null
                 }
                 onUi { done(icon) }

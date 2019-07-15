@@ -65,30 +65,16 @@
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.name}"
+                android:text="@{viewModel.desc}"
                 android:gravity="center"
-                android:textSize="22sp"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_chainStyle="spread_inside"
-                tools:text="@string/app_name"/>
-
-        <TextView
-                android:id="@+id/profile_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/def"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:text="@{viewModel.desc}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_name"
-                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="@string/app_name"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

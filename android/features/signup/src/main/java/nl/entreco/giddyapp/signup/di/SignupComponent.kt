@@ -11,7 +11,6 @@ import nl.entreco.giddyapp.signup.SignupViewModel
 interface SignupComponent {
 
     fun viewModel() : SignupViewModel
-    fun auth() : Authenticator
 
     @Component.Builder
     interface Builder {

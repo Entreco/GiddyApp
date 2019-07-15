@@ -5,7 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.libauth.user.User
+import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import nl.entreco.giddyapp.profile.profile.Profile
@@ -30,7 +30,7 @@ class ProfileViewModel @Inject constructor(
         fetchProfileUsecase.go("profile") { profile ->
             currentProfile.set(profile)
             state.postValue(profile)
-            generateItems(profile.user)
+            generateItems(profile.account)
         }
     }
 
@@ -38,11 +38,11 @@ class ProfileViewModel @Inject constructor(
         if (selected.value != item) selected.postValue(item)
     }
 
-    private fun generateItems(user: User) {
+    private fun generateItems(account: Account) {
         items.clear()
-        val _items = when(user){
-            is User.Authenticated -> ProfileItem.all(this)
-            is User.Anomymous -> ProfileItem.anonymous(this)
+        val _items = when(account){
+            is Account.Authenticated -> ProfileItem.all(this)
+            is Account.Anomymous -> ProfileItem.anonymous(this)
             else -> ProfileItem.error()
 
         }
