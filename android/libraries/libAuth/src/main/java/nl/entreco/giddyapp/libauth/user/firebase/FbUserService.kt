@@ -1,13 +1,12 @@
 package nl.entreco.giddyapp.libauth.user.firebase
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.model.value.ReferenceValue
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.user.DeleteResponse
 import nl.entreco.giddyapp.libauth.user.User
+import nl.entreco.giddyapp.libauth.user.UserLike
 import javax.inject.Inject
 
 internal class FbUserService @Inject constructor(
@@ -40,14 +39,32 @@ internal class FbUserService @Inject constructor(
             userCollection.document(uuid)
                 .get()
                 .addOnSuccessListener { snap ->
-                    done(userMapper.toPoko(snap.toObject(FbUser::class.java)))
+                    val user = snap.toObject(FbUser::class.java)
+                    if (user != null) {
+                        userCollection.document(uuid).collection("likes").get().addOnCompleteListener { task1 ->
+                            val likes = task1.result?.map { res ->
+                                res.toObject(FbUserLike::class.java)
+                            } ?: emptyList()
+
+                            userCollection.document(uuid).collection("dislikes").get().addOnCompleteListener { task2 ->
+                                val dislikes = task2.result?.map { res ->
+                                    res.toObject(FbUserLike::class.java)
+                                } ?: emptyList()
+
+                                done(userMapper.toUser(user, likes, dislikes))
+                            }
+                        }
+                    } else {
+                        done(User.Error("Empty User"))
+                    }
+
                 }.addOnFailureListener { err ->
                     done(User.Error(err.localizedMessage))
                 }
         }
     }
 
-    override fun rate(likes: List<String>, dislikes: List<String>, done: () -> Unit) {
+    override fun rate(likes: List<UserLike>, dislikes: List<UserLike>, done: () -> Unit) {
         val uuid = auth.currentUser?.uid
         if (uuid.isNullOrBlank()) done()
         else {
@@ -55,13 +72,15 @@ internal class FbUserService @Inject constructor(
             val user = userCollection.document(uuid)
 
             val l = user.collection("likes")
-            likes.map { FbLike(db.document("horses/$it")) }.forEach {
-                batch.set(l.document(), it)
+            likes.forEach { like ->
+                val fbLike = FbUserLike(like.horseName, like.horseId, like.horseRef)
+                batch.set(l.document(like.horseId), fbLike)
             }
 
             val d = user.collection("dislikes")
-            dislikes.map{ FbLike(db.document("horses/$it"))}.forEach {
-                batch.set(d.document(), it)
+            dislikes.forEach { dislike ->
+                val fbDislike = FbUserLike(dislike.horseName, dislike.horseId, dislike.horseRef)
+                batch.set(d.document(dislike.horseId), fbDislike)
             }
 
             batch.commit().addOnCompleteListener {

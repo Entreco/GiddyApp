@@ -6,33 +6,20 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.SignupResponse
+import nl.entreco.giddyapp.signup.link.LinkAccountRequest
+import nl.entreco.giddyapp.signup.link.LinkAccountResponse
+import nl.entreco.giddyapp.signup.link.LinkAccountUsecase
 import javax.inject.Inject
 
 class SignupViewModel @Inject constructor(
-    private val authenticator: Authenticator
+    private val linkAccountUsecase: LinkAccountUsecase
 ) : ViewModel() {
 
-    init {
-        authenticator.clearAllObservers()
-    }
+    fun intent(): Intent? = linkAccountUsecase.signinIntent()
 
-    fun intent(): Intent? = authenticator.signinIntent()
-
-    fun handleResult(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
-        authenticator.link(context, resultCode, data) { response ->
-            when (response) {
-                is SignupResponse.Success -> cleanUp(response.uuid, response.oldUuid)
-                else -> { /* FML */
-                }
-            }
+    fun handleResult(context: Context, resultCode: Int, data: Intent?, done: (LinkAccountResponse) -> Unit) {
+        linkAccountUsecase.exec(LinkAccountRequest(context, resultCode, data)){ response ->
             done(response)
-        }
-    }
-
-    private fun cleanUp(uuid: String, oldUuid: String?) {
-        oldUuid?.let { remove ->
-            Log.i("CLEAN", "1) Copy data from users/$oldUuid to users/$uuid ")
-            Log.i("CLEAN", "2) Delete user $oldUuid ")
         }
     }
 }

@@ -20,6 +20,7 @@ ext {
             xArchitecture = '2.0.0',
             xConstraintLayout = '2.0.0-beta2',
             xDynamicAnimation = '1.0.0',
+            xViewPager2 = '1.0.0-alpha06',
             xLegacyCore = '1.0.0',
             xPalette = '1.0.0',
             fbCore = '17.0.0',

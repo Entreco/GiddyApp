@@ -20,7 +20,7 @@ internal class FbHorseService @Inject constructor(
     private val horseCollection = db.collection("horses")
     private val mapper by lazy { HorseMapper() }
 
-    override fun fetch(ids: List<String>, filterOptions: FilterOptions, done: (List<Horse>) -> Unit) {
+    override fun retrieve(ids: List<String>, filterOptions: FilterOptions, done: (List<Horse>) -> Unit) {
         Log.i("FILTER", "filter: $filterOptions")
 
         val inc = filterOptions.includes()

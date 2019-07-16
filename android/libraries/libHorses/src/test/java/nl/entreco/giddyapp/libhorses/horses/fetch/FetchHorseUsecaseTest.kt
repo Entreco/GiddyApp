@@ -58,6 +58,6 @@ class FetchHorseUsecaseTest {
     }
 
     private fun thenRequestIdsAre(vararg ids: String) {
-        verify(mockService).fetch(eq(ids.toList()), doneCaptor.capture())
+        verify(mockService).retrieve(eq(ids.toList()), doneCaptor.capture())
     }
 }

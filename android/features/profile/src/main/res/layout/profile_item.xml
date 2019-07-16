@@ -16,6 +16,8 @@
             android:clickable="@{item.enabled}"
             android:paddingTop="@dimen/def"
             android:paddingBottom="@dimen/def"
+            android:layout_marginStart="@dimen/large"
+            android:layout_marginEnd="@dimen/large"
             android:onClick="@{() -> item.onClick()}"
             android:background="?selectableItemBackground"
             android:focusable="true">

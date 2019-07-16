@@ -28,8 +28,8 @@ class SignupActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             viewModel.handleResult(this, resultCode, data) { response ->
-                when (response) {
-                    is SignupResponse.Success -> finish()
+                when (response.ok) {
+                    true -> finish()
                     else -> Toast.makeText(this, "Unable to signin", Toast.LENGTH_SHORT).show()
                 }
             }

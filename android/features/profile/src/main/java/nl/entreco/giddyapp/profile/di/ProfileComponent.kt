@@ -4,8 +4,10 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
+import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
@@ -36,7 +38,13 @@ interface ProfileComponent {
         fun auth(auth: Authenticator): Builder
 
         @BindsInstance
-        fun imageLoader(loader: ImageLoader) : Builder
+        fun user(service: UserService): Builder
+
+        @BindsInstance
+        fun horse(service: HorseService): Builder
+
+        @BindsInstance
+        fun imageLoader(loader: ImageLoader): Builder
 
         fun build(): ProfileComponent
     }

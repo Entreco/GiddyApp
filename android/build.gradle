@@ -27,6 +27,7 @@ subprojects {
         resolutionStrategy {
             force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
             force "androidx.appcompat:appcompat:$xAppcompat"
+            force "androidx.viewpager2:viewpager2:$xViewPager2"
         }
     }
 }

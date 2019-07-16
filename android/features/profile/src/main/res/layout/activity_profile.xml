@@ -30,13 +30,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:divider="?attr/colorPrimary"
-                    android:dividerPadding="1dp"
-                    android:showDividers="middle"
-                    android:layout_marginStart="@dimen/large"
-                    android:layout_marginEnd="@dimen/large"
-                    android:animateLayoutChanges="true"
-                    app:menuItems="@{viewModel.items}"/>
+                    android:animateLayoutChanges="true">
+
+                <include
+                        android:id="@+id/include_menu"
+                        layout="@layout/include_profile_menu"
+                        app:viewModel="@{viewModel}"/>
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
@@ -47,7 +48,15 @@
                 android:padding="@dimen/def"
                 android:gravity="center"
                 android:fontFamily="sans-serif-condensed-light"
-                android:text="@string/profile_star_description"/>
+                android:text="@{viewModel.footerMessage}"/>
+
+        <include
+                android:id="@+id/include_matches"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/include_profile_matches"
+                app:viewModel="@{viewModel}"/>
 
         <include
                 android:id="@+id/includeToolbar"

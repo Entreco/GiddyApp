@@ -20,7 +20,7 @@ class FetchHorseUsecase @Inject constructor(
                 request.id.isNullOrBlank() -> (0 until BATCH_SIZE).map { RANDOM }
                 else -> listOf(request.id) + (1 until BATCH_SIZE).map { RANDOM }
             }
-            service.fetch(ids, request.filterOptions) { response ->
+            service.retrieve(ids, request.filterOptions) { response ->
                 onUi { done(FetchHorseResponse(response)) }
             }
         }

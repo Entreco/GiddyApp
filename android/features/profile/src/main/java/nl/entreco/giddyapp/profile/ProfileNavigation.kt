@@ -76,7 +76,7 @@ class ProfileNavigation @Inject constructor(
 
     fun onProfileItemClicked(item: ProfileItem?) {
         when (item) {
-            is ProfileItem.Creator -> launchCreator()
+            is ProfileItem.Upload -> launchCreator()
             is ProfileItem.About -> launchAbout()
             is ProfileItem.Settings -> launchSettings()
             else -> Toast.makeText(activity, "NOT IMPLEMENTED: $item", Toast.LENGTH_SHORT).show()
