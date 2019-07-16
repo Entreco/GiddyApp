@@ -10,6 +10,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LaunchHelper.launchViewer(this)
+        finish()
     }
 
     override fun onAttachedToWindow() {

@@ -15,7 +15,6 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".SplashActivity"
-                android:excludeFromRecents="true"
                 android:noHistory="true"
                 android:theme="@style/SplashTheme">
             <intent-filter>

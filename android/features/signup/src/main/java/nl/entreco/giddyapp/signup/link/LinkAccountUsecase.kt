@@ -11,12 +11,6 @@ class LinkAccountUsecase @Inject constructor(
     private val authenticator: Authenticator
 ) {
 
-    init {
-        onBg {
-            authenticator.clearAllObservers()
-        }
-    }
-
     fun exec(request: LinkAccountRequest, done:(LinkAccountResponse)->Unit){
         onBg {
             authenticator.link(request.context, request.resultCode, request.data) { response ->

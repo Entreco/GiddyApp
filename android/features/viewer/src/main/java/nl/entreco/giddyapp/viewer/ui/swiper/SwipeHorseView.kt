@@ -1,14 +1,12 @@
 package nl.entreco.giddyapp.viewer.ui.swiper
 
 import android.content.Context
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
 
@@ -94,6 +92,9 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     fun setModel(model: SwipeHorseModel?) {
+        binding.image.background = null
+        binding.image.setImageDrawable(null)
+
         binding.model = model
         binding.executePendingBindings()
         addTouchHandler(model)

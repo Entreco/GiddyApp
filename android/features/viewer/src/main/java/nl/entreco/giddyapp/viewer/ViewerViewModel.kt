@@ -12,7 +12,6 @@ import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.swap.SwapHorseUsecase
-import nl.entreco.giddyapp.viewer.di.ViewerUrl
 import nl.entreco.giddyapp.viewer.ratings.RateHorseRequest
 import nl.entreco.giddyapp.viewer.ratings.RateHorseUsecase
 import nl.entreco.giddyapp.viewer.ui.FetchToolbarIcon
@@ -20,8 +19,7 @@ import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
-    @ViewerUrl horseId: String?,
-    fetchHorseUsecase: FetchHorseUsecase,
+    private val fetchHorseUsecase: FetchHorseUsecase,
     private val fetchToolbarIcon: FetchToolbarIcon,
     private val swapHorseUsecase: SwapHorseUsecase,
     private val rateHorseUsecase: RateHorseUsecase
@@ -36,10 +34,13 @@ class ViewerViewModel @Inject constructor(
 
     init {
         swapHorseUsecase.onPreloadListener = this
-        fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
         fetchToolbarIcon.go { uri ->
             icon.set(uri)
         }
+    }
+
+    fun load(horseId: String?){
+        fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
     }
 
     private fun onHorsesFetched(): (FetchHorseResponse) -> Unit {
@@ -88,11 +89,14 @@ class ViewerViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun submitRatings() {
         rateHorseUsecase.go {
             Log.i("RATE", "DONE RATING")
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
         fetchToolbarIcon.clear()
     }
 }

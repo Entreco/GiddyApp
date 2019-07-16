@@ -11,9 +11,9 @@ internal class UserMapper {
         }
     }
 
-    fun toUser(data: FbUser?, likes: List<FbUserLike>, dislikes: List<FbUserLike>): User {
+    fun toUser(data: FbUser?, likes: List<FbUserLike>): User {
         return if (data == null) User.Error("data is null")
-        else User.Valid(data.name, toUserLikes(likes), toUserLikes(dislikes))
+        else User.Valid(data.name, toUserLikes(likes))
     }
 
     private fun toUserLikes(likes: List<FbUserLike>?): List<UserLike> {

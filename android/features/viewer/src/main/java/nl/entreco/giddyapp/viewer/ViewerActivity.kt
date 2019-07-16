@@ -19,7 +19,7 @@ import nl.entreco.giddyapp.viewer.ui.swiper.SwipeFragment
 class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedListener {
 
     private lateinit var binding: ActivityViewerBinding
-    private val component by fromModule { ViewerModule(intent.data?.lastPathSegment, binding) }
+    private val component by fromModule { ViewerModule(binding) }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val sheet by lazy { component.sheet() }
     private val filter by lazy { component.filter() }
@@ -44,12 +44,35 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         viewModel.current().observeOnce(Observer {
             nextFragment()
         })
+
+        loadHorse(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        loadHorse(intent)
+    }
+
+    private fun loadHorse(intent: Intent?) {
+        val url = intent?.data?.lastPathSegment
+        val id = when {
+            url.isNullOrBlank() -> null
+            url == "viewer" -> null
+            url == "null" -> null
+            else -> url
+        }
+        viewModel.load(id)
     }
 
     override fun onResume() {
         super.onResume()
         setSupportActionBar(binding.includeToolbarViewer.toolbar)
         supportActionBar?.title = ""
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.submitRatings()
     }
 
     override fun onNext(like: Boolean) {

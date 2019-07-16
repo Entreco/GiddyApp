@@ -46,13 +46,7 @@ internal class FbUserService @Inject constructor(
                                 res.toObject(FbUserLike::class.java)
                             } ?: emptyList()
 
-                            userCollection.document(uuid).collection("dislikes").get().addOnCompleteListener { task2 ->
-                                val dislikes = task2.result?.map { res ->
-                                    res.toObject(FbUserLike::class.java)
-                                } ?: emptyList()
-
-                                done(userMapper.toUser(user, likes, dislikes))
-                            }
+                            done(userMapper.toUser(user, likes))
                         }
                     } else {
                         done(User.Error("Empty User"))

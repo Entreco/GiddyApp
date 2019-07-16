@@ -14,10 +14,9 @@
 
     <application tools:ignore="AllowBackup,MissingApplicationIcon">
         <activity
-                android:excludeFromRecents="false"
                 android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
-                android:launchMode="singleTop"
+                android:launchMode="singleTask"
                 android:theme="@style/AppTheme.ViewerTheme">
 
             <meta-data

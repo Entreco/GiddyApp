@@ -19,9 +19,8 @@ class SwapHorseUsecase @Inject constructor(
 
     fun initWith(collection: List<Horse>) {
         val atLeastOne = if (collection.isEmpty()) listOf(Horse.none()) else collection
-        horses.clear()
+        horses.removeAll { horse -> !queue.contains(horse.imageRef) }
         horses.addAll(atLeastOne)
-        queue.clear()
         queue.addAll(atLeastOne.map { it.imageRef })
         preloadImages(atLeastOne)
     }
@@ -32,6 +31,7 @@ class SwapHorseUsecase @Inject constructor(
 
     private fun pop(): Horse {
         ensure()
+
         val popped = queue.pop()
         return horses.first { it.imageRef == popped }
     }
@@ -45,8 +45,7 @@ class SwapHorseUsecase @Inject constructor(
 
     private fun ensure() {
         require(horses.isNotEmpty()){ "need to add horses first" }
-        if (queue.size < 1) {
-            queue.add(horses.random().imageRef)
+        if (queue.size < 3) {
             fetchHorseUsecase.go(FetchHorseRequest()) { response ->
                 initWith(response.horses)
             }
@@ -62,9 +61,11 @@ class SwapHorseUsecase @Inject constructor(
                 )
             ) { response ->
                 val index = horses.indexOfFirst { it.imageRef == response.imageRef }
-                val updated = horses[index].copy(imageUri = response.image)
-                horses[index] = updated
-                onPreloadListener?.onImageReady(updated)
+                if(index != -1) {
+                    val updated = horses[index].copy(imageUri = response.image)
+                    horses[index] = updated
+                    onPreloadListener?.onImageReady(updated)
+                }
             }
         }
     }

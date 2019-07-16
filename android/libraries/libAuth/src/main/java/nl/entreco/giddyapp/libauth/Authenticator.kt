@@ -14,5 +14,4 @@ interface Authenticator {
 
     fun observe(key: String, done: (Account)->Unit)
     fun stopObserving(key: String)
-    fun clearAllObservers()
 }

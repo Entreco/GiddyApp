@@ -18,21 +18,12 @@ import nl.entreco.giddyapp.viewer.navigation.installed.InstalledViewerNavigation
 import nl.entreco.giddyapp.viewer.navigation.instant.InstantViewerNavigation
 
 @Module
-class ViewerModule(private val url: String?, private val binding: ActivityViewerBinding) {
+class ViewerModule(private val binding: ActivityViewerBinding) {
 
     @Provides
     @ViewerScope
     @ActivityContext
     fun provideContext(activity: ViewerActivity): Context = activity
-
-    @Provides
-    @ViewerUrl
-    fun provideUrl(): String? = when {
-        url.isNullOrBlank() -> null
-        url == "viewer" -> null
-        url == "null" -> null
-        else -> url
-    }
 
     @Provides
     @SheetBehavior

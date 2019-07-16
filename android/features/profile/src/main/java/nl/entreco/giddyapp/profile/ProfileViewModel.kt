@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libauth.user.UserLike
 import nl.entreco.giddyapp.libcore.toSingleEvent
-import nl.entreco.giddyapp.libhorses.Horse
 import nl.entreco.giddyapp.profile.matches.FetchMatchesUsecase
 import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import nl.entreco.giddyapp.profile.profile.Profile
@@ -52,13 +51,13 @@ class ProfileViewModel @Inject constructor(
 
     private fun generateItems(account: Account) {
         items.clear()
-        val _items = when (account) {
+        val profileItems = when (account) {
             is Account.Authenticated -> ProfileItem.all(this)
             is Account.Anomymous -> ProfileItem.anonymous(this)
             else -> ProfileItem.error()
 
         }
-        items.addAll(_items)
+        items.addAll(profileItems)
     }
 
     override fun onCleared() {

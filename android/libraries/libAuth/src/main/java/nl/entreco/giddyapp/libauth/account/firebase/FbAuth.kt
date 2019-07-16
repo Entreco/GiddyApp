@@ -90,7 +90,7 @@ internal class FbAuth @Inject constructor(
                 .continueWithTask { task ->
                     if (task.isSuccessful) task
                     else auth.signInAnonymously().addOnSuccessListener { result ->
-                        userService.create(User.Valid(result.user.uid, emptyList(), emptyList())){}
+                        userService.create(User.Valid(result.user.uid, emptyList())){}
                     }
                 }
                 .addOnCompleteListener{}
@@ -118,12 +118,6 @@ internal class FbAuth @Inject constructor(
 
     override fun stopObserving(key: String) {
         authListeners.remove(key)?.let { listener ->
-            auth.removeAuthStateListener(listener)
-        }
-    }
-
-    override fun clearAllObservers() {
-        authListeners.values.forEach { listener ->
             auth.removeAuthStateListener(listener)
         }
     }
