@@ -18,8 +18,7 @@ import java.util.*
 import javax.inject.Inject
 
 class CreatorViewModel @Inject constructor(
-    private val createHorseUsecase: CreateHorseUsecase,
-    private val authenticator: Authenticator
+    private val createHorseUsecase: CreateHorseUsecase
 ) : ViewModel(), SelectCallback {
 
     private val stateStack = ArrayDeque<CreatorState>()
@@ -112,19 +111,12 @@ class CreatorViewModel @Inject constructor(
     }
 
     fun startUpload(model: EntryModel) {
-        authenticator.observe("creator") { user ->
-            when (user) {
-                is Account.Authenticated -> uploadForUser(user.uid, model)
-                is Account.Anomymous -> snacks.postValue("You need to be logged in to upload horses")
-                else -> { /* Show Error login */ }
-            }
-        }
+        uploadForUser(model)
     }
 
-    private fun uploadForUser(uid: String, model: EntryModel) {
+    private fun uploadForUser(model: EntryModel) {
         createHorseUsecase.go(
             CreateHorseRequest(
-                uid,
                 model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
                 model.horseDetail.price, model.horseDetail.category, model.horseDetail.type,
                 model.image.uri, model.image.startColor, model.image.endColor
@@ -143,10 +135,5 @@ class CreatorViewModel @Inject constructor(
         } else {
             false
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        authenticator.stopObserving("creator")
     }
 }

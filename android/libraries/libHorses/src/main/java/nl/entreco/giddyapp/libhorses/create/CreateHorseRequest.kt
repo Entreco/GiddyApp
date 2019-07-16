@@ -8,7 +8,6 @@ import nl.entreco.giddyapp.libhorses.HorseLevel
 import nl.entreco.giddyapp.libhorses.HorsePrice
 
 data class CreateHorseRequest(
-    val userUid: String,
     val name: String,
     val description: String,
     val gender: HorseGender,

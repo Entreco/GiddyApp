@@ -15,5 +15,7 @@ internal data class FbHorse(
     @get:PropertyName("gen") @set:PropertyName("gen") var gender: Int = -1,
     @get:PropertyName("pr") @set:PropertyName("pr") var price: Int = -1,
     @get:PropertyName("cat") @set:PropertyName("cat") var category: Int = -1,
-    @get:PropertyName("lvl") @set:PropertyName("lvl") var level: Int = -1
+    @get:PropertyName("lvl") @set:PropertyName("lvl") var level: Int = -1,
+    @get:PropertyName("likes") @set:PropertyName("likes") var likes: Int = 0,
+    @get:PropertyName("dislikes") @set:PropertyName("dislikes") var dislikes: Int = 0
 )

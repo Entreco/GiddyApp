@@ -51,7 +51,6 @@ internal class HorseMapper {
     }
 
     fun create(
-        user: String,
         name: String,
         description: String,
         gender: HorseGender,

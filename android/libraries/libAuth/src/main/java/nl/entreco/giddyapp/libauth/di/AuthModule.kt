@@ -18,8 +18,9 @@ object AuthModule {
     @Provides
     @JvmStatic
     @AppScope
-    fun provideUserService(db: FirebaseFirestore): UserService {
-        return FbUserService(db)
+    fun provideUserService(fbApp: FirebaseApp, db: FirebaseFirestore): UserService {
+        val auth = FirebaseAuth.getInstance(fbApp)
+        return FbUserService(db, auth)
     }
 
     @Provides

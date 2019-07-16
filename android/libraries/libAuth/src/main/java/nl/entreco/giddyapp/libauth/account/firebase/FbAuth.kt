@@ -3,6 +3,7 @@ package nl.entreco.giddyapp.libauth.account.firebase
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
@@ -61,21 +62,23 @@ internal class FbAuth @Inject constructor(
         response: IdpResponse,
         done: (SignupResponse) -> Unit
     ) {
-        // Store relevant anonymous user data
-        val oldUuid = auth.currentUser?.uid ?: ""
-        userService.retrieveAndDelete(oldUuid){ oldUserData ->
-            // Delete Old Account
-            authUi.delete(context).continueWithTask {
-                // Link
-                auth.signInWithCredential(response.credentialForLinking!!)
-                    .addOnSuccessListener { result ->
-                        // Copy over data
-                        result.user.reload().addOnSuccessListener { _ ->
-                            userService.create(result.user.uid, oldUserData){ userData ->
-                                done(SignupResponse.Success(result.user.uid, oldUuid))
+        userService.retrieve { old ->
+            Log.i("CLEAN", "retrieved oldData: $old")
+            userService.delete { del ->
+                Log.i("CLEAN", "deleted oldUser: $del")
+                authUi.delete(context).continueWithTask {
+                    auth.signInWithCredential(response.credentialForLinking!!)
+                        .addOnSuccessListener { result ->
+                            userService.create(old) {
+                                done(SignupResponse.Success(result.user.uid))
                             }
                         }
-                    }
+                        .addOnFailureListener { err ->
+                            done(SignupResponse.Failed(err.localizedMessage, -1))
+                        }
+                }.addOnFailureListener { err ->
+                    done(SignupResponse.Failed(err.localizedMessage, -1))
+                }
             }
         }
     }
@@ -86,11 +89,11 @@ internal class FbAuth @Inject constructor(
             authUi.silentSignIn(context, providers)
                 .continueWithTask { task ->
                     if (task.isSuccessful) task
-                    else auth.signInAnonymously()
+                    else auth.signInAnonymously().addOnSuccessListener { result ->
+                        userService.create(User.Valid(result.user.uid, emptyList(), emptyList())){}
+                    }
                 }
-                .addOnCompleteListener {
-                    userService.create(auth.currentUser?.uid ?: "DOH", User(auth.currentUser?.displayName ?: "DISDOH", emptyList(), emptyList())){}
-                }
+                .addOnCompleteListener{}
         }
     }
 

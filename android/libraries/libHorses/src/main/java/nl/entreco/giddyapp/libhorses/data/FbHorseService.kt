@@ -2,6 +2,7 @@ package nl.entreco.giddyapp.libhorses.data
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
@@ -12,7 +13,7 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 internal class FbHorseService @Inject constructor(
-    db: FirebaseFirestore,
+    private val db: FirebaseFirestore,
     private val storage: FirebaseStorage
 ) : HorseService {
 
@@ -40,7 +41,6 @@ internal class FbHorseService @Inject constructor(
     }
 
     override fun create(
-        user: String,
         name: String,
         description: String,
         gender: HorseGender,
@@ -57,7 +57,7 @@ internal class FbHorseService @Inject constructor(
         // 1) Upload Image
         upload(document.id, image) {
             // 2) Set Image Details
-            val horse = mapper.create(user, name, description, gender, price, category, level, startColor, endColor)
+            val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor)
             document.set(horse).addOnSuccessListener {
                 done(document.id)
             }.addOnFailureListener {
@@ -120,6 +120,25 @@ internal class FbHorseService @Inject constructor(
             done(it)
         }.addOnFailureListener {
             Log.i("NOOOOOOH", "e: $it")
+        }
+    }
+
+    override fun rate(likes: List<String>, dislikes: List<String>, done: (Boolean) -> Unit) {
+        val likeRefs = likes.map { horseCollection.document(it) }
+        val dislikeRefs = dislikes.map { horseCollection.document(it) }
+        db.runTransaction { transaction ->
+            likeRefs.forEach {
+                transaction.update(it, "likes", FieldValue.increment(1))
+            }
+            dislikeRefs.forEach {
+                transaction.update(it, "dislikes", FieldValue.increment(1))
+            }
+
+            null
+        }.addOnSuccessListener {
+            done(true)
+        }.addOnFailureListener {
+            done(false)
         }
     }
 }

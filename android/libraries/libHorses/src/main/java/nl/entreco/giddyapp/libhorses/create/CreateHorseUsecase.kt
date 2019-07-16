@@ -11,7 +11,6 @@ class CreateHorseUsecase @Inject constructor(
 
     fun go(request: CreateHorseRequest, done: (CreateHorseResponse) -> Unit) {
         onBg {
-            val user = request.userUid
             val name = request.name
             val description = request.description
             val gender = request.gender
@@ -20,7 +19,7 @@ class CreateHorseUsecase @Inject constructor(
             val category = request.category
             val level = request.level
 
-            service.create(user, name, description, gender, price, category, level, image, request.startColor, request.endColor){ id ->
+            service.create(name, description, gender, price, category, level, image, request.startColor, request.endColor){ id ->
                 onUi { done(CreateHorseResponse(id)) }
             }
         }

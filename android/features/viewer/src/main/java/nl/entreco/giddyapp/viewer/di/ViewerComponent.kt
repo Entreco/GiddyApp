@@ -6,6 +6,7 @@ import android.view.Window
 import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
@@ -45,6 +46,9 @@ interface ViewerComponent {
 
         @BindsInstance
         fun horse(service: HorseService): Builder
+
+        @BindsInstance
+        fun user(service: UserService): Builder
 
         @BindsInstance
         fun img(loader: ImageLoader): Builder

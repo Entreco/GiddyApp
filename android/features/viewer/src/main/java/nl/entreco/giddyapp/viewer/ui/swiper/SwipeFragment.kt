@@ -13,6 +13,7 @@ import nl.entreco.giddyapp.viewer.databinding.FragmentSwipeBinding
 import nl.entreco.giddyapp.viewer.di.SwipeModule
 import nl.entreco.giddyapp.viewer.di.ViewerInjector.fromActivity
 import nl.entreco.giddyapp.libhorses.Horse
+import nl.entreco.giddyapp.viewer.ratings.RateHorseRequest
 
 
 class SwipeFragment : Fragment() {
@@ -37,6 +38,8 @@ class SwipeFragment : Fragment() {
         parentViewModel.toggler().observe(this, toggleObserver)
         parentViewModel.current().observe(this, currentObserver)
         parentViewModel.next().observe(this, nextObserver)
+
+        viewModel.ratings().observe(this, ratingsObserver)
     }
 
     private val toggleObserver = Observer<Float> { offset ->
@@ -49,5 +52,9 @@ class SwipeFragment : Fragment() {
 
     private val nextObserver = Observer<Horse> { horse ->
         viewModel.next.set(SwipeHorseModel(horse))
+    }
+
+    private val ratingsObserver = Observer<RateHorseRequest> { rating ->
+        parentViewModel.storeRating(rating)
     }
 }

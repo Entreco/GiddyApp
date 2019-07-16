@@ -21,6 +21,7 @@ internal object ViewerInjector {
             .img(featureComponent().imageLoader())
             .dynamicLauncher(featureComponent().dynamicLauncher())
             .auth(featureComponent().authentication())
+            .user(featureComponent().userService())
             .module(provider())
             .build()
     }

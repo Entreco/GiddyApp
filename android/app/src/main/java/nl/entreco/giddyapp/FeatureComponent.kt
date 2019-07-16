@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseApp
 import dagger.BindsInstance
 import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.di.AuthModule
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.di.AppScope
@@ -35,6 +36,7 @@ interface FeatureComponent {
     fun fbApp(): FirebaseApp
     fun dynamicLauncher(): DynamicLauncher
     fun authentication(): Authenticator
+    fun userService(): UserService
 
     @Component.Builder
     interface Builder {

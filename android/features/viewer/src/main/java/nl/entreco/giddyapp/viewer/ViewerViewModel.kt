@@ -1,6 +1,7 @@
 package nl.entreco.giddyapp.viewer
 
 import android.net.Uri
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,8 @@ import nl.entreco.giddyapp.libhorses.fetch.FetchHorseResponse
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.swap.SwapHorseUsecase
 import nl.entreco.giddyapp.viewer.di.ViewerUrl
+import nl.entreco.giddyapp.viewer.ratings.RateHorseRequest
+import nl.entreco.giddyapp.viewer.ratings.RateHorseUsecase
 import nl.entreco.giddyapp.viewer.ui.FetchToolbarIcon
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import javax.inject.Inject
@@ -20,7 +23,8 @@ class ViewerViewModel @Inject constructor(
     @ViewerUrl horseId: String?,
     fetchHorseUsecase: FetchHorseUsecase,
     private val fetchToolbarIcon: FetchToolbarIcon,
-    private val swapHorseUsecase: SwapHorseUsecase
+    private val swapHorseUsecase: SwapHorseUsecase,
+    private val rateHorseUsecase: RateHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
 
     val details = ObservableField<DetailModel>()
@@ -78,8 +82,17 @@ class ViewerViewModel @Inject constructor(
         else if (next.value?.imageRef == horse.imageRef) next.postValue(horse)
     }
 
+    fun storeRating(rating: RateHorseRequest?) {
+        rating?.let {
+            rateHorseUsecase.store(it)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
+        rateHorseUsecase.go {
+            Log.i("RATE", "DONE RATING")
+        }
         fetchToolbarIcon.clear()
     }
 }
