@@ -89,11 +89,11 @@ internal class FbAuth @Inject constructor(
             authUi.silentSignIn(context, providers)
                 .continueWithTask { task ->
                     if (task.isSuccessful) task
-                    else auth.signInAnonymously().addOnSuccessListener { result ->
-                        userService.create(User.Valid(result.user.uid, emptyList())){}
-                    }
+                    else auth.signInAnonymously()
                 }
-                .addOnCompleteListener{}
+                .addOnCompleteListener { result ->
+                    userService.create(User.Valid(auth.currentUser?.displayName ?: "Nameless ninja", emptyList())) {}
+                }
         }
     }
 

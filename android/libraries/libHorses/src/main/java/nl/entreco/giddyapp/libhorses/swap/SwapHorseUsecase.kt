@@ -18,7 +18,7 @@ class SwapHorseUsecase @Inject constructor(
     var onPreloadListener: PreloadListener? = null
 
     fun initWith(collection: List<Horse>) {
-        val atLeastOne = if (collection.isEmpty()) listOf(Horse.none()) else collection
+        val atLeastOne = if (collection.isEmpty()) listOf(Horse.none(), Horse.none()) else collection
         horses.removeAll { horse -> !queue.contains(horse.imageRef) }
         horses.addAll(atLeastOne)
         queue.addAll(atLeastOne.map { it.imageRef })

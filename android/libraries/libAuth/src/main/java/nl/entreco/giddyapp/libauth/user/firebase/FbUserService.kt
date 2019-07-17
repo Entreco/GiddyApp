@@ -21,7 +21,7 @@ internal class FbUserService @Inject constructor(
         val uuid = auth.currentUser?.uid
         if (uuid.isNullOrBlank()) done(User.Error("No user signed in"))
         else {
-            val fbUser = userMapper.toApiData(auth.currentUser?.displayName ?: "No Name", userData)
+            val fbUser = userMapper.toApiData(auth.currentUser?.displayName ?: "Still nameless ninja", userData)
             userCollection.document(uuid).set(fbUser, SetOptions.merge())
                 .addOnSuccessListener {
                     retrieve(done)

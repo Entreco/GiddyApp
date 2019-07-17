@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
-import nl.entreco.giddyapp.libauth.Authenticator
-import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
@@ -58,7 +56,8 @@ class CreatorViewModel @Inject constructor(
             is CreatorState.EntryCategory -> postEvent(CreatorState.Event.EnterCategory)
             is CreatorState.EntryLevel -> postEvent(CreatorState.Event.EnterLevel)
             is CreatorState.Upload -> postEvent(CreatorState.Event.Verify)
-            else -> { /* ignore other events */ }
+            else -> { /* ignore other events */
+            }
         }
     }
 
