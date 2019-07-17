@@ -39,8 +39,7 @@ object LaunchHelper {
             .startChooser()
     }
 
-    private fun viewerIntent(context: Context, id: String? = null) =
-        baseIntent(
+    private fun viewerIntent(context: Context, id: String? = null) = baseIntent(
             URL_VIEWER + id,
             context
         )
@@ -49,9 +48,10 @@ object LaunchHelper {
         context
     )
 
-    private fun profileIntent(context: Context) = Intent("nl.entreco.profile.open").apply {
-        `package` = context.packageName
-    }
+    private fun profileIntent(context: Context) = baseIntent(
+        URL_PROFILE,
+        context
+    )
 
     private fun baseIntent(url: String, context: Context? = null): Intent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

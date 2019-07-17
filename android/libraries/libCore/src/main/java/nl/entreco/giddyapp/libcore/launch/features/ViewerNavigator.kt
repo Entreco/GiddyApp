@@ -8,12 +8,12 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import nl.entreco.giddyapp.libcore.launch.loadIntentOrNull
 
-object CreatorNavigator : DynamicFeature<Intent> {
-    private const val CREATOR = "nl.entreco.giddyapp.creator.CreatorActivity"
-    private const val FEATURE = "creator"
+object ViewerNavigator : DynamicFeature<Intent> {
+    private const val VIEWER = "nl.entreco.giddyapp.viewer.ViewerActivity"
+    private const val FEATURE = "viewer"
 
     override val dynamicStart: Intent?
-        get() = CREATOR.loadIntentOrNull()
+        get() = VIEWER.loadIntentOrNull()
 
     fun launch(c: Context, installedAction: (Long, Intent?) -> Unit) {
         val manager = SplitInstallManagerFactory.create(c)

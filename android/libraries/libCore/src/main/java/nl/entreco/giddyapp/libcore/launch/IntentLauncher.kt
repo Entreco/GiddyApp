@@ -1,10 +1,6 @@
 package nl.entreco.giddyapp.libcore.launch
 
-import android.content.Context
 import android.content.Intent
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
-import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 
 private const val PACKAGE_NAME = "nl.entreco.giddyapp"
 

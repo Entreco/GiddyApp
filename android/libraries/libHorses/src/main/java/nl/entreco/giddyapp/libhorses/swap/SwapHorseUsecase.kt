@@ -70,6 +70,11 @@ class SwapHorseUsecase @Inject constructor(
         }
     }
 
+    fun clear() {
+        queue.clear()
+        horses.clear()
+    }
+
     interface PreloadListener {
         fun onImageReady(horse: Horse)
     }

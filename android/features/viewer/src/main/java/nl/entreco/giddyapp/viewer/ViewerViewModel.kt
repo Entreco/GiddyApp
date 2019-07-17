@@ -40,6 +40,7 @@ class ViewerViewModel @Inject constructor(
     }
 
     fun load(horseId: String?){
+        swapHorseUsecase.clear()
         fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
     }
 
@@ -97,6 +98,7 @@ class ViewerViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
+        swapHorseUsecase.clear()
         fetchToolbarIcon.clear()
     }
 }

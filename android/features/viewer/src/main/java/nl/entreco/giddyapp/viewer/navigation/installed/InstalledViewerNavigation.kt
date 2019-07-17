@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
+import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.di.ViewerScope
@@ -47,12 +48,11 @@ class InstalledViewerNavigation @Inject constructor(
         val transition = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, view.transitionName)
         val doh = ActivityOptionsCompat.makeSceneTransitionAnimation(activity)
 
-        LaunchHelper.launchProfile(activity, reveal)
-//        ProfileNavigator.launch(activity) { progress, intent ->
-//            intent?.let {
-//                activity.startActivity(intent)
-//            }
-//        }
+        ProfileNavigator.launch(activity) { progress, intent ->
+            intent?.let {
+                LaunchHelper.launchProfile(activity, reveal)
+            }
+        }
     }
 
     override fun onShareClicked(horseId: String) = LaunchHelper.share(activity, horseId)
