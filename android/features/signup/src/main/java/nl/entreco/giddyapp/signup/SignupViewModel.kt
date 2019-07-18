@@ -12,7 +12,7 @@ class SignupViewModel @Inject constructor(
     private val linkAccountUsecase: LinkAccountUsecase
 ) : ViewModel() {
 
-    fun intent(): Intent? = linkAccountUsecase.signinIntent()
+    fun intent(): Intent? = linkAccountUsecase.signinIntent(nl.entreco.giddyapp.libcore.R.drawable.ic_launcher_foreground)
 
     fun handleResult(context: Context, resultCode: Int, data: Intent?, done: (LinkAccountResponse) -> Unit) {
         linkAccountUsecase.exec(LinkAccountRequest(context, resultCode, data)) { response ->

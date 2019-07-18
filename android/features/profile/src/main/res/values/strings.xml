@@ -6,8 +6,6 @@
     <string name="profile_signup_description">Please signup, to get access to more features</string>
     <string name="profile_signup">Signup</string>
     <string name="profile_error" />
-    <string name="profile_star_description" >* requires signin up</string>
-    <string name="profile_star_empty"  />
 
     <string name="profile_item_upload">Upload</string>
     <string name="profile_item_upload_description">Add your own Horse to Giddy-app*</string>

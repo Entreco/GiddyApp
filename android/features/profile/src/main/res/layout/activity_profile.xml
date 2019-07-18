@@ -20,6 +20,7 @@
             android:fitsSystemWindows="true">
 
         <androidx.core.widget.NestedScrollView
+                android:id="@+id/profile_scroller"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
@@ -41,22 +42,21 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <TextView
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/def"
-                android:gravity="center"
-                android:fontFamily="sans-serif-condensed-light"
-                android:text="@{viewModel.footerMessage}"/>
-
         <include
-                android:id="@+id/include_matches"
+                android:id="@+id/include_copyright"
                 android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/include_profile_matches"
-                app:viewModel="@{viewModel}"/>
+                app:version="@{viewModel.version}"
+                layout="@layout/include_profile_copyright"/>
+
+        <!--<include-->
+        <!--android:id="@+id/include_matches"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--layout="@layout/include_profile_matches"-->
+        <!--app:viewModel="@{viewModel}"/>-->
 
         <include
                 android:id="@+id/includeToolbar"

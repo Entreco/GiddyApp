@@ -21,6 +21,7 @@ internal object CreatorInjector {
             .img(featureComponent().imageLoader())
             .fbApp(featureComponent().fbApp())
             .auth(featureComponent().authentication())
+            .user(component.userService())
             .module(provider())
             .build()
     }

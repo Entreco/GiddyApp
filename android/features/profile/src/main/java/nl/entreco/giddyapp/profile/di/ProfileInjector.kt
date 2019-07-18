@@ -12,7 +12,6 @@ internal object ProfileInjector {
         DaggerProfileComponent.builder()
             .appContext(component.appContext())
             .activity(this)
-            .dynamicLauncher(component.dynamicLauncher())
             .auth(component.authentication())
             .imageLoader(component.imageLoader())
             .horse(component.horseService())

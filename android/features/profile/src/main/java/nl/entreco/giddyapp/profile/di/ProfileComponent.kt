@@ -6,7 +6,6 @@ import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
-import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.ProfileActivity
@@ -30,9 +29,6 @@ interface ProfileComponent {
 
         @BindsInstance
         fun activity(activity: ProfileActivity): Builder
-
-        @BindsInstance
-        fun dynamicLauncher(launcher: DynamicLauncher): Builder
 
         @BindsInstance
         fun auth(auth: Authenticator): Builder

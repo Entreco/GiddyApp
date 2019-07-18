@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.ui.bottom.BottomProgressModel
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.creator.ui.select.SelectCallback
+import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.toSingleEvent
 import nl.entreco.giddyapp.libhorses.create.CreateHorseRequest
 import nl.entreco.giddyapp.libhorses.create.CreateHorseUsecase
@@ -16,6 +18,7 @@ import java.util.*
 import javax.inject.Inject
 
 class CreatorViewModel @Inject constructor(
+    private val authenticator: Authenticator,
     private val createHorseUsecase: CreateHorseUsecase
 ) : ViewModel(), SelectCallback {
 
@@ -56,8 +59,7 @@ class CreatorViewModel @Inject constructor(
             is CreatorState.EntryCategory -> postEvent(CreatorState.Event.EnterCategory)
             is CreatorState.EntryLevel -> postEvent(CreatorState.Event.EnterLevel)
             is CreatorState.Upload -> postEvent(CreatorState.Event.Verify)
-            else -> { /* ignore other events */
-            }
+            else -> { /* ignore other events */ }
         }
     }
 
@@ -114,16 +116,25 @@ class CreatorViewModel @Inject constructor(
     }
 
     private fun uploadForUser(model: EntryModel) {
-        createHorseUsecase.go(
-            CreateHorseRequest(
-                model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
-                model.horseDetail.price, model.horseDetail.category, model.horseDetail.type,
-                model.image.uri, model.image.startColor, model.image.endColor
-            )
-        ) { response ->
-            val done = CreatorState.Done(response.horseId)
-            stateStack.add(done)
-            state.postValue(stateStack.last)
+        authenticator.observe("creator") { account ->
+
+            val uid = when (account) {
+                is Account.Authenticated -> account.uid
+                else -> throw IllegalStateException("Not an Authenticated Account")
+            }
+
+            createHorseUsecase.go(
+                CreateHorseRequest(
+                    uid,
+                    model.horseDetail.name, model.horseDetail.desc, model.horseDetail.gender,
+                    model.horseDetail.price, model.horseDetail.category, model.horseDetail.type,
+                    model.image.uri, model.image.startColor, model.image.endColor
+                )
+            ) { response ->
+                val done = CreatorState.Done(response.horseId)
+                stateStack.add(done)
+                state.postValue(stateStack.last)
+            }
         }
     }
 

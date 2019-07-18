@@ -17,12 +17,18 @@ internal class FbUserService @Inject constructor(
     private val userCollection = db.collection("users")
     private val userMapper by lazy { UserMapper() }
 
-    override fun create(userData: User, done: (User) -> Unit) {
+    override fun create(name: String, likes: List<UserLike>, done: (User) -> Unit) {
         val uuid = auth.currentUser?.uid
         if (uuid.isNullOrBlank()) done(User.Error("No user signed in"))
         else {
-            val fbUser = userMapper.toApiData(auth.currentUser?.displayName ?: "Still nameless ninja", userData)
-            userCollection.document(uuid).set(fbUser, SetOptions.merge())
+            userCollection.document(uuid)
+                .set(FbUser(name), SetOptions.merge())
+                .continueWithTask {
+                    userCollection.document(uuid).collection("likes")
+                        .add(likes.map {
+                            FbUserLike(it.horseName, it.horseId, it.horseRef)
+                        })
+                }
                 .addOnSuccessListener {
                     retrieve(done)
                 }
@@ -36,24 +42,41 @@ internal class FbUserService @Inject constructor(
         val uuid = auth.currentUser?.uid
         if (uuid.isNullOrBlank()) done(User.Error("No user signed in"))
         else {
+            user { fbUser ->
+                userLikes { fbLikes ->
+                    done(userMapper.toUser(fbUser, fbLikes))
+                }
+            }
+        }
+    }
+
+    private fun user(done: (FbUser?) -> Unit) {
+        val uuid = auth.currentUser?.uid
+        if (uuid.isNullOrBlank()) done(null)
+        else {
             userCollection.document(uuid)
                 .get()
                 .addOnSuccessListener { snap ->
                     val user = snap.toObject(FbUser::class.java)
-                    if (user != null) {
-                        userCollection.document(uuid).collection("likes").get().addOnCompleteListener { task1 ->
-                            val likes = task1.result?.map { res ->
-                                res.toObject(FbUserLike::class.java)
-                            } ?: emptyList()
-
-                            done(userMapper.toUser(user, likes))
-                        }
-                    } else {
-                        done(User.Error("Empty User"))
-                    }
-
+                    done(user)
                 }.addOnFailureListener { err ->
-                    done(User.Error(err.localizedMessage))
+                    done(null)
+                }
+        }
+    }
+
+    private fun userLikes(done: (List<FbUserLike>) -> Unit) {
+        val uuid = auth.currentUser?.uid
+        if (uuid.isNullOrBlank()) done(emptyList())
+        else {
+            userCollection.document(uuid)
+                .collection("likes")
+                .get()
+                .addOnSuccessListener { snap ->
+                    val likes = snap.toObjects(FbUserLike::class.java)
+                    done(likes)
+                }.addOnFailureListener {
+                    done(emptyList())
                 }
         }
     }

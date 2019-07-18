@@ -19,15 +19,4 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-# Annotations
--keepattributes *Annotation*,Signature
-
-# For stack traces
--keepattributes SourceFile, LineNumberTable
-
-# Get rid of package names, makes file smaller
--repackageclasses
-
-# Keep dynamic feature modules
--keep class nl.entreco.giddyapp.DataBinderMapperImpl { *; }
+-keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }

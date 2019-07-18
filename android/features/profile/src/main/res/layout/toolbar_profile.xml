@@ -13,6 +13,9 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/profile_header_height"
+            app:liftOnScroll="true"
+            app:elevation="20dp"
+            app:liftOnScrollTargetViewId="@id/profile_scroller"
             android:theme="@style/TransparentTheme">
 
 

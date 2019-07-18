@@ -5,12 +5,9 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import nl.entreco.giddyapp.libcore.di.AppScope
-import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import nl.entreco.giddyapp.viewer.R
@@ -22,7 +19,6 @@ import javax.inject.Inject
 
 class InstalledViewerNavigation @Inject constructor(
     private val activity: ViewerActivity,
-    @AppScope private val dynamicLauncher: DynamicLauncher,
     @ViewerScope private val filterPanel: SearchPanelBehavior
 ) : ViewerNavigation {
 
@@ -38,15 +34,15 @@ class InstalledViewerNavigation @Inject constructor(
     override fun onFabClicked(eFab: ExtendedFloatingActionButton, fab: FloatingActionButton) = filterPanel.toggle()
 
     override fun onProfileClicked(view: View) {
-        val reveal = ActivityOptionsCompat.makeClipRevealAnimation(
+        val reveal = ActivityOptions.makeClipRevealAnimation(
             view,
             (view.x + view.width / 2).toInt(),
             (view.y + view.height / 2).toInt(),
             0,
             0
         )
-        val transition = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, view.transitionName)
-        val doh = ActivityOptionsCompat.makeSceneTransitionAnimation(activity)
+        val transition = ActivityOptions.makeSceneTransitionAnimation(activity, view, view.transitionName)
+        val doh = ActivityOptions.makeSceneTransitionAnimation(activity)
 
         ProfileNavigator.launch(activity) { progress, intent ->
             intent?.let {

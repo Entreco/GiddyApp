@@ -8,7 +8,6 @@ import dagger.Component
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
-import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
@@ -55,9 +54,6 @@ interface ViewerComponent {
 
         @BindsInstance
         fun auth(auth: Authenticator): Builder
-
-        @BindsInstance
-        fun dynamicLauncher(launcher: DynamicLauncher): Builder
 
         fun module(module: ViewerModule): Builder
         fun build(): ViewerComponent

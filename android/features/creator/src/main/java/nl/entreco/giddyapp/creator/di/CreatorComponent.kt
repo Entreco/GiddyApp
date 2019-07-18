@@ -9,6 +9,7 @@ import dagger.Component
 import nl.entreco.giddyapp.creator.CreatorAnimator
 import nl.entreco.giddyapp.creator.CreatorViewModel
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.di.AuthModule
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libhorses.HorseService
@@ -45,6 +46,9 @@ interface CreatorComponent {
 
         @BindsInstance
         fun auth(auth: Authenticator): Builder
+
+        @BindsInstance
+        fun user(service: UserService): Builder
 
         fun module(module: CreatorModule): Builder
 

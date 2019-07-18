@@ -20,9 +20,13 @@ android {
 
     buildTypes {
         release {
+
+            // Resource shrinker cannot be used for multi-apk applications
+            shrinkResources false
+
             // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
-            // The temporary workaround is to disable shrinking
-            minifyEnabled false
+            // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
@@ -41,9 +45,8 @@ android {
             ":features:creator",
             ":features:viewer",
             ":features:profile",
-            ":features:signup"]
-
-
+            ":features:signup"
+    ]
 }
 
 android.applicationVariants.all { variant ->

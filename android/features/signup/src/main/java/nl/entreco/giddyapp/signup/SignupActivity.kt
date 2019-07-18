@@ -10,6 +10,7 @@ import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.signup.databinding.ActivitySignupBinding
 import nl.entreco.giddyapp.signup.di.SignupInjector.fromModule
 import nl.entreco.giddyapp.signup.di.SignupModule
+import nl.entreco.giddyapp.signup.link.LinkAccountResponse
 
 class SignupActivity : BaseActivity() {
 
@@ -28,9 +29,9 @@ class SignupActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             viewModel.handleResult(this, resultCode, data) { response ->
-                when (response.ok) {
-                    true -> finish()
-                    else -> Toast.makeText(this, "Unable to signin", Toast.LENGTH_SHORT).show()
+                when (response) {
+                    is LinkAccountResponse.Success -> finish()
+                    is LinkAccountResponse.Failed -> Toast.makeText(this, "Unable to signin (${response.msg})", Toast.LENGTH_SHORT).show()
                 }
             }
         }

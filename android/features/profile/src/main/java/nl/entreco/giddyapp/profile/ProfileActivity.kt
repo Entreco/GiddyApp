@@ -33,7 +33,7 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
         val binding = DataBindingUtil.setContentView<ActivityProfileBinding>(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.navigation = navigation
-        setupPager(binding.includeMatches.profileMatchRecycler)
+//        setupPager(binding.includeMatches.profileMatchRecycler)
 
         viewModel.state().observe(this, Observer { profile ->
             navigation.onStateChanged(profile)

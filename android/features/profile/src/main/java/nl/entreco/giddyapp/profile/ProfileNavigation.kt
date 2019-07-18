@@ -4,8 +4,6 @@ import android.content.Intent
 import android.widget.Toast
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.Account
-import nl.entreco.giddyapp.libcore.di.AppScope
-import nl.entreco.giddyapp.libcore.launch.DynamicLauncher
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
 import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderLoadingFragment
@@ -18,7 +16,6 @@ import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
     private val activity: ProfileActivity,
-    @AppScope private val dynamicLauncher: DynamicLauncher,
     private val auth: Authenticator
 ) {
     private val fm = activity.supportFragmentManager

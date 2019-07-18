@@ -22,7 +22,7 @@ class ProfileViewModel @Inject constructor(
 
     val currentProfile = ObservableField<Profile>()
     val items = ObservableArrayList<ProfileItem>()
-    val footerMessage = ObservableInt(R.string.profile_star_empty)
+    val version = ObservableField("v0.1.5-AppleJack-a4dda4a")
 
     private val state = MutableLiveData<Profile>()
     private val selected = MutableLiveData<ProfileItem>()
@@ -37,7 +37,6 @@ class ProfileViewModel @Inject constructor(
         fetchProfileUsecase.go("profile") { profile ->
             currentProfile.set(profile)
             state.postValue(profile)
-            footerMessage.set(profile.footer())
             generateItems(profile.account)
         }
         fetchMatchesUsecase.go { horses ->

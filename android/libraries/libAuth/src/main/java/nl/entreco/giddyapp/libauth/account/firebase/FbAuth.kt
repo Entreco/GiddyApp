@@ -4,9 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.annotation.DrawableRes
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.UserService
@@ -34,8 +36,9 @@ internal class FbAuth @Inject constructor(
         )
     }
 
-    override fun signinIntent(): Intent = authUi
+    override fun signinIntent(@DrawableRes logo: Int): Intent = authUi
         .createSignInIntentBuilder()
+        .setLogo(logo)
         .setAvailableProviders(providers)
         .enableAnonymousUsersAutoUpgrade()
         .build()
@@ -69,7 +72,14 @@ internal class FbAuth @Inject constructor(
                 authUi.delete(context).continueWithTask {
                     auth.signInWithCredential(response.credentialForLinking!!)
                         .addOnSuccessListener { result ->
-                            userService.create(old) {
+
+                            val userName = result.name()
+                            val likes = when (old) {
+                                is User.Valid -> old.likes
+                                else -> emptyList()
+                            }
+
+                            userService.create(userName, likes) {
                                 done(SignupResponse.Success(result.user.uid))
                             }
                         }
@@ -91,8 +101,11 @@ internal class FbAuth @Inject constructor(
                     if (task.isSuccessful) task
                     else auth.signInAnonymously()
                 }
-                .addOnCompleteListener { result ->
-                    userService.create(User.Valid(auth.currentUser?.displayName ?: "Nameless ninja", emptyList())) {}
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val name = task.result.name()
+                        userService.create(name, emptyList()) {}
+                    }
                 }
         }
     }
@@ -132,4 +145,8 @@ internal class FbAuth @Inject constructor(
     override fun delete(uuid: String) {
 
     }
+
+    private fun AuthResult?.name(): String = this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
+        it.displayName?.isNotBlank() ?: false
+    }?.displayName ?: this?.additionalUserInfo?.username ?: "You sir... Are an asshole"
 }
