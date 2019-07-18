@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.libmatches.data
 
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import nl.entreco.giddyapp.libmatches.Match
 import nl.entreco.giddyapp.libmatches.MatchResponse
@@ -16,9 +17,12 @@ internal class FbMatchService(
 
         matches.forEach { match ->
             val horseId = match.horseId
-            val doc = matchesCollection.document(horseId)
-            val fbMatch = FbMatch(userId, horseId, match.name, match.ref)
-            batch.set(doc, fbMatch)
+            val document = matchesCollection.document(horseId)
+            val fbMatch = FbMatch(horseId, match.name, match.ref)
+            batch.set(document, fbMatch)
+
+            val liker = document.collection("likers").document(userId)
+            batch.set(liker, mapOf("a" to "true"))
         }
 
         batch.commit()

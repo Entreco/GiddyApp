@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.viewer.ratings
 
+import android.util.Log
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.AnkoAsyncContext
@@ -29,6 +30,7 @@ class RateHorseUsecase @Inject constructor(
     fun go(done: (RateHorseResponse) -> Unit) {
         onBg {
 
+            Log.i("RATE", "RATING START: ${requests.size}")
             val likes = requests.filter { it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
             val dislikes = requests.filter { !it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
 

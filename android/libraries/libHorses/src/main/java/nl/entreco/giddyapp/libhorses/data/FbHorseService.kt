@@ -135,12 +135,13 @@ internal class FbHorseService @Inject constructor(
             doc.update("dislikes", FieldValue.increment(1))
         })
 
-        Tasks.whenAllComplete(tasks).addOnCompleteListener { task ->
+        Tasks.whenAll(tasks).addOnCompleteListener { task ->
             val rating = when (task.isSuccessful) {
                 true -> HorseRating.Ok
                 else -> HorseRating.Failed(task.exception?.localizedMessage ?: "Error while rating")
             }
             done(rating)
         }
+
     }
 }
