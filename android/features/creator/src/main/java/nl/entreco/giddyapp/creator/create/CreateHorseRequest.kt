@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.libhorses.create
+package nl.entreco.giddyapp.creator.create
 
 import android.net.Uri
 import nl.entreco.giddyapp.libcore.HexString

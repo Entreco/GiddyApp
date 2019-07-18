@@ -91,8 +91,8 @@ class ViewerViewModel @Inject constructor(
     }
 
     fun submitRatings() {
-        rateHorseUsecase.go {
-            Log.i("RATE", "DONE RATING")
+        rateHorseUsecase.go { response ->
+            Log.i("RATE", "DONE RATING: $response")
         }
     }
 

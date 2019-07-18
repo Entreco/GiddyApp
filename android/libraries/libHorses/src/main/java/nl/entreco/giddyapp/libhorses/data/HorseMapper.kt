@@ -2,15 +2,15 @@ package nl.entreco.giddyapp.libhorses.data
 
 import nl.entreco.giddyapp.libcore.HexString
 import nl.entreco.giddyapp.libhorses.*
+import java.util.*
 
 internal class HorseMapper {
-    fun map(fbHorse: FbHorse, imageRef: String): Horse {
+    fun map(fbHorse: FbHorse, id: String): Horse {
         return Horse(
-            imageRef,
+            id,
             HexString.from(fbHorse.startColor),
             HexString.from(fbHorse.endColor),
-            imageRef,
-            fbHorse.ext,
+            fbHorse.url,
             fbHorse.posted.time,
             toDetails(fbHorse)
         )
@@ -58,13 +58,16 @@ internal class HorseMapper {
         category: HorseCategory,
         level: HorseLevel,
         startColor: HexString,
-        endColor: HexString
+        endColor: HexString,
+        url: String
     ): FbHorse {
         return FbHorse(
             name = name,
             description = description,
             gender = gender.ordinal,
             price = price.ordinal,
+            posted = Date(),
+            url = url,
             category = category.ordinal,
             level = level.ordinal,
             startColor = startColor.hex(),

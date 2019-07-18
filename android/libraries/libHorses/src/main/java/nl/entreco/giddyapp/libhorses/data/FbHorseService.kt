@@ -2,6 +2,7 @@ package nl.entreco.giddyapp.libhorses.data
 
 import android.net.Uri
 import android.util.Log
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -10,6 +11,7 @@ import nl.entreco.giddyapp.libcore.HexString
 import nl.entreco.giddyapp.libhorses.*
 import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 import javax.inject.Inject
+import kotlin.math.max
 import kotlin.random.Random
 
 internal class FbHorseService @Inject constructor(
@@ -41,6 +43,8 @@ internal class FbHorseService @Inject constructor(
     }
 
     override fun create(
+        userId: String,
+        horseId: String,
         name: String,
         description: String,
         gender: HorseGender,
@@ -52,12 +56,12 @@ internal class FbHorseService @Inject constructor(
         endColor: HexString,
         done: (String) -> Unit
     ) {
-        val document = horseCollection.document()
+        val document = horseCollection.document(horseId)
 
         // 1) Upload Image
-        upload(document.id, image) {
+        upload(userId, document.id, image) { url ->
             // 2) Set Image Details
-            val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor)
+            val horse = mapper.create(name, description, gender, price, category, level, startColor, endColor, url)
             document.set(horse).addOnSuccessListener {
                 done(document.id)
             }.addOnFailureListener {
@@ -72,7 +76,7 @@ internal class FbHorseService @Inject constructor(
     ): List<Horse> {
         val nonNull = ids.filter { it.isNotBlank() }.fetchOrNotFound(query)
         val randomRange = ids.size - nonNull.size
-        val randomStart = Random.nextInt(query.size() - randomRange)
+        val randomStart = Random.nextInt(max(query.size() - randomRange, 1))
         val random = (randomStart until randomStart + randomRange).map { index ->
             index % query.size()
         }.fetchOrError(query)
@@ -104,41 +108,39 @@ internal class FbHorseService @Inject constructor(
         }
     }
 
-    private fun upload(documentId: String, image: Uri, done: (String?) -> Unit) {
+    private fun upload(userId: String, documentId: String, image: Uri, done: (String) -> Unit) {
         val reference = storage.reference
-        val imageRef = reference.child("$documentId.jpg")
+        val imageRef = reference.child(userId).child("$documentId.jpg")
         imageRef.putFile(image).addOnSuccessListener {
-            done(imageRef.name)
+            done(imageRef.path)
         }.addOnFailureListener {
-            done(null)
+            done("")
         }
     }
 
-    override fun image(ref: String, done: (Uri) -> Unit) {
+    override fun image(ref: String, done: (DownloadUrl) -> Unit) {
         val reference = storage.reference.child(ref)
-        reference.downloadUrl.addOnSuccessListener {
-            done(it)
-        }.addOnFailureListener {
-            Log.i("NOOOOOOH", "e: $it")
+        reference.downloadUrl.addOnSuccessListener { uri ->
+            done(DownloadUrl.Ok(uri))
+        }.addOnFailureListener { err ->
+            done(DownloadUrl.Err(err.localizedMessage))
         }
     }
 
-    override fun rate(likes: List<String>, dislikes: List<String>, done: (Boolean) -> Unit) {
-        val likeRefs = likes.map { horseCollection.document(it) }
-        val dislikeRefs = dislikes.map { horseCollection.document(it) }
-        db.runTransaction { transaction ->
-            likeRefs.forEach {
-                transaction.update(it, "likes", FieldValue.increment(1))
-            }
-            dislikeRefs.forEach {
-                transaction.update(it, "dislikes", FieldValue.increment(1))
-            }
+    override fun rate(likes: List<String>, dislikes: List<String>, done: (HorseRating) -> Unit) {
 
-            null
-        }.addOnSuccessListener {
-            done(true)
-        }.addOnFailureListener {
-            done(false)
+        val tasks = likes.map { horseCollection.document(it) }.map { doc ->
+            doc.update("likes", FieldValue.increment(1))
+        }.union(dislikes.map { horseCollection.document(it) }.map { doc ->
+            doc.update("dislikes", FieldValue.increment(1))
+        })
+
+        Tasks.whenAllComplete(tasks).addOnCompleteListener { task ->
+            val rating = when (task.isSuccessful) {
+                true -> HorseRating.Ok
+                else -> HorseRating.Failed(task.exception?.localizedMessage ?: "Error while rating")
+            }
+            done(rating)
         }
     }
 }

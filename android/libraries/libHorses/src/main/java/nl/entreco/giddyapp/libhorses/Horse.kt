@@ -8,7 +8,6 @@ data class Horse(
     val start: HexString,
     val end: HexString,
     val imageRef: String,
-    val imageExt: String,
     val posted: Long,
     val details: HorseDetail,
     val imageUri: Uri? = null
@@ -20,7 +19,6 @@ data class Horse(
                 HexString.Transparent,
                 HexString.Transparent,
                 "none",
-                "-",
                 0L,
                 HorseDetail("Loading", "even geduld aub...")
             )
@@ -32,7 +30,6 @@ data class Horse(
                 HexString.Red,
                 HexString.Blue,
                 "notFound",
-                "-",
                 0L,
                 HorseDetail("Horse with $id found", "")
             )
@@ -44,7 +41,6 @@ data class Horse(
                 HexString.Red,
                 HexString.Blue,
                 "error",
-                "-",
                 0L,
                 HorseDetail("Error", "--")
             )

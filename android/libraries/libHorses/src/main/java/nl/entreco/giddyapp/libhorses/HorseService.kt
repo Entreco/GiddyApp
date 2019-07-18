@@ -6,8 +6,10 @@ import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 
 interface HorseService {
     fun retrieve(ids: List<String>, filterOptions: FilterOptions, done: (List<Horse>) -> Unit)
-    fun image(ref: String, done: (Uri) -> Unit)
+    fun image(ref: String, done: (DownloadUrl) -> Unit)
     fun create(
+        userId: String,
+        horseId: String,
         name: String,
         description: String,
         gender: HorseGender,
@@ -20,5 +22,5 @@ interface HorseService {
         done: (String) -> Unit
     )
 
-    fun rate(likes: List<String>, dislikes: List<String>, done: (Boolean) -> Unit)
+    fun rate(likes: List<String>, dislikes: List<String>, done: (HorseRating) -> Unit)
 }

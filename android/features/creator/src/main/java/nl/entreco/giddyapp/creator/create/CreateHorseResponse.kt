@@ -1,3 +1,3 @@
-package nl.entreco.giddyapp.libhorses.create
+package nl.entreco.giddyapp.creator.create
 
 data class CreateHorseResponse(val horseId: String)

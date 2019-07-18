@@ -18,11 +18,15 @@ class SwapHorseUsecase @Inject constructor(
     var onPreloadListener: PreloadListener? = null
 
     fun initWith(collection: List<Horse>) {
-        val atLeastOne = if (collection.isEmpty()) listOf(Horse.none(), Horse.none()) else collection
+        val atLeastTwo = when {
+            collection.isEmpty() -> listOf(Horse.none(), Horse.none())
+            collection.size < 2 -> listOf(collection[0], Horse.none())
+            else -> collection
+        }
         horses.removeAll { horse -> !queue.contains(horse.imageRef) }
-        horses.addAll(atLeastOne)
-        queue.addAll(atLeastOne.map { it.imageRef })
-        preloadImages(atLeastOne)
+        horses.addAll(atLeastTwo)
+        queue.addAll(atLeastTwo.map { it.imageRef })
+        preloadImages(atLeastTwo)
     }
 
     fun go(done: (Horse, Horse) -> Unit) {
@@ -54,12 +58,7 @@ class SwapHorseUsecase @Inject constructor(
 
     private fun preloadImages(collection: List<Horse>) {
         collection.filter { it.imageUri == null }.forEach { horse ->
-            fetchImageUsecase.go(
-                FetchImageRequest(
-                    horse.imageRef,
-                    horse.imageExt
-                )
-            ) { response ->
+            fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 val index = horses.indexOfFirst { it.imageRef == response.imageRef }
                 if(index != -1) {
                     val updated = horses[index].copy(imageUri = response.image)

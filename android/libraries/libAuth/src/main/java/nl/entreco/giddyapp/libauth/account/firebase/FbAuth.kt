@@ -3,7 +3,6 @@ package nl.entreco.giddyapp.libauth.account.firebase
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.annotation.DrawableRes
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
@@ -16,7 +15,6 @@ import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libauth.account.SignupResponse
 import nl.entreco.giddyapp.libauth.user.User
 import javax.inject.Inject
-
 
 internal class FbAuth @Inject constructor(
     private val authUi: AuthUI,
@@ -46,14 +44,14 @@ internal class FbAuth @Inject constructor(
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
         val response = IdpResponse.fromResultIntent(data)
         when {
-            resultCode == RESULT_OK -> success(done)
+            resultCode == RESULT_OK -> success(response?.email ?: "Anonymous", done)
             response?.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(context, response, done)
             else -> failed(done)
         }
     }
 
-    private fun success(done: (SignupResponse) -> Unit) {
-        done(SignupResponse.Success("some id"))
+    private fun success(name: String, done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Success(name))
     }
 
     private fun failed(done: (SignupResponse) -> Unit) {
@@ -65,21 +63,20 @@ internal class FbAuth @Inject constructor(
         response: IdpResponse,
         done: (SignupResponse) -> Unit
     ) {
+        // TODO entreco - 2019-07-18: Refactor 1) Readability, 2) Scalability, 3) Should be Transaction/Batch
         userService.retrieve { old ->
-            Log.i("CLEAN", "retrieved oldData: $old")
             userService.delete { del ->
-                Log.i("CLEAN", "deleted oldUser: $del")
                 authUi.delete(context).continueWithTask {
                     auth.signInWithCredential(response.credentialForLinking!!)
                         .addOnSuccessListener { result ->
 
-                            val userName = result.name()
+                            val userName = result.name((old as? User.Valid)?.name ?: "FROM Linked name")
                             val likes = when (old) {
                                 is User.Valid -> old.likes
                                 else -> emptyList()
                             }
 
-                            userService.create(userName, likes) {
+                            userService.create(userName, likes) { usr ->
                                 done(SignupResponse.Success(result.user.uid))
                             }
                         }
@@ -103,7 +100,7 @@ internal class FbAuth @Inject constructor(
                 }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val name = task.result.name()
+                        val name = task.result.name("Anonymous")
                         userService.create(name, emptyList()) {}
                     }
                 }
@@ -146,7 +143,7 @@ internal class FbAuth @Inject constructor(
 
     }
 
-    private fun AuthResult?.name(): String = this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
+    private fun AuthResult?.name(default: String): String = this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
         it.displayName?.isNotBlank() ?: false
-    }?.displayName ?: this?.additionalUserInfo?.username ?: "You sir... Are an asshole"
+    }?.displayName ?: this?.additionalUserInfo?.username ?: default
 }

@@ -7,6 +7,7 @@ import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.user.DeleteResponse
 import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libauth.user.UserLike
+import nl.entreco.giddyapp.libauth.user.UserRating
 import javax.inject.Inject
 
 internal class FbUserService @Inject constructor(
@@ -35,6 +36,22 @@ internal class FbUserService @Inject constructor(
                 .addOnFailureListener { err ->
                     done(User.Error(err.localizedMessage))
                 }
+        }
+    }
+
+    override fun createHorse(
+        name: String,
+        done: (UserHorse) -> Unit
+    ) {
+        val uuid = auth.currentUser?.uid
+        if (uuid.isNullOrBlank()) done(UserHorse.Err("No user logged in"))
+        else {
+            val horseRef = userCollection.document(uuid).collection("horses").document()
+            horseRef.set(FbUserHorse(name)).addOnSuccessListener {
+                done(UserHorse.Ok(uuid, horseRef.id))
+            }.addOnFailureListener {
+                done(UserHorse.Err("Unable to create horse"))
+            }
         }
     }
 
@@ -81,27 +98,27 @@ internal class FbUserService @Inject constructor(
         }
     }
 
-    override fun rate(likes: List<UserLike>, dislikes: List<UserLike>, done: () -> Unit) {
+    override fun rate(likes: List<UserLike>, dislikes: List<UserLike>, done: (UserRating) -> Unit) {
         val uuid = auth.currentUser?.uid
-        if (uuid.isNullOrBlank()) done()
+        if (uuid.isNullOrBlank()) done(UserRating.Err)
         else {
             val batch = db.batch()
             val user = userCollection.document(uuid)
 
-            val l = user.collection("likes")
+            val likesCollection = user.collection("likes")
             likes.forEach { like ->
                 val fbLike = FbUserLike(like.horseName, like.horseId, like.horseRef)
-                batch.set(l.document(like.horseId), fbLike)
+                batch.set(likesCollection.document(like.horseId), fbLike)
             }
 
-            val d = user.collection("dislikes")
-            dislikes.forEach { dislike ->
-                val fbDislike = FbUserLike(dislike.horseName, dislike.horseId, dislike.horseRef)
-                batch.set(d.document(dislike.horseId), fbDislike)
-            }
+            batch.commit().addOnCompleteListener { task ->
 
-            batch.commit().addOnCompleteListener {
-                done()
+                val result = when (task.isSuccessful) {
+                    true -> UserRating.Ok
+                    else -> UserRating.Err
+                }
+
+                done(result)
             }
         }
     }
