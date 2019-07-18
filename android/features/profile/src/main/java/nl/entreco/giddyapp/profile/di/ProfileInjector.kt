@@ -16,6 +16,7 @@ internal object ProfileInjector {
             .imageLoader(component.imageLoader())
             .horse(component.horseService())
             .user(component.userService())
+            .match(component.matchService())
             .build()
     }
 }

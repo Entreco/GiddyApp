@@ -11,6 +11,7 @@ import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libmatches.MatchService
 import nl.entreco.giddyapp.libsound.di.SoundModule
 import nl.entreco.giddyapp.viewer.ViewerActivity
 import nl.entreco.giddyapp.viewer.ViewerViewModel
@@ -54,6 +55,9 @@ interface ViewerComponent {
 
         @BindsInstance
         fun auth(auth: Authenticator): Builder
+
+        @BindsInstance
+        fun matches(service: MatchService): Builder
 
         fun module(module: ViewerModule): Builder
         fun build(): ViewerComponent

@@ -69,15 +69,12 @@ internal class FbAuth @Inject constructor(
                 authUi.delete(context).continueWithTask {
                     auth.signInWithCredential(response.credentialForLinking!!)
                         .addOnSuccessListener { result ->
-
                             val userName = result.name((old as? User.Valid)?.name ?: "FROM Linked name")
-                            val likes = when (old) {
-                                is User.Valid -> old.likes
-                                else -> emptyList()
-                            }
-
-                            userService.create(userName, likes) { usr ->
-                                done(SignupResponse.Success(result.user.uid))
+                            userService.create(userName) { usr ->
+                                when (usr) {
+                                    is User.Valid -> done(SignupResponse.Migrate(usr.uid, old))
+                                    is User.Error -> done(SignupResponse.Failed(usr.msg, -1))
+                                }
                             }
                         }
                         .addOnFailureListener { err ->
@@ -101,7 +98,7 @@ internal class FbAuth @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val name = task.result.name("Anonymous")
-                        userService.create(name, emptyList()) {}
+                        userService.create(name) {}
                     }
                 }
         }
@@ -143,7 +140,8 @@ internal class FbAuth @Inject constructor(
 
     }
 
-    private fun AuthResult?.name(default: String): String = this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
-        it.displayName?.isNotBlank() ?: false
-    }?.displayName ?: this?.additionalUserInfo?.username ?: default
+    private fun AuthResult?.name(default: String): String =
+        this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
+            it.displayName?.isNotBlank() ?: false
+        }?.displayName ?: this?.additionalUserInfo?.username ?: default
 }

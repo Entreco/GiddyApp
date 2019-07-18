@@ -128,7 +128,7 @@ internal class FbHorseService @Inject constructor(
     }
 
     override fun rate(likes: List<String>, dislikes: List<String>, done: (HorseRating) -> Unit) {
-
+        // TODO entreco - 2019-07-18: Refactor, security rules cannot enforce only updating specific fields
         val tasks = likes.map { horseCollection.document(it) }.map { doc ->
             doc.update("likes", FieldValue.increment(1))
         }.union(dislikes.map { horseCollection.document(it) }.map { doc ->

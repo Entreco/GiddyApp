@@ -8,6 +8,7 @@ import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libmatches.MatchService
 import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
@@ -38,6 +39,9 @@ interface ProfileComponent {
 
         @BindsInstance
         fun horse(service: HorseService): Builder
+
+        @BindsInstance
+        fun match(service: MatchService): Builder
 
         @BindsInstance
         fun imageLoader(loader: ImageLoader): Builder

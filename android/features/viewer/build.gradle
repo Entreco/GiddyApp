@@ -28,6 +28,7 @@ dependencies {
     implementation project(':libraries:libAuth')
     implementation project(':libraries:libCore')
     implementation project(':libraries:libSound')
+    implementation project(':libraries:libMatches')
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"

@@ -1,13 +1,14 @@
 include ':app',
         ':features:creator',
         ':features:viewer',
-        ':features:profile',
         ':features:signup',
+        ':features:profile',
         ':libraries:libAuth',
         ':libraries:libCore',
-        ':libraries:libHorses',
         ':libraries:libCropper',
+        ':libraries:libHorses',
+        ':libraries:libImg',
+        ':libraries:libMatches',
         ':libraries:libPicker',
-        ':libraries:libSound',
-        ':libraries:libImg'
+        ':libraries:libSound'
 

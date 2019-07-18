@@ -15,12 +15,15 @@ import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libhorses.di.HorseModule
 import nl.entreco.giddyapp.libimg.di.ImageModule
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libmatches.MatchService
+import nl.entreco.giddyapp.libmatches.di.MatchModule
 
 @AppScope
 @Component(
     modules = [FeatureModule::class,
         HorseModule::class,
         ImageModule::class,
+        MatchModule::class,
         AuthModule::class]
 )
 interface FeatureComponent {
@@ -33,6 +36,7 @@ interface FeatureComponent {
     fun fbApp(): FirebaseApp
     fun authentication(): Authenticator
     fun userService(): UserService
+    fun matchService(): MatchService
 
     @Component.Builder
     interface Builder {

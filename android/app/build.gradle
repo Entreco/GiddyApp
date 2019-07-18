@@ -58,6 +58,7 @@ android.applicationVariants.all { variant ->
 dependencies {
     implementation project(':libraries:libAuth')
     implementation project(':libraries:libCore')
+    implementation project(':libraries:libMatches')
     api project(':libraries:libHorses')// Alas, this is suggested work-around to make libraries available in multiple features
     api project(':libraries:libImg')// Alas, this is suggested work-around to make libraries available in multiple features
 
