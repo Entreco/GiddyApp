@@ -9,6 +9,7 @@ import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.account.Account
@@ -97,7 +98,7 @@ internal class FbAuth @Inject constructor(
                 }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val name = task.result.name("Anonymous")
+                        val name = task.result.name("Authenticated")
                         userService.create(name) {}
                     }
                 }
@@ -107,20 +108,22 @@ internal class FbAuth @Inject constructor(
     override fun observe(key: String, done: (Account) -> Unit) {
         val listener = authListeners.getOrPut(key) {
             FirebaseAuth.AuthStateListener { _auth ->
-                val user = _auth.currentUser
-                if (user != null && user.isAnonymous) done(Account.Anomymous(user.uid))
-                else if (user != null && !user.isAnonymous) done(
-                    Account.Authenticated(
-                        user.uid,
-                        user.displayName ?: user.email ?: user.uid,
-                        user.email ?: user.phoneNumber ?: user.uid,
-                        user.photoUrl
-                    )
-                )
-                else done(Account.Error("Unknown error"))
+                userService.retrieve { user ->
+                    val account = _auth.currentUser
+                    val name = when(user){
+                        is User.Valid -> fill(user, account)
+                        is User.Error -> Account.Error(user.msg)
+                    }
+                    done(name)
+                }
             }
         }
         auth.addAuthStateListener(listener)
+    }
+
+    private fun fill(user: User.Valid, account: FirebaseUser?) : Account{
+        return if(account == null || account.isAnonymous) Account.Anomymous(user.uid, user.name)
+        else Account.Authenticated(user.uid, user.name, account.email ?: "No email", account.photoUrl)
     }
 
     override fun stopObserving(key: String) {
@@ -143,5 +146,5 @@ internal class FbAuth @Inject constructor(
     private fun AuthResult?.name(default: String): String =
         this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
             it.displayName?.isNotBlank() ?: false
-        }?.displayName ?: this?.additionalUserInfo?.username ?: default
+        }?.displayName ?: this?.additionalUserInfo?.username ?: if(this?.user?.isAnonymous == true) "Anonymous" else default
 }

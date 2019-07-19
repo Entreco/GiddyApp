@@ -6,4 +6,6 @@
     <color name="almost_black">#190E20</color>
     <color name="almost_white">#eeeeee</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="sheet">#F4F4F4</color>
 </resources>

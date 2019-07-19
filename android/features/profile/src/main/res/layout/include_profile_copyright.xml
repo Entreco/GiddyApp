@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="version"
-                type="String"/>
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.ProfileViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
                 android:textSize="10sp"
                 android:textColor="#37000000"
                 android:gravity="center"
-                android:text="@{version}"
+                android:text="@{viewModel.version(context)}"
                 tools:text="@string/app_name"
                 tools:ignore="SmallSp"/>
 

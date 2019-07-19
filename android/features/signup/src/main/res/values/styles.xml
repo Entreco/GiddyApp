@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Signup">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Signup.Title">
+        <item name="android:paddingTop">@dimen/large</item>
+        <item name="android:paddingBottom">@dimen/def</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/almost_black</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+
+    <style name="Signup.Description">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">@dimen/large</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="SignupBtn" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textColor">@color/almost_white</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">60dp</item>
+        <item name="android:layout_marginStart">@dimen/large</item>
+        <item name="android:layout_marginEnd">@dimen/large</item>
+        <item name="contentPadding">@dimen/medium</item>
+    </style>
+
+    <style name="SignupLogo">
+        <item name="android:tint">@color/almost_black</item>
+    </style>
+</resources>

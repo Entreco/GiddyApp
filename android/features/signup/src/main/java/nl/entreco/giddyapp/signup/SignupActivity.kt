@@ -2,11 +2,13 @@ package nl.entreco.giddyapp.signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import nl.entreco.giddyapp.libauth.account.SignupResponse
+import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.signup.databinding.ActivitySignupBinding
 import nl.entreco.giddyapp.signup.di.SignupInjector.fromModule
 import nl.entreco.giddyapp.signup.di.SignupModule
@@ -21,8 +23,11 @@ class SignupActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivitySignupBinding>(this, R.layout.activity_signup)
         binding.viewModel = viewModel
-
-        startActivityForResult(viewModel.intent(), RC_SIGN_IN)
+        viewModel.clicks().observe(this, Observer { intent ->
+            startActivityForResult(intent, RC_SIGN_IN)
+        })
+        setSupportActionBar(binding.includeToolbar.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -31,10 +36,21 @@ class SignupActivity : BaseActivity() {
             viewModel.handleResult(this, resultCode, data) { response ->
                 when (response) {
                     is LinkAccountResponse.Success -> finish()
-                    is LinkAccountResponse.Failed -> Toast.makeText(this, "Unable to signin (${response.msg})", Toast.LENGTH_SHORT).show()
+                    is LinkAccountResponse.Failed -> Toast.makeText(
+                        this,
+                        "Unable to signin (${response.msg})",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

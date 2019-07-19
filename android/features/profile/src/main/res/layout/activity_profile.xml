@@ -24,13 +24,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:layout_marginTop="@dimen/large"
+                android:background="@color/sheet"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/large"
                     android:animateLayoutChanges="true">
 
                 <include
@@ -47,7 +48,7 @@
                 android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:version="@{viewModel.version}"
+                app:viewModel="@{viewModel}"
                 layout="@layout/include_profile_copyright"/>
 
         <!--<include-->

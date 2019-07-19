@@ -33,8 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:ga_blurImage="@{viewModel.image}"
                 app:ga_loader="@{loader}"
-                android:scaleType="centerCrop"
-                android:background="@drawable/pattern"/>
+                android:scaleType="centerCrop"/>
 
         <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_image"

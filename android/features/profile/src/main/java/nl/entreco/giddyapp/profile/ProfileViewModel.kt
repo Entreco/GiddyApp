@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.profile
 
+import android.content.Context
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -17,12 +18,11 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val fetchProfileUsecase: FetchProfileUsecase,
-    private val fetchMatchesUsecase: FetchMatchesUsecase
+    fetchMatchesUsecase: FetchMatchesUsecase
 ) : ViewModel(), ProfileItem.OnClick {
 
     val currentProfile = ObservableField<Profile>()
     val items = ObservableArrayList<ProfileItem>()
-    val version = ObservableField("v0.1.5-AppleJack-a4dda4a")
 
     private val state = MutableLiveData<Profile>()
     private val selected = MutableLiveData<ProfileItem>()
@@ -43,6 +43,8 @@ class ProfileViewModel @Inject constructor(
             matches.postValue(horses)
         }
     }
+
+    fun version(context: Context) : String = context.applicationContext.packageManager.getPackageInfo(context.packageName, 0).versionName
 
     override fun onClick(item: ProfileItem) {
         if (selected.value != item) selected.postValue(item)

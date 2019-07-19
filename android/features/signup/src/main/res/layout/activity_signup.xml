@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="viewModel"
                 type="nl.entreco.giddyapp.signup.SignupViewModel"/>
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:fillViewport="true"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/sheet"
+                    android:padding="@dimen/large"
+                    android:animateLayoutChanges="true">
+
+                <ImageView
+                        style="@style/SignupLogo"
+                        android:id="@+id/signup_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/signup_title1"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_launcher_foreground"/>
+
+                <TextView
+                        style="@style/Signup.Title"
+                        android:id="@+id/signup_title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_logo"
+                        app:layout_constraintBottom_toTopOf="@id/signup_description1"
+                        android:text="@string/signup_introduction_title1"/>
+
+                <TextView
+                        style="@style/Signup.Description"
+                        android:id="@+id/signup_description1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_title1"
+                        app:layout_constraintBottom_toTopOf="@id/signup_title2"
+                        android:text="@string/signup_introduction_desc1"/>
+
+                <TextView
+                        style="@style/Signup.Title"
+                        android:id="@+id/signup_title2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_description1"
+                        app:layout_constraintBottom_toTopOf="@id/signup_description2"
+                        android:text="@string/signup_introduction_title2"/>
+
+                <TextView
+                        style="@style/Signup.Description"
+                        android:id="@+id/signup_description2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_title2"
+                        app:layout_constraintBottom_toTopOf="@id/signup_title3"
+                        android:text="@string/signup_introduction_desc2"/>
+
+                <TextView
+                        style="@style/Signup.Title"
+                        android:id="@+id/signup_title3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_description2"
+                        app:layout_constraintBottom_toTopOf="@id/signup_description3"
+                        android:text="@string/signup_introduction_title3"/>
+
+                <TextView
+                        style="@style/Signup.Description"
+                        android:id="@+id/signup_description3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/signup_title3"
+                        android:text="@string/signup_introduction_desc3"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/large"
+                android:layout_gravity="bottom">
+
+            <com.google.android.material.button.MaterialButton
+                    style="@style/SignupBtn"
+                    android:id="@+id/signup_go"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_go"
+                    android:onClick="@{() -> viewModel.signUp()}"/>
+        </FrameLayout>
+
+        <include
+                android:id="@+id/includeToolbar"
+                layout="@layout/toolbar_signup"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

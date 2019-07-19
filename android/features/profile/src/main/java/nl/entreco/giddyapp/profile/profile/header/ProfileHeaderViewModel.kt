@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
+import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
+import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.R
 import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import javax.inject.Inject
@@ -22,6 +24,11 @@ class ProfileHeaderViewModel @Inject constructor(
             desc.set(profile.desc())
             image.set(profile.image())
         }
+    }
+
+    fun onSignUp(navigator: ProfileNavigation){
+        fetchProfileUsecase.clear("header")
+        navigator.onSignup()
     }
 
     override fun onCleared() {
