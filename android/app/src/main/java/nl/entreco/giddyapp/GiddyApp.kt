@@ -1,19 +1,47 @@
 package nl.entreco.giddyapp
 
 import android.app.Application
-import nl.entreco.giddyapp.core.DaggerFeatureComponent
-import nl.entreco.giddyapp.core.FeatureComponent
-import nl.entreco.giddyapp.core.FeatureModule
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
+import com.squareup.leakcanary.LeakCanary
+import nl.entreco.giddyapp.libcore.base.BaseActivity
+import nl.entreco.giddyapp.libcore.di.DiProvider
 
-class GiddyApp : Application() {
+
+class GiddyApp : Application(),
+    DiProvider<FeatureComponent> {
 
     private val featureComponent: FeatureComponent by lazy {
         DaggerFeatureComponent.builder()
-            .featureModule(FeatureModule(this))
+            .app(this)
+            .metrics(resources.displayMetrics)
             .build()
     }
 
-    fun get(): FeatureComponent {
-        return featureComponent
+    override fun onCreate() {
+        super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this)
+        if (BuildConfig.DEBUG) enableStrictMode()
     }
+
+    private fun enableStrictMode() {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build()
+        )
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build()
+        )
+    }
+
+    override fun get(): FeatureComponent = featureComponent
 }
+
+fun BaseActivity.featureComponent(): FeatureComponent =
+    (application as? DiProvider<FeatureComponent>)?.get()
+        ?: throw IllegalStateException("application must implement DiProvider<FeatureComponent>")

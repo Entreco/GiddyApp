@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="creator_title">Upload your horse</string>
+    <string name="create_name">Name of your horse</string>
+    <string name="create_description">Short description</string>
+    <!--<string name="select_image">Select Image</string>-->
+    <string name="pick_camera">Camera</string>
+    <string name="pick_gallery">Gallery</string>
+
+    <string name="cd_fab">Options</string>
+
+    <string name="sheet_title_select">Select an image</string>
+    <string name="sheet_description_select">Take a new picture or select an existing one from your gallery</string>
+    <string name="sheet_rejected">Giddy App is meant for Horses only.\nSelected images have to contain a Horse and we do not accept violence, nudity or profanity.\nPlease try again</string>
+    <string name="sheet_title_crop">Crop your Image</string>
+    <string name="sheet_description_crop">Make sure ar details are visible inside the rectangle</string>
+
+    <!-- Form Entry -->
+    <string name="entry_name">What\'s your horses name?</string>
+    <string name="entry_desc">Can you describe \'%1$s\'?</string>
+    <string name="entry_gender">What\'s %1$s\'s gender?</string>
+    <string name="entry_price">What\'s %1$s\'s price range?</string>
+    <string name="entry_level">What\'s his/her level?</string>
+    <string name="entry_category">What kind of horse is %1$s?</string>
+
+    <!-- Horse Details -->
+    <string name="gender_unknown">-</string>
+    <string name="gender_female">Mare</string>
+    <string name="gender_male">Stallion</string>
+    <string name="gender_gelding">Gelding</string>
+</resources>

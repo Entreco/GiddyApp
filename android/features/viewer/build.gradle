@@ -1,0 +1,46 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            proguardFiles 'proguard-rules-dynamic-features.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation project(':app')
+    implementation project(':libraries:libAuth')
+    implementation project(':libraries:libCore')
+    implementation project(':libraries:libSound')
+    implementation project(':libraries:libMatches')
+
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    implementation "androidx.dynamicanimation:dynamicanimation:$xDynamicAnimation"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
+
+    androidTestImplementation "androidx.test:core:$xTestCore"
+    androidTestImplementation "androidx.test:runner:$xTestRunner"
+    androidTestImplementation "androidx.test:rules:$xTestRules"
+    androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
+}

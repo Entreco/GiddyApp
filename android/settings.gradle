@@ -1,1 +1,14 @@
-include ':app', ':core', ':viewer'
+include ':app',
+        ':features:creator',
+        ':features:viewer',
+        ':features:signup',
+        ':features:profile',
+        ':libraries:libAuth',
+        ':libraries:libCore',
+        ':libraries:libCropper',
+        ':libraries:libHorses',
+        ':libraries:libImg',
+        ':libraries:libMatches',
+        ':libraries:libPicker',
+        ':libraries:libSound'
+

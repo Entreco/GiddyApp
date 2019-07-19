@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.crop.CropViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <nl.entreco.giddyapp.libcropper.CropImageView
+                android:id="@+id/cropView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="@dimen/sheet_peek_height"
+                app:ga_preview="@{viewModel.image}"/>
+
+        <include
+                android:id="@+id/include_sheet"
+                layout="@layout/include_steps_crop"
+                app:step="@{viewModel.step}"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

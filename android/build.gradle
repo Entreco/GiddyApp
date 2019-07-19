@@ -18,13 +18,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-    }
-}
-
-configurations.all {
-    resolutionStrategy {
-        force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-        force "com.google.firebase:firebase-common:$fbCommon"
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -32,7 +26,8 @@ subprojects {
     project.configurations.all {
         resolutionStrategy {
             force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-            force "com.google.firebase:firebase-common:$fbCommon"
+            force "androidx.appcompat:appcompat:$xAppcompat"
+            force "androidx.viewpager2:viewpager2:$xViewPager2"
         }
     }
 }

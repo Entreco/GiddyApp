@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    api "com.google.android.play:core:$playCore"
+    api "com.google.android.gms:play-services-instantapps:$playInstant"
+    api "com.google.android.material:material:$material"
+
+    api "androidx.appcompat:appcompat:$xAppcompat"
+
+    api "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
+    api "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
+
+    api "com.google.firebase:firebase-core:$fbCore"
+    api "com.google.firebase:firebase-firestore:$fbFireStore"
+    api "com.google.firebase:firebase-storage:$fbStorage"
+
+    testImplementation "junit:junit:$junit"
+
+    androidTestImplementation "androidx.test:core:$xTestCore"
+    androidTestImplementation "androidx.test:runner:$xTestRunner"
+    androidTestImplementation "androidx.test:rules:$xTestRules"
+    androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.profile.header.ProfileHeaderViewModel"/>
+
+        <variable
+                name="navigator"
+                type="nl.entreco.giddyapp.profile.ProfileNavigation"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/pattern"
+            android:fitsSystemWindows="true">
+
+        <ImageView
+                style="@style/ProfileHeaderLogo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_welcome"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                android:id="@+id/profile_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_signup_description"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_name"
+                app:layout_constraintBottom_toTopOf="@id/profile_signup"
+                tools:text="@string/app_name"/>
+
+
+        <com.google.android.material.button.MaterialButton
+                style="@style/ProfileHeaderButton"
+                android:id="@+id/profile_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_signup"
+                android:gravity="center"
+                android:onClick="@{() -> navigator.onSignup()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@string/app_name"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="horse_level">
+        <item>Unknown</item>
+        <item>Mak</item>
+        <item>B</item>
+        <item>C</item>
+        <item>M</item>
+        <item>Z</item>
+        <item>Zz</item>
+    </string-array>
+
+    <string-array name="horse_category">
+        <item>Unknown</item>
+        <item>Jumping</item>
+        <item>Dressage</item>
+        <item>Eventing</item>
+        <item>Recreation</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="horse_price">
+        <item>Not for sale</item>
+        <item>tot 2.000</item>
+        <item>2.000 – 5.000</item>
+        <item>5.000 – 10.000</item>
+        <item>10.000 – 25.000</item>
+        <item>25.000 – 50.000</item>
+        <item>50.000 of meer</item>
+    </string-array>
+</resources>

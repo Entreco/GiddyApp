@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="TransparentTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">@color/almost_black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:colorControlNormal">@color/white</item>
+        <item name="android:colorControlHighlight">@color/almost_white</item>
+        <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="RoundedImage" parent="Widget.MaterialComponents.CardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">60dp</item>
+    </style>
+
+</resources>

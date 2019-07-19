@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.ProfileViewModel"/>
+
+        <variable
+                name="navigation"
+                type="nl.entreco.giddyapp.profile.ProfileNavigation"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/profile_scroller"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:layout_marginTop="@dimen/large"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true">
+
+                <include
+                        android:id="@+id/include_menu"
+                        layout="@layout/include_profile_menu"
+                        app:viewModel="@{viewModel}"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+                android:id="@+id/include_copyright"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:version="@{viewModel.version}"
+                layout="@layout/include_profile_copyright"/>
+
+        <!--<include-->
+        <!--android:id="@+id/include_matches"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--layout="@layout/include_profile_matches"-->
+        <!--app:viewModel="@{viewModel}"/>-->
+
+        <include
+                android:id="@+id/includeToolbar"
+                layout="@layout/toolbar_profile"
+                app:profile="@{viewModel.currentProfile}"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.upload.UploadViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintGuide_end="@dimen/guide_initial_height"
+                    app:ga_sheetHeight="@{1}"
+                    app:ga_constraintEnd="@{viewModel.constraint}"
+                    android:orientation="horizontal"/>
+
+            <Space
+                    android:id="@+id/space"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/guide"/>
+
+            <ImageView
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@id/space"
+                    app:layout_constraintBottom_toBottomOf="@id/space"
+                    app:layout_constraintStart_toStartOf="@id/space"
+                    app:layout_constraintEnd_toEndOf="@id/space"
+                    app:ga_preview="@{viewModel.image}"
+                    android:scaleType="centerCrop"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+                android:id="@+id/include_sheet"
+                layout="@layout/include_steps_upload"
+                app:model="@{viewModel}"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

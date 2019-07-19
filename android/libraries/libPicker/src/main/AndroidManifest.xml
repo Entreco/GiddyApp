@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="nl.entreco.giddyapp.libpicker">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application>
+        <provider
+                android:name="nl.entreco.giddyapp.libcore.providers.ImagePickerFileProvider"
+                android:authorities="nl.entreco.giddyapp.libpicker.provider"
+                android:exported="false"
+                tools:node="merge"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+    </application>
+
+</manifest>

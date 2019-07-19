@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.viewer.ViewerViewModel"/>
+
+        <variable
+                name="loader"
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
+
+        <variable
+                name="navigation"
+                type="nl.entreco.giddyapp.viewer.navigation.ViewerNavigation"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/swipeFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"/>
+
+        <include
+                layout="@layout/include_sheet"
+                android:id="@+id/include_sheet"
+                app:model="@{viewModel.details}"/>
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/white"
+                app:contentInsetStart="0dp"
+                app:contentInsetEnd="0dp"
+                android:layout_gravity="bottom"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/eFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/install"
+                android:onClick="@{() -> navigation.onFabClicked(eFab, fab)}"
+                app:backgroundTint="@color/colorAccent"
+                app:ga_fab="@{navigation.fabIcon}"
+                app:ga_text="@{navigation.fabText}"
+                app:ga_show="@{navigation.isInstant}"
+                android:textColor="@color/white"
+                app:iconTint="@color/white"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/cd_fab"
+                android:onClick="@{() -> navigation.onFabClicked(eFab, fab)}"
+                app:backgroundTint="@color/colorAccent"
+                app:ga_fab="@{navigation.fabIcon}"
+                app:ga_text="@{navigation.fabText}"
+                app:ga_show="@{navigation.isInstant}"
+                app:tint="@color/white"/>
+
+        <include
+                layout="@layout/toolbar_viewer"
+                android:id="@+id/include_toolbar_viewer"
+                app:horseId="@{viewModel.details.horseId}"
+                app:navigation="@{navigation}"
+                app:gaImage="@{viewModel.icon}"
+                app:gaLoader="@{loader}"/>
+
+        <nl.entreco.giddyapp.viewer.ui.filter.SearchPanel
+                android:id="@+id/include_search_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/xlarge"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="0dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

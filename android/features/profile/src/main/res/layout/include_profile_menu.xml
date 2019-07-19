@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.ProfileViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:divider="?attr/colorPrimary"
+            android:dividerPadding="1dp"
+            android:showDividers="middle"
+            android:layout_marginStart="@dimen/large"
+            android:layout_marginEnd="@dimen/large"
+            android:animateLayoutChanges="true"
+            app:menuItems="@{viewModel.items}"
+            tools:showIn="@layout/activity_profile"/>
+</layout>

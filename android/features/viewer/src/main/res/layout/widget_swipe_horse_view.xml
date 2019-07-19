@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="model"
+                type="nl.entreco.giddyapp.viewer.ui.swiper.SwipeHorseModel"/>
+
+        <variable
+                name="loader"
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
+    </data>
+
+    <!--suppress AndroidElementNotAllowed -->
+    <merge
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <ImageView
+                android:id="@+id/image"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@{model.gradient}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:ga_ref="@{model.ref}"
+                app:ga_image="@{model.image}"
+                app:ga_loader="@{loader}"
+                android:scaleType="centerCrop"/>
+    </merge>
+
+</layout>

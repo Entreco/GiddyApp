@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="profile"
+                type="nl.entreco.giddyapp.profile.profile.Profile"/>
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/profile_header_height"
+            app:liftOnScroll="true"
+            app:elevation="20dp"
+            app:liftOnScrollTargetViewId="@id/profile_scroller"
+            android:theme="@style/TransparentTheme">
+
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top|center_horizontal"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <FrameLayout
+                    android:id="@+id/profile_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.6"/>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@{profile.name()}"
+                    app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

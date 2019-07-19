@@ -12,24 +12,41 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         setProperty("archivesBaseName", "${appName}-${versionName}")
+        resValue "string", "version", "\"${appName}-${versionName}\""
+
         resConfigs "en", "nl"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+
+            // Resource shrinker cannot be used for multi-apk applications
+            shrinkResources false
+
             // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
-            // The temporary workaround is to disable shrinking
-            minifyEnabled false
+            // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
+    }
+
+    //Add the following configuration in order to target Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dataBinding {
         enabled = true
     }
 
-    dynamicFeatures = [":viewer"]
+    dynamicFeatures = [
+            ":features:creator",
+            ":features:viewer",
+            ":features:profile",
+            ":features:signup"
+    ]
 }
 
 android.applicationVariants.all { variant ->
@@ -39,18 +56,27 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    implementation project(':core')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "com.google.android.material:material:$material"
+    implementation project(':libraries:libAuth')
+    implementation project(':libraries:libCore')
+    implementation project(':libraries:libMatches')
+    api project(':libraries:libHorses')// Alas, this is suggested work-around to make libraries available in multiple features
+    api project(':libraries:libImg')// Alas, this is suggested work-around to make libraries available in multiple features
 
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
-    implementation "androidx.appcompat:appcompat:$xAppcompat"
-    implementation "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
-    implementation "com.google.firebase:firebase-core:$fbCore"
+    // LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     testImplementation "junit:junit:$junit"
+
+    androidTestImplementation "androidx.test:core:$xTestCore"
+    androidTestImplementation "androidx.test:runner:$xTestRunner"
+    androidTestImplementation "androidx.test:rules:$xTestRules"
+    androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline-extended:$dexmaker"
 }
 
 task showBundleName {

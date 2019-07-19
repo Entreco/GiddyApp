@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.creator.ui.entry.EntryGenderViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintGuide_end="@dimen/guide_initial_height"
+                    app:ga_constraintEnd="@{viewModel.constraint}"
+                    app:ga_sheetHeight="@{2}"
+                    android:orientation="horizontal"/>
+
+            <Space
+                    android:id="@+id/space"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/guide"/>
+
+            <ImageView
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:transitionGroup="true"
+                    app:layout_constraintTop_toTopOf="@id/space"
+                    app:layout_constraintBottom_toBottomOf="@id/space"
+                    app:layout_constraintStart_toStartOf="@id/space"
+                    app:layout_constraintEnd_toEndOf="@id/space"
+                    app:ga_preview="@{viewModel.image}"
+                    android:scaleType="centerCrop"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/entry_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/guide_initial_height"
+                app:behavior_hideable="false"
+                app:behavior_peekHeight="@dimen/sheet_peek_height"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <ImageView
+                    android:contentDescription="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sheet_header_height"
+                    android:background="@drawable/gradient"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <LinearLayout
+                    android:id="@+id/entry_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:fontFamily="sans-serif-thin"
+                        android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    style="@style/EntryStep"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/sheet"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/entry_info">
+
+                <TextView
+                        android:singleLine="true"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/almost_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        tools:text="@string/gender_male"
+                        app:ga_fadeIn="@{@string/entry_gender(viewModel.name)}"/>
+
+                <!-- Horse Gender -->
+                <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium"
+                        android:layout_marginStart="@dimen/def"
+                        android:layout_marginEnd="@dimen/def"
+                        android:checkedButton="@={viewModel.checked}"
+                        android:onCheckedChanged="@{(group, id) -> viewModel.checked(id)}"
+                        android:orientation="horizontal">
+
+
+                    <RadioButton
+                            android:id="@+id/stallion"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_male"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/ic_male"/>
+
+                    <RadioButton
+                            android:id="@+id/mare"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_female"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/ic_female"/>
+
+                    <RadioButton
+                            android:id="@+id/gelding"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_gelding"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/ic_gelding"/>
+                </RadioGroup>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

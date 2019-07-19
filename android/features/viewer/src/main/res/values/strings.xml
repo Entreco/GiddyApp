@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="install">installeren</string>
+    <string name="search_title">Zoek opties</string>
+    <string name="search_hint">Zoeken</string>
+    <string name="filter_title">Filter opties</string>
+
+    <string name="cd_like">Yes, love this horse</string>
+    <string name="cd_dislike">Meh</string>
+    <string name="cd_fab">Options</string>
+    <string name="cd_profile">Profile</string>
+    <string name="cd_settings">Settings</string>
+
+    <string name="gender_male">Hengst</string>
+    <string name="gender_female">Merrie</string>
+    <string name="gender_gelding">Ruin</string>
+    <string name="gender_unknown">Onbekend</string>
+
+</resources>

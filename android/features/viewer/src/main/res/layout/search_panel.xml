@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/def"
+                android:text="@string/search_title"
+                android:textColor="@color/white"
+                android:background="@drawable/search_header"
+                android:backgroundTint="@color/search_accent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:hint="@string/search_hint"
+                app:endIconDrawable="@drawable/ic_search"
+                app:endIconTint="@color/search_accent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_layout"
+                android:paddingBottom="@dimen/xlarge"
+                android:background="@color/almost_black"
+                android:alpha="0.9"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:id="@+id/filter_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/search_seperator"
+                        android:backgroundTint="@color/search_accent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:gravity="center"
+                        android:padding="@dimen/def"
+                        android:text="@string/filter_title"
+                        android:textColor="@color/white"/>
+
+                <TextView
+                        android:id="@+id/filter_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/filter_title"
+                        android:gravity="center"
+                        android:padding="@dimen/def"
+                        android:text="Filter Gender"
+                        android:textColor="@color/white"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation project(':libraries:libCore')
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    implementation "androidx.palette:palette:$xPalette"
+    implementation "androidx.legacy:legacy-support-core-utils:$xLegacyCore"
+    implementation "androidx.exifinterface:exifinterface:$xExifInterface"
+    implementation "com.google.firebase:firebase-ml-vision:$mlVision"
+    implementation "com.google.firebase:firebase-ml-vision-image-label-model:$mlVisionImageLabelModel"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
+}

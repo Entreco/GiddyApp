@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="version"
+                type="String"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/def">
+
+        <ImageView
+                android:contentDescription="@null"
+                android:id="@+id/profile_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/def"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/profile_version"
+                android:src="@drawable/ic_entreco"/>
+
+        <TextView
+                android:id="@+id/profile_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_logo"
+                android:fontFamily="sans-serif-condensed-light"
+                android:padding="@dimen/def"
+                android:textSize="10sp"
+                android:textColor="#37000000"
+                android:gravity="center"
+                android:text="@{version}"
+                tools:text="@string/app_name"
+                tools:ignore="SmallSp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
