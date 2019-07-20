@@ -12,7 +12,7 @@ ext {
 
     dependencies = [
             dagger = '2.22.1',
-            material = '1.1.0-alpha07',
+            material = '1.1.0-alpha08',
             playCore = '1.6.1',
             playInstant = '17.0.0',
             xLifecycle = '2.0.0',
@@ -23,16 +23,16 @@ ext {
             xViewPager2 = '1.0.0-alpha06',
             xLegacyCore = '1.0.0',
             xPalette = '1.0.0',
-            fbCore = '17.0.0',
+            fbCore = '17.0.1',
             fbCommon = '16.0.4',
             fbFireStore = '20.1.0',
-            fbStorage = '18.0.0',
-            fbAuth = '18.0.0',
+            fbStorage = '18.1.0',
+            fbAuth = '18.1.0',
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',
             glide = '4.9.0',
-            mlVision = '20.0.0',
-            mlVisionImageLabelModel = '17.0.2',
+            mlVision = '22.0.0',
+            mlVisionImageLabelModel = '18.0.0',
 
             // UnitTest
             junit = '4.12',
