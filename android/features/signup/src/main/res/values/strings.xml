@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="signup_introduction_title">Why signup?</string>
-    <string name="signup_introduction_title1">Upload Horses</string>
-    <string name="signup_introduction_desc1">Signing up allows you to upload your own horses on Giddy-App</string>
-    <string name="signup_introduction_title2">Contact owners</string>
-    <string name="signup_introduction_desc2">Get in contact with the owner of your favorite horse, maybe it can be yours one day</string>
-    <string name="signup_introduction_title3">Find your Horse</string>
-    <string name="signup_introduction_desc3">Get notified when the \"horse of your dreams\" is available</string>
-    <string name="signup_go">Giddy up</string>
+    <string name="app_name">Sign up</string>
+    <string name="signup_title">Sign up now</string>
+    <string name="signup_description">Choose your favorite auth provider?</string>
+
+    <!-- Auth Providers-->
+    <string name="sign_btn_email">Sign in with Email</string>
+    <string name="sign_btn_phone">Sign in with Phone</string>
+    <string name="sign_btn_google">Sign in with Google</string>
+    <string name="sign_btn_facebook">Sign in with Facebook</string>
 </resources>

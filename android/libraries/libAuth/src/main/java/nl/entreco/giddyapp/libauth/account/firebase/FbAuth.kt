@@ -3,10 +3,11 @@ package nl.entreco.giddyapp.libauth.account.firebase
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import androidx.annotation.DrawableRes
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.firebase.ui.auth.util.ExtraConstants
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,22 +26,52 @@ internal class FbAuth @Inject constructor(
 
     private val authListeners = mutableMapOf<String, FirebaseAuth.AuthStateListener>()
 
+    private val email by lazy {
+        ActionCodeSettings.newBuilder()
+            .setAndroidPackageName("nl.entreco.giddyapp", true, null)
+            .setHandleCodeInApp(true)
+            .setUrl("https://google.com") // This URL needs to be whitelisted
+            .build()
+    }
+
     private val providers by lazy {
         listOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.EmailBuilder().enableEmailLinkSignIn().setRequireName(true).setActionCodeSettings(ActionCodeSettings.newBuilder().build()).build(),
+            AuthUI.IdpConfig.PhoneBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
-//            AuthUI.IdpConfig.PhoneBuilder().build(),
-//            AuthUI.IdpConfig.FacebookBuilder().build(),
-//            AuthUI.IdpConfig.TwitterBuilder().build()
         )
     }
 
-    override fun signinIntent(@DrawableRes logo: Int): Intent = authUi
-        .createSignInIntentBuilder()
-        .setLogo(logo)
-        .setAvailableProviders(providers)
-        .enableAnonymousUsersAutoUpgrade()
-        .build()
+    override fun signinIntent(settings: FbAuthUiSettings, link: String?): Intent {
+        val layout = settings.build()
+        val builder = authUi
+            .createSignInIntentBuilder()
+            .setTheme(settings.style)
+            .setAuthMethodPickerLayout(layout)
+            .setAvailableProviders(providers)
+            .enableAnonymousUsersAutoUpgrade()
+//            .setTosAndPrivacyPolicyUrls(
+//                "https://giddy.entreco.nl/privacy-policy.html",
+//                "https://giddy.entreco.nl/privacy-policy.html"
+//            )
+
+        if(link?.isNotBlank() == true) builder.setEmailLink(link)
+
+        return builder.build()
+
+    }
+
+    override fun canHandle(intent: Intent, done: (String) -> Unit) {
+        if (AuthUI.canHandleIntent(intent)) {
+            if (intent.extras != null) {
+                return
+            }
+            val link = intent.extras!!.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
+            if (link != null) {
+                done(link)
+            }
+        }
+    }
 
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
         val response = IdpResponse.fromResultIntent(data)
@@ -110,7 +141,7 @@ internal class FbAuth @Inject constructor(
             FirebaseAuth.AuthStateListener { _auth ->
                 userService.retrieve { user ->
                     val account = _auth.currentUser
-                    val name = when(user){
+                    val name = when (user) {
                         is User.Valid -> fill(user, account)
                         is User.Error -> Account.Error(user.msg)
                     }
@@ -121,9 +152,14 @@ internal class FbAuth @Inject constructor(
         auth.addAuthStateListener(listener)
     }
 
-    private fun fill(user: User.Valid, account: FirebaseUser?) : Account{
-        return if(account == null || account.isAnonymous) Account.Anomymous(user.uid, user.name)
-        else Account.Authenticated(user.uid, user.name, account.email ?: "No email", account.photoUrl)
+    private fun fill(user: User.Valid, account: FirebaseUser?): Account {
+        return if (account == null || account.isAnonymous) Account.Anomymous(user.uid, user.name)
+        else Account.Authenticated(
+            user.uid,
+            user.name,
+            account.email ?: account.phoneNumber ?: "No email",
+            account.photoUrl
+        )
     }
 
     override fun stopObserving(key: String) {
@@ -146,5 +182,6 @@ internal class FbAuth @Inject constructor(
     private fun AuthResult?.name(default: String): String =
         this?.user?.displayName ?: this?.user?.providerData?.firstOrNull {
             it.displayName?.isNotBlank() ?: false
-        }?.displayName ?: this?.additionalUserInfo?.username ?: if(this?.user?.isAnonymous == true) "Anonymous" else default
+        }?.displayName ?: this?.additionalUserInfo?.username
+        ?: if (this?.user?.isAnonymous == true) "Anonymous" else default
 }

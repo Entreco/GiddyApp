@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
-import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.signup.databinding.ActivitySignupBinding
 import nl.entreco.giddyapp.signup.di.SignupInjector.fromModule
 import nl.entreco.giddyapp.signup.di.SignupModule
 import nl.entreco.giddyapp.signup.link.LinkAccountResponse
+
 
 class SignupActivity : BaseActivity() {
 
@@ -23,11 +22,15 @@ class SignupActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivitySignupBinding>(this, R.layout.activity_signup)
         binding.viewModel = viewModel
-        viewModel.clicks().observe(this, Observer { intent ->
-            startActivityForResult(intent, RC_SIGN_IN)
-        })
-        setSupportActionBar(binding.includeToolbar.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        startActivityForResult(viewModel.intent(), RC_SIGN_IN)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        viewModel.canHandle(intent) { link ->
+            startActivityForResult(viewModel.intent(link), RC_SIGN_IN)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

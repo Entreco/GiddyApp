@@ -1,12 +1,13 @@
 package nl.entreco.giddyapp.signup.link
 
 import android.content.Intent
-import androidx.annotation.DrawableRes
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.SignupResponse
+import nl.entreco.giddyapp.libauth.account.firebase.FbAuthUiSettings
 import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.onBg
 import nl.entreco.giddyapp.libcore.onUi
+import nl.entreco.giddyapp.signup.SignupActivity
 import javax.inject.Inject
 
 class LinkAccountUsecase @Inject constructor(
@@ -38,5 +39,6 @@ class LinkAccountUsecase @Inject constructor(
         }
     }
 
-    fun signinIntent(@DrawableRes logo: Int): Intent? = authenticator.signinIntent(logo)
+    fun signinIntent(settings: FbAuthUiSettings, link: String?): Intent? = authenticator.signinIntent(settings, link)
+    fun canHandle(intent: Intent, done: (String) -> Unit) = authenticator.canHandle(intent, done)
 }
