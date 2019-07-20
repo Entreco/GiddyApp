@@ -28,6 +28,7 @@ class ViewerViewModel @Inject constructor(
     val details = ObservableField<DetailModel>()
     val icon = ObservableField<Uri?>()
 
+    private var _horseId: String? = null
     private val current = MutableLiveData<Horse>()
     private val next = MutableLiveData<Horse>()
     private val slider = MutableLiveData<Float>()
@@ -36,10 +37,14 @@ class ViewerViewModel @Inject constructor(
         swapHorseUsecase.onPreloadListener = this
         fetchToolbarIcon.go { uri ->
             icon.set(uri)
+            _horseId?.let {
+                load(it)
+            }
         }
     }
 
     fun load(horseId: String?){
+        _horseId = horseId
         swapHorseUsecase.clear()
         fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
     }
