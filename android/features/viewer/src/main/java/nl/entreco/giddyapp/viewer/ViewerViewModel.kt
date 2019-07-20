@@ -43,7 +43,7 @@ class ViewerViewModel @Inject constructor(
         }
     }
 
-    fun load(horseId: String?){
+    fun load(horseId: String?) {
         _horseId = horseId
         swapHorseUsecase.clear()
         fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
@@ -60,7 +60,7 @@ class ViewerViewModel @Inject constructor(
         swapHorseUsecase.go { popped, peeked ->
             current.postValue(popped)
             next.postValue(peeked)
-            details.set(DetailModel(popped.id, popped.details))
+            details.set(DetailModel(popped, popped.details))
         }
     }
 

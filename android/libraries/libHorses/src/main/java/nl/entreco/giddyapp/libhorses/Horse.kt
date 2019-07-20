@@ -27,11 +27,11 @@ data class Horse(
         fun notFound(id: String): Horse {
             return Horse(
                 id,
-                HexString.Red,
-                HexString.Blue,
+                HexString.Transparent,
+                HexString.Transparent,
                 "notFound",
                 0L,
-                HorseDetail("Horse with $id found", "")
+                HorseDetail("Horse not found", "Looks like this horse was removed :(")
             )
         }
 
