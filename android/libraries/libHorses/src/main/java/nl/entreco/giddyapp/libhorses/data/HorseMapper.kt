@@ -6,7 +6,7 @@ import java.util.*
 
 internal class HorseMapper {
     fun map(fbHorse: FbHorse, id: String): Horse {
-        return Horse(
+        return Horse.Normal(
             id,
             HexString.from(fbHorse.startColor),
             HexString.from(fbHorse.endColor),

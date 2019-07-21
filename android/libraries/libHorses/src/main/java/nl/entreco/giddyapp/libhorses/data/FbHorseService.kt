@@ -91,7 +91,7 @@ internal class FbHorseService @Inject constructor(
             if (fbHorse != null) {
                 mapper.map(fbHorse, doc.id)
             } else {
-                Horse.notFound(id)
+                Horse.NotFound(id)
             }
         }
     }
@@ -103,7 +103,7 @@ internal class FbHorseService @Inject constructor(
             if (fbHorse != null) {
                 mapper.map(fbHorse, doc.id)
             } else {
-                Horse.error()
+                Horse.Error
             }
         }
     }

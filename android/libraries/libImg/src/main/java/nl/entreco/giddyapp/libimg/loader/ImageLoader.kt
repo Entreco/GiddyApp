@@ -12,14 +12,15 @@ interface ImageLoader {
 }
 
 object ImageBindings {
+
     @JvmStatic
     @BindingAdapter("ga_loader", "ga_image", "ga_ref", requireAll = true)
     fun loadImageFromFirebase(view: ImageView, loader: ImageLoader?, uri: Uri?, ref: String?) {
         if (view.drawable == null) {
-            when(ref){
-                "error", "notFound" -> view.setImageResource(nl.entreco.giddyapp.libcore.R.drawable.empty)
-                "none" -> view.setImageResource(nl.entreco.giddyapp.libcore.R.drawable.empty)
-                else -> loader?.get(view, uri, ref)
+            if(ref == "loading") view.setImageResource(nl.entreco.giddyapp.libcore.R.drawable.empty)
+            else if(ref == "notFound") view.setImageResource(nl.entreco.giddyapp.libcore.R.drawable.empty)
+            else {
+                loader?.get(view, uri, ref)
             }
         }
     }

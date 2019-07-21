@@ -19,8 +19,8 @@ class SwapHorseUsecase @Inject constructor(
 
     fun initWith(collection: List<Horse>) {
         val atLeastTwo = when {
-            collection.isEmpty() -> listOf(Horse.none(), Horse.none())
-            collection.size < 2 -> listOf(collection[0], Horse.none())
+            collection.isEmpty() -> listOf(Horse.None, Horse.None)
+            collection.size < 2 -> listOf(collection[0], Horse.None)
             else -> collection
         }
         horses.removeAll { horse -> !queue.contains(horse.imageRef) }
@@ -48,7 +48,7 @@ class SwapHorseUsecase @Inject constructor(
     }
 
     private fun ensure() {
-        require(horses.isNotEmpty()){ "need to add horses first" }
+        require(horses.isNotEmpty()) { "need to add horses first" }
         if (queue.size < 3) {
             fetchHorseUsecase.go(FetchHorseRequest()) { response ->
                 initWith(response.horses)
@@ -60,8 +60,8 @@ class SwapHorseUsecase @Inject constructor(
         collection.filter { it.imageUri == null }.forEach { horse ->
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 val index = horses.indexOfFirst { it.imageRef == response.imageRef }
-                if(index != -1) {
-                    val updated = horses[index].copy(imageUri = response.image)
+                if (index != -1) {
+                    val updated = horses[index].update(imageUri = response.image)
                     horses[index] = updated
                     onPreloadListener?.onImageReady(updated)
                 }

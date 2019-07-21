@@ -4,21 +4,20 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.HorseDetail
 import nl.entreco.giddyapp.libhorses.icon
 
-class DetailModel(horse: Horse, horseDetail: HorseDetail) {
+class DetailModel(horse: Horse) {
     val visibility = ObservableInt(
-        when (horse.imageRef) {
-            "none", "error", "notFound" -> View.INVISIBLE
-            else -> View.VISIBLE
+        when (horse) {
+            is Horse.Normal -> View.VISIBLE
+            else -> View.INVISIBLE
         }
     )
     val horseId = ObservableField(horse.id)
-    val name = ObservableField(horseDetail.name)
-    val desc = ObservableField(horseDetail.desc)
-    val genderIcon = ObservableInt(horseDetail.gender.icon())
-    val level = ObservableField(horseDetail.type)
-    val price = ObservableField(horseDetail.price)
-    val category = ObservableField(horseDetail.category)
+    val name = ObservableField(horse.name)
+    val desc = ObservableField(horse.desc)
+    val genderIcon = ObservableInt(horse.gender.icon())
+    val level = ObservableField(horse.type)
+    val price = ObservableField(horse.price)
+    val category = ObservableField(horse.category)
 }
