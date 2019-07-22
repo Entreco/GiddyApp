@@ -2,15 +2,16 @@ package nl.entreco.giddyapp.signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import nl.entreco.giddyapp.libauth.account.SignupResponse
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.signup.databinding.ActivitySignupBinding
 import nl.entreco.giddyapp.signup.di.SignupInjector.fromModule
 import nl.entreco.giddyapp.signup.di.SignupModule
 import nl.entreco.giddyapp.signup.link.LinkAccountResponse
+
 
 class SignupActivity : BaseActivity() {
 
@@ -25,16 +26,34 @@ class SignupActivity : BaseActivity() {
         startActivityForResult(viewModel.intent(), RC_SIGN_IN)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        viewModel.canHandle(intent) { link ->
+            startActivityForResult(viewModel.intent(link), RC_SIGN_IN)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             viewModel.handleResult(this, resultCode, data) { response ->
                 when (response) {
                     is LinkAccountResponse.Success -> finish()
-                    is LinkAccountResponse.Failed -> Toast.makeText(this, "Unable to signin (${response.msg})", Toast.LENGTH_SHORT).show()
+                    is LinkAccountResponse.Failed -> Toast.makeText(
+                        this,
+                        "Unable to signin (${response.msg})",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

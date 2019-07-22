@@ -7,9 +7,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/pattern">
+            android:fitsSystemWindows="true">
 
         <ImageView
+                android:contentDescription="@null"
                 style="@style/ProfileHeaderLogo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

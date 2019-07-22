@@ -8,19 +8,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseResponse
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import nl.entreco.giddyapp.libhorses.swap.SwapHorseUsecase
+import nl.entreco.giddyapp.viewer.init.InitViewerRequest
+import nl.entreco.giddyapp.viewer.init.InitViewerResponse
+import nl.entreco.giddyapp.viewer.init.InitViewerUseCase
 import nl.entreco.giddyapp.viewer.ratings.RateHorseRequest
 import nl.entreco.giddyapp.viewer.ratings.RateHorseUsecase
-import nl.entreco.giddyapp.viewer.ui.FetchToolbarIcon
 import nl.entreco.giddyapp.viewer.ui.details.DetailModel
 import javax.inject.Inject
 
 class ViewerViewModel @Inject constructor(
-    private val fetchHorseUsecase: FetchHorseUsecase,
-    private val fetchToolbarIcon: FetchToolbarIcon,
+    private val initViewerUseCase: InitViewerUseCase,
     private val swapHorseUsecase: SwapHorseUsecase,
     private val rateHorseUsecase: RateHorseUsecase
 ) : ViewModel(), SwapHorseUsecase.PreloadListener, DetailSheet.SlideListener {
@@ -34,20 +32,34 @@ class ViewerViewModel @Inject constructor(
 
     init {
         swapHorseUsecase.onPreloadListener = this
-        fetchToolbarIcon.go { uri ->
-            icon.set(uri)
-        }
     }
 
-    fun load(horseId: String?){
+    fun load(horseId: String?) {
+        current.postValue(Horse.Loading)
+        details.set(DetailModel(Horse.Loading))
         swapHorseUsecase.clear()
-        fetchHorseUsecase.go(FetchHorseRequest(horseId), onHorsesFetched())
+        initViewerUseCase.go(InitViewerRequest(horseId), onInitialized())
     }
 
-    private fun onHorsesFetched(): (FetchHorseResponse) -> Unit {
+    private fun onInitialized(): (InitViewerResponse) -> Unit {
         return { response ->
-            swapHorseUsecase.initWith(response.horses)
-            swap()
+            when (response) {
+                is InitViewerResponse.Initialized -> {
+                    icon.set(response.uri)
+                    swapHorseUsecase.initWith(response.horses)
+                    swap()
+                }
+                is InitViewerResponse.Error -> {
+                    icon.set(null)
+                    current.postValue(Horse.Error(response.msg))
+                    details.set(DetailModel(Horse.Error(response.msg)))
+                }
+                is InitViewerResponse.NoUser -> {
+                    icon.set(null)
+                    current.postValue(Horse.Error("No user"))
+                    details.set(DetailModel(Horse.Error("No user")))
+                }
+            }
         }
     }
 
@@ -55,7 +67,7 @@ class ViewerViewModel @Inject constructor(
         swapHorseUsecase.go { popped, peeked ->
             current.postValue(popped)
             next.postValue(peeked)
-            details.set(DetailModel(popped.id, popped.details))
+            details.set(DetailModel(popped))
         }
     }
 
@@ -99,6 +111,6 @@ class ViewerViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         swapHorseUsecase.clear()
-        fetchToolbarIcon.clear()
+        initViewerUseCase.clear()
     }
 }

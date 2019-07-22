@@ -12,7 +12,23 @@
     <application>
         <activity android:name=".SignupActivity"
                   android:label="@string/title_signup"
-                  android:theme="@style/AppTheme.SignupTheme" />
+                  android:theme="@style/AppTheme.SignupTheme" >
+
+            <intent-filter android:autoVerify="true">
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="giddy.entreco.nl"/>
+                <data android:pathPattern="/signup"/>
+
+            </intent-filter>
+
+        </activity>
     </application>
 </manifest>
 

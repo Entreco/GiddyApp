@@ -3,12 +3,10 @@ package nl.entreco.giddyapp.profile.profile.header
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import nl.entreco.giddyapp.libcore.base.parentViewModelProvider
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.ProfileNavigation
-import nl.entreco.giddyapp.profile.ProfileViewModel
 import nl.entreco.giddyapp.profile.R
 import nl.entreco.giddyapp.profile.databinding.FragmentProfileHeaderBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent

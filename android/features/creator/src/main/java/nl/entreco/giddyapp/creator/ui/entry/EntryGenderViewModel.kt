@@ -21,7 +21,7 @@ class EntryGenderViewModel @Inject constructor(
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.model.image.uri)
 
-    val name = ObservableField<String>(state.model.horseDetail.name)
+    val name = ObservableField(state.model.horseDetail.name)
     val gender = ObservableInt(HorseGender.Unknown.ordinal)
     val checked = ObservableInt(0)
 

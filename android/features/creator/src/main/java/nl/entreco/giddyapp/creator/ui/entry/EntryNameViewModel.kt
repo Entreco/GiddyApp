@@ -19,9 +19,9 @@ class EntryNameViewModel @Inject constructor(
     val image = ChangeableField(state.image.uri)
 
     val title = ObservableInt(R.string.entry_name)
-    val hint = ObservableField<String>("")
+    val hint = ObservableField("")
 
-    val name = ObservableField<String>("")
+    val name = ObservableField("")
 
     fun compose(): EntryModel = EntryModel(HorseDetail(name.get()!!, ""), state.image)
 }

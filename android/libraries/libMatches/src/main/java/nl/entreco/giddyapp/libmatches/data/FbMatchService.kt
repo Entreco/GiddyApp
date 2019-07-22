@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libmatches.data
 
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import nl.entreco.giddyapp.libmatches.Match
 import nl.entreco.giddyapp.libmatches.MatchResponse

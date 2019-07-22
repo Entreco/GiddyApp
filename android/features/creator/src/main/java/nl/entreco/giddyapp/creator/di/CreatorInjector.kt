@@ -11,7 +11,7 @@ internal object CreatorInjector {
     inline fun CreatorActivity.fromModule(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> CreatorModule
-    ): Lazy<CreatorComponent> = kotlin.lazy(mode) {
+    ): Lazy<CreatorComponent> = lazy(mode) {
         val component = featureComponent()
         DaggerCreatorComponent.builder()
             .appContext(component.appContext())

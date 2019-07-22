@@ -3,48 +3,57 @@ package nl.entreco.giddyapp.libhorses
 import android.net.Uri
 import nl.entreco.giddyapp.libcore.HexString
 
-data class Horse(
-    val id: String,
-    val start: HexString,
-    val end: HexString,
-    val imageRef: String,
-    val posted: Long,
-    val details: HorseDetail,
-    val imageUri: Uri? = null
-) {
-    companion object {
-        fun none(): Horse {
-            return Horse(
-                "none",
-                HexString.Transparent,
-                HexString.Transparent,
-                "none",
-                0L,
-                HorseDetail("Loading", "even geduld aub...")
-            )
+sealed class Horse {
+
+    val id: String
+        get() = when (this) {
+            is Normal -> _id
+            is NotFound -> _id
+            else -> ""
         }
 
-        fun notFound(id: String): Horse {
-            return Horse(
-                id,
-                HexString.Red,
-                HexString.Blue,
-                "notFound",
-                0L,
-                HorseDetail("Horse with $id found", "")
-            )
+    val name: String
+        get() = when (this) {
+            is Normal -> details.name
+            is Loading -> "Loading"
+            is Error -> "Oops"
+            else -> ""
         }
 
-        fun error(): Horse {
-            return Horse(
-                "error",
-                HexString.Red,
-                HexString.Blue,
-                "error",
-                0L,
-                HorseDetail("Error", "--")
-            )
+    val imageUri: Uri?
+        get() = when (this) {
+            is Normal -> this.uri
+            else -> null
         }
+
+    val imageRef: String
+        get() = when (this) {
+            is Normal -> ref
+            else -> "none"
+        }
+
+    fun update(imageUri: Uri?): Horse = when (this) {
+        is Normal -> this.copy(uri = imageUri)
+        else -> this
     }
+
+    data class Normal(
+        val _id: String,
+        val start: HexString,
+        val end: HexString,
+        val ref: String,
+        val posted: Long,
+        val details: HorseDetail,
+        val uri: Uri? = null
+    ) : Horse()
+
+
+    data class NotFound(val _id: String) : Horse()
+
+    object Loading : Horse()
+
+    object None : Horse()
+
+    data class Error(val msg: String) : Horse()
 }
 

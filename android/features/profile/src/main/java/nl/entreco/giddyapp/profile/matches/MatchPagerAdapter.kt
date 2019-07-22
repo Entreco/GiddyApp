@@ -2,12 +2,9 @@ package nl.entreco.giddyapp.profile.matches
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import nl.entreco.giddyapp.libauth.user.UserLike
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
-import nl.entreco.giddyapp.profile.R
 import nl.entreco.giddyapp.profile.databinding.ViewMatchItemBinding
 
 class MatchPagerAdapter(

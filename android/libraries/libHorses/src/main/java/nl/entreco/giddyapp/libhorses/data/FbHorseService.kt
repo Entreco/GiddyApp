@@ -15,7 +15,7 @@ import kotlin.math.max
 import kotlin.random.Random
 
 internal class FbHorseService @Inject constructor(
-    private val db: FirebaseFirestore,
+    db: FirebaseFirestore,
     private val storage: FirebaseStorage
 ) : HorseService {
 
@@ -91,7 +91,7 @@ internal class FbHorseService @Inject constructor(
             if (fbHorse != null) {
                 mapper.map(fbHorse, doc.id)
             } else {
-                Horse.notFound(id)
+                Horse.NotFound(id)
             }
         }
     }
@@ -103,7 +103,7 @@ internal class FbHorseService @Inject constructor(
             if (fbHorse != null) {
                 mapper.map(fbHorse, doc.id)
             } else {
-                Horse.error()
+                Horse.Error("Unable to parse")
             }
         }
     }
@@ -128,7 +128,6 @@ internal class FbHorseService @Inject constructor(
     }
 
     override fun rate(likes: List<String>, dislikes: List<String>, done: (HorseRating) -> Unit) {
-        // TODO entreco - 2019-07-18: Refactor, security rules cannot enforce only updating specific fields
         val tasks = likes.map { horseCollection.document(it) }.map { doc ->
             doc.update("likes", FieldValue.increment(1))
         }.union(dislikes.map { horseCollection.document(it) }.map { doc ->
@@ -142,6 +141,5 @@ internal class FbHorseService @Inject constructor(
             }
             done(rating)
         }
-
     }
 }

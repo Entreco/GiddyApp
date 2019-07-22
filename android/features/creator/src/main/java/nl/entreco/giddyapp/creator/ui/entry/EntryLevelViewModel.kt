@@ -19,6 +19,6 @@ class EntryLevelViewModel @Inject constructor(
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.model.image.uri)
 
-    val name = ObservableField<String>(state.model.horseDetail.name)
+    val name = ObservableField(state.model.horseDetail.name)
     val progress = ObservableInt(0)
 }

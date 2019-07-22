@@ -6,11 +6,11 @@ import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
-import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderLoadingFragment
 import nl.entreco.giddyapp.profile.profile.Profile
 import nl.entreco.giddyapp.profile.profile.ProfileItem
 import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderAnonymousFrament
 import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderFragment
+import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderLoadingFragment
 import nl.entreco.giddyapp.signup.SignupActivity
 import javax.inject.Inject
 
@@ -82,13 +82,12 @@ class ProfileNavigation @Inject constructor(
     }
 
     fun onSignup() {
-        showLoading()
         activity.startActivity(Intent(activity, SignupActivity::class.java))
     }
 
-    fun onLogout(){
+    fun onLogout() {
         showLoading()
-        auth.logout(activity){
+        auth.logout(activity) {
             Toast.makeText(activity, "LOGGED OUT", Toast.LENGTH_SHORT).show()
             activity.finish()
         }

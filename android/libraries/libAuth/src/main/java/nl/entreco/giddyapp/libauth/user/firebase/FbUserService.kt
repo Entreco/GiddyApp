@@ -61,31 +61,6 @@ internal class FbUserService @Inject constructor(
         }
     }
 
-//    override fun rate(likes: List<UserLike>, dislikes: List<UserLike>, done: (UserRating) -> Unit) {
-//        val uuid = auth.currentUser?.uid
-//        if (uuid.isNullOrBlank()) done(UserRating.Err)
-//        else {
-//            val batch = db.batch()
-//            val user = userCollection.document(uuid)
-//
-//            val likesCollection = user.collection("likes")
-//            likes.forEach { like ->
-//                val fbLike = FbUserLike(like.horseName, like.horseId, like.horseRef)
-//                batch.set(likesCollection.document(like.horseId), fbLike)
-//            }
-//
-//            batch.commit().addOnCompleteListener { task ->
-//
-//                val result = when (task.isSuccessful) {
-//                    true -> UserRating.Ok
-//                    else -> UserRating.Err
-//                }
-//
-//                done(result)
-//            }
-//        }
-//    }
-
     override fun delete(done: (DeleteResponse) -> Unit) {
         val uuid = auth.currentUser?.uid
         if (uuid.isNullOrBlank()) done(DeleteResponse.Err("No user signed in"))

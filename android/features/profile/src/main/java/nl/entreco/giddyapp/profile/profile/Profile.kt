@@ -7,8 +7,8 @@ import nl.entreco.giddyapp.profile.R
 data class Profile(val account: Account) {
 
     fun name(): String = when (account) {
-        is Account.Anomymous -> "Profile"
         is Account.Authenticated -> account.name
+        is Account.Anomymous -> ""
         else -> ""
     }
 
