@@ -1,8 +1,7 @@
 package nl.entreco.giddyapp.libhorses.fetch
 
-import nl.entreco.giddyapp.libhorses.HorseService
 import nl.entreco.giddyapp.libcore.onBg
-import nl.entreco.giddyapp.libcore.onUi
+import nl.entreco.giddyapp.libhorses.HorseService
 import javax.inject.Inject
 
 class FetchHorseUsecase @Inject constructor(
@@ -21,7 +20,7 @@ class FetchHorseUsecase @Inject constructor(
                 else -> listOf(request.id) + (1 until BATCH_SIZE).map { RANDOM }
             }
             service.retrieve(ids, request.filterOptions) { response ->
-                onUi { done(FetchHorseResponse(response)) }
+                done(FetchHorseResponse(response))
             }
         }
     }
