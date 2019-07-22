@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
-import nl.entreco.giddyapp.viewer.R
 import nl.entreco.giddyapp.viewer.databinding.WidgetSwipeHorseViewBinding
 
 
@@ -92,8 +91,8 @@ class SwipeHorseView @JvmOverloads constructor(
     }
 
     fun setModel(model: SwipeHorseModel?) {
-        binding.image.background = null
-        binding.image.setImageDrawable(null)
+        binding.image.background = model?.gradient
+        binding.image.setImageResource(model?.drawable ?: 0)
 
         binding.model = model
         binding.executePendingBindings()

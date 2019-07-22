@@ -30,7 +30,6 @@ class RateHorseUsecase @Inject constructor(
     fun go(done: (RateHorseResponse) -> Unit) {
         onBg {
 
-            Log.i("RATE", "RATING START: ${requests.size}")
             val likes = requests.filter { it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
             val dislikes = requests.filter { !it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
 

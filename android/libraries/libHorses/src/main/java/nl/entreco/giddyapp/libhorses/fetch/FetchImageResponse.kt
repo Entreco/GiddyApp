@@ -2,4 +2,7 @@ package nl.entreco.giddyapp.libhorses.fetch
 
 import android.net.Uri
 
-data class FetchImageResponse(val imageRef: String, val image: Uri)
+sealed class FetchImageResponse {
+    data class Ok(val imageRef: String, val image: Uri) : FetchImageResponse()
+    data class Err(val msg: String) : FetchImageResponse()
+}

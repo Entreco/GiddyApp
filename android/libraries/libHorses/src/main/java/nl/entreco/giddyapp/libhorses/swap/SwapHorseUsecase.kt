@@ -1,10 +1,7 @@
 package nl.entreco.giddyapp.libhorses.swap
 
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
-import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
-import nl.entreco.giddyapp.libhorses.fetch.FetchImageRequest
-import nl.entreco.giddyapp.libhorses.fetch.FetchImageUsecase
+import nl.entreco.giddyapp.libhorses.fetch.*
 import java.util.*
 import javax.inject.Inject
 
@@ -59,13 +56,21 @@ class SwapHorseUsecase @Inject constructor(
     private fun preloadImages(collection: List<Horse>) {
         collection.filter { it.imageUri == null }.forEach { horse ->
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
-                val index = horses.indexOfFirst { it.imageRef == response.imageRef }
-                if (index != -1) {
-                    val updated = horses[index].update(imageUri = response.image)
-                    horses[index] = updated
-                    onPreloadListener?.onImageReady(updated)
+                when (response) {
+                    is FetchImageResponse.Ok -> updateImage(response)
+                    is FetchImageResponse.Err -> {
+                    }
                 }
             }
+        }
+    }
+
+    private fun updateImage(response: FetchImageResponse.Ok) {
+        val index = horses.indexOfFirst { it.imageRef == response.imageRef }
+        if (index != -1) {
+            val updated = horses[index].update(imageUri = response.image)
+            horses[index] = updated
+            onPreloadListener?.onImageReady(updated)
         }
     }
 

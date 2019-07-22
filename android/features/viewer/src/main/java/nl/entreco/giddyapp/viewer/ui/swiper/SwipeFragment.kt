@@ -51,7 +51,7 @@ class SwipeFragment : Fragment() {
     }
 
     private val nextObserver = Observer<Horse> { horse ->
-        viewModel.next.set(SwipeHorseModel(horse))
+        viewModel.next.set(SwipeHorseModel(horse, false))
     }
 
     private val ratingsObserver = Observer<RateHorseRequest> { rating ->

@@ -1,16 +1,34 @@
 package nl.entreco.giddyapp.viewer.ui.swiper
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import androidx.databinding.ObservableField
 import nl.entreco.giddyapp.libhorses.Horse
+import nl.entreco.giddyapp.libhorses.horses.R
 
-data class SwipeHorseModel(private val horse: Horse, val draggable: Boolean = false) {
+data class SwipeHorseModel(private val horse: Horse, private val isCurrent: Boolean = true) {
 
     val horseId = horse.id
     val horseName = horse.name
     val horseRef = horse.imageRef
-    val ref = ObservableField(horse.imageRef)
+    val draggable = isCurrent && horse is Horse.Normal
+    val ref = ObservableField(horseRef)
     val image = ObservableField<Uri>(horse.imageUri)
-    val gradient = horse.gradient
+
+    val drawable = when (horse) {
+        is Horse.NotFound -> R.drawable.empty
+        else -> 0
+    }
+
+    val gradient = when (horse) {
+        is Horse.Normal -> GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(horse.start.color(), horse.end.color())
+        )
+        else -> GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(Color.TRANSPARENT, Color.BLACK)
+        )
+    }
 }

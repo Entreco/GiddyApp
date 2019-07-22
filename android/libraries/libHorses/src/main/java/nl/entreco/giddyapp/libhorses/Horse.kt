@@ -1,11 +1,7 @@
 package nl.entreco.giddyapp.libhorses
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import nl.entreco.giddyapp.libcore.HexString
-import nl.entreco.giddyapp.libhorses.horses.R
 
 sealed class Horse() {
 
@@ -19,65 +15,21 @@ sealed class Horse() {
     val name: String
         get() = when (this) {
             is Normal -> details.name
+            is Loading -> "Loading"
+            is Error -> "Oops"
             else -> ""
-        }
-
-    val desc: String
-        get() = when (this) {
-            is Normal -> details.desc
-            else -> ""
-        }
-
-    val gender: HorseGender
-        get() = when (this) {
-            is Normal -> details.gender
-            else -> HorseGender.Unknown
-        }
-
-    val type: HorseLevel
-        get() = when (this) {
-            is Normal -> details.type
-            else -> HorseLevel.Unknown
-        }
-
-    val price: HorsePrice
-        get() = when (this) {
-            is Normal -> details.price
-            else -> HorsePrice.NotForSale
-        }
-
-    val category: HorseCategory
-        get() = when (this) {
-            is Normal -> details.category
-            else -> HorseCategory.Unknown
         }
 
     val imageUri: Uri?
         get() = when (this) {
-            is Normal -> uri
-            is NotFound -> Uri.parse("android.resource://nl.entreco.giddyapp/${R.drawable.empty}")
-            is Loading -> Uri.parse("android.resource://nl.entreco.giddyapp/${R.drawable.empty}")
+            is Normal -> this.uri
             else -> null
         }
 
     val imageRef: String
         get() = when (this) {
             is Normal -> ref
-            is NotFound -> "notFound"
-            is Loading -> "loading"
-            else -> "else"
-        }
-
-    val gradient: Drawable
-        get() = when (this) {
-            is Normal -> GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                intArrayOf(start.color(), end.color())
-            )
-            else -> GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                intArrayOf(Color.TRANSPARENT, Color.BLACK)
-            )
+            else -> "none"
         }
 
     fun update(imageUri: Uri?): Horse = when (this) {
@@ -102,6 +54,6 @@ sealed class Horse() {
 
     object None : Horse()
 
-    object Error : Horse()
+    data class Error(val msg: String) : Horse()
 }
 

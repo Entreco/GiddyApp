@@ -119,7 +119,7 @@ internal class FbAuth @Inject constructor(
         }
     }
 
-    override fun signinOrAnonymous(context: Context) {
+    override fun signinOrAnonymous(context: Context, done: ()->Unit) {
         val user = auth.currentUser
         if (user == null) {
             authUi.silentSignIn(context, providers)
@@ -130,9 +130,15 @@ internal class FbAuth @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val name = task.result.name("Authenticated")
-                        userService.create(name) {}
+                        userService.create(name) {
+                            done()
+                        }
+                    } else {
+                        done()
                     }
                 }
+        } else {
+            done()
         }
     }
 
