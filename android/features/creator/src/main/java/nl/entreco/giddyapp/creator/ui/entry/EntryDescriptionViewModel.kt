@@ -15,10 +15,9 @@ class EntryDescriptionViewModel @Inject constructor(
     val constraint = ObservableFloat(0F)
 
     val image = ChangeableField(state.model.image.uri)
-    val hint = ObservableField<String>("")
-    val name = ObservableField<String>(state.model.horseDetail.name)
-
-    val desc = ObservableField<String>(state.model.horseDetail.desc)
+    val hint = ObservableField("")
+    val name = ObservableField(state.model.horseDetail.name)
+    val desc = ObservableField(state.model.horseDetail.desc)
 
     fun compose(): EntryModel = state.model.copy(horseDetail = state.model.horseDetail.copy(desc = desc.get()!!))
 }

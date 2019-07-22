@@ -3,7 +3,6 @@ package nl.entreco.giddyapp.creator.ui.bottom
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import nl.entreco.giddyapp.creator.databinding.WidgetBottomProgressViewBinding

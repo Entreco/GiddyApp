@@ -39,7 +39,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:$xLifecycle"
     api "androidx.constraintlayout:constraintlayout:$xConstraintLayout"
 
-    api "com.google.firebase:firebase-core:$fbCore"
+//    api "com.google.firebase:firebase-core:$fbCore"
     api "com.google.firebase:firebase-firestore:$fbFireStore"
     api "com.google.firebase:firebase-storage:$fbStorage"
 

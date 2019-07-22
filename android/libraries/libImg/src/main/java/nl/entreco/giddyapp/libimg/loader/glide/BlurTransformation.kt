@@ -16,7 +16,7 @@ class BlurTransformation(context: Context) : BitmapTransformation() {
     private val rs: RenderScript by lazy { RenderScript.create(context) }
 
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-        messageDigest.update("blur transformation".toByteArray());
+        messageDigest.update("blur transformation".toByteArray())
     }
 
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {

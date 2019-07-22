@@ -1,8 +1,6 @@
 package nl.entreco.giddyapp.libcore
 
-import android.net.Uri
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter

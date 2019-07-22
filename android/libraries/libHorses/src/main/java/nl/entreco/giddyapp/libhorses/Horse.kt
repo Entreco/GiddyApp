@@ -3,7 +3,7 @@ package nl.entreco.giddyapp.libhorses
 import android.net.Uri
 import nl.entreco.giddyapp.libcore.HexString
 
-sealed class Horse() {
+sealed class Horse {
 
     val id: String
         get() = when (this) {

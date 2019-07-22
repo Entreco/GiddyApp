@@ -1,9 +1,7 @@
 package nl.entreco.giddyapp.viewer.ui.filter
 
 import android.view.View
-import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import nl.entreco.giddyapp.libhorses.fetch.FilterOptions
 import nl.entreco.giddyapp.viewer.di.FilterBehaviour
 import nl.entreco.giddyapp.viewer.di.ViewerScope
 import java.util.concurrent.atomic.AtomicBoolean

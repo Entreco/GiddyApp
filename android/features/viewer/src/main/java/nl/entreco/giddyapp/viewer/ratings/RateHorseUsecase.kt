@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.viewer.ratings
 
-import android.util.Log
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.user.User
 import nl.entreco.giddyapp.libcore.AnkoAsyncContext

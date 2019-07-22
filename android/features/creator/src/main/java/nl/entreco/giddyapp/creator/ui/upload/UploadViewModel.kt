@@ -17,11 +17,11 @@ class UploadViewModel @Inject constructor(private val state: CreatorState.Upload
 
     val constraint = ObservableFloat(0F)
     val image = ChangeableField(state.model.image.uri)
-    val name = ObservableField<String>(state.model.horseDetail.name)
-    val desc = ObservableField<String>(state.model.horseDetail.desc)
-    val level = ObservableField<HorseLevel>(state.model.horseDetail.type)
-    val price = ObservableField<HorsePrice>(state.model.horseDetail.price)
-    val category = ObservableField<HorseCategory>(state.model.horseDetail.category)
+    val name = ObservableField(state.model.horseDetail.name)
+    val desc = ObservableField(state.model.horseDetail.desc)
+    val level = ObservableField(state.model.horseDetail.type)
+    val price = ObservableField(state.model.horseDetail.price)
+    val category = ObservableField(state.model.horseDetail.category)
     val genderIcon = ObservableInt(state.model.horseDetail.gender.icon())
 
     fun model(): EntryModel = state.model

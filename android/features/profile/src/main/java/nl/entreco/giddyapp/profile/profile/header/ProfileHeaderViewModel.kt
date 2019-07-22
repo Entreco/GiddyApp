@@ -2,11 +2,8 @@ package nl.entreco.giddyapp.profile.profile.header
 
 import android.net.Uri
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.libcore.launch.features.ProfileNavigator
 import nl.entreco.giddyapp.profile.ProfileNavigation
-import nl.entreco.giddyapp.profile.R
 import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import javax.inject.Inject
 

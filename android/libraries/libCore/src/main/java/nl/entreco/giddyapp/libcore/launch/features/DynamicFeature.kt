@@ -10,8 +10,11 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.model.SplitInstallErrorCode
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import nl.entreco.giddyapp.libcore.launch.loadIntentOrNull
+import java.util.concurrent.atomic.AtomicInteger
 
 abstract class DynamicFeature<T>(private val activityName: String, private val featureName: String) {
+
+    private val mySessionId = AtomicInteger(0)
     private val dynamicStart: Intent?
         get() = activityName.loadIntentOrNull()
 
@@ -31,18 +34,25 @@ abstract class DynamicFeature<T>(private val activityName: String, private val f
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName)
             .build()
-        manager.registerListener {
-            installedAction(it.bytesDownloaded() / it.totalBytesToDownload(), null)
-            if (it.status() == SplitInstallSessionStatus.INSTALLED) ready(installedAction)
+        manager.registerListener { update ->
+            if (mySessionId.get() == update.sessionId()) {
+                installedAction(update.bytesDownloaded() / update.totalBytesToDownload(), null)
+                if (update.status() == SplitInstallSessionStatus.INSTALLED) ready(installedAction)
+            }
         }
         manager.startInstall(request)
             .addOnFailureListener { err ->
                 when (val code = (err as? SplitInstallException)?.errorCode) {
+                    SplitInstallErrorCode.ACCESS_DENIED -> toast(context, "Access Denied: $featureName")
+                    SplitInstallErrorCode.NETWORK_ERROR -> toast(context, "Network error: $featureName retry?")
+                    SplitInstallErrorCode.API_NOT_AVAILABLE -> toast(context, "Api not available: $featureName update play services?")
+                    SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> toast(context, "Incompatible with existing session: ${mySessionId.get()}")
                     SplitInstallErrorCode.MODULE_UNAVAILABLE -> toast(context, "Module Unavailable: $featureName")
                     else -> toast(context, "Unknown error $code")
                 }
             }
             .addOnSuccessListener { session ->
+                mySessionId.set(session)
                 toast(context, "Starting install $session")
             }
     }
