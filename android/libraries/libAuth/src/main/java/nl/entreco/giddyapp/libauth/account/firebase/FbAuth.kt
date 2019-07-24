@@ -36,7 +36,7 @@ internal class FbAuth @Inject constructor(
 
     private val providers by lazy {
         listOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.EmailBuilder().setActionCodeSettings(email).enableEmailLinkSignIn().build(),
             AuthUI.IdpConfig.PhoneBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
         )

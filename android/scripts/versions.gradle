@@ -30,6 +30,7 @@ ext {
             fbStorage = '18.0.0',
             fbAuth = '18.0.0',
             fbAuthUi = '5.0.0',
+            fbAuthUiSnap = '5.0.1-20190724.171854-2',
 
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',
