@@ -11,7 +11,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application>
+    <application android:name="nl.entreco.giddyapp.GiddyApp">
         <activity
                 android:name=".CreatorActivity"
                 android:label="@string/title_creator"
