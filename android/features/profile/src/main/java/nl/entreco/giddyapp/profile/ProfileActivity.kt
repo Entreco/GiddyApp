@@ -35,7 +35,10 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
             navigation.onStateChanged(profile)
         })
         viewModel.clicks().observe(this, Observer { item ->
-            navigation.onProfileItemClicked(item)
+            item?.let {
+                navigation.onProfileItemClicked(item)
+            }
+            viewModel.removeClicks()
         })
         viewModel.matches().observe(this, Observer { list ->
             adapter.postItems(list)

@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libhorses.di
 
-import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
@@ -15,8 +14,8 @@ object HorseModule {
 
     @Provides
     @JvmStatic
-    internal fun provideFireStore(fbApp: FirebaseApp): FirebaseFirestore {
-        val fireStore = FirebaseFirestore.getInstance(fbApp)
+    internal fun provideFireStore(): FirebaseFirestore {
+        val fireStore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
             .build()
@@ -26,8 +25,8 @@ object HorseModule {
 
     @Provides
     @JvmStatic
-    internal fun provideFireStorage(fbApp: FirebaseApp): FirebaseStorage {
-        return FirebaseStorage.getInstance(fbApp)
+    internal fun provideFireStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
     }
 
     @Provides

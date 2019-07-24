@@ -76,7 +76,7 @@ internal class FbAuth @Inject constructor(
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
         val response = IdpResponse.fromResultIntent(data)
         when {
-            resultCode == RESULT_OK -> success(response?.email ?: "Anonymous", done)
+            resultCode == RESULT_OK -> success(response?.email ?: "Linked", done)
             response?.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(context, response, done)
             else -> failed(done)
         }
@@ -101,7 +101,7 @@ internal class FbAuth @Inject constructor(
                 authUi.delete(context).continueWithTask {
                     auth.signInWithCredential(response.credentialForLinking!!)
                         .addOnSuccessListener { result ->
-                            val userName = result.name((old as? User.Valid)?.name ?: "FROM Linked name")
+                            val userName = result.name((old as? User.Valid)?.name ?: "Linked name")
                             userService.create(userName) { usr ->
                                 when (usr) {
                                     is User.Valid -> done(SignupResponse.Migrate(usr.uid, old))

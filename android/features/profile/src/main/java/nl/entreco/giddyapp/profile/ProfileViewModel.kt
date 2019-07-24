@@ -64,4 +64,8 @@ class ProfileViewModel @Inject constructor(
         super.onCleared()
         fetchProfileUsecase.clear("profile")
     }
+
+    fun removeClicks() {
+        selected.postValue(null)
+    }
 }
