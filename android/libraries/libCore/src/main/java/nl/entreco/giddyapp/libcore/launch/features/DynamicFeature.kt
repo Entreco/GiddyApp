@@ -2,7 +2,7 @@ package nl.entreco.giddyapp.libcore.launch.features
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
+import android.os.Build
 import android.widget.Toast
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallErrorCode
@@ -40,17 +40,10 @@ abstract class DynamicFeature<T>(
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName)
             .build()
+
         manager.registerListener { update ->
-            Log.w("INSTALL", "DYNMODULE update: $update")
-            Log.w("INSTALL", "DYNMODULE update.status: ${update.status()}")
-            Log.w("INSTALL", "DYNMODULE update.resIntent: ${update.resolutionIntent()}")
-            Log.w("INSTALL", "DYNMODULE update.errCode: ${update.errorCode()}")
-            toast(context, "Unknown error ${update.status()}")
+            toast(context, "Status: ${update.status()}")
             if (mySessionId.get() == update.sessionId()) {
-                Log.w(
-                    "INSTALL",
-                    "DYNMODULE session match: ${update.bytesDownloaded()} ${update.totalBytesToDownload()}"
-                )
                 installedAction(update.bytesDownloaded(), update.totalBytesToDownload(), false)
                 when (update.status()) {
                     SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> manager.startConfirmationDialogForResult(
@@ -60,7 +53,9 @@ abstract class DynamicFeature<T>(
                     )
                     SplitInstallSessionStatus.INSTALLING -> installedAction(1, 1, false)
                     SplitInstallSessionStatus.INSTALLED -> {
-                        SplitInstallHelper.updateAppInfo(context.application)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            SplitInstallHelper.updateAppInfo(context.application)
+                        }
                         ready(installedAction)
                     }
                 }
@@ -69,7 +64,6 @@ abstract class DynamicFeature<T>(
 
         manager.startInstall(request)
             .addOnFailureListener { err ->
-                Log.w("INSTALL", "DYNMODULE failure: $err")
                 when (val code = (err as? SplitInstallException)?.errorCode) {
                     SplitInstallErrorCode.ACCESS_DENIED -> toast(context, "Access Denied: $featureName")
                     SplitInstallErrorCode.NETWORK_ERROR -> toast(context, "Network error: $featureName retry?")
@@ -79,18 +73,15 @@ abstract class DynamicFeature<T>(
                     )
                     SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> toast(
                         context,
-                        "Incompatible with existing session: ${mySessionId.get()}"
+                        "Incompatible session: ${mySessionId.get()}"
                     )
                     SplitInstallErrorCode.MODULE_UNAVAILABLE -> toast(context, "Module Unavailable: $featureName")
                     else -> toast(context, "Unknown error $code")
                 }
             }
             .addOnSuccessListener { session ->
-                Log.w("INSTALL", "DYNMODULE success: $session")
                 mySessionId.set(session)
                 toast(context, "Starting install $session")
-            }.addOnCompleteListener { task ->
-                toast(context, "DYNMODULE complete: task")
             }
     }
 

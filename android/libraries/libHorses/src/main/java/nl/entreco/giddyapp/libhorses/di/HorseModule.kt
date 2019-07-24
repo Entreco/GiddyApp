@@ -32,7 +32,6 @@ object HorseModule {
     @Provides
     @JvmStatic
     @AppScope
-    internal fun provideFbHorseService(db: FirebaseFirestore, storage: FirebaseStorage): HorseService {
-        return FbHorseService(db, storage)
-    }
+    internal fun provideFbHorseService(db: FirebaseFirestore, storage: FirebaseStorage): HorseService =
+        FbHorseService(db, storage)
 }

@@ -1,8 +1,10 @@
 package nl.entreco.giddyapp.profile
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +72,9 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
         if (requestCode == CREATOR_INSTALL_CODE) {
             // Handle the user's decision. For example, if the user selects "Cancel",
             // you may want to disable certain functionality that depends on the module.
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "User cancelled", Toast.LENGTH_LONG).show()
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

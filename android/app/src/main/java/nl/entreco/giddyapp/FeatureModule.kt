@@ -32,4 +32,5 @@ object FeatureModule {
     fun provideFirebaseApp(): FirebaseApp {
         return FirebaseApp.getInstance()
     }
+
 }
