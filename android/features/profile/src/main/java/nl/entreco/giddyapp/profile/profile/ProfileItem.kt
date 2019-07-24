@@ -3,12 +3,15 @@ package nl.entreco.giddyapp.profile.profile
 import androidx.annotation.StringRes
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
+import androidx.databinding.ObservableLong
 import nl.entreco.giddyapp.profile.R
 
 sealed class ProfileItem(@StringRes name: Int, @StringRes desc: Int, private val onClick: OnClick? = null) {
     val title = ObservableInt(name)
     val description = ObservableInt(desc)
     val enabled = ObservableBoolean(onClick != null)
+    val progress = ObservableInt(0)
+    val max = ObservableInt(0)
 
     fun onClick() {
         onClick?.onClick(this)

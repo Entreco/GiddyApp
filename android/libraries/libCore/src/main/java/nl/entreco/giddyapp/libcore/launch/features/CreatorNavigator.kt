@@ -4,5 +4,6 @@ import android.content.Intent
 
 object CreatorNavigator : DynamicFeature<Intent>(
     activityName = "nl.entreco.giddyapp.creator.CreatorActivity",
-    featureName = "creator"
+    featureName = "creator",
+    requestCode = CREATOR_INSTALL_CODE
 )

@@ -20,9 +20,11 @@ class ProfileNavigation @Inject constructor(
 ) {
     private val fm = activity.supportFragmentManager
 
-    private fun launchCreator() {
-        CreatorNavigator.launch(activity) { progress, intent ->
-            intent?.let {
+    private fun launchCreator(item: ProfileItem) {
+        CreatorNavigator.launch(activity) { progress, max, launch ->
+            item.progress.set(progress.toInt())
+            item.max.set(max.toInt())
+            if (launch) {
                 LaunchHelper.launchCreator(activity)
                 activity.finish()
             }
@@ -74,7 +76,7 @@ class ProfileNavigation @Inject constructor(
 
     fun onProfileItemClicked(item: ProfileItem?) {
         when (item) {
-            is ProfileItem.Upload -> launchCreator()
+            is ProfileItem.Upload -> launchCreator(item)
             is ProfileItem.About -> launchAbout()
             is ProfileItem.Settings -> launchSettings()
             else -> Toast.makeText(activity, "NOT IMPLEMENTED: $item", Toast.LENGTH_SHORT).show()

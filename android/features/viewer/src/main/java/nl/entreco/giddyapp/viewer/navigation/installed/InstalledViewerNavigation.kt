@@ -44,8 +44,8 @@ class InstalledViewerNavigation @Inject constructor(
         val transition = ActivityOptions.makeSceneTransitionAnimation(activity, view, view.transitionName)
         val doh = ActivityOptions.makeSceneTransitionAnimation(activity)
 
-        ProfileNavigator.launch(activity) { progress, intent ->
-            intent?.let {
+        ProfileNavigator.launch(activity) { _, _, launch ->
+            if (launch) {
                 LaunchHelper.launchProfile(activity, reveal)
             }
         }
