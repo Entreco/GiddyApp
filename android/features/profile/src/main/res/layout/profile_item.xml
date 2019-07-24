@@ -55,7 +55,9 @@
                 android:layout_height="4dp"
                 android:progress="@{item.progress}"
                 android:max="@{item.max}"
-                android:background="@android:color/transparent"
+                tools:progress="50"
+                tools:max="100"
+                android:progressBackgroundTint="@android:color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
