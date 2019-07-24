@@ -3,7 +3,6 @@ package nl.entreco.giddyapp.libcore.launch.features
 import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallErrorCode
@@ -41,12 +40,8 @@ abstract class DynamicFeature<T>(
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName)
             .build()
-        
+
         manager.registerListener { update ->
-            Log.w("INSTALL", "DYNMODULE update: $update")
-            Log.w("INSTALL", "DYNMODULE update.status: ${update.status()}")
-            Log.w("INSTALL", "DYNMODULE update.resIntent: ${update.resolutionIntent()}")
-            Log.w("INSTALL", "DYNMODULE update.errCode: ${update.errorCode()}")
             toast(context, "Status: ${update.status()}")
             if (mySessionId.get() == update.sessionId()) {
                 installedAction(update.bytesDownloaded(), update.totalBytesToDownload(), false)
