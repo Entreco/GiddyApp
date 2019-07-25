@@ -1,6 +1,8 @@
 package nl.entreco.giddyapp.libmatches.data
 
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import nl.entreco.giddyapp.libmatches.Match
 import nl.entreco.giddyapp.libmatches.MatchResponse
 import nl.entreco.giddyapp.libmatches.MatchService
@@ -18,10 +20,8 @@ internal class FbMatchService(
             val horseId = match.horseId
             val document = matchesCollection.document(horseId)
             val fbMatch = FbMatch(horseId, match.name, match.ref)
-            batch.set(document, fbMatch)
-
-            val liker = document.collection("likers").document(userId)
-            batch.set(liker, mapOf("a" to "true"))
+            batch.set(document, fbMatch, SetOptions.merge())
+            batch.update(document, "likers", FieldValue.arrayUnion(userId))
         }
 
         batch.commit()
@@ -33,12 +33,12 @@ internal class FbMatchService(
     }
 
     override fun retrieveForUser(userId: String, done: (List<Match>) -> Unit) {
-        matchesCollection.whereArrayContains("u", userId)
-            .get()
+
+        matchesCollection.whereArrayContains("likers", userId).get()
             .addOnSuccessListener { snap ->
                 val matches = snap.toObjects(FbMatch::class.java).mapNotNull { Match(it.horseId, it.name, it.ref) }
                 done(matches)
-            }.addOnFailureListener {
+            }.addOnFailureListener { err ->
                 done(emptyList())
             }
     }

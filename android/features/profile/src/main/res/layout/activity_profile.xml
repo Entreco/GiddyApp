@@ -19,28 +19,12 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
-        <androidx.core.widget.NestedScrollView
-                android:id="@+id/profile_scroller"
+        <FrameLayout
+                android:id="@+id/profile_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
                 android:background="@color/sheet"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:animateLayoutChanges="true">
-
-                <include
-                        android:id="@+id/include_menu"
-                        layout="@layout/include_profile_menu"
-                        app:viewModel="@{viewModel}"/>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
         <include
                 android:id="@+id/include_copyright"
@@ -49,14 +33,6 @@
                 android:layout_height="wrap_content"
                 app:viewModel="@{viewModel}"
                 layout="@layout/include_profile_copyright"/>
-
-        <!--<include-->
-        <!--android:id="@+id/include_matches"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--layout="@layout/include_profile_matches"-->
-        <!--app:viewModel="@{viewModel}"/>-->
 
         <include
                 android:id="@+id/includeToolbar"

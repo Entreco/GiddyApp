@@ -16,8 +16,7 @@ import nl.entreco.giddyapp.profile.profile.ProfileItem
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-    private val fetchProfileUsecase: FetchProfileUsecase,
-    fetchMatchesUsecase: FetchMatchesUsecase
+    private val fetchProfileUsecase: FetchProfileUsecase
 ) : ViewModel(), ProfileItem.OnClick {
 
     val currentProfile = ObservableField<Profile>()
@@ -25,21 +24,17 @@ class ProfileViewModel @Inject constructor(
 
     private val state = MutableLiveData<Profile>()
     private val selected = MutableLiveData<ProfileItem>()
-    private val matches = MutableLiveData<List<UserLike>>()
+
 
     fun state(): LiveData<Profile> = state
     fun clicks(): LiveData<ProfileItem> = selected.toSingleEvent()
-    fun matches(): LiveData<List<UserLike>> = matches
+
 
     init {
-        state.postValue(null)
-        fetchProfileUsecase.go("profile") { profile ->
+        fetchProfileUsecase.go { profile ->
             currentProfile.set(profile)
-            state.postValue(profile)
+            state.postValue(profile.copy())
             generateItems(profile.account)
-        }
-        fetchMatchesUsecase.go { horses ->
-            matches.postValue(horses)
         }
     }
 
@@ -62,7 +57,7 @@ class ProfileViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        fetchProfileUsecase.clear("profile")
+        fetchProfileUsecase.clear()
     }
 
     fun removeClicks() {

@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.profile.profile.header
+package nl.entreco.giddyapp.profile.header
 
 import android.os.Bundle
 import android.view.LayoutInflater

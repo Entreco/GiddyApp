@@ -24,14 +24,16 @@ sealed class ProfileItem(@StringRes name: Int, @StringRes desc: Int, private val
     companion object {
         fun all(onClick: OnClick): List<ProfileItem> = listOf(
             Upload(onClick),
-            About(onClick),
-            Settings(onClick)
+            Matches(onClick),
+            Settings(onClick),
+            About(onClick)
         )
 
         fun anonymous(onClick: OnClick): List<ProfileItem> = listOf(
             Upload(),
-            About(onClick),
-            Settings(onClick)
+            Matches(onClick),
+            Settings(onClick),
+            About(onClick)
         )
 
         fun error() : List<ProfileItem> = listOf(
@@ -40,7 +42,8 @@ sealed class ProfileItem(@StringRes name: Int, @StringRes desc: Int, private val
     }
 
     data class Upload(val _onClick: OnClick? = null) : ProfileItem(R.string.profile_item_upload, R.string.profile_item_upload_description, _onClick)
-    data class Error(val _onClick: OnClick? = null) : ProfileItem(R.string.profile_item_error, R.string.profile_item_error_description, null)
+    data class Matches(val _onClick: OnClick? = null) : ProfileItem(R.string.profile_item_matches, R.string.profile_item_matches_description, _onClick)
     data class About(val _onClick: OnClick) : ProfileItem(R.string.profile_item_about, R.string.profile_item_about_description, _onClick)
     data class Settings(val _onClick: OnClick) : ProfileItem(R.string.profile_item_settings, R.string.profile_item_settings_description, _onClick)
+    data class Error(val _onClick: OnClick? = null) : ProfileItem(R.string.profile_item_error, R.string.profile_item_error_description, null)
 }

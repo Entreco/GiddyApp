@@ -7,9 +7,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
@@ -18,44 +15,39 @@ import nl.entreco.giddyapp.profile.databinding.ActivityProfileBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 import nl.entreco.giddyapp.profile.di.ProfileInjector.fromModule
 import nl.entreco.giddyapp.profile.di.ProfileModule
-import nl.entreco.giddyapp.profile.matches.MatchPagerAdapter
 
 class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
 
     private val component by fromModule { ProfileModule }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val navigation by lazy { component.navigation() }
-    private val loader by lazy { component.loader() }
-    private val adapter by lazy { MatchPagerAdapter(loader) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observeProfile()
+        observeClicks()
+
         val binding = DataBindingUtil.setContentView<ActivityProfileBinding>(this, R.layout.activity_profile)
         binding.viewModel = viewModel
         binding.navigation = navigation
-//        setupPager(binding.includeMatches.profileMatchRecycler)
 
+        setSupportActionBar(binding.includeToolbar.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun observeProfile() {
         viewModel.state().observe(this, Observer { profile ->
             navigation.onStateChanged(profile)
         })
+    }
+
+    private fun observeClicks() {
         viewModel.clicks().observe(this, Observer { item ->
             item?.let {
                 navigation.onProfileItemClicked(item)
             }
             viewModel.removeClicks()
         })
-        viewModel.matches().observe(this, Observer { list ->
-            adapter.postItems(list)
-        })
-        setSupportActionBar(binding.includeToolbar.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun setupPager(recycler: RecyclerView) {
-        recycler.adapter = adapter
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(recycler)
-        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun get() = component

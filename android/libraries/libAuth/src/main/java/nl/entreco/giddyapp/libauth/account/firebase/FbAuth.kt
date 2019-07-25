@@ -17,6 +17,10 @@ import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libauth.account.SignupResponse
 import nl.entreco.giddyapp.libauth.user.User
 import javax.inject.Inject
+import androidx.core.app.ActivityCompat.startActivityForResult
+import android.content.Intent.getIntent
+
+
 
 internal class FbAuth @Inject constructor(
     private val authUi: AuthUI,
@@ -30,7 +34,7 @@ internal class FbAuth @Inject constructor(
         ActionCodeSettings.newBuilder()
             .setAndroidPackageName("nl.entreco.giddyapp", true, null)
             .setHandleCodeInApp(true)
-            .setUrl("https://google.com") // This URL needs to be whitelisted
+            .setUrl("https://giddy.entreco.nl/email") // This URL needs to be whitelisted
             .build()
     }
 
