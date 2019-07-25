@@ -3,7 +3,6 @@ package nl.entreco.giddyapp
 import android.app.Application
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
-import com.squareup.leakcanary.LeakCanary
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.di.DiProvider
 
@@ -20,7 +19,6 @@ class GiddyApp : Application(),
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this)
         if (BuildConfig.DEBUG) enableStrictMode()
     }
 

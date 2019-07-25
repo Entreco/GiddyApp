@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="nl.entreco.giddyapp.profile.ProfileViewModel"/>
+                type="nl.entreco.giddyapp.profile.menu.MenuViewModel"/>
     </data>
 
     <androidx.core.widget.NestedScrollView

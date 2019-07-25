@@ -37,7 +37,7 @@ internal class GlideImageLoader(private val screenWidth: Int, private val screen
         GlideApp.with(view)
             .load(uri)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(view.context))
+            .transform(BlurTransformation(view.context.applicationContext))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
             .into(view)

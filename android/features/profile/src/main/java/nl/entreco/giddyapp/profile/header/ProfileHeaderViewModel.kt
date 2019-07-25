@@ -1,12 +1,10 @@
 package nl.entreco.giddyapp.profile.header
 
-import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.profile.ProfileNavigation
-import nl.entreco.giddyapp.profile.profile.FetchProfileUsecase
 import nl.entreco.giddyapp.profile.profile.Profile
 import javax.inject.Inject
 
@@ -16,7 +14,7 @@ class ProfileHeaderViewModel @Inject constructor() : ViewModel() {
     val desc = ObservableField("")
     val image = ObservableField<Uri?>()
 
-    fun onSignUp(navigator: ProfileNavigation){
+    fun onSignUp(navigator: ProfileHeaderNavigation){
         navigator.onSignup()
     }
 
@@ -24,5 +22,10 @@ class ProfileHeaderViewModel @Inject constructor() : ViewModel() {
         name.set(profile?.name())
         desc.set(profile?.desc())
         image.set(profile?.image(resources))
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("PROFILE", "PROFILE onCleared ProfileHeaderViewModel")
     }
 }

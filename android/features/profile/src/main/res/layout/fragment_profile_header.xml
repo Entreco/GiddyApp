@@ -13,9 +13,6 @@
                 name="loader"
                 type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
 
-        <variable
-                name="navigator"
-                type="nl.entreco.giddyapp.profile.ProfileNavigation"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

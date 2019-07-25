@@ -12,16 +12,22 @@ import nl.entreco.giddyapp.libmatches.MatchService
 import nl.entreco.giddyapp.profile.ProfileActivity
 import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
-import nl.entreco.giddyapp.profile.matches.MatchesViewModel
+import nl.entreco.giddyapp.profile.header.ProfileHeaderNavigation
 import nl.entreco.giddyapp.profile.header.ProfileHeaderViewModel
+import nl.entreco.giddyapp.profile.matches.MatchViewModel
+import nl.entreco.giddyapp.profile.menu.MenuNavigation
+import nl.entreco.giddyapp.profile.menu.MenuViewModel
 
 @Component(modules = [ProfileModule::class])
 interface ProfileComponent {
 
     fun viewModel(): ProfileViewModel
     fun header(): ProfileHeaderViewModel
-    fun matches(): MatchesViewModel
+    fun matches(): MatchViewModel
+    fun menu(): MenuViewModel
     fun navigation(): ProfileNavigation
+    fun headerNavigation(): ProfileHeaderNavigation
+    fun menuNavigation(): MenuNavigation
     fun auth(): Authenticator
     fun loader(): ImageLoader
 

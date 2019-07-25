@@ -12,8 +12,8 @@ import com.google.android.play.core.splitcompat.SplitCompat
 abstract class BaseActivity : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
-        if (!InstantApps.isInstantApp(this)) {
-            SplitCompat.install(this)
+        if (!InstantApps.isInstantApp(applicationContext)) {
+            SplitCompat.install(applicationContext)
         }
     }
 }

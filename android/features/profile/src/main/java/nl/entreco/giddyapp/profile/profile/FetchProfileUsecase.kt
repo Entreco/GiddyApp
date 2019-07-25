@@ -2,6 +2,8 @@ package nl.entreco.giddyapp.profile.profile
 
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libcore.onBg
+import nl.entreco.giddyapp.libcore.onUi
+import nl.entreco.giddyapp.profile.profile.Profile
 import javax.inject.Inject
 
 class FetchProfileUsecase @Inject constructor(
@@ -11,7 +13,9 @@ class FetchProfileUsecase @Inject constructor(
     fun go(done: (Profile) -> Unit) {
         onBg {
             authenticator.observe("profile") { user ->
-                done(Profile(user))
+                onUi {
+                    done(Profile(user))
+                }
             }
         }
     }

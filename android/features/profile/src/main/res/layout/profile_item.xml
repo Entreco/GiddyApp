@@ -7,7 +7,7 @@
 
         <variable
                 name="item"
-                type="nl.entreco.giddyapp.profile.profile.ProfileItem"/>
+                type="nl.entreco.giddyapp.profile.menu.MenuItem"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
