@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.profile
 
-import android.util.Log
 import android.widget.Toast
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.Account
@@ -16,12 +15,6 @@ class ProfileNavigation @Inject constructor(
     private val auth: Authenticator
 ) {
     private val fm = activity.supportFragmentManager
-
-    init {
-        fm.addOnBackStackChangedListener {
-            Log.i("PROFILE", "PROFILE ProfileNavigation backstack: ${fm.backStackEntryCount}")
-        }
-    }
 
     fun onStateChanged(state: Profile?) {
         when (state?.account) {

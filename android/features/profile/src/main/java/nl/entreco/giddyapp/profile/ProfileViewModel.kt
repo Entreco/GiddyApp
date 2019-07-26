@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.profile
 
 import android.content.Context
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -36,6 +35,5 @@ class ProfileViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         fetchProfileUsecase.clear()
-        Log.i("PROFILE", "PROFILE onCleared ProfileViewModel $this")
     }
 }

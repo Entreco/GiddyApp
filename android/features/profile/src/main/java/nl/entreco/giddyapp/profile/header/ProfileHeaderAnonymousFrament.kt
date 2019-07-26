@@ -1,14 +1,12 @@
 package nl.entreco.giddyapp.profile.header
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
-import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.databinding.FragmentProfileHeaderAnonymousBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 
@@ -23,10 +21,5 @@ class ProfileHeaderAnonymousFrament : Fragment() {
         binding.viewModel = viewModel
         binding.navigator = navigator
         return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("PROFILE", "PROFILE ProfileHeaderAnonymousFragment($this) onDestroy")
     }
 }

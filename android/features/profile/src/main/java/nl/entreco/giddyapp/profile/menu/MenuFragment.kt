@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.profile.menu
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +19,6 @@ class MenuFragment : Fragment() {
     private val component by lazy { (activity as DiProvider<ProfileComponent>).get() }
     private val viewModel by viewModelProvider { component.menu() }
     private val navigation by lazy { component.menuNavigation() }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i("PROFILE", "PROFILE MenuFragment($this) onCreate")
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -48,20 +42,5 @@ class MenuFragment : Fragment() {
             }
             viewModel.clearClicks()
         })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i("PROFILE", "PROFILE MenuFragment($this) onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i("PROFILE", "PROFILE MenuFragment($this) onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("PROFILE", "PROFILE MenuFragment($this) onDestroy")
     }
 }

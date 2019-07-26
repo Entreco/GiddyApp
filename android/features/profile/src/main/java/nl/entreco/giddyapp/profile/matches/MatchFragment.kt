@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.profile.matches
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +24,6 @@ class MatchFragment : Fragment() {
     private val viewModel by viewModelProvider { component.matches() }
     private val loader: ImageLoader by lazy { component.loader() }
     private val adapter by lazy { MatchPagerAdapter(loader) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i("PROFILE", "PROFILE MatchFragment($this) onCreate")
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMatchesBinding.inflate(inflater, container, false)
@@ -59,10 +53,5 @@ class MatchFragment : Fragment() {
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recycler)
         recycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("PROFILE", "PROFILE MatchFragment($this) onDestroy")
     }
 }

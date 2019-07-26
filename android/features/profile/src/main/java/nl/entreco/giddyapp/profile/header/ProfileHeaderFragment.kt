@@ -1,7 +1,6 @@
 package nl.entreco.giddyapp.profile.header
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,7 +22,6 @@ class ProfileHeaderFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        Log.i("PROFILE", "PROFILE ProfileHeaderFragment($this) onCreate")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,10 +43,5 @@ class ProfileHeaderFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_profile, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("PROFILE", "PROFILE ProfileHeaderFragment($this) onDestroy")
     }
 }

@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.profile.menu
 
-import android.util.Log
 import android.widget.Toast
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
@@ -14,12 +13,6 @@ class MenuNavigation @Inject constructor(
 ) {
 
     private val fm = activity.supportFragmentManager
-
-    init {
-        fm.addOnBackStackChangedListener {
-            Log.i("PROFILE", "PROFILE MenuNavigation backstack: ${fm.backStackEntryCount}")
-        }
-    }
 
     fun onProfileItemClicked(item: MenuItem) {
         when (item) {

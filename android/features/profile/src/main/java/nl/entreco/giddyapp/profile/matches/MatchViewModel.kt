@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.profile.matches
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,10 +18,5 @@ class MatchViewModel @Inject constructor(
         fetchMatchesUsecase.go(FetchMatchesRequest(account.uid())) { horses ->
             matches.postValue(horses)
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.i("PROFILE", "PROFILE onCleared MatchViewModel")
     }
 }

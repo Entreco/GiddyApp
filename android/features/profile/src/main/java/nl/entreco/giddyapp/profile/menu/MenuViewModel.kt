@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.profile.menu
 
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,7 @@ import javax.inject.Inject
 
 class MenuViewModel @Inject constructor(
 
-) : ViewModel(), MenuItem.OnClick{
+) : ViewModel(), MenuItem.OnClick {
 
     val items = ObservableArrayList<MenuItem>()
     private val selected = MutableLiveData<MenuItem>()
@@ -39,6 +38,5 @@ class MenuViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         clearClicks()
-        Log.i("PROFILE", "PROFILE onCleared MenuViewModel")
     }
 }
