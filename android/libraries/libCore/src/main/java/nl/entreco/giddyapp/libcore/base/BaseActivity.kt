@@ -13,7 +13,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
         if (!InstantApps.isInstantApp(applicationContext)) {
-            SplitCompat.install(applicationContext)
+            SplitCompat.install(this)
         }
     }
 }
