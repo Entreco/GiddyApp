@@ -15,5 +15,5 @@ interface Authenticator {
 
     fun observe(key: String, done: (Account) -> Unit)
     fun stopObserving(key: String)
-    fun canHandle(intent: Intent, done: (String) -> Unit)
+    fun canHandle(intent: Intent, done: (String?) -> Unit)
 }

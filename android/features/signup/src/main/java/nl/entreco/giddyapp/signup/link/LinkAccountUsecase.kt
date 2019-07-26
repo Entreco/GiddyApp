@@ -39,5 +39,5 @@ class LinkAccountUsecase @Inject constructor(
     }
 
     fun signinIntent(settings: FbAuthUiSettings, link: String?): Intent? = authenticator.signinIntent(settings, link)
-    fun canHandle(intent: Intent, done: (String) -> Unit) = authenticator.canHandle(intent, done)
+    fun canHandle(intent: Intent, done: (String?) -> Unit) = authenticator.canHandle(intent, done)
 }

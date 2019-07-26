@@ -23,11 +23,6 @@ class SignupActivity : BaseActivity() {
         val binding = DataBindingUtil.setContentView<ActivitySignupBinding>(this, R.layout.activity_signup)
         binding.viewModel = viewModel
 
-        startActivityForResult(viewModel.intent(), RC_SIGN_IN)
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
         viewModel.canHandle(intent) { link ->
             startActivityForResult(viewModel.intent(link), RC_SIGN_IN)
         }
@@ -39,11 +34,7 @@ class SignupActivity : BaseActivity() {
             viewModel.handleResult(this, resultCode, data) { response ->
                 when (response) {
                     is LinkAccountResponse.Success -> finish()
-                    is LinkAccountResponse.Failed -> Toast.makeText(
-                        this,
-                        "Unable to signin (${response.msg})",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    is LinkAccountResponse.Failed -> Toast.makeText(this, "Unable to signin (${response.msg})", Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -12,14 +12,12 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.BuildConfig
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libauth.account.SignupResponse
 import nl.entreco.giddyapp.libauth.user.User
 import javax.inject.Inject
-import androidx.core.app.ActivityCompat.startActivityForResult
-import android.content.Intent.getIntent
-
 
 
 internal class FbAuth @Inject constructor(
@@ -34,6 +32,7 @@ internal class FbAuth @Inject constructor(
         ActionCodeSettings.newBuilder()
             .setAndroidPackageName("nl.entreco.giddyapp", true, null)
             .setHandleCodeInApp(true)
+            .setDynamicLinkDomain("giddy.page.link/email")
             .setUrl("https://giddy.entreco.nl/email") // This URL needs to be whitelisted
             .build()
     }
@@ -53,27 +52,25 @@ internal class FbAuth @Inject constructor(
             .setTheme(settings.style)
             .setAuthMethodPickerLayout(layout)
             .setAvailableProviders(providers)
+            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
             .enableAnonymousUsersAutoUpgrade()
 //            .setTosAndPrivacyPolicyUrls(
 //                "https://giddy.entreco.nl/privacy-policy.html",
 //                "https://giddy.entreco.nl/privacy-policy.html"
 //            )
 
-        if(link?.isNotBlank() == true) builder.setEmailLink(link)
+        if (link?.isNotBlank() == true) builder.setEmailLink(link)
 
         return builder.build()
 
     }
 
-    override fun canHandle(intent: Intent, done: (String) -> Unit) {
+    override fun canHandle(intent: Intent, done: (String?) -> Unit) {
         if (AuthUI.canHandleIntent(intent)) {
-            if (intent.extras != null) {
-                return
-            }
-            val link = intent.extras!!.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
-            if (link != null) {
-                done(link)
-            }
+            val link = intent.extras?.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
+            done(link)
+        } else {
+            done(null)
         }
     }
 
@@ -123,7 +120,7 @@ internal class FbAuth @Inject constructor(
         }
     }
 
-    override fun signinOrAnonymous(context: Context, done: ()->Unit) {
+    override fun signinOrAnonymous(context: Context, done: () -> Unit) {
         val user = auth.currentUser
         if (user == null) {
             authUi.silentSignIn(context, providers)
