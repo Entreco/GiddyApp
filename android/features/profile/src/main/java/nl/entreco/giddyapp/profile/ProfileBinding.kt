@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.profile.databinding.ProfileItemBinding
-import nl.entreco.giddyapp.profile.profile.ProfileItem
+import nl.entreco.giddyapp.profile.menu.MenuItem
 
 object ProfileBinding {
 
     @JvmStatic
     @BindingAdapter("menuItems")
-    fun showMenuItems(viewGroup: ViewGroup, items: List<ProfileItem>?) {
+    fun showMenuItems(viewGroup: ViewGroup, items: List<MenuItem>?) {
         val inflater = LayoutInflater.from(viewGroup.context)
         viewGroup.removeAllViews()
         items?.forEach { item ->

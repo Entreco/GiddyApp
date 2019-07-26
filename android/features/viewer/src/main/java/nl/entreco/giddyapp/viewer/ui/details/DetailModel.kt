@@ -15,6 +15,7 @@ class DetailModel(horse: Horse) {
             is Horse.Normal -> horse.details.desc
             is Horse.Loading -> "Please wait"
             is Horse.Error -> horse.msg
+            is Horse.NotFound -> "Perhaps this horse has been removed"
             else -> ""
         }
     )
@@ -50,6 +51,7 @@ class DetailModel(horse: Horse) {
     val visibility = ObservableInt(
         when (horse) {
             is Horse.Normal -> View.VISIBLE
+            is Horse.NotFound -> View.VISIBLE
             else -> View.INVISIBLE
         }
     )

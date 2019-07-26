@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.libauth.account.firebase
 
+import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -12,11 +13,13 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import nl.entreco.giddyapp.libauth.Authenticator
+import nl.entreco.giddyapp.libauth.BuildConfig
 import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libauth.account.Account
 import nl.entreco.giddyapp.libauth.account.SignupResponse
 import nl.entreco.giddyapp.libauth.user.User
 import javax.inject.Inject
+
 
 internal class FbAuth @Inject constructor(
     private val authUi: AuthUI,
@@ -30,13 +33,14 @@ internal class FbAuth @Inject constructor(
         ActionCodeSettings.newBuilder()
             .setAndroidPackageName("nl.entreco.giddyapp", true, null)
             .setHandleCodeInApp(true)
-            .setUrl("https://google.com") // This URL needs to be whitelisted
+            .setDynamicLinkDomain("giddy.page.link/email")
+            .setUrl("https://giddy.entreco.nl/email") // This URL needs to be whitelisted
             .build()
     }
 
     private val providers by lazy {
         listOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.EmailBuilder().setActionCodeSettings(email).enableEmailLinkSignIn().build(),
             AuthUI.IdpConfig.PhoneBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
         )
@@ -49,36 +53,44 @@ internal class FbAuth @Inject constructor(
             .setTheme(settings.style)
             .setAuthMethodPickerLayout(layout)
             .setAvailableProviders(providers)
+            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
             .enableAnonymousUsersAutoUpgrade()
 //            .setTosAndPrivacyPolicyUrls(
 //                "https://giddy.entreco.nl/privacy-policy.html",
 //                "https://giddy.entreco.nl/privacy-policy.html"
 //            )
 
-        if(link?.isNotBlank() == true) builder.setEmailLink(link)
+        if (link?.isNotBlank() == true) builder.setEmailLink(link)
 
         return builder.build()
 
     }
 
-    override fun canHandle(intent: Intent, done: (String) -> Unit) {
+    override fun canHandle(intent: Intent, done: (String?) -> Unit) {
         if (AuthUI.canHandleIntent(intent)) {
-            if (intent.extras != null) {
-                return
-            }
-            val link = intent.extras!!.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
-            if (link != null) {
-                done(link)
-            }
+            // TODO entreco - 2019-07-26: Official Documenation is using link1, but it does not work
+            val link1 = intent.extras?.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
+            val link2 = intent.dataString
+            done(link2)
+        } else {
+            done(null)
         }
     }
 
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
-        val response = IdpResponse.fromResultIntent(data)
-        when {
-            resultCode == RESULT_OK -> success(response?.email ?: "Linked", done)
-            response?.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(context, response, done)
-            else -> failed(done)
+        if (resultCode == RESULT_CANCELED) cancelled(done)
+        else {
+            val response = IdpResponse.fromResultIntent(data)
+            when {
+                response == null -> cancelled(done)
+                response.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(
+                    context,
+                    response,
+                    done
+                )
+                resultCode == RESULT_OK -> success(response.email ?: "Linked", done)
+                else -> failed(response.error?.localizedMessage ?: "FML", done)
+            }
         }
     }
 
@@ -86,8 +98,12 @@ internal class FbAuth @Inject constructor(
         done(SignupResponse.Success(name))
     }
 
-    private fun failed(done: (SignupResponse) -> Unit) {
-        done(SignupResponse.Failed("FML", -1))
+    private fun cancelled(done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Cancelled)
+    }
+
+    private fun failed(error: String, done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Failed(error, -1))
     }
 
     private fun link(
@@ -119,7 +135,7 @@ internal class FbAuth @Inject constructor(
         }
     }
 
-    override fun signinOrAnonymous(context: Context, done: ()->Unit) {
+    override fun signinOrAnonymous(context: Context, done: () -> Unit) {
         val user = auth.currentUser
         if (user == null) {
             authUi.silentSignIn(context, providers)
@@ -143,19 +159,16 @@ internal class FbAuth @Inject constructor(
     }
 
     override fun observe(key: String, done: (Account) -> Unit) {
-        val listener = authListeners.getOrPut(key) {
-            FirebaseAuth.AuthStateListener { _auth ->
-                userService.retrieve { user ->
-                    val account = _auth.currentUser
-                    val name = when (user) {
-                        is User.Valid -> fill(user, account)
-                        is User.Error -> Account.Error(user.msg)
-                    }
-                    done(name)
+        auth.addAuthStateListener { _auth ->
+            userService.retrieve { user ->
+                val account = _auth.currentUser
+                val name = when (user) {
+                    is User.Valid -> fill(user, account)
+                    is User.Error -> Account.Error(user.msg)
                 }
+                done(name)
             }
         }
-        auth.addAuthStateListener(listener)
     }
 
     private fun fill(user: User.Valid, account: FirebaseUser?): Account {

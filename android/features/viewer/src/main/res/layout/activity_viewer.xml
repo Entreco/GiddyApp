@@ -31,7 +31,7 @@
         <include
                 layout="@layout/include_sheet"
                 android:id="@+id/include_sheet"
-                app:model="@{viewModel.details}"/>
+                app:model="@={viewModel.details}"/>
 
         <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bar"

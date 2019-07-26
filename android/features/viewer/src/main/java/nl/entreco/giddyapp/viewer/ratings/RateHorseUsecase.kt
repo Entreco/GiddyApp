@@ -32,10 +32,13 @@ class RateHorseUsecase @Inject constructor(
             val likes = requests.filter { it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
             val dislikes = requests.filter { !it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
 
-            userService.retrieve { user ->
-                when (user) {
-                    is User.Valid -> continueWithMatchRating(user.uid, likes, dislikes, done)
-                    is User.Error -> onUi { done(RateHorseResponse(false)) }
+            if(likes.isEmpty()) onUi { done(RateHorseResponse(true)) }
+            else {
+                userService.retrieve { user ->
+                    when (user) {
+                        is User.Valid -> continueWithMatchRating(user.uid, likes, dislikes, done)
+                        is User.Error -> onUi { done(RateHorseResponse(false)) }
+                    }
                 }
             }
         }
@@ -62,11 +65,11 @@ class RateHorseUsecase @Inject constructor(
     ) {
         horseService.rate(likes.map { it.horseId }, dislikes.map { it.horseId }) { result ->
 
-            // CLEAR ALL REQUESTS -> ALL HAVE BEEN STORED
-            requests.clear()
-
             val response = when (result) {
-                is HorseRating.Ok -> true
+                is HorseRating.Ok -> {
+                    requests.clear()
+                    true
+                }
                 is HorseRating.Failed -> false
             }
 

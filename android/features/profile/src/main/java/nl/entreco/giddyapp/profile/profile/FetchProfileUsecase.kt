@@ -2,23 +2,28 @@ package nl.entreco.giddyapp.profile.profile
 
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libcore.onBg
+import nl.entreco.giddyapp.libcore.onUi
+import nl.entreco.giddyapp.profile.profile.Profile
 import javax.inject.Inject
 
 class FetchProfileUsecase @Inject constructor(
     private val authenticator: Authenticator
 ) {
 
-    fun go(key: String, done: (Profile) -> Unit) {
+    fun go(done: (Profile) -> Unit) {
+        clear()
         onBg {
-            authenticator.observe(key) { user ->
-                done(Profile(user))
+            authenticator.observe("profile") { user ->
+                onUi {
+                    done(Profile(user))
+                }
             }
         }
     }
 
-    fun clear(key: String) {
+    fun clear() {
         onBg {
-            authenticator.stopObserving(key)
+            authenticator.stopObserving("profile")
         }
     }
 }

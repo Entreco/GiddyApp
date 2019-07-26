@@ -4,8 +4,10 @@ import android.content.Context
 import android.net.Uri
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.Account
+import nl.entreco.giddyapp.libcore.AnkoAsyncContext
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.onBg
+import nl.entreco.giddyapp.libcore.onUi
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseRequest
 import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 import javax.inject.Inject
@@ -17,8 +19,8 @@ class InitViewerUseCase @Inject constructor(
 ) {
 
     fun go(request: InitViewerRequest, done: (InitViewerResponse) -> Unit) {
+        clear()
         onBg {
-
             authenticator.signinOrAnonymous(context) {
                 authenticator.observe("init") { account ->
                     when (account) {
@@ -31,9 +33,15 @@ class InitViewerUseCase @Inject constructor(
         }
     }
 
-    private fun fetchHorses(horseId: String?, icon: Uri?, done: (InitViewerResponse) -> Unit) {
+    private fun AnkoAsyncContext<InitViewerUseCase>.fetchHorses(
+        horseId: String?,
+        icon: Uri?,
+        done: (InitViewerResponse) -> Unit
+    ) {
         fetchHorseUsecase.go(FetchHorseRequest(horseId)) { response ->
-            done(InitViewerResponse.Initialized(icon, response.horses))
+            onUi {
+                done(InitViewerResponse.Initialized(icon, response.horses))
+            }
         }
     }
 

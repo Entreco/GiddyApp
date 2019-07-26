@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
+          xmlns:tools="http://schemas.android.com/tools"
           package="nl.entreco.giddyapp.profile">
 
     <dist:module
@@ -9,7 +10,9 @@
         <dist:fusing dist:include="true"/>
     </dist:module>
 
-    <application>
+    <application
+            tools:ignore="AllowBackup,MissingApplicationIcon"
+            android:name="nl.entreco.giddyapp.GiddyApp">
         <activity
                 android:name=".ProfileActivity"
                 android:label="@string/title_profile"

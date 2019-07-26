@@ -20,6 +20,7 @@ class LinkAccountUsecase @Inject constructor(
                     is SignupResponse.Migrate -> continueWithMigration(response)
                     is SignupResponse.Success -> LinkAccountResponse.Success
                     is SignupResponse.Failed -> LinkAccountResponse.Failed(response.error)
+                    is SignupResponse.Cancelled -> LinkAccountResponse.Cancelled
                     else -> LinkAccountResponse.Failed("Unknown error")
                 }
                 onUi { done(result) }
@@ -39,5 +40,5 @@ class LinkAccountUsecase @Inject constructor(
     }
 
     fun signinIntent(settings: FbAuthUiSettings, link: String?): Intent? = authenticator.signinIntent(settings, link)
-    fun canHandle(intent: Intent, done: (String) -> Unit) = authenticator.canHandle(intent, done)
+    fun canHandle(intent: Intent, done: (String?) -> Unit) = authenticator.canHandle(intent, done)
 }

@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.profile.profile.header
+package nl.entreco.giddyapp.profile.header
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,4 +13,5 @@ class ProfileHeaderLoadingFragment : Fragment() {
         val binding = FragmentProfileHeaderLoadingBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 }

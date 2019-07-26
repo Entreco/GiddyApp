@@ -19,14 +19,12 @@ abstract class DynamicFeature<T>(
     private val requestCode: Int
 ) {
 
-    private val mySessionId = AtomicInteger(0)
-
     fun launch(context: Activity, installedAction: (Long, Long, Boolean) -> Unit) {
         val manager = SplitInstallManagerFactory.create(context.application)
 
         if (manager.installedModules.contains(featureName)) {
             SplitInstallHelper.updateAppInfo(context.application)
-            ready(installedAction)
+            installedAction(1, 1, true)
         } else {
             download(context, manager, installedAction)
         }
@@ -41,48 +39,21 @@ abstract class DynamicFeature<T>(
             .addModule(featureName)
             .build()
 
-        manager.registerListener { update ->
-            toast(context, "Status: ${update.status()}")
-            if (mySessionId.get() == update.sessionId()) {
-                installedAction(update.bytesDownloaded(), update.totalBytesToDownload(), false)
-                when (update.status()) {
-                    SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> manager.startConfirmationDialogForResult(
-                        update,
-                        context,
-                        requestCode
-                    )
-                    SplitInstallSessionStatus.INSTALLING -> installedAction(1, 1, false)
-                    SplitInstallSessionStatus.INSTALLED -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            SplitInstallHelper.updateAppInfo(context.application)
-                        }
-                        ready(installedAction)
-                    }
+        UpdateListener(manager, installedAction,
+            updateAction = {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    SplitInstallHelper.updateAppInfo(context.application)
                 }
+            }, confirmAction = { update ->
+                manager.startConfirmationDialogForResult(
+                    update,
+                    context,
+                    requestCode
+                )
             }
+        ).start(request) { msg ->
+            toast(context, msg)
         }
-
-        manager.startInstall(request)
-            .addOnFailureListener { err ->
-                when (val code = (err as? SplitInstallException)?.errorCode) {
-                    SplitInstallErrorCode.ACCESS_DENIED -> toast(context, "Access Denied: $featureName")
-                    SplitInstallErrorCode.NETWORK_ERROR -> toast(context, "Network error: $featureName retry?")
-                    SplitInstallErrorCode.API_NOT_AVAILABLE -> toast(
-                        context,
-                        "Api not available: $featureName update play services?"
-                    )
-                    SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> toast(
-                        context,
-                        "Incompatible session: ${mySessionId.get()}"
-                    )
-                    SplitInstallErrorCode.MODULE_UNAVAILABLE -> toast(context, "Module Unavailable: $featureName")
-                    else -> toast(context, "Unknown error $code")
-                }
-            }
-            .addOnSuccessListener { session ->
-                mySessionId.set(session)
-                toast(context, "Starting install $session")
-            }
     }
 
     private fun toast(context: Context, msg: String) {
@@ -93,8 +64,50 @@ abstract class DynamicFeature<T>(
         ).show()
     }
 
-    private fun ready(installedAction: (Long, Long, Boolean) -> Unit) {
-        installedAction(1, 1, true)
-    }
+    class UpdateListener(
+        private val manager: SplitInstallManager,
+        private val installedAction: (Long, Long, Boolean) -> Unit,
+        private val updateAction: () -> Unit,
+        private val confirmAction: (SplitInstallSessionState) -> Unit
+    ) : SplitInstallStateUpdatedListener {
 
+        private val session = AtomicInteger(0)
+
+        init {
+            manager.registerListener(this)
+        }
+
+        override fun onStateUpdate(update: SplitInstallSessionState) {
+            if (session.get() == update.sessionId()) {
+                installedAction(update.bytesDownloaded(), update.totalBytesToDownload(), false)
+                when (update.status()) {
+                    SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> confirmAction(update)
+                    SplitInstallSessionStatus.INSTALLING -> installedAction(1, 1, false)
+                    SplitInstallSessionStatus.INSTALLED -> {
+                        updateAction()
+                        installedAction(1, 1, true)
+                        manager.unregisterListener(this)
+                    }
+                }
+            }
+        }
+
+        fun start(request: SplitInstallRequest?, toast: (String) -> Unit) {
+            manager.startInstall(request)
+                .addOnFailureListener { err ->
+                    when (val code = (err as? SplitInstallException)?.errorCode) {
+                        SplitInstallErrorCode.ACCESS_DENIED -> toast("Access Denied")
+                        SplitInstallErrorCode.NETWORK_ERROR -> toast("Network error: retry?")
+                        SplitInstallErrorCode.API_NOT_AVAILABLE -> toast("Api not available: update play services?")
+                        SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> toast("Incompatible session: ${session.get()}")
+                        SplitInstallErrorCode.MODULE_UNAVAILABLE -> toast("Module Unavailable")
+                        else -> toast("Unknown error $code")
+                    }
+                }
+                .addOnSuccessListener { sessionId ->
+                    session.set(sessionId)
+                    toast("Starting install $session")
+                }
+        }
+    }
 }

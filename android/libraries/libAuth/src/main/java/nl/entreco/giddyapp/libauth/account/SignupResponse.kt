@@ -6,4 +6,5 @@ sealed class SignupResponse {
     data class Success(val name: String) : SignupResponse()
     data class Migrate(val uid: String, val oldUser: User) : SignupResponse()
     data class Failed(val error: String, val code: Int) : SignupResponse()
+    object Cancelled : SignupResponse()
 }

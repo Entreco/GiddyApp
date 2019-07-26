@@ -1,17 +1,13 @@
 package nl.entreco.giddyapp.profile
 
-import android.content.Intent
 import android.widget.Toast
 import nl.entreco.giddyapp.libauth.Authenticator
 import nl.entreco.giddyapp.libauth.account.Account
-import nl.entreco.giddyapp.libcore.launch.LaunchHelper
-import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
+import nl.entreco.giddyapp.profile.header.ProfileHeaderAnonymousFrament
+import nl.entreco.giddyapp.profile.header.ProfileHeaderFragment
+import nl.entreco.giddyapp.profile.header.ProfileHeaderLoadingFragment
+import nl.entreco.giddyapp.profile.menu.MenuFragment
 import nl.entreco.giddyapp.profile.profile.Profile
-import nl.entreco.giddyapp.profile.profile.ProfileItem
-import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderAnonymousFrament
-import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderFragment
-import nl.entreco.giddyapp.profile.profile.header.ProfileHeaderLoadingFragment
-import nl.entreco.giddyapp.signup.SignupActivity
 import javax.inject.Inject
 
 class ProfileNavigation @Inject constructor(
@@ -19,27 +15,6 @@ class ProfileNavigation @Inject constructor(
     private val auth: Authenticator
 ) {
     private val fm = activity.supportFragmentManager
-
-    private fun launchCreator(item: ProfileItem) {
-        CreatorNavigator.launch(activity) { progress, max, launch ->
-            item.progress.set(progress.toInt())
-            item.max.set(max.toInt())
-            if (launch) {
-                LaunchHelper.launchCreator(activity)
-                activity.finish()
-            }
-        }
-    }
-
-    private fun launchSettings() {
-//        LaunchHelper.launchSettings(activity, null)
-//        activity.finish()
-    }
-
-    private fun launchAbout() {
-//        LaunchHelper.launchAbout(activity, null)
-//        activity.finish()
-    }
 
     fun onStateChanged(state: Profile?) {
         when (state?.account) {
@@ -50,41 +25,34 @@ class ProfileNavigation @Inject constructor(
         }
     }
 
+    fun showProfile() {
+        fm.beginTransaction()
+            .replace(R.id.profile_container, MenuFragment(), "Profile")
+            .commit()
+    }
+
     private fun showLoading() {
         fm.beginTransaction()
-            .replace(R.id.profile_container, ProfileHeaderLoadingFragment())
+            .replace(R.id.header_container, ProfileHeaderLoadingFragment(), "Header")
             .commit()
     }
 
     private fun showAnonymous() {
         fm.beginTransaction()
-            .replace(R.id.profile_container, ProfileHeaderAnonymousFrament())
+            .replace(R.id.header_container, ProfileHeaderAnonymousFrament(), "Header")
             .commit()
     }
 
     private fun showLoggedIn() {
         fm.beginTransaction()
-            .replace(R.id.profile_container, ProfileHeaderFragment())
+            .replace(R.id.header_container, ProfileHeaderFragment(), "Header")
             .commit()
     }
 
     private fun showError() {
         fm.beginTransaction()
-            .replace(R.id.profile_container, ProfileHeaderFragment())
+            .replace(R.id.header_container, ProfileHeaderFragment(), "Header")
             .commit()
-    }
-
-    fun onProfileItemClicked(item: ProfileItem?) {
-        when (item) {
-            is ProfileItem.Upload -> launchCreator(item)
-            is ProfileItem.About -> launchAbout()
-            is ProfileItem.Settings -> launchSettings()
-            else -> Toast.makeText(activity, "NOT IMPLEMENTED: $item", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun onSignup() {
-        activity.startActivity(Intent(activity, SignupActivity::class.java))
     }
 
     fun onLogout() {

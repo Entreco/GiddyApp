@@ -12,7 +12,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application tools:ignore="AllowBackup,MissingApplicationIcon">
+    <application
+            tools:ignore="AllowBackup,MissingApplicationIcon"
+            android:name="nl.entreco.giddyapp.GiddyApp">
         <activity
                 android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
@@ -40,6 +42,7 @@
             <intent-filter android:autoVerify="true">
 
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 

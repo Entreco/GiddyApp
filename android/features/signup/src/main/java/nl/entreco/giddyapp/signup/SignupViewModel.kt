@@ -26,7 +26,7 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-    fun canHandle(intent: Intent, done: (String) -> Unit) {
+    fun canHandle(intent: Intent, done: (String?) -> Unit) {
         linkAccountUsecase.canHandle(intent, done)
     }
 }

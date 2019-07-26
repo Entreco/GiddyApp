@@ -10,6 +10,9 @@
     <string name="profile_item_upload">Upload</string>
     <string name="profile_item_upload_description">Add your own Horse to Giddy-app*</string>
 
+    <string name="profile_item_matches">Favorite Horses</string>
+    <string name="profile_item_matches_description">Summary of Horses you liked</string>
+
     <string name="profile_item_about">About</string>
     <string name="profile_item_about_description">About Giddy-App</string>
 

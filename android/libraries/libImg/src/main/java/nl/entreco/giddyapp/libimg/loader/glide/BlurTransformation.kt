@@ -44,6 +44,8 @@ class BlurTransformation(context: Context) : BitmapTransformation() {
         // Copy the output to the blurred bitmap
         output.copyTo(blurredBitmap)
 
+        RenderScript.releaseAllContexts()
+
         return blurredBitmap
     }
 }

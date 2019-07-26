@@ -17,6 +17,7 @@ sealed class Horse {
             is Normal -> details.name
             is Loading -> "Loading"
             is Error -> "Oops"
+            is NotFound -> "Sorry, we\'re unable to find this horse"
             else -> ""
         }
 

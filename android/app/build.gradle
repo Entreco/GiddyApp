@@ -67,7 +67,6 @@ dependencies {
 
     // LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     testImplementation "junit:junit:$junit"
 

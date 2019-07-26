@@ -7,11 +7,11 @@
 
         <variable
                 name="viewModel"
-                type="nl.entreco.giddyapp.profile.profile.header.ProfileHeaderViewModel"/>
+                type="nl.entreco.giddyapp.profile.header.ProfileHeaderViewModel"/>
 
         <variable
                 name="navigator"
-                type="nl.entreco.giddyapp.profile.ProfileNavigation"/>
+                type="nl.entreco.giddyapp.profile.header.ProfileHeaderNavigation"/>
 
     </data>
 
