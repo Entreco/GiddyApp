@@ -16,6 +16,7 @@ import nl.entreco.giddyapp.profile.databinding.ActivityProfileBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 import nl.entreco.giddyapp.profile.di.ProfileInjector.fromModule
 import nl.entreco.giddyapp.profile.di.ProfileModule
+import nl.entreco.giddyapp.signup.SignupActivity
 
 class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
 
@@ -75,6 +76,8 @@ class ProfileActivity : BaseActivity(), DiProvider<ProfileComponent> {
             if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(this, "User cancelled", Toast.LENGTH_LONG).show()
             }
+        } else if (requestCode == SignupActivity.RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
+            viewModel.refreshProfile()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

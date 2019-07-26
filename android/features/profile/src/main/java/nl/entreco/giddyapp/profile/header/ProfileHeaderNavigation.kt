@@ -9,6 +9,7 @@ class ProfileHeaderNavigation @Inject constructor(
     private val activity: ProfileActivity
 ) {
     fun onSignup() {
-        activity.startActivity(Intent(activity, SignupActivity::class.java))
+        val launch = Intent(activity, SignupActivity::class.java)
+        activity.startActivityForResult(launch, SignupActivity.RC_SIGN_IN)
     }
 }

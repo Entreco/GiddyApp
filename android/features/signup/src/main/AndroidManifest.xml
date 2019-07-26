@@ -16,6 +16,7 @@
         <activity
                 android:name=".SignupActivity"
                 android:label="@string/title_signup"
+                android:launchMode="singleTask"
                 android:theme="@style/AppTheme.SignupTheme">
 
             <intent-filter android:autoVerify="true">
@@ -29,6 +30,17 @@
                 <data android:scheme="https"/>
                 <data android:host="giddy.entreco.nl"/>
                 <data android:pathPattern="/email"/>
+
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"/>
+                <data android:host="giddy.page.link"/>
 
             </intent-filter>
 

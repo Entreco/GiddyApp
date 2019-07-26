@@ -20,6 +20,7 @@ class LinkAccountUsecase @Inject constructor(
                     is SignupResponse.Migrate -> continueWithMigration(response)
                     is SignupResponse.Success -> LinkAccountResponse.Success
                     is SignupResponse.Failed -> LinkAccountResponse.Failed(response.error)
+                    is SignupResponse.Cancelled -> LinkAccountResponse.Cancelled
                     else -> LinkAccountResponse.Failed("Unknown error")
                 }
                 onUi { done(result) }

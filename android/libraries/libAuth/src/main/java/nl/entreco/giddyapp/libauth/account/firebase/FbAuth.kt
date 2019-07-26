@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.libauth.account.firebase
 
+import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -67,19 +68,29 @@ internal class FbAuth @Inject constructor(
 
     override fun canHandle(intent: Intent, done: (String?) -> Unit) {
         if (AuthUI.canHandleIntent(intent)) {
-            val link = intent.extras?.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
-            done(link)
+            // TODO entreco - 2019-07-26: Official Documenation is using link1, but it does not work
+            val link1 = intent.extras?.getString(ExtraConstants.EMAIL_LINK_SIGN_IN)
+            val link2 = intent.dataString
+            done(link2)
         } else {
             done(null)
         }
     }
 
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
-        val response = IdpResponse.fromResultIntent(data)
-        when {
-            resultCode == RESULT_OK -> success(response?.email ?: "Linked", done)
-            response?.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(context, response, done)
-            else -> failed(done)
+        if (resultCode == RESULT_CANCELED) cancelled(done)
+        else {
+            val response = IdpResponse.fromResultIntent(data)
+            when {
+                response == null -> cancelled(done)
+                response.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(
+                    context,
+                    response,
+                    done
+                )
+                resultCode == RESULT_OK -> success(response.email ?: "Linked", done)
+                else -> failed(response.error?.localizedMessage ?: "FML", done)
+            }
         }
     }
 
@@ -87,8 +98,12 @@ internal class FbAuth @Inject constructor(
         done(SignupResponse.Success(name))
     }
 
-    private fun failed(done: (SignupResponse) -> Unit) {
-        done(SignupResponse.Failed("FML", -1))
+    private fun cancelled(done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Cancelled)
+    }
+
+    private fun failed(error: String, done: (SignupResponse) -> Unit) {
+        done(SignupResponse.Failed(error, -1))
     }
 
     private fun link(

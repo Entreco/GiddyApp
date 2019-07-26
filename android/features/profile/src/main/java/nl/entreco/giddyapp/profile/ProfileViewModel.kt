@@ -20,10 +20,12 @@ class ProfileViewModel @Inject constructor(
     fun state(): LiveData<Profile> = state
 
     init {
-        Log.i("PROFILE", "PROFILE init $this")
+        refreshProfile()
+    }
+
+    fun refreshProfile() {
         fetchProfileUsecase.go { profile ->
             currentProfile.set(profile)
-            Log.i("PROFILE", "PROFILE fetched current:${state.value} new: $profile")
             state.postValue(profile)
         }
     }
