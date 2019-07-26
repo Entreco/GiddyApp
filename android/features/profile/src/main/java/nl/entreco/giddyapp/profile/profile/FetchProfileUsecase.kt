@@ -11,6 +11,7 @@ class FetchProfileUsecase @Inject constructor(
 ) {
 
     fun go(done: (Profile) -> Unit) {
+        clear()
         onBg {
             authenticator.observe("profile") { user ->
                 onUi {

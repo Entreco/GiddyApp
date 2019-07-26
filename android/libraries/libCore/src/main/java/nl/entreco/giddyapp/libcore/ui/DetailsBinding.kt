@@ -38,11 +38,11 @@ object DetailsBinding {
     @BindingAdapter("ga_spinIn")
     fun applyFadeIn(view: ImageView, @DrawableRes value: Int) {
         if (value != 0) {
-            fadeAndSpin(view) {
+            fadeAndSpin(view, view.tag != value) {
                 try {
                     view.setImageResource(value)
-                } catch (oops: Resources.NotFoundException) {
-                }
+                    view.tag = value
+                } catch (oops: Resources.NotFoundException) { }
             }
         }
     }
@@ -60,20 +60,25 @@ object DetailsBinding {
             }.setDuration(100).start()
     }
 
-    private fun fadeAndSpin(view: View, update: () -> Unit) {
-        view.animate().alpha(0F)
-            .rotationBy(-180F)
-//            .scaleX(0F)
-//            .scaleY(0F)
-            .setInterpolator(AccelerateInterpolator()).withEndAction {
-                update()
-                view.animate().alpha(1F)
-                    .rotationBy(-180F)
-//                    .scaleX(1F)
-//                    .scaleY(1F)
-                    .setInterpolator(DecelerateInterpolator())
-                    .setDuration(100).start()
-            }.setDuration(100).start()
+    private fun fadeAndSpin(view: View, shouldSpin: Boolean, update: () -> Unit) {
+        fadeAndTranslate(view){
+            update()
+        }
+
+        if(shouldSpin) {
+            view.animate().alpha(0F)
+                .rotationBy(-180F)
+                .scaleX(0F)
+                .scaleY(0F)
+                .setInterpolator(AccelerateInterpolator()).withEndAction {
+                    view.animate().alpha(1F)
+                        .rotationBy(-180F)
+                        .scaleX(1F)
+                        .scaleY(1F)
+                        .setInterpolator(DecelerateInterpolator())
+                        .setDuration(100).start()
+                }.setDuration(100).start()
+        }
     }
 
     fun asHtml(value: String?): Spanned = Html.fromHtml(value, Html.FROM_HTML_MODE_LEGACY)

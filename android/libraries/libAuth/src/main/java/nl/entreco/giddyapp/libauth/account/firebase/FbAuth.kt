@@ -147,19 +147,16 @@ internal class FbAuth @Inject constructor(
     }
 
     override fun observe(key: String, done: (Account) -> Unit) {
-        val listener = authListeners.getOrPut(key) {
-            FirebaseAuth.AuthStateListener { _auth ->
-                userService.retrieve { user ->
-                    val account = _auth.currentUser
-                    val name = when (user) {
-                        is User.Valid -> fill(user, account)
-                        is User.Error -> Account.Error(user.msg)
-                    }
-                    done(name)
+        auth.addAuthStateListener { _auth ->
+            userService.retrieve { user ->
+                val account = _auth.currentUser
+                val name = when (user) {
+                    is User.Valid -> fill(user, account)
+                    is User.Error -> Account.Error(user.msg)
                 }
+                done(name)
             }
         }
-        auth.addAuthStateListener(listener)
     }
 
     private fun fill(user: User.Valid, account: FirebaseUser?): Account {
