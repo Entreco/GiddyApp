@@ -12,6 +12,7 @@ import nl.entreco.giddyapp.libauth.di.AuthModule
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.di.AppScope
 import nl.entreco.giddyapp.libhorses.HorseService
+import nl.entreco.giddyapp.libhorses.cycle.HorseCycler
 import nl.entreco.giddyapp.libhorses.di.HorseModule
 import nl.entreco.giddyapp.libimg.di.ImageModule
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
@@ -34,6 +35,7 @@ interface FeatureComponent {
     fun imageLoader(): ImageLoader
     fun metrics(): DisplayMetrics
     fun fbApp(): FirebaseApp
+    fun cycler(): HorseCycler
     fun authentication(): Authenticator
     fun userService(): UserService
     fun matchService(): MatchService

@@ -13,7 +13,7 @@ class FetchHorseUsecase @Inject constructor(
         private const val RANDOM = ""
     }
 
-    fun  go(request: FetchHorseRequest, done: (FetchHorseResponse) -> Unit) {
+    fun go(request: FetchHorseRequest, done: (FetchHorseResponse) -> Unit) {
         onBg {
             val ids = when {
                 request.id.isNullOrBlank() -> (0 until BATCH_SIZE).map { RANDOM }

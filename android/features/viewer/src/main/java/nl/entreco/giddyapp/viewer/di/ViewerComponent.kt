@@ -10,6 +10,7 @@ import nl.entreco.giddyapp.libauth.UserService
 import nl.entreco.giddyapp.libcore.di.AppContext
 import nl.entreco.giddyapp.libcore.ui.DetailSheet
 import nl.entreco.giddyapp.libhorses.HorseService
+import nl.entreco.giddyapp.libhorses.cycle.HorseCycler
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libmatches.MatchService
 import nl.entreco.giddyapp.libsound.di.SoundModule
@@ -49,6 +50,9 @@ interface ViewerComponent {
 
         @BindsInstance
         fun user(service: UserService): Builder
+
+        @BindsInstance
+        fun cycler(horseCycler: HorseCycler): Builder
 
         @BindsInstance
         fun img(loader: ImageLoader): Builder
