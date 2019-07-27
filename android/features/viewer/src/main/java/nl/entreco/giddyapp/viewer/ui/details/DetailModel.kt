@@ -20,6 +20,20 @@ class DetailModel(horse: Horse) {
         }
     )
 
+    val ratio = ObservableField(
+        when (horse) {
+            is Horse.Normal -> horse.details.ratio
+            else -> HorseRatio()
+        }
+    )
+
+    val since = ObservableField(
+        when (horse) {
+            is Horse.Normal -> horse.details.since
+            else -> HorsePosted(System.currentTimeMillis())
+        }
+    )
+
     val genderIcon = ObservableInt(
         when (horse) {
             is Horse.Normal -> horse.details.gender.icon()

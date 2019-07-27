@@ -47,7 +47,7 @@
                     android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{model.level}"/>
+                    app:ga_fadeIn="@{model.since}"/>
 
             <TextView
                     android:layout_width="0dp"
@@ -67,7 +67,7 @@
                     android:lines="2"
                     android:fontFamily="sans-serif-thin"
                     android:textColor="@color/white"
-                    app:ga_fadeIn="@{model.category}"/>
+                    app:ga_fadeIn="@{model.ratio}"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

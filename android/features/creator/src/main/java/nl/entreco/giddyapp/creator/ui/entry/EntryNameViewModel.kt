@@ -8,6 +8,7 @@ import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.R
 import nl.entreco.giddyapp.libcore.ChangeableField
 import nl.entreco.giddyapp.libhorses.HorseDetail
+import nl.entreco.giddyapp.libhorses.HorseRatio
 import javax.inject.Inject
 
 class EntryNameViewModel @Inject constructor(
@@ -23,5 +24,5 @@ class EntryNameViewModel @Inject constructor(
 
     val name = ObservableField("")
 
-    fun compose(): EntryModel = EntryModel(HorseDetail(name.get()!!, ""), state.image)
+    fun compose(): EntryModel = EntryModel(HorseDetail(name.get()!!, "", HorseRatio()), state.image)
 }

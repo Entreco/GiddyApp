@@ -35,6 +35,8 @@ sealed class HexString(private val colorString: String) {
                 f()
             } catch (nope: IllegalArgumentException) {
                 White
+            } catch (nopeInTest: RuntimeException) {
+                White
             }
         }
     }

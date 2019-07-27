@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.libhorses
 
+import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.libcore.ui.DetailsBinding
@@ -27,6 +28,20 @@ object HorseBinding {
     fun applySlideIn(view: TextView, newLevel: Int, array: Array<String>) {
         val resolved = array[newLevel]
         apply(view, resolved)
+    }
+
+    @JvmStatic
+    @BindingAdapter("ga_fadeIn")
+    fun applyFadeIn(view: TextView, ratio: HorseRatio?) {
+        val detail = view.resources.getString(R.string.detail_4, ratio?.ratio)
+        apply(view, detail)
+    }
+
+    @JvmStatic
+    @BindingAdapter("ga_fadeIn")
+    fun applyFadeIn(view: TextView, posted: HorsePosted?) {
+        val detail = view.resources.getString(R.string.detail_5, posted?.since ?: "-")
+        apply(view, detail)
     }
 
     @JvmStatic
