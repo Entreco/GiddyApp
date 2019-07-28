@@ -43,7 +43,9 @@ class SwapHorseUsecase @Inject constructor(
     }
 
     private fun ensure() {
+        // TODO entreco - 2019-07-27: Perhaps add Horse.Loading instead of crashing here?
         require(horses.isNotEmpty()) { "need to add horses first" }
+
         if (queue.size < 3) {
             fetchHorseUsecase.go(FetchHorseRequest()) { response ->
                 initWith(response.horses)
@@ -56,8 +58,7 @@ class SwapHorseUsecase @Inject constructor(
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 when (response) {
                     is FetchImageResponse.Ok -> updateImage(response)
-                    is FetchImageResponse.Err -> {
-                    }
+                    is FetchImageResponse.Err -> { }
                 }
             }
         }

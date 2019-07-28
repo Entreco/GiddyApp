@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libauth.account.firebase
 
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -78,24 +77,23 @@ internal class FbAuth @Inject constructor(
     }
 
     override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
-        if (resultCode == RESULT_CANCELED) cancelled(done)
-        else {
-            val response = IdpResponse.fromResultIntent(data)
-            when {
-                response == null -> cancelled(done)
-                response.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(
-                    context,
-                    response,
-                    done
-                )
-                resultCode == RESULT_OK -> success(response.email ?: "Linked", done)
-                else -> failed(response.error?.localizedMessage ?: "FML", done)
-            }
+        val response = IdpResponse.fromResultIntent(data)
+        when {
+            response == null -> cancelled(done)
+            response.error?.errorCode == ErrorCodes.ANONYMOUS_UPGRADE_MERGE_CONFLICT -> link(
+                context,
+                response,
+                done
+            )
+            resultCode == RESULT_OK -> success(response.email ?: "Linked", done)
+            else -> failed(response.error?.localizedMessage ?: "FML", done)
         }
     }
 
     private fun success(name: String, done: (SignupResponse) -> Unit) {
-        done(SignupResponse.Success(name))
+        userService.create(auth.currentUser?.displayName ?: name) {
+            done(SignupResponse.Success(name))
+        }
     }
 
     private fun cancelled(done: (SignupResponse) -> Unit) {
@@ -121,6 +119,7 @@ internal class FbAuth @Inject constructor(
                             userService.create(userName) { usr ->
                                 when (usr) {
                                     is User.Valid -> done(SignupResponse.Migrate(usr.uid, old))
+                                    is User.Anonymous -> done(SignupResponse.Failed("User is still anonymous", -1))
                                     is User.Error -> done(SignupResponse.Failed(usr.msg, -1))
                                 }
                             }
@@ -164,6 +163,7 @@ internal class FbAuth @Inject constructor(
                 val account = _auth.currentUser
                 val name = when (user) {
                     is User.Valid -> fill(user, account)
+                    is User.Anonymous -> Account.Anomymous(user.uid, "Damn you Anonymous")
                     is User.Error -> Account.Error(user.msg)
                 }
                 done(name)

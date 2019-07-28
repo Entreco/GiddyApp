@@ -32,11 +32,12 @@ class RateHorseUsecase @Inject constructor(
             val likes = requests.filter { it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
             val dislikes = requests.filter { !it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
 
-            if(likes.isEmpty()) onUi { done(RateHorseResponse(true)) }
+            if (likes.isEmpty()) onUi { done(RateHorseResponse(true)) }
             else {
                 userService.retrieve { user ->
                     when (user) {
                         is User.Valid -> continueWithMatchRating(user.uid, likes, dislikes, done)
+                        is User.Anonymous -> continueWithMatchRating(user.uid, likes, dislikes, done)
                         is User.Error -> onUi { done(RateHorseResponse(false)) }
                     }
                 }

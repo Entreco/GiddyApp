@@ -23,6 +23,7 @@ sealed class MenuItem(@StringRes name: Int, @StringRes desc: Int, private val on
     companion object {
         fun all(onClick: OnClick): List<MenuItem> = listOf(
             Upload(onClick),
+            Manage(onClick),
             Matches(onClick),
             Settings(onClick),
             About(onClick)
@@ -30,7 +31,8 @@ sealed class MenuItem(@StringRes name: Int, @StringRes desc: Int, private val on
 
         fun anonymous(onClick: OnClick): List<MenuItem> = listOf(
             Upload(),
-            Matches(onClick),
+            Manage(),
+            Matches(),
             Settings(onClick),
             About(onClick)
         )
@@ -40,6 +42,7 @@ sealed class MenuItem(@StringRes name: Int, @StringRes desc: Int, private val on
         )
     }
 
+    data class Manage(val _onClick: OnClick? = null) : MenuItem(R.string.profile_item_manage, R.string.profile_item_manage_description, _onClick)
     data class Upload(val _onClick: OnClick? = null) : MenuItem(R.string.profile_item_upload, R.string.profile_item_upload_description, _onClick)
     data class Matches(val _onClick: OnClick? = null) : MenuItem(R.string.profile_item_matches, R.string.profile_item_matches_description, _onClick)
     data class About(val _onClick: OnClick) : MenuItem(R.string.profile_item_about, R.string.profile_item_about_description, _onClick)

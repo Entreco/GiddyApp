@@ -7,6 +7,9 @@
     <string name="profile_signup">Signup</string>
     <string name="profile_error" />
 
+    <string name="profile_item_manage">Manage your Horses</string>
+    <string name="profile_item_manage_description">View/Edit/Delete your Horses</string>
+
     <string name="profile_item_upload">Upload</string>
     <string name="profile_item_upload_description">Add your own Horse to Giddy-app*</string>
 

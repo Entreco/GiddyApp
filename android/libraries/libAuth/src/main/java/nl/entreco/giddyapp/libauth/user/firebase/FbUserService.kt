@@ -47,14 +47,14 @@ internal class FbUserService @Inject constructor(
     }
 
     override fun retrieve(done: (User) -> Unit) {
-        val uuid = auth.currentUser?.uid
-        if (uuid.isNullOrBlank()) done(User.Error("No user signed in"))
+        val authUser = auth.currentUser
+        if (authUser == null) done(User.Error("No user signed in"))
         else {
-            userCollection.document(uuid)
+            userCollection.document(authUser.uid)
                 .get()
                 .addOnSuccessListener { snap ->
-                    val user = snap.toObject(FbUser::class.java)
-                    done(userMapper.toUser(uuid, user))
+                    val userData = snap.toObject(FbUser::class.java)
+                    done(userMapper.toUser(authUser.uid, authUser, userData))
                 }.addOnFailureListener { err ->
                     done(User.Error(err.localizedMessage))
                 }
