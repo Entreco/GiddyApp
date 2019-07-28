@@ -14,6 +14,7 @@ import nl.entreco.giddyapp.libhorses.cycle.HorseCycler
 import nl.entreco.giddyapp.libhorses.cycle.InstalledHorseCycler
 import nl.entreco.giddyapp.libhorses.cycle.InstantHorseCycler
 import nl.entreco.giddyapp.libhorses.data.FbHorseService
+import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
 
 @Module
 object HorseModule {
@@ -44,12 +45,13 @@ object HorseModule {
     @Provides
     @JvmStatic
     internal fun provideRecycler(
-        @AppContext context: Context
+        @AppContext context: Context,
+        fetchHorseUsecase: FetchHorseUsecase
     ): HorseCycler {
         return if (InstantApps.isInstantApp(context)) {
             InstantHorseCycler()
         } else {
-            InstalledHorseCycler()
+            InstalledHorseCycler(fetchHorseUsecase)
         }
     }
 }

@@ -20,4 +20,8 @@ internal class InstantHorseCycler : HorseCycler {
             }
         }
     }
+
+    override fun recycle(done: (List<Horse>) -> Unit) {
+        done(emptyList())
+    }
 }

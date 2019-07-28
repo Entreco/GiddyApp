@@ -2,13 +2,15 @@ package nl.entreco.giddyapp.libhorses.swap
 
 import nl.entreco.giddyapp.libhorses.Horse
 import nl.entreco.giddyapp.libhorses.cycle.HorseCycler
-import nl.entreco.giddyapp.libhorses.fetch.*
+import nl.entreco.giddyapp.libhorses.fetch.FetchHorseUsecase
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageRequest
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageResponse
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageUsecase
 import java.util.*
 import javax.inject.Inject
 
 class SwapHorseUsecase @Inject constructor(
     private val fetchImageUsecase: FetchImageUsecase,
-    private val fetchHorseUsecase: FetchHorseUsecase,
     private val horseCycler: HorseCycler
 ) {
 
@@ -47,8 +49,8 @@ class SwapHorseUsecase @Inject constructor(
         require(horses.isNotEmpty()) { "need to add horses first" }
 
         if (queue.size < 3) {
-            fetchHorseUsecase.go(FetchHorseRequest()) { response ->
-                initWith(response.horses)
+            horseCycler.recycle {
+                initWith(it)
             }
         }
     }
@@ -58,7 +60,8 @@ class SwapHorseUsecase @Inject constructor(
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 when (response) {
                     is FetchImageResponse.Ok -> updateImage(response)
-                    is FetchImageResponse.Err -> { }
+                    is FetchImageResponse.Err -> {
+                    }
                 }
             }
         }
