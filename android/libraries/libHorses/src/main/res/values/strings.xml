@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">horses</string>
-
     <!-- Horse Details -->
     <string name="detail_1">&lt;b>%1$s&lt;/b>&lt;br/>niveau</string>
     <string name="detail_2">&lt;b>%1$s&lt;/b>&lt;br/>EUR</string>
