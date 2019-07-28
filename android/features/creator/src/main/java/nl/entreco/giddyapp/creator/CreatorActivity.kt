@@ -52,7 +52,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
 
     private val snackObserver = Observer<String> { item ->
         Snackbar.make(binding.root, item, Snackbar.LENGTH_INDEFINITE)
-            .setAction("Login") { _ ->
+            .setAction("Login") {
                 // TODO entreco - 2019-07-13: Should add Login Dialog here...
                 finish()
             }.show()

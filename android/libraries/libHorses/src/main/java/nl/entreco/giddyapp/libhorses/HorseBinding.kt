@@ -1,6 +1,5 @@
 package nl.entreco.giddyapp.libhorses
 
-import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import nl.entreco.giddyapp.libcore.ui.DetailsBinding

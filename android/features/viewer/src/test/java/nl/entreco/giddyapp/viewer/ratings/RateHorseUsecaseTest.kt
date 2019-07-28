@@ -21,7 +21,7 @@ class RateHorseUsecaseTest{
     }
 
     @Test
-    fun `it should NOT add Match when User is Anonymous`() {
+    fun `it should add Match when User is Anonymous`() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

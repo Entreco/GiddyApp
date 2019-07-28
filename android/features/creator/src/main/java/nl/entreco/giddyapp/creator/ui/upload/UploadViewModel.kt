@@ -7,9 +7,6 @@ import androidx.lifecycle.ViewModel
 import nl.entreco.giddyapp.creator.CreatorState
 import nl.entreco.giddyapp.creator.ui.entry.EntryModel
 import nl.entreco.giddyapp.libcore.ChangeableField
-import nl.entreco.giddyapp.libhorses.HorseCategory
-import nl.entreco.giddyapp.libhorses.HorseLevel
-import nl.entreco.giddyapp.libhorses.HorsePrice
 import nl.entreco.giddyapp.libhorses.icon
 import javax.inject.Inject
 

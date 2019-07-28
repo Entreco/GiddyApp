@@ -3,8 +3,6 @@ package nl.entreco.giddyapp.libhorses.data
 import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.PropertyName
-import com.google.firebase.firestore.ServerTimestamp
-import java.util.*
 
 @Keep
 internal data class FbHorse(
