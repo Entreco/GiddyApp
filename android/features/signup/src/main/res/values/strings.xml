@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sign up</string>
+    <string name="fui_default_toolbar_title">Sign up</string>
     <string name="signup_title">Sign up now</string>
-    <string name="signup_description">Choose your favorite auth provider?</string>
+    <string name="signup_description">Choose your favorite sign in method below:</string>
 
     <!-- Auth Providers-->
     <string name="sign_btn_email">Sign in with Email</string>

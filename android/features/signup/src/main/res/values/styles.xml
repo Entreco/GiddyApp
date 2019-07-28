@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SignupTheme">
-        <item name="android:windowBackground">@color/almost_white</item>
+    <style name="SignupTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/sheet</item>
         <item name="android:statusBarColor">@color/almost_black</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:title">@string/app_name</item>
 
         <!-- Required for sign-in flow styling -->
         <item name="colorPrimary">@color/almost_black</item>

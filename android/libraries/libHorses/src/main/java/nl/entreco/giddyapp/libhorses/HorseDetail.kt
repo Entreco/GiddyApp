@@ -1,16 +1,31 @@
 package nl.entreco.giddyapp.libhorses
 
+import android.text.format.DateUtils
 import androidx.annotation.DrawableRes
 import nl.entreco.giddyapp.libhorses.horses.R
 
 data class HorseDetail(
     val name: String,
     val desc: String,
+    val ratio: HorseRatio = HorseRatio(),
+    val since: HorsePosted = HorsePosted(),
     val gender: HorseGender = HorseGender.Unknown,
     val type: HorseLevel = HorseLevel.Unknown,
     val category: HorseCategory = HorseCategory.Unknown,
     val price: HorsePrice = HorsePrice.NotForSale
 )
+
+data class HorseRatio(val ratio: String = "-")
+
+data class HorsePosted(private val stamp: Long = 0) {
+    val since: CharSequence
+        get() = DateUtils.getRelativeTimeSpanString(
+            stamp,
+            System.currentTimeMillis(),
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_ABBREV_RELATIVE
+        )
+}
 
 enum class HorseGender {
     Unknown,

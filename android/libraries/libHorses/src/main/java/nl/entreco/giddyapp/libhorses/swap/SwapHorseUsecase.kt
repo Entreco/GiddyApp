@@ -1,13 +1,16 @@
 package nl.entreco.giddyapp.libhorses.swap
 
 import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.fetch.*
+import nl.entreco.giddyapp.libhorses.cycle.HorseCycler
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageRequest
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageResponse
+import nl.entreco.giddyapp.libhorses.fetch.FetchImageUsecase
 import java.util.*
 import javax.inject.Inject
 
 class SwapHorseUsecase @Inject constructor(
     private val fetchImageUsecase: FetchImageUsecase,
-    private val fetchHorseUsecase: FetchHorseUsecase
+    private val horseCycler: HorseCycler
 ) {
 
     private val horses = mutableListOf<Horse>()
@@ -15,11 +18,7 @@ class SwapHorseUsecase @Inject constructor(
     var onPreloadListener: PreloadListener? = null
 
     fun initWith(collection: List<Horse>) {
-        val atLeastTwo = when {
-            collection.isEmpty() -> listOf(Horse.None, Horse.None)
-            collection.size < 2 -> listOf(collection[0], Horse.None)
-            else -> collection
-        }
+        val atLeastTwo = horseCycler.initialHorses(collection)
         horses.removeAll { horse -> !queue.contains(horse.imageRef) }
         horses.addAll(atLeastTwo)
         queue.addAll(atLeastTwo.map { it.imageRef })
@@ -45,10 +44,12 @@ class SwapHorseUsecase @Inject constructor(
     }
 
     private fun ensure() {
+        // TODO entreco - 2019-07-27: Perhaps add Horse.Loading instead of crashing here?
         require(horses.isNotEmpty()) { "need to add horses first" }
+
         if (queue.size < 3) {
-            fetchHorseUsecase.go(FetchHorseRequest()) { response ->
-                initWith(response.horses)
+            horseCycler.recycle {
+                initWith(it)
             }
         }
     }
@@ -58,8 +59,7 @@ class SwapHorseUsecase @Inject constructor(
             fetchImageUsecase.go(FetchImageRequest(horse.imageRef)) { response ->
                 when (response) {
                     is FetchImageResponse.Ok -> updateImage(response)
-                    is FetchImageResponse.Err -> {
-                    }
+                    is FetchImageResponse.Err -> { }
                 }
             }
         }

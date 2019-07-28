@@ -7,6 +7,8 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+    <include layout="@layout/toolbar_signup" />
+
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,7 +19,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sheet"
                 android:padding="@dimen/large"
                 android:animateLayoutChanges="true">
 

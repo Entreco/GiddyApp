@@ -21,6 +21,7 @@ internal object ViewerInjector {
             .img(featureComponent().imageLoader())
             .auth(featureComponent().authentication())
             .user(featureComponent().userService())
+            .cycler(featureComponent().cycler())
             .matches(featureComponent().matchService())
             .module(provider())
             .build()

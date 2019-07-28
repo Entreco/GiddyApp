@@ -31,6 +31,20 @@ object HorseBinding {
 
     @JvmStatic
     @BindingAdapter("ga_fadeIn")
+    fun applyFadeIn(view: TextView, ratio: HorseRatio?) {
+        val detail = view.resources.getString(R.string.detail_4, ratio?.ratio)
+        apply(view, detail)
+    }
+
+    @JvmStatic
+    @BindingAdapter("ga_fadeIn")
+    fun applyFadeIn(view: TextView, posted: HorsePosted?) {
+        val detail = view.resources.getString(R.string.detail_5, posted?.since ?: "-")
+        apply(view, detail)
+    }
+
+    @JvmStatic
+    @BindingAdapter("ga_fadeIn")
     fun applyFadeIn(view: TextView, level: HorseCategory?) {
         val resolved = view.resources.getStringArray(R.array.horse_category)[level?.ordinal ?: 0]
         val detail = view.resources.getString(R.string.detail_3, resolved)

@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import android.content.res.Resources
 import android.net.Uri
 import nl.entreco.giddyapp.libauth.account.Account
-import nl.entreco.giddyapp.profile.R
+import nl.entreco.giddyapp.libcore.R
 
 data class Profile(val account: Account) {
 
@@ -24,9 +24,9 @@ data class Profile(val account: Account) {
         is Account.Authenticated -> account.url
         else -> Uri.Builder()
             .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(resources.getResourcePackageName(nl.entreco.giddyapp.libcore.R.drawable.ic_profile))
-            .appendPath(resources.getResourceTypeName(nl.entreco.giddyapp.libcore.R.drawable.ic_profile))
-            .appendPath(resources.getResourceEntryName(nl.entreco.giddyapp.libcore.R.drawable.ic_profile))
+            .authority(resources.getResourcePackageName(R.drawable.ic_profile))
+            .appendPath(resources.getResourceTypeName(R.drawable.ic_profile))
+            .appendPath(resources.getResourceEntryName(R.drawable.ic_profile))
             .build()
     }
 

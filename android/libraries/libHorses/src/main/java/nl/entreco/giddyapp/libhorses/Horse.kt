@@ -18,6 +18,7 @@ sealed class Horse {
             is Loading -> "Loading"
             is Error -> "Oops"
             is NotFound -> "Sorry, we\'re unable to find this horse"
+            is Install -> "Please install the app for more horses"
             else -> ""
         }
 
@@ -50,6 +51,8 @@ sealed class Horse {
 
 
     data class NotFound(val _id: String) : Horse()
+
+    object Install : Horse()
 
     object Loading : Horse()
 

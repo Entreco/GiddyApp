@@ -29,6 +29,13 @@ object SwipeBindings {
     }
 
     @JvmStatic
+    @BindingAdapter("ga_animateVisibility")
+    fun animateVisibility(view: View, current: SwipeHorseModel) {
+        view.isClickable = current.draggable
+        view.animate().alpha(if(current.draggable) 1.0F else 0.0F).setDuration(100).start()
+    }
+
+    @JvmStatic
     @BindingAdapter("ga_animateDislike", "ga_animateTouch", requireAll = true)
     fun animateDislikeView(view: View, progress: Float, touched: Boolean) {
         if (progress > 0) return

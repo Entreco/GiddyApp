@@ -12,12 +12,13 @@ data class SwipeHorseModel(private val horse: Horse, private val isCurrent: Bool
     val horseId = horse.id
     val horseName = horse.name
     val horseRef = horse.imageRef
-    val draggable = isCurrent && horse is Horse.Normal
+    val draggable = isCurrent && (horse is Horse.Normal || horse is Horse.NotFound)
     val ref = ObservableField(horseRef)
     val image = ObservableField<Uri>(horse.imageUri)
 
     val drawable = when (horse) {
         is Horse.NotFound -> R.drawable.empty
+        is Horse.Install -> R.drawable.install
         else -> 0
     }
 

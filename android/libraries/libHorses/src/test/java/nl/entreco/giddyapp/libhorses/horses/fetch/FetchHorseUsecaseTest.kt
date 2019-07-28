@@ -1,9 +1,6 @@
 package nl.entreco.giddyapp.libhorses.horses.fetch
 
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.*
 import nl.entreco.giddyapp.libcore.Threading
 import nl.entreco.giddyapp.libhorses.Horse
 import nl.entreco.giddyapp.libhorses.HorseService
@@ -58,6 +55,6 @@ class FetchHorseUsecaseTest {
     }
 
     private fun thenRequestIdsAre(vararg ids: String) {
-        verify(mockService).retrieve(eq(ids.toList()), doneCaptor.capture())
+        verify(mockService).retrieve(eq(ids.toList()), any(), doneCaptor.capture())
     }
 }

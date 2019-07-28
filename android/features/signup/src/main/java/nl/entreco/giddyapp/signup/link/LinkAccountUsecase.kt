@@ -30,11 +30,12 @@ class LinkAccountUsecase @Inject constructor(
 
     private fun continueWithMigration(response: SignupResponse.Migrate): LinkAccountResponse {
         return when (val old = response.oldUser) {
-            is User.Valid -> {
+            is User.Anonymous -> {
                 // TODO entreco - 2019-07-18: Update all matches where we have OLD UID -> update to NEW UID
                 old.uid
                 LinkAccountResponse.Success
             }
+            is User.Valid -> LinkAccountResponse.Success
             is User.Error -> LinkAccountResponse.Success
         }
     }

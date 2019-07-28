@@ -10,7 +10,9 @@ internal class FbMatchService(
     private val db: FirebaseFirestore
 ) : MatchService {
 
-    private val MATCH_SIZE_LIMIT = 15L
+    companion object {
+        private const val MATCH_SIZE_LIMIT = 15L
+    }
 
     private val matchesCollection = db.collection("matches")
     private val likersCollectionGroup = db.collectionGroup("likers")
@@ -54,7 +56,7 @@ internal class FbMatchService(
             val likes = result[1].toObjects(FbMatch::class.java).map { it.horseId to Match(it.horseId, it.name, it.ref) }.toMap()
             val combined = orders.mapNotNull { key -> likes[key] }.toList()
             done(combined)
-        }.addOnFailureListener { _ ->
+        }.addOnFailureListener {
             done(emptyList())
         }
     }
