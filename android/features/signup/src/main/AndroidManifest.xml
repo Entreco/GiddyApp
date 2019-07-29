@@ -32,6 +32,7 @@
 
             </intent-filter>
 
+            <!-- For Release -->
             <intent-filter android:autoVerify="true" android:order="2">
 
                 <action android:name="android.intent.action.VIEW"/>
@@ -41,6 +42,19 @@
 
                 <data android:scheme="https"/>
                 <data android:host="giddy.page.link"/>
+
+            </intent-filter>
+
+            <!-- For Debug -->
+            <intent-filter android:autoVerify="true" android:order="2">
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="https"/>
+                <data android:host="giddydev.page.link"/>
 
             </intent-filter>
 
