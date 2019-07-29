@@ -35,7 +35,7 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_4cc386b9f973_key -iv $encrypted_4cc386b9f973_iv -in android/app/google-services.json.enc -out android/app/google-services.json -d
+- openssl aes-256-cbc -K $encrypted_4cc386b9f973_key -iv $encrypted_4cc386b9f973_iv -in android/app/src/release/google-services.json.enc -out android/app/src/release/google-services.json -d
 
 - openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv
   -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d

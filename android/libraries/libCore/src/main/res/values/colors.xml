@@ -8,4 +8,6 @@
     <color name="white">#FFFFFF</color>
 
     <color name="sheet">#F4F4F4</color>
+
+    <color name="launcher_color">#10891B</color>
 </resources>
