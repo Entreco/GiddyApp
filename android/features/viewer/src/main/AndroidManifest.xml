@@ -25,21 +25,7 @@
                     android:name="default-url"
                     android:value="https://giddy.entreco.nl/viewer"/>
 
-            <intent-filter android:autoVerify="true">
-
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:host="giddy.entreco.nl"/>
-                <data android:pathPattern="/viewer/..*"/>
-
-            </intent-filter>
-
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true" android:priority="10" android:order="10">
 
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -52,6 +38,7 @@
                 <data android:pathPrefix="/viewer"/>
 
             </intent-filter>
+
         </activity>
     </application>
 </manifest>

@@ -22,7 +22,7 @@ data class HorsePosted(private val stamp: Long = 0) {
         get() = DateUtils.getRelativeTimeSpanString(
             stamp,
             System.currentTimeMillis(),
-            DateUtils.DAY_IN_MILLIS,
+            DateUtils.MINUTE_IN_MILLIS,
             DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_ABBREV_RELATIVE
         )
 }

@@ -1,9 +1,3 @@
 package nl.entreco.giddyapp.libcore.launch.features
 
-import android.content.Intent
-
-object CreatorNavigator : DynamicFeature<Intent>(
-    activityName = "nl.entreco.giddyapp.creator.CreatorActivity",
-    featureName = "creator",
-    requestCode = CREATOR_INSTALL_CODE
-)
+object CreatorNavigator : BaseNavigator("creator", CREATOR_INSTALL_CODE)

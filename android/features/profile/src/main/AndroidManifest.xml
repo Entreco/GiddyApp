@@ -18,7 +18,7 @@
                 android:label="@string/title_profile"
                 android:theme="@style/AppTheme.ProfileTheme">
 
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true" android:priority="100">
 
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>

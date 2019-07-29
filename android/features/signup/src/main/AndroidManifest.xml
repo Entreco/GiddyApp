@@ -16,29 +16,29 @@
         <activity
                 android:name=".SignupActivity"
                 android:label="@string/title_signup"
-                android:launchMode="singleTask"
+                android:launchMode="singleTop"
                 android:theme="@style/AppTheme.SignupTheme">
 
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true" android:order="1">
 
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:host="giddy.entreco.nl"/>
-                <data android:pathPattern="/email"/>
+                <data android:path="/email"/>
 
             </intent-filter>
 
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true" android:order="2">
 
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
+
                 <data android:scheme="https"/>
                 <data android:host="giddy.page.link"/>
 

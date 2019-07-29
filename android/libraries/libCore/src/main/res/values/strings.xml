@@ -4,10 +4,8 @@
 
     <string name="title_base">base</string>
 
-    <!-- Tabs -->
-    <string name="tab_profile">Profile</string>
-    <string name="tab_create">Creator</string>
-    <string name="tab_settings">Settings</string>
-    <string name="tab_history">History</string>
+    <!-- Share -->
+    <string name="share_chooser_title">Share Horse</string>
+    <string name="share_content">Hé, wat vind je van dit 🐴 op Giddy-app? %1$s%2$s</string>
 
 </resources>

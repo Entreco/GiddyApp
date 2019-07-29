@@ -58,6 +58,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
         val id = when {
             url.isNullOrBlank() -> null
             url == "viewer" -> null
+            url == "launch" -> null
             url == "null" -> null
             else -> url
         }

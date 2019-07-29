@@ -29,8 +29,13 @@ class RateHorseUsecase @Inject constructor(
     fun go(done: (RateHorseResponse) -> Unit) {
         onBg {
 
-            val likes = requests.filter { it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
-            val dislikes = requests.filter { !it.like }.map { Match(it.horseId, it.horseName, it.horseRef) }
+            val likes = requests
+                .filter { it.like && it.horseRef != "none" }
+                .map { Match(it.horseId, it.horseName, it.horseRef) }
+
+            val dislikes = requests
+                .filter { !it.like && it.horseRef != "none" }
+                .map { Match(it.horseId, it.horseName, it.horseRef) }
 
             if (likes.isEmpty()) onUi { done(RateHorseResponse(true)) }
             else {

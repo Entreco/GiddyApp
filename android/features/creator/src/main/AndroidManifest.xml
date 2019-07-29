@@ -21,11 +21,7 @@
                 android:theme="@style/AppTheme.CreatorTheme"
                 android:windowSoftInputMode="adjustResize">
 
-            <meta-data
-                    android:name="default-url"
-                    android:value="https://giddy.entreco.nl/creator"/>
-
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true" android:priority="100">
 
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>

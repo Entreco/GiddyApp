@@ -29,7 +29,7 @@ data class SwipeHorseModel(private val horse: Horse, private val isCurrent: Bool
         )
         else -> GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(Color.TRANSPARENT, Color.BLACK)
+            intArrayOf(Color.BLACK, Color.DKGRAY)
         )
     }
 }

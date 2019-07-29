@@ -1,112 +1,63 @@
 package nl.entreco.giddyapp.libcore.launch.features
 
-import android.app.Activity
-import android.content.Context
-import android.os.Build
-import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallErrorCode
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import java.util.concurrent.atomic.AtomicInteger
 
 const val CREATOR_INSTALL_CODE = 1111
 const val PROFILE_INSTALL_CODE = 1112
 const val VIEWER_INSTALL_CODE = 1113
 
-abstract class DynamicFeature<T>(
-    private val activityName: String,
+class DynamicFeature(
+    private val manager: SplitInstallManager,
     private val featureName: String,
-    private val requestCode: Int
-) {
+    private val update: (Status) -> Unit
+) : LifecycleObserver, SplitInstallStateUpdatedListener {
 
-    fun launch(context: Activity, installedAction: (Long, Long, Boolean) -> Unit) {
-        val manager = SplitInstallManagerFactory.create(context.application)
+    override fun onStateUpdate(update: SplitInstallSessionState) {
+        update(Status.Update(update.bytesDownloaded(), update.totalBytesToDownload()))
+        when (update.status()) {
+            SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> update(Status.Confirm(update))
+            SplitInstallSessionStatus.INSTALLING -> {
+            }
+            SplitInstallSessionStatus.INSTALLED -> {
+                manager.unregisterListener(this)
+                update(Status.Launch)
+            }
+        }
+    }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        manager.registerListener(this)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        manager.unregisterListener(this)
+    }
+
+    fun go() {
         if (manager.installedModules.contains(featureName)) {
-            SplitInstallHelper.updateAppInfo(context.application)
-            installedAction(1, 1, true)
+            update(Status.Launch)
         } else {
-            download(context, manager, installedAction)
-        }
-    }
+            val request = SplitInstallRequest.newBuilder()
+                .addModule(featureName)
+                .build()
 
-    private fun download(
-        context: Activity,
-        manager: SplitInstallManager,
-        installedAction: (Long, Long, Boolean) -> Unit
-    ) {
-        val request = SplitInstallRequest.newBuilder()
-            .addModule(featureName)
-            .build()
-
-        UpdateListener(manager, installedAction,
-            updateAction = {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    SplitInstallHelper.updateAppInfo(context.application)
-                }
-            }, confirmAction = { update ->
-                manager.startConfirmationDialogForResult(
-                    update,
-                    context,
-                    requestCode
-                )
-            }
-        ).start(request) { msg ->
-            toast(context, msg)
-        }
-    }
-
-    private fun toast(context: Context, msg: String) {
-        Toast.makeText(
-            context,
-            msg,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    class UpdateListener(
-        private val manager: SplitInstallManager,
-        private val installedAction: (Long, Long, Boolean) -> Unit,
-        private val updateAction: () -> Unit,
-        private val confirmAction: (SplitInstallSessionState) -> Unit
-    ) : SplitInstallStateUpdatedListener {
-
-        private val session = AtomicInteger(0)
-
-        init {
-            manager.registerListener(this)
-        }
-
-        override fun onStateUpdate(update: SplitInstallSessionState) {
-            if (session.get() == update.sessionId()) {
-                installedAction(update.bytesDownloaded(), update.totalBytesToDownload(), false)
-                when (update.status()) {
-                    SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> confirmAction(update)
-                    SplitInstallSessionStatus.INSTALLING -> installedAction(1, 1, false)
-                    SplitInstallSessionStatus.INSTALLED -> {
-                        updateAction()
-                        installedAction(1, 1, true)
-                        manager.unregisterListener(this)
-                    }
-                }
-            }
-        }
-
-        fun start(request: SplitInstallRequest?, toast: (String) -> Unit) {
             manager.startInstall(request)
                 .addOnFailureListener { err ->
                     when (val code = (err as? SplitInstallException)?.errorCode) {
-                        SplitInstallErrorCode.ACCESS_DENIED -> toast("Access Denied")
-                        SplitInstallErrorCode.NETWORK_ERROR -> toast("Network error: retry?")
-                        SplitInstallErrorCode.API_NOT_AVAILABLE -> toast("Api not available: update play services?")
-                        SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> toast("Incompatible session: ${session.get()}")
-                        SplitInstallErrorCode.MODULE_UNAVAILABLE -> toast("Module Unavailable")
-                        else -> toast("Unknown error $code")
+                        SplitInstallErrorCode.ACCESS_DENIED -> update(Status.Error("Access Denied"))
+                        SplitInstallErrorCode.NETWORK_ERROR -> update(Status.Error("Network error: retry?"))
+                        SplitInstallErrorCode.API_NOT_AVAILABLE -> update(Status.Error("Api not available: update play services?"))
+                        SplitInstallErrorCode.INCOMPATIBLE_WITH_EXISTING_SESSION -> update(Status.Error("Incompatible session"))
+                        SplitInstallErrorCode.MODULE_UNAVAILABLE -> update(Status.Error("Module Unavailable"))
+                        else -> update(Status.Error("Unknown error $code"))
                     }
-                }
-                .addOnSuccessListener { sessionId ->
-                    session.set(sessionId)
-                    toast("Starting install $session")
                 }
         }
     }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.app.ShareCompat
+import nl.entreco.giddyapp.libcore.R
 
 object LaunchHelper {
 
@@ -14,7 +15,7 @@ object LaunchHelper {
     const val URL_CREATOR = "$URL_BASE/creator/"
     const val URL_PROFILE = "$URL_BASE/profile/"
 
-    fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = null) {
+    fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = "launch") {
         val viewer = viewerIntent(activity, id)
         launch(viewer, options, activity)
     }
@@ -31,8 +32,8 @@ object LaunchHelper {
 
     fun share(activity: Activity, horseId: String) {
         ShareCompat.IntentBuilder.from(activity)
-            .setChooserTitle("Share URL")
-            .setText(URL_VIEWER + horseId)
+            .setChooserTitle(R.string.share_chooser_title)
+            .setText(activity.getString(R.string.share_content, URL_VIEWER, horseId))
             .setType("text/plain")
             .startChooser()
     }
