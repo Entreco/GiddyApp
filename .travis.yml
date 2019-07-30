@@ -36,6 +36,7 @@ android:
   - google-gdk-license-.+
 before_install:
 - openssl aes-256-cbc -K $encrypted_66846164c8f8_key -iv $encrypted_66846164c8f8_iv -in android/app/src/release/google-services.json.enc -out android/app/src/release/google-services.json -d
+- openssl aes-256-cbc -K $encrypted_4cc386b9f973_key -iv $encrypted_4cc386b9f973_iv -in android/app/src/google-services.json.enc -out android/app/src/google-services.json -d
 - openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d
   
 - yes | sdkmanager "platform-tools" "platforms;android-28"
@@ -49,6 +50,9 @@ before_install:
 - cd android/
 - chmod +x gradlew
 - ./gradlew dependencies || true
+
+# Building Bundles
+- stage: Building
 script:
 - ./gradlew clean -PdisablePreDex --stacktrace
 - ./gradlew bundleStaging -PdisablePreDex --stacktrace
@@ -60,10 +64,12 @@ before_deploy:
 - cd app/build/outputs/bundle
 
 # Sign Staging aab
+- stage: Staging
 - APP_STAGING=$(find staging -name '*.aab')
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
 
 # Sign Release aab
+- stage: Release
 - APP_RELEASE=$(find release -name '*.aab')
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_RELEASE Entreco
 
