@@ -9,9 +9,14 @@ git:
   depth: false
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-  - "$HOME/.gradle/native"
+    # Android SDK
+    - $HOME/android-sdk-dl
+    - $HOME/android-sdk
+
+    # Gradle dependencies
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 env:
   global:
   - ANDROID_API=28
@@ -35,10 +40,9 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
+- openssl aes-256-cbc -K $encrypted_66846164c8f8_key -iv $encrypted_66846164c8f8_iv -in android/app/src/release/google-services.json.enc -out android/app/src/release/google-services.json -d
 - openssl aes-256-cbc -K $encrypted_4cc386b9f973_key -iv $encrypted_4cc386b9f973_iv -in android/app/google-services.json.enc -out android/app/google-services.json -d
-
-- openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv
-  -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d
+- openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d
   
 - yes | sdkmanager "platform-tools" "platforms;android-28"
 - mkdir "$ANDROID_HOME/licenses" || true
@@ -50,19 +54,37 @@ before_install:
 - echo -e "\ne9acab5b5fbb560a72cfaecce8946896ff6aab9d" > "$ANDROID_HOME/licenses/mips-android-sysimage-license"
 - cd android/
 - chmod +x gradlew
-- ./gradlew dependencies || true
+- ./gradlew dependencies -Dorg.gradle.jvmargs=-Xmx4096m || true
+
+# Building Bundles
 script:
-- ./gradlew clean bundleRelease -PdisablePreDex --stacktrace
+- ./gradlew --parallel clean -PdisablePreDex --stacktrace
+- ./gradlew --parallel bundleStaging -PdisablePreDex --stacktrace
+- ./gradlew --parallel bundleRelease -PdisablePreDex --stacktrace
 before_deploy:
-- APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
+
+# Copy Keystore and cd into outputs/bundle
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
-- cd app/build/outputs/bundle/release
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore
-  -storepass $storepass -keypass $keypass $APP_NAME Entreco
+- cd app/build/outputs/bundle
+
+# Sign Staging aab
+- APP_TMP=$(find staging -name '*.aab')
+- APP_STAGING=$(mv "$APP_TMP" "${APP_TMP%.aab}_staging.aab")
+echo $APP_STAGING
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
+
+# Sign Release aab
+- APP_RELEASE=$(find release -name '*.aab')
+echo $APP_RELEASE
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_RELEASE Entreco
+
+
 deploy:
   provider: releases
   file:
-  - "$APP_NAME"
+  - "$APP_STAGING"
+  - "$APP_RELEASE"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/staging/mapping.txt"
   - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt"
   api_key: "$apikey"
   skip_cleanup: true
