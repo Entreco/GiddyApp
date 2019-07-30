@@ -54,7 +54,7 @@ before_install:
 - echo -e "\ne9acab5b5fbb560a72cfaecce8946896ff6aab9d" > "$ANDROID_HOME/licenses/mips-android-sysimage-license"
 - cd android/
 - chmod +x gradlew
-- ./gradlew dependencies -Dorg.gradle.jvmargs=-Xmx8192m || true
+- ./gradlew dependencies -Dorg.gradle.jvmargs=-Xmx4096m || true
 
 # Building Bundles
 script:
