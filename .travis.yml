@@ -69,6 +69,7 @@ before_deploy:
 
 # Sign Staging aab
 - APP_STAGING=$(find staging -name '*.aab')
+- APP_STAGING=${mv "$APP_STAGING" "${APP_STAGING%.aab}_staging.aab"}
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
 
 # Sign Release aab
@@ -82,6 +83,7 @@ deploy:
   - "$APP_STAGING"
   - "$APP_RELEASE"
   - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/staging/mapping.txt"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt"
   api_key: "$apikey"
   skip_cleanup: true
   overwrite: true
