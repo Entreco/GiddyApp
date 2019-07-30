@@ -54,7 +54,7 @@ before_install:
 - echo -e "\ne9acab5b5fbb560a72cfaecce8946896ff6aab9d" > "$ANDROID_HOME/licenses/mips-android-sysimage-license"
 - cd android/
 - chmod +x gradlew
-- ./gradlew dependencies || true
+- ./gradlew dependencies -Dorg.gradle.jvmargs=-Xmx8192m || true
 
 # Building Bundles
 script:
@@ -68,8 +68,8 @@ before_deploy:
 - cd app/build/outputs/bundle
 
 # Sign Staging aab
-- APP_STAGING=$(find staging -name '*.aab')
-- APP_STAGING=${mv "$APP_STAGING" "${APP_STAGING%.aab}_staging.aab"}
+- APP_TMP=$(find staging -name '*.aab')
+- APP_STAGING=${mv "$APP_TMP" "${APP_TMP%.aab}_staging.aab"}
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
 
 # Sign Release aab
