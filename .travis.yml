@@ -58,9 +58,9 @@ before_install:
 
 # Building Bundles
 script:
-- ./gradlew clean -PdisablePreDex --stacktrace
-- ./gradlew bundleStaging -PdisablePreDex --stacktrace
-- ./gradlew bundleRelease -PdisablePreDex --stacktrace
+- ./gradlew --parallel clean -PdisablePreDex --stacktrace
+- ./gradlew --parallel bundleStaging -PdisablePreDex --stacktrace
+- ./gradlew --parallel bundleRelease -PdisablePreDex --stacktrace
 before_deploy:
 
 # Copy Keystore and cd into outputs/bundle
