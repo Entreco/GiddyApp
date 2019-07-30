@@ -10,8 +10,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode generateVersionCode()
-        versionName generateVersionName()
-        setProperty("archivesBaseName", "${appName}-${versionName}")
+        versionName = generateVersionName()
+        archivesBaseName = "${appName}-${versionName}"
         resValue "string", "version", "\"${appName}-${versionName}\""
 
         resConfigs "en", "nl"
@@ -22,12 +22,7 @@ android {
 
         debug {
             applicationIdSuffix ".dev"
-            versionNameSuffix "-dev"
         }
-
-
-        // TODO: Determine how to name the *.aab files, so
-        // TODO: we can archive them from Travis to Github
 
         staging {
             // Resource shrinker cannot be used for multi-apk applications
@@ -39,7 +34,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
 
             applicationIdSuffix ".dev" // To use Firebase Development Environment
-            versionNameSuffix "-staging"
             matchingFallbacks = ['release'] // To use resource shrinking
         }
 
@@ -53,7 +47,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
-
+    
     //Add the following configuration in order to target Java 8.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -70,12 +64,6 @@ android {
             ":features:profile",
             ":features:signup"
     ]
-}
-
-android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-        outputFileName = "${appName}-${variant.versionName}.apk"
-    }
 }
 
 dependencies {
@@ -99,12 +87,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline-extended:$dexmaker"
-}
-
-task showBundleName {
-    doLast {
-        println "${appName}-${android.defaultConfig.versionName}.aab"
-    }
 }
 
 apply plugin: 'com.google.gms.google-services'
