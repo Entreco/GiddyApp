@@ -50,18 +50,30 @@ before_install:
 - chmod +x gradlew
 - ./gradlew dependencies || true
 script:
-- ./gradlew clean bundleRelease -PdisablePreDex --stacktrace
+- ./gradlew clean -PdisablePreDex --stacktrace
+- ./gradlew bundleStaging -PdisablePreDex --stacktrace
+- ./gradlew bundleRelease -PdisablePreDex --stacktrace
 before_deploy:
-- APP_NAME=$(./gradlew -q showBundleName | tail -n 1)
+
+# Copy Keystore and cd into outputs/bundle
 - cp $TRAVIS_BUILD_DIR/android/scripts/giddy_keystore $HOME
-- cd app/build/outputs/bundle/release
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore
-  -storepass $storepass -keypass $keypass $APP_NAME Entreco
+- cd app/build/outputs/bundle
+
+# Sign Staging aab
+- APP_STAGING=$(find staging -name '*.aab')
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
+
+# Sign Release aab
+- APP_RELEASE=$(find release -name '*.aab')
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_RELEASE Entreco
+
+
 deploy:
   provider: releases
   file:
-  - "$APP_NAME"
-  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt"
+  - "$APP_STAGING"
+  - "$APP_RELEASE"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/staging/mapping.txt"
   api_key: "$apikey"
   skip_cleanup: true
   overwrite: true

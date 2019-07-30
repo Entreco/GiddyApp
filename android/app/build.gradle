@@ -47,7 +47,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
-    
+
     //Add the following configuration in order to target Java 8.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
