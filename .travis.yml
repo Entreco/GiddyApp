@@ -9,9 +9,14 @@ git:
   depth: false
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-  - "$HOME/.gradle/native"
+    # Android SDK
+    - $HOME/android-sdk-dl
+    - $HOME/android-sdk
+
+    # Gradle dependencies
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 env:
   global:
   - ANDROID_API=28
@@ -52,7 +57,6 @@ before_install:
 - ./gradlew dependencies || true
 
 # Building Bundles
-- stage: Building
 script:
 - ./gradlew clean -PdisablePreDex --stacktrace
 - ./gradlew bundleStaging -PdisablePreDex --stacktrace
@@ -64,12 +68,10 @@ before_deploy:
 - cd app/build/outputs/bundle
 
 # Sign Staging aab
-- stage: Staging
 - APP_STAGING=$(find staging -name '*.aab')
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
 
 # Sign Release aab
-- stage: Release
 - APP_RELEASE=$(find release -name '*.aab')
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_RELEASE Entreco
 
