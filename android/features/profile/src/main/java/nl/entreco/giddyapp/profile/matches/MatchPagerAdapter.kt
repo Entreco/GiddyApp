@@ -8,7 +8,8 @@ import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.databinding.ViewMatchItemBinding
 
 class MatchPagerAdapter(
-    private val imageLoader: ImageLoader
+    private val imageLoader: ImageLoader,
+    private val onClick: (UserLike)->Unit
 ) : RecyclerView.Adapter<MatchViewHolder>() {
 
     private val items by lazy { mutableListOf<UserLike>() }
@@ -20,7 +21,7 @@ class MatchPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], onClick)
     }
 
     override fun getItemCount(): Int = items.size

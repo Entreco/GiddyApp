@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        >
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.matches.MatchViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:id="@+id/match_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <LinearLayout
+                android:id="@+id/profile_matches"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/sheet"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xlarge"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="Your Latest likes:"/>
+
+            <TextView
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/def"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="None so far. Start swiping ;)"
+                    app:showIf="@{viewModel.isEmpty}"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profile_match_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    tools:listitem="@layout/view_match_item"
+                    tools:showIn="@layout/activity_profile"
+                    app:showIf="@{!viewModel.isEmpty}"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/contact_fab"
+                app:layout_anchor="@id/profile_matches"
+                app:layout_anchorGravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Contact Owner"
+                app:backgroundTint="@color/colorAccent"
+                android:textColor="@color/white"
+                android:text="Contact Owner"
+                app:icon="@drawable/ic_send"
+                app:iconTint="@color/white"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

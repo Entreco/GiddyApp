@@ -18,9 +18,12 @@
                 android:label="@string/title_profile"
                 android:theme="@style/AppTheme.ProfileTheme">
 
-            <intent-filter android:autoVerify="true" android:priority="100">
+            <intent-filter
+                    android:autoVerify="true"
+                    android:priority="100">
 
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
@@ -32,6 +35,10 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+                android:name=".matches.MatchActivity"
+                android:theme="@style/AppTheme.ProfileTheme"/>
     </application>
 </manifest>
 

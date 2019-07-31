@@ -10,9 +10,16 @@ data class MatchViewHolder(
     private val imageLoader: ImageLoader
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(userLike: UserLike) {
+    fun bind(
+        userLike: UserLike,
+        onClick: (UserLike) -> Unit
+    ) {
         binding.like = userLike
         binding.loader = imageLoader
         binding.executePendingBindings()
+
+        binding.root.setOnClickListener {
+            onClick(userLike)
+        }
     }
 }
