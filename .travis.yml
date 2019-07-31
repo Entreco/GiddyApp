@@ -69,10 +69,9 @@ before_deploy:
 
 # Sign Staging aab
 - APP_STAGING=$(find staging -name '*.aab')
-echo $APP_STAGING
-- mv $APP_STAGING ${APP_STAGING%.aab}_staging.aab
-- APP_STAGING=$(find staging -name '*.aab')
-echo $APP_STAGING
+- echo $APP_STAGING
+- APP_STAGING=$(echo "${APP_STAGING/%\.aab/_staging.aab}")
+- echo $APP_STAGING
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
 
 # Sign Release aab
