@@ -13,6 +13,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".dev"
+        }
         release {
             proguardFiles 'proguard-rules-dynamic-features.pro'
         }
