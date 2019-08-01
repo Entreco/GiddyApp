@@ -2,39 +2,9 @@ apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: '../../scripts/feature.gradle'
 
-android {
-    compileSdkVersion rootProject.compileSdkVersion
-
-    defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        debug {
-            applicationIdSuffix ".dev"
-        }
-        staging {
-            applicationIdSuffix ".dev" // To use Firebase Development Environment
-            matchingFallbacks = ['release'] // To use resource shrinking
-        }
-        release {
-            proguardFiles 'proguard-rules-dynamic-features.pro'
-        }
-    }
-
-    //Add the following configuration in order to target Java 8.
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dataBinding {
-        enabled = true
-    }
-}
+android {}
 
 dependencies {
     implementation project(':app')
