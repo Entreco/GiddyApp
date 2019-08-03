@@ -19,24 +19,6 @@ android {
     }
 
     buildTypes {
-
-        debug {
-            applicationIdSuffix ".dev"
-        }
-
-        staging {
-            // Resource shrinker cannot be used for multi-apk applications
-            shrinkResources false
-
-            // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
-            // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
-
-            applicationIdSuffix ".dev" // To use Firebase Development Environment
-            matchingFallbacks = ['release'] // To use resource shrinking
-        }
-
         release {
             // Resource shrinker cannot be used for multi-apk applications
             shrinkResources false
@@ -45,6 +27,20 @@ android {
             // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "channel"
+    productFlavors {
+        beta {
+            applicationIdSuffix ".dev"
+            dimension "channel"
+            matchingFallbacks = ['debug']
+        }
+
+        prod {
+            dimension "channel"
+            matchingFallbacks = ['debug']
         }
     }
 
@@ -77,7 +73,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     // LeakCanary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
 
     testImplementation "junit:junit:$junit"
 

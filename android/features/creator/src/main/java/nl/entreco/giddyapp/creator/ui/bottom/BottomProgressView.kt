@@ -44,13 +44,13 @@ class BottomProgressView @JvmOverloads constructor(
         binding.fab.hide()
     }
 
-    override fun setOnClickListener(listener: OnClickListener) {
+    override fun setOnClickListener(listener: OnClickListener?) {
         binding.fab.setOnClickListener { fab ->
             binding.fab.animate()
                 .withStartAction {
                     binding.fab.hide()
                     binding.fab.setImageResource(binding.model?.waiting() ?: 0)
-                    listener.onClick(fab)
+                    listener?.onClick(fab)
                 }
                 .withEndAction {
                     binding.fab.show()

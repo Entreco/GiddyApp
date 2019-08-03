@@ -19,6 +19,7 @@
                 android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
                 android:launchMode="singleTask"
+                android:exported="true"
                 android:theme="@style/AppTheme.ViewerTheme">
 
             <meta-data

@@ -17,7 +17,8 @@
                 android:name=".SignupActivity"
                 android:label="@string/title_signup"
                 android:launchMode="singleTop"
-                android:theme="@style/AppTheme.SignupTheme">
+                android:theme="@style/AppTheme.SignupTheme"
+                android:exported="false">
 
             <intent-filter android:autoVerify="true" android:order="1">
 

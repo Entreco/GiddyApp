@@ -9,15 +9,19 @@ android {
     }
 
     buildTypes {
-        debug {
-            applicationIdSuffix ".dev"
-        }
-        staging {
-            applicationIdSuffix ".dev" // To use Firebase Development Environment
-            matchingFallbacks = ['release'] // To use resource shrinking
-        }
         release {
             proguardFiles 'proguard-rules-dynamic-features.pro'
+        }
+    }
+
+    flavorDimensions "channel"
+    productFlavors {
+        beta {
+            applicationIdSuffix ".dev"
+            dimension "channel"
+        }
+        prod {
+            dimension "channel"
         }
     }
 

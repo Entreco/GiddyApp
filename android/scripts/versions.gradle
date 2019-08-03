@@ -6,9 +6,9 @@ ext {
     gradleVersion = '3.4.2'
     gmsVersion = '4.2.0'
 
-    compileSdkVersion = 28
+    compileSdkVersion = 29
     minSdkVersion = 24
-    targetSdkVersion = 28
+    targetSdkVersion = 29
 
     dependencies = [
             dagger = '2.22.1',
@@ -51,7 +51,7 @@ ext {
             xEspressoCore = '3.1.0',
 
             // Development tools
-            leakCanary = '2.0-alpha-3'
+            leakCanary = '2.0-beta-2'
     ]
 }
 
