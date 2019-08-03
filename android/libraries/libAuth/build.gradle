@@ -4,7 +4,20 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../../scripts/library.gradle'
 
-android {}
+android {
+
+    // Flavors needed to get package Id for FbAuth
+    flavorDimensions "channel"
+    productFlavors {
+        beta {
+            dimension "channel"
+        }
+
+        prod {
+            dimension "channel"
+        }
+    }
+}
 
 dependencies {
     implementation project(':libraries:libCore')
