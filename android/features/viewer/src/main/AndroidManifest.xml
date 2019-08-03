@@ -1,42 +1,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:dist="http://schemas.android.com/apk/distribution"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="nl.entreco.giddyapp.viewer">
+        xmlns:dist="http://schemas.android.com/apk/distribution"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="nl.entreco.giddyapp.viewer">
 
     <dist:module
             dist:instant="true"
             dist:onDemand="false"
             dist:title="@string/title_viewer">
-        <dist:fusing dist:include="true"/>
+        <dist:fusing dist:include="true" />
     </dist:module>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            tools:ignore="AllowBackup,MissingApplicationIcon"
-            android:name="nl.entreco.giddyapp.GiddyApp">
+            android:name="nl.entreco.giddyapp.GiddyApp"
+            tools:ignore="AllowBackup,MissingApplicationIcon">
         <activity
                 android:name=".ViewerActivity"
                 android:label="@string/title_viewer"
                 android:launchMode="singleTask"
-                android:exported="true"
                 android:theme="@style/AppTheme.ViewerTheme">
 
             <meta-data
                     android:name="default-url"
-                    android:value="https://giddy.entreco.nl/viewer"/>
+                    android:value="https://giddy.entreco.nl/viewer" />
 
-            <intent-filter android:autoVerify="true" android:priority="10" android:order="10">
+            <intent-filter
+                    android:autoVerify="true"
+                    android:order="10"
+                    android:priority="10">
 
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:host="giddy.entreco.nl"/>
-                <data android:pathPrefix="/viewer"/>
+                <data
+                        android:host="giddy.entreco.nl"
+                        android:pathPrefix="/viewer"
+                        android:scheme="http" />
+                <data android:scheme="https" />
 
             </intent-filter>
 

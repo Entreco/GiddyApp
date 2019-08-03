@@ -1,36 +1,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:dist="http://schemas.android.com/apk/distribution"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="nl.entreco.giddyapp.creator">
+        xmlns:dist="http://schemas.android.com/apk/distribution"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="nl.entreco.giddyapp.creator">
 
     <dist:module
             dist:instant="false"
             dist:onDemand="true"
             dist:title="@string/title_creator">
-        <dist:fusing dist:include="true"/>
+        <dist:fusing dist:include="true" />
     </dist:module>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            tools:ignore="AllowBackup,MissingApplicationIcon"
-            android:name="nl.entreco.giddyapp.GiddyApp">
+            android:name="nl.entreco.giddyapp.GiddyApp"
+            tools:ignore="AllowBackup,MissingApplicationIcon">
         <activity
                 android:name=".CreatorActivity"
                 android:label="@string/title_creator"
                 android:theme="@style/AppTheme.CreatorTheme"
                 android:windowSoftInputMode="adjustResize">
 
-            <intent-filter android:autoVerify="true" android:priority="100">
+            <intent-filter
+                    android:autoVerify="true"
+                    android:priority="100">
 
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:host="giddy.entreco.nl"/>
-                <data android:pathPrefix="/creator"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="giddy.entreco.nl"
+                        android:pathPrefix="/creator"
+                        android:scheme="http" />
+                <data android:scheme="https" />
 
             </intent-filter>
         </activity>

@@ -53,14 +53,10 @@ object LaunchHelper {
         context
     )
 
-    private fun baseIntent(url: String, context: Context? = null): Intent {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            .addCategory(Intent.CATEGORY_DEFAULT)
+    private fun baseIntent(url: String, context: Context): Intent {
+        return Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            .setPackage(context.packageName)
             .addCategory(Intent.CATEGORY_BROWSABLE)
-        if (context != null) {
-            intent.`package` = context.packageName
-        }
-        return intent
     }
 
     private fun launch(intent: Intent, options: ActivityOptions?, activity: Activity) {
