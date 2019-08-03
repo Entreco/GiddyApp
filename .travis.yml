@@ -40,7 +40,7 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_66846164c8f8_key -iv $encrypted_66846164c8f8_iv -in android/app/src/release/google-services.json.enc -out android/app/src/release/google-services.json -d
+- openssl aes-256-cbc -K $encrypted_66846164c8f8_key -iv $encrypted_66846164c8f8_iv -in android/app/src/prod/google-services.json.enc -out android/app/src/prod/google-services.json -d
 - openssl aes-256-cbc -K $encrypted_4cc386b9f973_key -iv $encrypted_4cc386b9f973_iv -in android/app/google-services.json.enc -out android/app/google-services.json -d
 - openssl aes-256-cbc -K $encrypted_744df38c14ce_key -iv $encrypted_744df38c14ce_iv -in android/scripts/giddy_keystore.enc -out android/scripts/giddy_keystore -d
   
@@ -58,9 +58,7 @@ before_install:
 
 # Building Bundles
 script:
-- ./gradlew --parallel clean -PdisablePreDex --stacktrace
-- ./gradlew --parallel bundleStaging -PdisablePreDex --stacktrace
-- ./gradlew --parallel bundleRelease -PdisablePreDex --stacktrace
+- ./gradlew --parallel clean :app:bundleBetaRelease :app:bundleProdRelease -PdisablePreDex --stacktrace
 before_deploy:
 
 # Copy Keystore and cd into outputs/bundle
@@ -68,23 +66,21 @@ before_deploy:
 - cd app/build/outputs/bundle
 
 # Sign Staging aab
-- APP_STAGING=$(find staging -name '*.aab')
-- mv $APP_STAGING ${APP_STAGING%.aab}_staging.aab
-- APP_STAGING=$(find staging -name '*.aab')
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_STAGING Entreco
+- APP_BETA=$(find betaRelease -name '*.aab')
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_BETA Entreco
 
 # Sign Release aab
-- APP_RELEASE=$(find release -name '*.aab')
+- APP_RELEASE=$(find prodRelease -name '*.aab')
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/giddy_keystore -storepass $storepass -keypass $keypass $APP_RELEASE Entreco
 
 
 deploy:
   provider: releases
   file:
-  - "$APP_STAGING"
+  - "$APP_BETA"
   - "$APP_RELEASE"
-  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/staging/mapping.txt"
-  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/release/mapping.txt"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/beta/release/mapping.txt"
+  - "$TRAVIS_BUILD_DIR/android/app/build/outputs/mapping/prod/release/mapping.txt"
   api_key: "$apikey"
   skip_cleanup: true
   overwrite: true
