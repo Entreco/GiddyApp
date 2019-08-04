@@ -39,7 +39,7 @@
 
         <activity
                 android:name=".matches.MatchActivity"
-                android:theme="@style/AppTheme.ProfileTheme"/>
+                android:theme="@style/AppTheme.ProfileTheme" />
     </application>
 </manifest>
 

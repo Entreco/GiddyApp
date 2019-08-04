@@ -80,9 +80,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         super.onBackPressed()
     }
 
-    override fun get(): CreatorComponent {
-        return component
-    }
+    override fun get(): CreatorComponent =component
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         picker.get(requestCode, resultCode, data) { result ->

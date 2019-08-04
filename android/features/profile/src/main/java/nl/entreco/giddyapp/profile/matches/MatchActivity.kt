@@ -13,28 +13,37 @@ import androidx.recyclerview.widget.SnapHelper
 import nl.entreco.giddyapp.libauth.user.UserLike
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
+import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.profile.R
 import nl.entreco.giddyapp.profile.databinding.ActivityMatchesBinding
+import nl.entreco.giddyapp.profile.di.MatchComponent
 import nl.entreco.giddyapp.profile.di.MatchModule
 import nl.entreco.giddyapp.profile.di.ProfileInjector.fromModule
+import nl.entreco.giddyapp.profile.matches.details.MatchDetailFragment
 
 
-class MatchActivity : BaseActivity() {
+class MatchActivity : BaseActivity(), DiProvider<MatchComponent> {
 
     private val component by fromModule { MatchModule }
     private val viewModel by viewModelProvider { component.viewModel() }
     private val loader: ImageLoader by lazy { component.loader() }
     private val snapHelper = LinearSnapHelper()
     private val adapter by lazy {
-        MatchPagerAdapter(loader) {
-            showSelected(it)
+        MatchPagerAdapter(loader) { userLike ->
+            handleSelected(userLike)
         }
+    }
+
+    private fun handleSelected(userLike: UserLike) {
+        adapter.setSelectedItem(userLike)
+        showSelected(userLike)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityMatchesBinding>(this, R.layout.activity_matches)
+        val binding =
+            DataBindingUtil.setContentView<ActivityMatchesBinding>(this, R.layout.activity_matches)
         binding.viewModel = viewModel
 
         observeMatches()
@@ -50,12 +59,15 @@ class MatchActivity : BaseActivity() {
     private fun observeMatches() {
         viewModel.matches().observe(this, Observer { list ->
             adapter.postItems(list)
+            if (list.isNotEmpty()) {
+                viewModel.selectedItem(0)
+            }
         })
     }
 
     private fun observeSelectedItem() {
         viewModel.selected().observe(this, Observer { userLike ->
-            showSelected(userLike)
+            handleSelected(userLike)
         })
     }
 
@@ -63,7 +75,7 @@ class MatchActivity : BaseActivity() {
         Log.i("SELECTED", "YEAH: position:$userLike")
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.match_container, MatchFragment.newInstance(userLike))
+            .replace(R.id.match_container, MatchDetailFragment.newInstance(userLike))
             .commit()
     }
 
@@ -71,21 +83,28 @@ class MatchActivity : BaseActivity() {
         recycler.adapter = adapter
         snapHelper.attachToRecyclerView(recycler)
         recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler.attachSnapHelperWithListener(snapHelper, SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE, object: OnSnapPositionChangeListener{
-            override fun onSnapPositionChange(position: Int) {
-                viewModel.selectedItem(position)
-            }
-        })
+        recycler.attachSnapHelperWithListener(
+            snapHelper,
+            SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
+            object : OnSnapPositionChangeListener {
+                override fun onSnapPositionChange(position: Int) {
+//                    viewModel.selectedItem(position)
+                }
+            })
     }
 
     fun RecyclerView.attachSnapHelperWithListener(
         snapHelper: SnapHelper,
         behavior: SnapOnScrollListener.Behavior = SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL,
-        onSnapPositionChangeListener: OnSnapPositionChangeListener) {
+        onSnapPositionChangeListener: OnSnapPositionChangeListener
+    ) {
         snapHelper.attachToRecyclerView(this)
-        val snapOnScrollListener = SnapOnScrollListener(snapHelper, behavior, onSnapPositionChangeListener)
+        val snapOnScrollListener =
+            SnapOnScrollListener(snapHelper, behavior, onSnapPositionChangeListener)
         addOnScrollListener(snapOnScrollListener)
     }
+
+    override fun get(): MatchComponent = component
 
     companion object {
         private const val EXTRA_UID = "EXTRA_UID"

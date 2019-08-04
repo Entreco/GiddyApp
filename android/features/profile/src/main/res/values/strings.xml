@@ -24,4 +24,10 @@
 
     <string name="profile_item_error">Something went wrong</string>
     <string name="profile_item_error_description">Unable to load your profile</string>
+
+    <string name="match_detail_1">Gender</string>
+    <string name="match_detail_2">Type</string>
+    <string name="match_detail_3">Price</string>
+    <string name="match_detail_4">Area</string>
+    <string name="match_detail_5">Likes</string>
 </resources>

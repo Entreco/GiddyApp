@@ -11,15 +11,15 @@ data class MatchViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        userLike: UserLike,
+        detail: MatchDetailItem,
         onClick: (UserLike) -> Unit
     ) {
-        binding.like = userLike
+        binding.detail = detail
         binding.loader = imageLoader
         binding.executePendingBindings()
 
         binding.root.setOnClickListener {
-            onClick(userLike)
+            onClick(detail.userLike)
         }
     }
 }

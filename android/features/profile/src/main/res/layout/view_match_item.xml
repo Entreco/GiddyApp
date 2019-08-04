@@ -4,13 +4,15 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-                name="like"
-                type="nl.entreco.giddyapp.libauth.user.UserLike" />
+                name="detail"
+                type="nl.entreco.giddyapp.profile.matches.MatchDetailItem" />
 
         <variable
                 name="loader"
                 type="nl.entreco.giddyapp.libimg.loader.ImageLoader" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -20,30 +22,32 @@
             android:layout_margin="@dimen/def"
             android:clipToPadding="false"
             app:cardBackgroundColor="@color/almost_white"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="36dp">
+            app:ga_strokeColor="@{detail.stroke}"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="36dp"
+            app:cardElevation="2dp">
 
         <ImageView
-                android:contentDescription="@{like.horseName}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:ga_ref="@{like.horseRef}"
+                android:contentDescription="@{detail.name}"
                 app:ga_image="@{null}"
-                app:ga_loader="@{loader}"/>
+                app:ga_loader="@{loader}"
+                app:ga_ref="@{detail.ref}" />
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:gravity="center"
-                android:textSize="8sp"
                 android:background="#eeffffff"
+                android:ellipsize="marquee"
                 android:fontFamily="sans-serif-condensed-light"
+                android:gravity="center"
                 android:padding="@dimen/small"
-                android:text="@{like.horseName}"
-                tools:text="@string/app_name"/>
+                android:singleLine="true"
+                android:text="@{detail.name}"
+                android:textSize="8sp"
+                tools:text="@string/app_name" />
 
     </com.google.android.material.card.MaterialCardView>
 

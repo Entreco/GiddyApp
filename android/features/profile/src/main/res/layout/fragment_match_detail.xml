@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="nl.entreco.giddyapp.profile.matches.details.MatchDetailViewModel" />
+
+        <variable
+                name="loader"
+                type="nl.entreco.giddyapp.libimg.loader.ImageLoader" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@+id/detail_image"
+                android:layout_width="@dimen/profile_image_size"
+                android:layout_height="@dimen/profile_image_size"
+                android:layout_marginTop="@dimen/large"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="8dp"
+                app:layout_constraintBottom_toTopOf="@id/detail_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedImage"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    app:ga_image="@{viewModel.image}"
+                    app:ga_loader="@{loader}"
+                    app:ga_ref="@{viewModel.reference}" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+                android:id="@+id/detail_name"
+                style="@style/MatchDetailHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.horseName}"
+                app:layout_constraintBottom_toTopOf="@id/detail_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_image"
+                tools:text="@string/app_name" />
+
+        <TextView
+                android:id="@+id/detail_description"
+                style="@style/MatchDetailDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.horseDescription}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_name"
+                tools:text="@string/app_name" />
+
+        <!-- Detail 1 -->
+        <TextView
+                style="@style/MatchDetail"
+                android:id="@+id/detail_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_detail_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detail_1_value"
+                app:layout_constraintTop_toBottomOf="@id/detail_description"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                style="@style/MatchDetail.Value"
+                android:id="@+id/detail_1_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.matchDetail1}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detail_1"
+                app:layout_constraintTop_toBottomOf="@id/detail_description"
+                tools:text="@string/app_name"/>
+
+        <!-- Detail 2 -->
+        <TextView
+                style="@style/MatchDetail"
+                android:id="@+id/detail_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_detail_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detail_2_value"
+                app:layout_constraintTop_toBottomOf="@id/detail_1"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                style="@style/MatchDetail.Value"
+                android:id="@+id/detail_2_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.matchDetail2}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detail_2"
+                app:layout_constraintTop_toBottomOf="@id/detail_1"
+                tools:text="@string/app_name"/>
+
+        <!-- Detail 3 -->
+        <TextView
+                style="@style/MatchDetail"
+                android:id="@+id/detail_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_detail_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detail_3_value"
+                app:layout_constraintTop_toBottomOf="@id/detail_2"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                style="@style/MatchDetail.Value"
+                android:id="@+id/detail_3_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.matchDetail3}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detail_3"
+                app:layout_constraintTop_toBottomOf="@id/detail_2"
+                tools:text="@string/app_name"/>
+
+        <!-- Detail 4 -->
+        <TextView
+                style="@style/MatchDetail"
+                android:id="@+id/detail_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_detail_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detail_4_value"
+                app:layout_constraintTop_toBottomOf="@id/detail_3"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                style="@style/MatchDetail.Value"
+                android:id="@+id/detail_4_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.matchDetail4}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detail_4"
+                app:layout_constraintTop_toBottomOf="@id/detail_3"
+                tools:text="@string/app_name"/>
+
+        <!-- Detail 5 -->
+        <TextView
+                style="@style/MatchDetail"
+                android:id="@+id/detail_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_detail_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detail_5_value"
+                app:layout_constraintTop_toBottomOf="@id/detail_4"
+                tools:text="@string/app_name"/>
+
+        <TextView
+                style="@style/MatchDetail.Value"
+                android:id="@+id/detail_5_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.matchDetail5}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/detail_5"
+                app:layout_constraintTop_toBottomOf="@id/detail_4"
+                tools:text="@string/app_name"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

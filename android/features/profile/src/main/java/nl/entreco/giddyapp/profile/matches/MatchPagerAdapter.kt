@@ -12,7 +12,7 @@ class MatchPagerAdapter(
     private val onClick: (UserLike)->Unit
 ) : RecyclerView.Adapter<MatchViewHolder>() {
 
-    private val items by lazy { mutableListOf<UserLike>() }
+    private val items by lazy { mutableListOf<MatchDetailItem>() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +31,30 @@ class MatchPagerAdapter(
         items.clear()
         notifyItemRangeChanged(0, origSize)
 
-        items.addAll(list ?: emptyList())
+        items.addAll(list?.map { MatchDetailItem(it, false) } ?: emptyList())
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setSelectedItem(userLike: UserLike?) {
+        deselectOldItem()
+        selectItem(userLike)
+    }
+
+    private fun deselectOldItem() {
+        val oldSelection = items.firstOrNull { it.selected }
+        val oldPosition = items.indexOf(oldSelection)
+        if (oldPosition >= 0) {
+            items[oldPosition] = oldSelection!!.toggleSelected()
+            notifyItemChanged(oldPosition)
+        }
+    }
+
+    private fun selectItem(userLike: UserLike?) {
+        val selection = items.firstOrNull { it.horseId == userLike?.horseId }
+        val position = items.indexOf(selection)
+        if (position >= 0) {
+            items[position] = selection!!.toggleSelected()
+            notifyItemChanged(position)
+        }
     }
 }

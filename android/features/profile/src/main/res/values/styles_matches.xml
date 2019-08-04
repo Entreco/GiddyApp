@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MatchDetailHeader">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/def</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MatchDetailDescription">
+        <item name="android:padding">@dimen/def</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/almost_white</item>
+    </style>
+
+    <style name="MatchDetail">
+        <item name="android:padding">@dimen/def</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="MatchDetail.Value">
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/almost_white</item>
+    </style>
+
+
+</resources>

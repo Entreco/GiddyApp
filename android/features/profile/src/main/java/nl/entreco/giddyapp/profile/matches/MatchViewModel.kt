@@ -24,7 +24,7 @@ class MatchViewModel @Inject constructor(
 
     fun retrieveMatches(uid: String) {
         fetchMatchesUsecase.go(FetchMatchesRequest(uid)) { horses ->
-            matches.postValue(listOf(horses, horses, horses, horses, horses, horses, horses, horses).flatten())
+            matches.postValue(horses)
             isEmpty.set(horses.isEmpty())
         }
     }

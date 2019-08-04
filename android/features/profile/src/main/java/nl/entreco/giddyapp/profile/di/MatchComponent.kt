@@ -11,12 +11,14 @@ import nl.entreco.giddyapp.libimg.loader.ImageLoader
 import nl.entreco.giddyapp.libmatches.MatchService
 import nl.entreco.giddyapp.profile.matches.MatchActivity
 import nl.entreco.giddyapp.profile.matches.MatchViewModel
+import nl.entreco.giddyapp.profile.matches.details.MatchDetailViewModel
 
 @Component(modules = [MatchModule::class])
 interface MatchComponent {
 
     fun viewModel(): MatchViewModel
     fun loader(): ImageLoader
+    fun detailViewModel(): MatchDetailViewModel
 
     @Component.Builder
     interface Builder {
