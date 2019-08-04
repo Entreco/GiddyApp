@@ -27,19 +27,6 @@ android {
             // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
-
-            applicationIdSuffix ".dev" // To use Firebase Development Environment
-            matchingFallbacks = ['release'] // To use resource shrinking
-        }
-
-        release {
-            // Resource shrinker cannot be used for multi-apk applications
-            shrinkResources false
-
-            // There's a Dex Splitter issue when enabling DataBinding & proguard in dynamic features
-            // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }
     }
 
