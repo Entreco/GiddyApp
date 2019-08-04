@@ -11,7 +11,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
-        setProperty("archivesBaseName", "${appName}-${versionName}")
+        archivesBaseName = "${appName}-${versionName}"
         resValue "string", "version", "\"${appName}-${versionName}\""
 
         resConfigs "en", "nl"
@@ -20,7 +20,6 @@ android {
 
     buildTypes {
         release {
-
             // Resource shrinker cannot be used for multi-apk applications
             shrinkResources false
 
@@ -28,6 +27,20 @@ android {
             // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "channel"
+    productFlavors {
+        beta {
+            applicationIdSuffix ".dev"
+            dimension "channel"
+            matchingFallbacks = ['debug']
+        }
+
+        prod {
+            dimension "channel"
+            matchingFallbacks = ['debug']
         }
     }
 
@@ -49,12 +62,6 @@ android {
     ]
 }
 
-android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-        outputFileName = "${appName}-${variant.versionName}.apk"
-    }
-}
-
 dependencies {
     implementation project(':libraries:libAuth')
     implementation project(':libraries:libCore')
@@ -66,7 +73,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     // LeakCanary
-//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
 
     testImplementation "junit:junit:$junit"
 
@@ -76,12 +83,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$xTestExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$xEspressoCore"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline-extended:$dexmaker"
-}
-
-task showBundleName {
-    doLast {
-        println "${appName}-${android.defaultConfig.versionName}.aab"
-    }
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -30,11 +30,16 @@ internal class FbAuth @Inject constructor(
 
     private val email by lazy {
         ActionCodeSettings.newBuilder()
-            .setAndroidPackageName("nl.entreco.giddyapp", true, null)
+            .setAndroidPackageName(packageName(), true, null)
             .setHandleCodeInApp(true)
             .setDynamicLinkDomain("giddy.page.link/email")
             .setUrl("https://giddy.entreco.nl/email") // This URL needs to be whitelisted
             .build()
+    }
+
+    private fun packageName() = when (BuildConfig.FLAVOR) {
+        "beta" -> "nl.entreco.giddyapp.dev"
+        else -> "nl.entreco.giddyapp"
     }
 
     private val providers by lazy {
@@ -54,10 +59,10 @@ internal class FbAuth @Inject constructor(
             .setAvailableProviders(providers)
             .setIsSmartLockEnabled(!BuildConfig.DEBUG)
             .enableAnonymousUsersAutoUpgrade()
-//            .setTosAndPrivacyPolicyUrls(
-//                "https://giddy.entreco.nl/privacy-policy.html",
-//                "https://giddy.entreco.nl/privacy-policy.html"
-//            )
+            .setTosAndPrivacyPolicyUrls(
+                "https://giddy.entreco.nl/privacy_policy.html",
+                "https://giddy.entreco.nl/privacy_policy.html"
+            )
 
         if (link?.isNotBlank() == true) builder.setEmailLink(link)
 
@@ -76,7 +81,12 @@ internal class FbAuth @Inject constructor(
         }
     }
 
-    override fun link(context: Context, resultCode: Int, data: Intent?, done: (SignupResponse) -> Unit) {
+    override fun link(
+        context: Context,
+        resultCode: Int,
+        data: Intent?,
+        done: (SignupResponse) -> Unit
+    ) {
         val response = IdpResponse.fromResultIntent(data)
         when {
             response == null -> cancelled(done)
@@ -119,7 +129,12 @@ internal class FbAuth @Inject constructor(
                             userService.create(userName) { usr ->
                                 when (usr) {
                                     is User.Valid -> done(SignupResponse.Migrate(usr.uid, old))
-                                    is User.Anonymous -> done(SignupResponse.Failed("User is still anonymous", -1))
+                                    is User.Anonymous -> done(
+                                        SignupResponse.Failed(
+                                            "User is still anonymous",
+                                            -1
+                                        )
+                                    )
                                     is User.Error -> done(SignupResponse.Failed(usr.msg, -1))
                                 }
                             }

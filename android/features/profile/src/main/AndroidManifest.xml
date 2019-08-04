@@ -1,33 +1,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:dist="http://schemas.android.com/apk/distribution"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="nl.entreco.giddyapp.profile">
+        xmlns:dist="http://schemas.android.com/apk/distribution"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="nl.entreco.giddyapp.profile">
 
     <dist:module
-            dist:onDemand="false"
             dist:instant="false"
+            dist:onDemand="false"
             dist:title="@string/title_profile">
-        <dist:fusing dist:include="true"/>
+        <dist:fusing dist:include="true" />
     </dist:module>
 
     <application
-            tools:ignore="AllowBackup,MissingApplicationIcon"
-            android:name="nl.entreco.giddyapp.GiddyApp">
+            android:name="nl.entreco.giddyapp.GiddyApp"
+            tools:ignore="AllowBackup,MissingApplicationIcon">
         <activity
                 android:name=".ProfileActivity"
                 android:label="@string/title_profile"
                 android:theme="@style/AppTheme.ProfileTheme">
 
-            <intent-filter android:autoVerify="true" android:priority="100">
+            <intent-filter
+                    android:autoVerify="true"
+                    android:priority="100">
 
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:host="giddy.entreco.nl"/>
-                <data android:pathPrefix="/profile"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="giddy.entreco.nl"
+                        android:pathPrefix="/profile"
+                        android:scheme="http" />
+                <data android:scheme="https" />
 
             </intent-filter>
 
