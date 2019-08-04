@@ -10,7 +10,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode generateVersionCode()
-        versionName = generateVersionName()
+        versionName generateVersionName()
         archivesBaseName = "${appName}-${versionName}"
         resValue "string", "version", "\"${appName}-${versionName}\""
 
@@ -19,12 +19,7 @@ android {
     }
 
     buildTypes {
-
-        debug {
-            applicationIdSuffix ".dev"
-        }
-
-        staging {
+        release {
             // Resource shrinker cannot be used for multi-apk applications
             shrinkResources false
 
@@ -45,6 +40,20 @@ android {
             // The temporary workaround is to: -keep class nl.entreco.giddyapp.creator.DataBinderMapperImpl { *; }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "channel"
+    productFlavors {
+        beta {
+            applicationIdSuffix ".dev"
+            dimension "channel"
+            matchingFallbacks = ['debug']
+        }
+
+        prod {
+            dimension "channel"
+            matchingFallbacks = ['debug']
         }
     }
 

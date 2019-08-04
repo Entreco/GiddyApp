@@ -7,7 +7,7 @@
     <application>
         <provider
                 android:name="nl.entreco.giddyapp.libcore.providers.ImagePickerFileProvider"
-                android:authorities="nl.entreco.giddyapp.libpicker.provider"
+                android:authorities="${applicationId}.libpicker.provider"
                 android:exported="false"
                 tools:node="merge"
                 android:grantUriPermissions="true">
