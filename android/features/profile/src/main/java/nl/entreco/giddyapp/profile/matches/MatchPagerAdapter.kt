@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import nl.entreco.giddyapp.libauth.user.UserLike
 import nl.entreco.giddyapp.libimg.loader.ImageLoader
+import nl.entreco.giddyapp.libimg.loader.glide.GlideApp
 import nl.entreco.giddyapp.profile.databinding.ViewMatchItemBinding
 
 class MatchPagerAdapter(
@@ -22,6 +23,11 @@ class MatchPagerAdapter(
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         holder.bind(items[position], onClick)
+    }
+
+    override fun onViewRecycled(holder: MatchViewHolder) {
+        super.onViewRecycled(holder)
+        imageLoader.clear(holder.imageView)
     }
 
     override fun getItemCount(): Int = items.size

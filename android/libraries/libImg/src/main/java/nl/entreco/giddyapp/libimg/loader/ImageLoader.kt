@@ -9,6 +9,7 @@ interface ImageLoader {
     fun get(view: ImageView, uri: Uri?, ref: String?)
     fun uri(view: ImageView, uri: Uri?)
     fun uriBlurred(view: ImageView, uri: Uri?)
+    fun clear(view: ImageView)
 }
 
 object ImageBindings {

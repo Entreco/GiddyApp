@@ -42,6 +42,10 @@ internal class GlideImageLoader(private val screenWidth: Int, private val screen
             .override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
             .into(view)
     }
+
+    override fun clear(view: ImageView) {
+        GlideApp.with(view).clear(view)
+    }
 }
 
 data class RefUrl(private val url: String?, private val ref: String) : GlideUrl(url) {
