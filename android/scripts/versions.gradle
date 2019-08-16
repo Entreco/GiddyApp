@@ -3,7 +3,7 @@ ext {
     releaseName = "AppleJack"
 
     kotlinVersion = '1.3.41'
-    gradleVersion = '3.5.0-rc02'
+    gradleVersion = '3.5.0'
     gmsVersion = '4.2.0'
 
     compileSdkVersion = 29
@@ -20,7 +20,7 @@ ext {
             xArchitecture = '2.0.0',
             xConstraintLayout = '2.0.0-beta2',
             xDynamicAnimation = '1.0.0',
-            xViewPager2 = '1.0.0-beta02',
+            xViewPager2 = '1.0.0-beta03',
             xLegacyCore = '1.0.0',
             xPalette = '1.0.0',
 

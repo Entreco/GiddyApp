@@ -140,10 +140,10 @@ internal class FbAuth @Inject constructor(
                             }
                         }
                         .addOnFailureListener { err ->
-                            done(SignupResponse.Failed(err.localizedMessage, -1))
+                            done(SignupResponse.Failed(err.localizedMessage ?: "Unknown Error", -1))
                         }
                 }.addOnFailureListener { err ->
-                    done(SignupResponse.Failed(err.localizedMessage, -1))
+                    done(SignupResponse.Failed(err.localizedMessage ?: "Unknown Error", -1))
                 }
             }
         }

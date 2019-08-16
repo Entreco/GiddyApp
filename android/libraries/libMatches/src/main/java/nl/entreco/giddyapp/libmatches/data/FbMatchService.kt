@@ -35,7 +35,7 @@ internal class FbMatchService(
             .addOnSuccessListener {
                 done(MatchResponse.Ok)
             }.addOnFailureListener { err ->
-                done(MatchResponse.Failed(err.localizedMessage))
+                done(MatchResponse.Failed(err.localizedMessage ?: "Unknown Error"))
             }
     }
 

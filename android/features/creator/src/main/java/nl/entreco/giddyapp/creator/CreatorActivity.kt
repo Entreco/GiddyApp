@@ -65,8 +65,8 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         supportActionBar?.setTitle(R.string.creator_title)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) cancel()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) cancel()
         return super.onOptionsItemSelected(item)
     }
 
