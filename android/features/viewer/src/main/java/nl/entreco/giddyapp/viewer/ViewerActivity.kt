@@ -54,7 +54,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
     }
 
     private fun loadHorse(intent: Intent?) {
-        val url = intent?.data?.lastPathSegment
+        val url = intent?.data?.lastPathSegment ?: intent?.getStringExtra("id")
         val id = when {
             url.isNullOrBlank() -> null
             url == "viewer" -> null
