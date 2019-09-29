@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
@@ -83,7 +84,7 @@ class ViewerActivity : BaseActivity(), DiProvider<ViewerComponent>, OnSwipedList
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // if Install Intent -> reload and update (e)FAB's
-        binding.eFab.extend(true)
+        binding.eFab.extend(object: ExtendedFloatingActionButton.OnChangedCallback() {})
         super.onActivityResult(requestCode, resultCode, data)
     }
 

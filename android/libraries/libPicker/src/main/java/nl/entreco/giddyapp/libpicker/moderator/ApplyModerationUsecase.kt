@@ -3,6 +3,7 @@ package nl.entreco.giddyapp.libpicker.moderator
 import nl.entreco.giddyapp.libcore.onBg
 import nl.entreco.giddyapp.libcore.onUi
 import nl.entreco.giddyapp.libpicker.ImageLabeller
+import java.util.*
 
 internal class ApplyModerationUsecase(
     private val labeller: ImageLabeller
@@ -10,6 +11,8 @@ internal class ApplyModerationUsecase(
     companion object {
         internal const val seperator = "|"
     }
+
+    private val locale by lazy { Locale.getDefault() }
 
     fun go(request: ApplyModerationRequest, done: (ApplyModerationResponse) -> Unit) {
         onBg {
@@ -19,7 +22,10 @@ internal class ApplyModerationUsecase(
 
                 val response = when (blocked.isEmpty() && required.size == request.required.size) {
                     true -> Moderation.Allowed
-                    else -> Moderation.Rejected(blocked.joinToString(seperator), request.required.joinToString(seperator))
+                    else -> Moderation.Rejected(
+                        blocked.joinToString(seperator),
+                        request.required.joinToString(seperator)
+                    )
                 }
 
                 onUi { done(ApplyModerationResponse(response)) }
@@ -33,5 +39,6 @@ internal class ApplyModerationUsecase(
     private fun List<String>.filterRequired(required: List<String>): Set<String> =
         intersect(required)
 
-    private fun List<String>.toLowercase(): List<String> = map { it.toLowerCase() }
+
+    private fun List<String>.toLowercase(): List<String> = map { it.toLowerCase(locale) }
 }

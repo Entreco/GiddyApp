@@ -1,15 +1,10 @@
 package nl.entreco.giddyapp.history.details
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import nl.entreco.giddyapp.libhorses.HorseDetail
-import nl.entreco.giddyapp.profile.matches.MatchDetailModel
 import nl.entreco.giddyapp.history.models.BaseModel
-import nl.entreco.giddyapp.libhorses.Horse
-import nl.entreco.giddyapp.libhorses.HorsePosted
-import nl.entreco.giddyapp.libhorses.HorseRatio
+import nl.entreco.giddyapp.libhorses.HorseDetail
 import javax.inject.Inject
 
 class MatchDetailViewModel @Inject constructor() : ViewModel() {

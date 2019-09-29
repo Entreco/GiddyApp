@@ -47,7 +47,7 @@ class InstantViewerNavigation @Inject constructor(
         throw IllegalStateException("InstantViewerNavigation should not have Share")
     }
 
-    private fun hide(eFab: ExtendedFloatingActionButton) = eFab.shrink(true)
+    private fun hide(eFab: ExtendedFloatingActionButton) = eFab.shrink(object: ExtendedFloatingActionButton.OnChangedCallback() {})
     private val postInstallIntent = Intent(Intent.ACTION_VIEW, Uri.parse(LaunchHelper.URL_VIEWER))
         .addCategory(Intent.CATEGORY_DEFAULT)
         .addCategory(Intent.CATEGORY_BROWSABLE)
@@ -59,7 +59,7 @@ object InstantBinding {
     @BindingAdapter("ga_fab")
     fun efabIcon(eFab: ExtendedFloatingActionButton, @DrawableRes resource: Int) {
         eFab.setIconResource(resource)
-        eFab.extend(true)
+        eFab.extend(object: ExtendedFloatingActionButton.OnChangedCallback() {})
     }
 
     @JvmStatic

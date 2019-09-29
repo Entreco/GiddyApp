@@ -3,6 +3,7 @@ package nl.entreco.giddyapp.profile.menu
 import android.widget.Toast
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
+import nl.entreco.giddyapp.libcore.launch.features.HistoryNavigator
 import nl.entreco.giddyapp.profile.ProfileActivity
 import javax.inject.Inject
 
@@ -35,7 +36,11 @@ class MenuNavigation @Inject constructor(
     }
 
     private fun showMatches(uid: String) {
-        LaunchHelper.launchHistory(activity, null, uid)
+        HistoryNavigator.launch(activity) { _, _, launch ->
+            if (launch) {
+                LaunchHelper.launchHistory(activity, null, uid)
+            }
+        }
     }
 
     private fun showSettings() {

@@ -25,55 +25,55 @@ class StepsModule(private val sheet: View, private val state: CreatorState?) {
 
     @Provides
     fun provideSelectState(): CreatorState.Select {
-        if (state !is CreatorState.Select) throw IllegalStateException("state should be 'Select' but is $state")
+        check(state is CreatorState.Select) { "state should be 'Select' but is $state" }
         return state
     }
 
     @Provides
     fun provideCropState(): CreatorState.Crop {
-        if (state !is CreatorState.Crop) throw IllegalStateException("state should be 'Crop' but is $state")
+        check(state is CreatorState.Crop) { "state should be 'Crop' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryNameState(): CreatorState.EntryName {
-        if (state !is CreatorState.EntryName) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryName) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryDescriptionState(): CreatorState.EntryDescription {
-        if (state !is CreatorState.EntryDescription) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryDescription) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryGenderState(): CreatorState.EntryGender {
-        if (state !is CreatorState.EntryGender) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryGender) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryPriceState(): CreatorState.EntryPrice {
-        if (state !is CreatorState.EntryPrice) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryPrice) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryCategoryState(): CreatorState.EntryCategory {
-        if (state !is CreatorState.EntryCategory) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryCategory) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideEntryLevelState(): CreatorState.EntryLevel {
-        if (state !is CreatorState.EntryLevel) throw IllegalStateException("state should be 'Entry' but is $state")
+        check(state is CreatorState.EntryLevel) { "state should be 'Entry' but is $state" }
         return state
     }
 
     @Provides
     fun provideUploadState(): CreatorState.Upload {
-        if (state !is CreatorState.Upload) throw IllegalStateException("state should be 'Upload' but is $state")
+        check(state is CreatorState.Upload) { "state should be 'Upload' but is $state" }
         return state
     }
 }

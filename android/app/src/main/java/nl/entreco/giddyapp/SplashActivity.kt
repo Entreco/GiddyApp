@@ -3,7 +3,6 @@ package nl.entreco.giddyapp
 import android.graphics.PixelFormat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import nl.entreco.giddyapp.libcore.base.BaseActivity
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 
 class SplashActivity : AppCompatActivity() {
