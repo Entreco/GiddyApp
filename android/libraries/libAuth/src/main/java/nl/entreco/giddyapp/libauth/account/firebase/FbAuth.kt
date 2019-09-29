@@ -205,7 +205,7 @@ internal class FbAuth @Inject constructor(
     override fun logout(context: Context, done: () -> Unit) {
         authUi.signOut(context)
             .addOnCompleteListener {
-                done()
+                signinOrAnonymous(context, done)
             }
     }
 
