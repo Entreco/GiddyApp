@@ -35,7 +35,7 @@ internal class FbMatchService(
             .addOnSuccessListener {
                 done(MatchResponse.Ok)
             }.addOnFailureListener { err ->
-                done(MatchResponse.Failed(err.localizedMessage))
+                done(MatchResponse.Failed(err.localizedMessage ?: "Unknown Error"))
             }
     }
 
@@ -58,6 +58,16 @@ internal class FbMatchService(
             done(combined)
         }.addOnFailureListener {
             done(emptyList())
+        }
+    }
+
+    override fun delete(userId: String, horseId: String, done:(Exception?)->Unit) {
+        matchesCollection.document(horseId).collection("likers").document(userId).delete().addOnCompleteListener { result ->
+            if(result.isSuccessful){
+                done(null)
+            } else {
+                done(result.exception ?: IllegalArgumentException("Unable to find match for horse: $horseId and user:$userId"))
+            }
         }
     }
 }

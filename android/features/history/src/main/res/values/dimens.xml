@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="history_header_height">240dp</dimen>
+    <dimen name="history_image_size">120dp</dimen>
+
+    <dimen name="history_scroller_height">148dp</dimen>
+</resources>

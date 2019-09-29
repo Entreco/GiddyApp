@@ -25,7 +25,7 @@ internal class FbUserService @Inject constructor(
                 .addOnSuccessListener {
                     retrieve(done)
                 }.addOnFailureListener { err ->
-                    done(User.Error(err.localizedMessage))
+                    done(User.Error(err.localizedMessage ?: "Unknown Error"))
                 }
         }
     }
@@ -56,7 +56,7 @@ internal class FbUserService @Inject constructor(
                     val userData = snap.toObject(FbUser::class.java)
                     done(userMapper.toUser(authUser.uid, authUser, userData))
                 }.addOnFailureListener { err ->
-                    done(User.Error(err.localizedMessage))
+                    done(User.Error(err.localizedMessage ?: "Unknown Error"))
                 }
         }
     }
@@ -68,7 +68,7 @@ internal class FbUserService @Inject constructor(
             userCollection.document(uuid)
                 .delete()
                 .addOnSuccessListener { done(DeleteResponse.Ok(uuid)) }
-                .addOnFailureListener { err -> done(DeleteResponse.Err(err.localizedMessage)) }
+                .addOnFailureListener { err -> done(DeleteResponse.Err(err.localizedMessage ?: "Unknown Error")) }
         }
     }
 }

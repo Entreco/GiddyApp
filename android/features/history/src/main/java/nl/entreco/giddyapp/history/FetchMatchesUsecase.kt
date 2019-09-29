@@ -1,4 +1,4 @@
-package nl.entreco.giddyapp.profile.matches
+package nl.entreco.giddyapp.history
 
 import nl.entreco.giddyapp.libauth.user.UserLike
 import nl.entreco.giddyapp.libcore.AnkoAsyncContext

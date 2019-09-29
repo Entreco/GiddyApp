@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="nl.entreco.giddyapp.history.HistoryViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/match_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/history_scroller_height"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/contact_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/match_contact_owner"
+            android:text="@string/match_contact_owner"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_send"
+            app:iconTint="@color/white"
+            app:layout_anchor="@id/include_recycler"
+            app:layout_anchorGravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/history_scroller_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:lines="2"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/white"
+                app:ga_fadeIn="@{viewModel.since}"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:lines="2"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/white"
+                app:ga_fadeIn="@{viewModel.ratio}"/>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/include_recycler"
+            layout="@layout/include_history_scroller" />
+
+        <include
+            android:id="@+id/includeToolbar"
+            layout="@layout/toolbar_history" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

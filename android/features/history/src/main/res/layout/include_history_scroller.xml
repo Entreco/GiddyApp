@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="nl.entreco.giddyapp.history.HistoryViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/match_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/history_scroller_height"
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/sheet"
+        android:orientation="vertical"
+        tools:showIn="@layout/activity_history">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/xlarge"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
+            android:text="@string/match_your_latest_likes" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/def"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
+            android:text="@string/match_no_likes"
+            android:textSize="24sp"
+            app:showIf="@{viewModel.isEmpty}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/match_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:showIf="@{!viewModel.isEmpty}"
+            tools:listitem="@layout/list_history_item"
+            tools:showIn="@layout/activity_history" />
+
+    </LinearLayout>
+</layout>

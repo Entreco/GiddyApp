@@ -4,8 +4,6 @@ import android.widget.Toast
 import nl.entreco.giddyapp.libcore.launch.LaunchHelper
 import nl.entreco.giddyapp.libcore.launch.features.CreatorNavigator
 import nl.entreco.giddyapp.profile.ProfileActivity
-import nl.entreco.giddyapp.profile.R
-import nl.entreco.giddyapp.profile.matches.MatchFragment
 import javax.inject.Inject
 
 class MenuNavigation @Inject constructor(
@@ -17,7 +15,7 @@ class MenuNavigation @Inject constructor(
     fun onProfileItemClicked(item: MenuItem) {
         when (item) {
             is MenuItem.Upload -> launchCreator(item)
-            is MenuItem.Matches -> showMatches()
+            is MenuItem.Matches -> showMatches(item.uid)
             is MenuItem.Settings -> showSettings()
             is MenuItem.About -> showAbout()
             else -> Toast.makeText(activity, "NOT IMPLEMENTED: $item", Toast.LENGTH_SHORT).show()
@@ -36,11 +34,8 @@ class MenuNavigation @Inject constructor(
         }
     }
 
-    private fun showMatches() {
-        fm.beginTransaction()
-            .replace(R.id.profile_container, MatchFragment(), "Matches")
-            .addToBackStack(null)
-            .commit()
+    private fun showMatches(uid: String) {
+        LaunchHelper.launchHistory(activity, null, uid)
     }
 
     private fun showSettings() {

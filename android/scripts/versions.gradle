@@ -2,8 +2,8 @@ ext {
     appName = "GiddyApp"
     releaseName = "AppleJack"
 
-    kotlinVersion = '1.3.41'
-    gradleVersion = '3.5.0-rc02'
+    kotlinVersion = '1.3.50'
+    gradleVersion = '3.5.0'
     gmsVersion = '4.2.0'
 
     compileSdkVersion = 29
@@ -20,7 +20,7 @@ ext {
             xArchitecture = '2.0.0',
             xConstraintLayout = '2.0.0-beta2',
             xDynamicAnimation = '1.0.0',
-            xViewPager2 = '1.0.0-beta02',
+            xViewPager2 = '1.0.0-beta03',
             xLegacyCore = '1.0.0',
             xPalette = '1.0.0',
 
@@ -29,8 +29,7 @@ ext {
             fbFireStore = '20.2.0',
             fbStorage = '18.1.1',
             fbAuth = '18.1.0',
-            fbAuthUi = '5.0.0',
-            fbAuthUiSnap = '5.0.1-20190724.171854-2',
+            fbAuthUi = '5.1.0',
 
             xExifInterface = '1.0.0',
             cropImageView = '2.8.0',

@@ -32,7 +32,7 @@ object HorseBinding {
     @JvmStatic
     @BindingAdapter("ga_fadeIn")
     fun applyFadeIn(view: TextView, ratio: HorseRatio?) {
-        val detail = view.resources.getString(R.string.detail_4, ratio?.ratio)
+        val detail = view.resources.getString(R.string.detail_4, ratio?.ratio ?: "-")
         apply(view, detail)
     }
 

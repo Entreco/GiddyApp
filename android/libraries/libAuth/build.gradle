@@ -25,6 +25,5 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
     implementation "com.google.firebase:firebase-auth:$fbAuth"
-//    implementation "com.firebaseui:firebase-ui-auth:$fbAuthUi"
-    implementation "com.firebaseui:firebase-ui-auth:$fbAuthUiSnap"
+    implementation "com.firebaseui:firebase-ui-auth:$fbAuthUi"
 }

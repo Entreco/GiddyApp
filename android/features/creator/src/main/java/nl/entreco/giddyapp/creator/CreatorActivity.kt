@@ -65,8 +65,8 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         supportActionBar?.setTitle(R.string.creator_title)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) cancel()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) cancel()
         return super.onOptionsItemSelected(item)
     }
 
@@ -80,9 +80,7 @@ class CreatorActivity : BaseActivity(), DiProvider<CreatorComponent> {
         super.onBackPressed()
     }
 
-    override fun get(): CreatorComponent {
-        return component
-    }
+    override fun get(): CreatorComponent =component
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         picker.get(requestCode, resultCode, data) { result ->

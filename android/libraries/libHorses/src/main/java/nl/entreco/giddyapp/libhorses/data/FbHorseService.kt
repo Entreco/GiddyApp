@@ -65,7 +65,7 @@ internal class FbHorseService @Inject constructor(
             document.set(horse).addOnSuccessListener {
                 done(document.id)
             }.addOnFailureListener {
-                done(it.localizedMessage)
+                done(it.localizedMessage ?: "Unknown Error")
             }
         }
     }
@@ -123,7 +123,7 @@ internal class FbHorseService @Inject constructor(
         reference.downloadUrl.addOnSuccessListener { uri ->
             done(DownloadUrl.Ok(uri))
         }.addOnFailureListener { err ->
-            done(DownloadUrl.Err(err.localizedMessage))
+            done(DownloadUrl.Err(err.localizedMessage ?: "Unknown Error"))
         }
     }
 

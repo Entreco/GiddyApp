@@ -14,7 +14,6 @@ import nl.entreco.giddyapp.profile.ProfileNavigation
 import nl.entreco.giddyapp.profile.ProfileViewModel
 import nl.entreco.giddyapp.profile.header.ProfileHeaderNavigation
 import nl.entreco.giddyapp.profile.header.ProfileHeaderViewModel
-import nl.entreco.giddyapp.profile.matches.MatchViewModel
 import nl.entreco.giddyapp.profile.menu.MenuNavigation
 import nl.entreco.giddyapp.profile.menu.MenuViewModel
 
@@ -23,7 +22,6 @@ interface ProfileComponent {
 
     fun viewModel(): ProfileViewModel
     fun header(): ProfileHeaderViewModel
-    fun matches(): MatchViewModel
     fun menu(): MenuViewModel
     fun navigation(): ProfileNavigation
     fun headerNavigation(): ProfileHeaderNavigation

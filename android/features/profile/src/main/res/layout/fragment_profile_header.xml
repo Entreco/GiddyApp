@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="viewModel"
-                type="nl.entreco.giddyapp.profile.header.ProfileHeaderViewModel"/>
+            name="viewModel"
+            type="nl.entreco.giddyapp.profile.header.ProfileHeaderViewModel" />
 
         <variable
-                name="loader"
-                type="nl.entreco.giddyapp.libimg.loader.ImageLoader"/>
+            name="loader"
+            type="nl.entreco.giddyapp.libimg.loader.ImageLoader" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <ImageView
-                android:contentDescription="@null"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:ga_blurImage="@{viewModel.image}"
-                app:ga_loader="@{loader}"
-                android:scaleType="centerCrop"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:ga_blurImage="@{viewModel.image}"
+            app:ga_loader="@{loader}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-                android:id="@+id/profile_image"
-                android:layout_width="@dimen/profile_image_size"
-                android:layout_height="@dimen/profile_image_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardElevation="8dp"
-                app:strokeColor="@color/white"
-                app:strokeWidth="2dp"
-                app:shapeAppearanceOverlay="@style/RoundedImage">
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/profile_image_size"
+            android:layout_height="@dimen/profile_image_size"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedImage"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp">
 
             <ImageView
-                    android:contentDescription="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:transitionName="@string/trans_profile_image"
-                    app:ga_image="@{viewModel.image}"
-                    app:ga_loader="@{loader}"
-                    android:scaleType="centerCrop"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:transitionName="@string/trans_profile_image"
+                app:ga_image="@{viewModel.image}"
+                app:ga_loader="@{loader}" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.desc}"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-condensed-light"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_chainStyle="spread_inside"
-                tools:text="@string/app_name"/>
+            android:id="@+id/profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-light"
+            android:gravity="center"
+            android:text="@{viewModel.desc}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            tools:text="@string/app_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

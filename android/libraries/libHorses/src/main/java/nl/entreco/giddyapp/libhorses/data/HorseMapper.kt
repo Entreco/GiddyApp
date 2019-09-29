@@ -1,5 +1,6 @@
 package nl.entreco.giddyapp.libhorses.data
 
+import com.google.firebase.firestore.GeoPoint
 import nl.entreco.giddyapp.libcore.HexString
 import nl.entreco.giddyapp.libhorses.*
 
@@ -20,6 +21,7 @@ internal class HorseMapper {
             fbHorse.name,
             mapDescription(fbHorse),
             mapRatio(fbHorse),
+            mapLocation(fbHorse.location),
             mapPosted(fbHorse),
             mapGender(fbHorse.gender),
             mapLevel(fbHorse.level),
@@ -38,6 +40,13 @@ internal class HorseMapper {
         return if (denominator <= 0) HorseRatio() else {
             val percentage = "%2.0f".format(fbHorse.likes / denominator * 100L)
             HorseRatio("$percentage%")
+        }
+    }
+
+    private fun mapLocation(geo: GeoPoint?) : HorseLocation {
+        return when(geo){
+            null -> HorseLocation.Unknown
+            else -> HorseLocation.Area("Adres?", "Country", geo.latitude, geo.longitude)
         }
     }
 

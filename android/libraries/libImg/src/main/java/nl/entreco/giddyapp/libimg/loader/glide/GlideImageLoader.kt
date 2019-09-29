@@ -23,6 +23,18 @@ internal class GlideImageLoader(private val screenWidth: Int, private val screen
         }
     }
 
+    override fun getBlurred(view: ImageView, uri: Uri?, ref: String?) {
+        if (ref != null && ref != "none") {
+            GlideApp.with(view)
+                .load(RefUrl(uri.toString(), ref))
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(BlurTransformation(view.context.applicationContext, 25F))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
+                .into(view)
+        }
+    }
+
     override fun uri(view: ImageView, uri: Uri?) {
         GlideApp.with(view)
             .load(uri)
@@ -37,10 +49,14 @@ internal class GlideImageLoader(private val screenWidth: Int, private val screen
         GlideApp.with(view)
             .load(uri)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(view.context.applicationContext))
+            .transform(BlurTransformation(view.context.applicationContext, 15F))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
             .into(view)
+    }
+
+    override fun clear(view: ImageView) {
+        GlideApp.with(view).clear(view)
     }
 }
 

@@ -10,7 +10,7 @@ import nl.entreco.giddyapp.libcore.base.parentViewModelProvider
 import nl.entreco.giddyapp.libcore.base.viewModelProvider
 import nl.entreco.giddyapp.libcore.di.DiProvider
 import nl.entreco.giddyapp.profile.ProfileViewModel
-import nl.entreco.giddyapp.profile.databinding.FragmentMenuBinding
+import nl.entreco.giddyapp.profile.databinding.FragmentProfileMenuBinding
 import nl.entreco.giddyapp.profile.di.ProfileComponent
 
 class MenuFragment : Fragment() {
@@ -21,7 +21,7 @@ class MenuFragment : Fragment() {
     private val navigation by lazy { component.menuNavigation() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentMenuBinding.inflate(inflater, container, false)
+        val binding = FragmentProfileMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         observeProfile()

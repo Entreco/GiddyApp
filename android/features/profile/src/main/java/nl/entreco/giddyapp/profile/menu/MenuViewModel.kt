@@ -19,8 +19,8 @@ class MenuViewModel @Inject constructor(
     fun generateItems(account: Account) {
         items.clear()
         val profileItems = when (account) {
-            is Account.Authenticated -> MenuItem.all(this)
-            is Account.Anomymous -> MenuItem.anonymous(this)
+            is Account.Authenticated -> MenuItem.all(account.uid, this)
+            is Account.Anomymous -> MenuItem.anonymous(account.uid,this)
             else -> MenuItem.error()
 
         }

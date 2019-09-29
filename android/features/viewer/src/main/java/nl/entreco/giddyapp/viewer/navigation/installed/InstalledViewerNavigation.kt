@@ -41,8 +41,6 @@ class InstalledViewerNavigation @Inject constructor(
             0,
             0
         )
-        val transition = ActivityOptions.makeSceneTransitionAnimation(activity, view, view.transitionName)
-        val doh = ActivityOptions.makeSceneTransitionAnimation(activity)
 
         ProfileNavigator.launch(activity) { _, _, launch ->
             if (launch) {

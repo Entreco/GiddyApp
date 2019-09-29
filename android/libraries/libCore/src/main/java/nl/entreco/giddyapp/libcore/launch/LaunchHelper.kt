@@ -12,22 +12,39 @@ object LaunchHelper {
 
     private const val URL_BASE = "https://giddy.entreco.nl"
     const val URL_VIEWER = "$URL_BASE/viewer/"
-    const val URL_CREATOR = "$URL_BASE/creator/"
-    const val URL_PROFILE = "$URL_BASE/profile/"
+
+    private const val PACKAGE_BASE = "nl.entreco.giddyapp"
+    private const val CLASS_NAME_VIEWER = "$PACKAGE_BASE.viewer.ViewerActivity"
+    private const val CLASS_NAME_CREATOR = "$PACKAGE_BASE.creator.CreatorActivity"
+    private const val CLASS_NAME_PROFILE = "$PACKAGE_BASE.profile.ProfileActivity"
+    private const val CLASS_NAME_HISTORY = "$PACKAGE_BASE.history.HistoryActivity"
+
+    const val HISTORY_EXTRA_UID = "EXTRA_UID"
 
     fun launchViewer(activity: Activity, options: ActivityOptions? = null, id: String? = "launch") {
-        val viewer = viewerIntent(activity, id)
-        launch(viewer, options, activity)
+        viewerIntent(activity)?.let { intent ->
+            intent.putExtra("id", id)
+            launch(intent, options, activity)
+        }
     }
 
     fun launchCreator(activity: Activity, options: ActivityOptions? = null) {
-        val creator = creatorIntent(activity)
-        launch(creator, options, activity)
+        creatorIntent(activity)?.let { intent ->
+            launch(intent, options, activity)
+        }
     }
 
     fun launchProfile(activity: Activity, options: ActivityOptions? = null) {
-        val profile = profileIntent(activity)
-        launch(profile, options, activity)
+        profileIntent(activity)?.let { intent ->
+            launch(intent, options, activity)
+        }
+    }
+
+    fun launchHistory(activity: Activity, options: ActivityOptions? = null, uid: String){
+        historyIntent(activity)?.let { intent ->
+            intent.putExtra(HISTORY_EXTRA_UID, uid)
+            launch(intent, options, activity)
+        }
     }
 
     fun share(activity: Activity, horseId: String) {
@@ -38,26 +55,41 @@ object LaunchHelper {
             .startChooser()
     }
 
-    private fun viewerIntent(context: Context, id: String? = null) = baseIntent(
-        URL_VIEWER + id,
+    private fun viewerIntent(context: Context) = dynamicIntent(
+        CLASS_NAME_VIEWER,
         context
     )
 
-    private fun creatorIntent(context: Context) = baseIntent(
-        URL_CREATOR,
+    private fun creatorIntent(context: Context) = dynamicIntent(
+        CLASS_NAME_CREATOR,
         context
     )
 
-    private fun profileIntent(context: Context) = baseIntent(
-        URL_PROFILE,
+    private fun profileIntent(context: Context) = dynamicIntent(
+        CLASS_NAME_PROFILE,
         context
     )
 
-    private fun baseIntent(url: String, context: Context): Intent {
+    private fun historyIntent(context: Context) = dynamicIntent(
+        CLASS_NAME_HISTORY,
+        context
+    )
+
+    private fun deepLinkIntent(url: String, context: Context): Intent {
         return Intent(Intent.ACTION_VIEW, Uri.parse(url))
             .setPackage(context.packageName)
             .addCategory(Intent.CATEGORY_DEFAULT)
             .addCategory(Intent.CATEGORY_BROWSABLE)
+    }
+
+    private fun dynamicIntent(className: String, context: Context): Intent? {
+        return try {
+            Class.forName(className).run {
+                Intent(Intent.ACTION_VIEW).setClassName(context.packageName, className)
+            }
+        } catch (e: ClassNotFoundException) {
+            null
+        }
     }
 
     private fun launch(intent: Intent, options: ActivityOptions?, activity: Activity) {

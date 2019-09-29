@@ -11,7 +11,7 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.renderscript.Allocation
 
 
-class BlurTransformation(context: Context) : BitmapTransformation() {
+class BlurTransformation(context: Context, private val blurRadius: Float = 15f) : BitmapTransformation() {
 
     private val rs: RenderScript by lazy { RenderScript.create(context) }
 
@@ -36,7 +36,7 @@ class BlurTransformation(context: Context) : BitmapTransformation() {
         script.setInput(input)
 
         // Set the blur radius
-        script.setRadius(15F)
+        script.setRadius(blurRadius)
 
         // Start the ScriptIntrinisicBlur
         script.forEach(output)

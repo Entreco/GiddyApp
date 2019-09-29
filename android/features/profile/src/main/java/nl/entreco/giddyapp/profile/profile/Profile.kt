@@ -16,8 +16,8 @@ data class Profile(val account: Account) {
 
     fun name(): String = when (account) {
         is Account.Authenticated -> account.name
-        is Account.Anomymous -> ""
-        else -> ""
+        is Account.Anomymous -> "Profile"
+        else -> "Profile"
     }
 
     fun image(resources: Resources): Uri? = when (account) {

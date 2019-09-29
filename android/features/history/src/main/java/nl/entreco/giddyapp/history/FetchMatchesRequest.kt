@@ -1,3 +1,3 @@
-package nl.entreco.giddyapp.profile.matches
+package nl.entreco.giddyapp.history
 
 data class FetchMatchesRequest(val uid: String)

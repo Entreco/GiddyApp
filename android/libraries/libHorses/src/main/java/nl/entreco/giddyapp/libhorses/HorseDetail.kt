@@ -8,6 +8,7 @@ data class HorseDetail(
     val name: String,
     val desc: String,
     val ratio: HorseRatio = HorseRatio(),
+    val location: HorseLocation = HorseLocation.Unknown,
     val since: HorsePosted = HorsePosted(),
     val gender: HorseGender = HorseGender.Unknown,
     val type: HorseLevel = HorseLevel.Unknown,
@@ -16,6 +17,20 @@ data class HorseDetail(
 )
 
 data class HorseRatio(val ratio: String = "-")
+
+sealed class HorseLocation {
+
+    abstract val name: String
+
+    data class Area(val description: String, val country: String, val lat: Double, val lon: Double) : HorseLocation(){
+        override val name = description
+    }
+
+    object Unknown : HorseLocation(){
+        override val name = "-"
+    }
+
+}
 
 data class HorsePosted(private val stamp: Long = 0) {
     val since: CharSequence
@@ -61,6 +76,18 @@ enum class HorseCategory {
     Eventing,
     Recreation,
     Other
+}
+
+@DrawableRes
+fun HorseCategory.icon(): Int {
+    return when (this) {
+        HorseCategory.Dressage -> R.drawable.ic_category_dressage
+        HorseCategory.Eventing -> R.drawable.ic_category_dressage
+        HorseCategory.Jumping -> R.drawable.ic_category_jumping
+        HorseCategory.Recreation -> R.drawable.ic_category_recreation
+        HorseCategory.Unknown -> R.drawable.ic_category_dressage
+        HorseCategory.Other -> R.drawable.ic_category_other
+    }
 }
 
 enum class HorsePrice {

@@ -10,6 +10,7 @@ import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 const val CREATOR_INSTALL_CODE = 1111
 const val PROFILE_INSTALL_CODE = 1112
 const val VIEWER_INSTALL_CODE = 1113
+const val HISTORY_INSTALL_CODE = 1114
 
 class DynamicFeature(
     private val manager: SplitInstallManager,

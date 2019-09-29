@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_delete">Delete</string>
+    <string name="match_your_latest_likes">Your Latest likes:</string>
+    <string name="match_no_likes">None so far. Start swiping ;)</string>
+    <string name="match_contact_owner">Contact Owner</string>
+
+    <string name="match_description">Beschrijving</string>
+    <string name="match_details">Details</string>
+    <string name="match_detail_1">Gender</string>
+    <string name="match_detail_2">Type</string>
+    <string name="match_detail_3">Price</string>
+    <string name="match_detail_4">Location</string>
+    <string name="match_detail_5">Likes</string>
+</resources>
